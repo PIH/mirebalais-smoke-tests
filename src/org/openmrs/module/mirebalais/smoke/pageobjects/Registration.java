@@ -15,23 +15,48 @@ public class Registration {
 		this.wait = wait;
 	}
 	
+	public void goThruRegistrationProcessPrintingCard() {
+		enterFirstAndLastName();
+		enterSexData();
+		enterDateOfBirthData();
+		enterAddressLandmarkData();
+		enterPatientLocality();
+		enterPhoneData();
+		confirmData() ;
+		
+		driver.findElement(By.id("printYes")).click();
+		// TODO: add printing functionality tests
+	}
+	
 	public void goThruRegistrationProcessWithoutPrintingCard() {
-		driver.findElement(By.id("patientInputLastName")).sendKeys("Silva");
-		clickNext();
+		enterFirstAndLastName();
+		enterSexData();
+		enterDateOfBirthData();
+		enterAddressLandmarkData();
+		enterPatientLocality();
+		enterPhoneData();
+		confirmData() ;
 		
-		driver.findElement(By.id("patientInputFirstName")).sendKeys("Pedro");
+		driver.findElement(By.id("printNo")).click();
+	}
+
+	
+	private void confirmData() {
+		//TODD: assert something here?
+		clickCheckMark();
+	}
+	
+	private void enterPhoneData() {
+		wait.until(new ExpectedCondition<Boolean>() {
+			public Boolean apply(WebDriver webDriver) {
+				return webDriver.findElement(By.id("patientInputPhoneNumber")).isDisplayed();
+			}
+		});
+		driver.findElement(By.id("patientInputPhoneNumber")).sendKeys("11111111");
 		clickNext();
-		
-		clickNext();
-		
-		driver.findElement(By.id("day")).sendKeys("1");
-		driver.findElement(By.id("ui-active-menuitem")).click();
-		driver.findElement(By.id("year")).sendKeys("1970");
-		clickNext();
-		
-		driver.findElement(By.id("addressLandmarkField")).sendKeys("mirebalais");
-		clickNext();
-		
+	}
+
+	private void enterPatientLocality() {
 		driver.findElement(By.id("possibleLocalityField")).sendKeys("mirebal");
 		wait.until(new ExpectedCondition<Boolean>() {
 			public Boolean apply(WebDriver webDriver) {
@@ -42,18 +67,31 @@ public class Registration {
 		clickNext();
 		
 		driver.findElement(By.cssSelector("table#confirmPossibleLocalityModalList.searchTableList > tbody > tr.addressRow > td")).click();
-		
-		wait.until(new ExpectedCondition<Boolean>() {
-			public Boolean apply(WebDriver webDriver) {
-				return webDriver.findElement(By.id("patientInputPhoneNumber")).isDisplayed();
-			}
-		});
-		driver.findElement(By.id("patientInputPhoneNumber")).sendKeys("11111111");
+	}
+
+	private void enterAddressLandmarkData() {
+		driver.findElement(By.id("addressLandmarkField")).sendKeys("mirebalais");
+		clickNext();
+	}
+
+	private void enterSexData() {
+		// TODO: explicitly select male/female
+		clickNext();
+	}
+
+	private void enterFirstAndLastName() {
+		driver.findElement(By.id("patientInputLastName")).sendKeys("Silva");
 		clickNext();
 		
-		clickCheckMark();
+		driver.findElement(By.id("patientInputFirstName")).sendKeys("Pedro");
+		clickNext();
+	}
 
-		driver.findElement(By.id("printNo")).click();
+	private void enterDateOfBirthData() {
+		driver.findElement(By.id("day")).sendKeys("1");
+		driver.findElement(By.id("ui-active-menuitem")).click();
+		driver.findElement(By.id("year")).sendKeys("1970");
+		clickNext();
 	}
     
 	private void clickNext() {
@@ -68,4 +106,6 @@ public class Registration {
 		});
 		driver.findElement(By.id("checkmark-yellow")).click();
 	}
+
+	
 }

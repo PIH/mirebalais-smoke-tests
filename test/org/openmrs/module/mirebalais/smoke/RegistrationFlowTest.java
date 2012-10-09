@@ -12,6 +12,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 
@@ -38,15 +39,26 @@ public class RegistrationFlowTest  {
     
     @After
     public void tearDown() {
-    	driver.close();
+    	//driver.close();
     }
      
     @Test
-    public void testRegistratePacient() {
+    public void testRegistratePacientWithoutPrinting() {
     	loginPage.logIn("admin", "Admin123");
     	identificationSteps.setLocationAndChooseRegisterTask();
     	registration.goThruRegistrationProcessWithoutPrintingCard();
     	
     	assertTrue(driver.findElement(By.tagName("body")).getText().contains("Patient dashboard"));
+    }
+    
+    @Test
+    @Ignore // until we define what's going on with the printer functionality
+    public void testRegistratePacientAndPrintingCard() {
+    	loginPage.logIn("admin", "Admin123");
+    	identificationSteps.setLocationAndChooseRegisterTask();
+    	registration.goThruRegistrationProcessPrintingCard();
+    	
+    	assertTrue(driver.findElement(By.tagName("body")).getText().contains("Patient dashboard"));
+    	// TODO: make sure it printed
     }
 }
