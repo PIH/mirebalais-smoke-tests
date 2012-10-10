@@ -10,8 +10,33 @@
     <packaging>jar</packaging>
     <description>Smoke tests for the Mirebalais Module</description>
 
+    <developers>
+        <developer>
+            <name>Partners In Health</name>
+        </developer>
+    </developers>
+
+    <organization>
+        <name>Partners In Health</name>
+        <url>http://pih.org</url>
+    </organization>
+
+    <scm>
+        <connection>scm:git:git@github.com:PIH/mirebalais-smoke-tests.git</connection>
+        <developerConnection>scm:git:git@github.com:PIH/mirebalais-smoke-tests.git</developerConnection>
+        <url>scm:git:git@github.com:PIH/mirebalais-smoke-tests.git</url>
+    </scm>
+
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
