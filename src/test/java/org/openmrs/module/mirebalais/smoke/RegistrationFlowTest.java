@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import org.openmrs.module.mirebalais.smoke.pageobjects.IdentificationSteps;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
+//import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -18,8 +19,8 @@ import org.junit.Test;
 
 public class RegistrationFlowTest  {
 
-    static WebDriver driver;
-    static Wait<WebDriver> wait;
+    private static WebDriver driver;
+    private static Wait<WebDriver> wait;
     
     private LoginPage loginPage;
     private IdentificationSteps identificationSteps;
@@ -28,8 +29,13 @@ public class RegistrationFlowTest  {
     
     @Before
     public void setUp() {
+    	/*
+    	System.setProperty("webdriver.chrome.driver","chromedriver");
+    	driver = new ChromeDriver();
+    	*/
     	driver = new FirefoxDriver();
-		wait = new WebDriverWait(driver, 30);
+    	
+    	wait = new WebDriverWait(driver, 30);
 		driver.get("http://bamboo.pih-emr.org:8080/mirebalais");
     
 		loginPage = new LoginPage(driver);
@@ -43,6 +49,7 @@ public class RegistrationFlowTest  {
     }
      
     @Test
+    @Ignore
     public void testRegistratePacientWithoutPrinting() {
     	loginPage.logIn("admin", "Admin123");
     	identificationSteps.setLocationAndChooseRegisterTask();
