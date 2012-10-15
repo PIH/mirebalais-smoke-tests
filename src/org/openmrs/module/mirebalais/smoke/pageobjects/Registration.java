@@ -16,6 +16,13 @@ public class Registration {
 	}
 	
 	public void goThruRegistrationProcessPrintingCard() {
+		wait.until(new ExpectedCondition<Boolean>() {
+			public Boolean apply(WebDriver webDriver) {
+				return webDriver.findElement(By.id("searchByNameBtn")).isDisplayed();
+			}
+		});
+		driver.findElement(By.id("searchByNameBtn")).click();
+		
 		enterFirstAndLastName();
 		enterSexData();
 		enterDateOfBirthData();
@@ -29,6 +36,13 @@ public class Registration {
 	}
 	
 	public void goThruRegistrationProcessWithoutPrintingCard() {
+		wait.until(new ExpectedCondition<Boolean>() {
+			public Boolean apply(WebDriver webDriver) {
+				return webDriver.findElement(By.id("searchByNameBtn")).isDisplayed();
+			}
+		});
+		driver.findElement(By.id("searchByNameBtn")).click();
+		
 		enterFirstAndLastName();
 		enterSexData();
 		enterDateOfBirthData();

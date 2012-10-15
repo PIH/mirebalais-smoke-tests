@@ -25,11 +25,6 @@ public class IdentificationSteps {
 		driver.findElement(By.xpath("//div[@id='locationDiv']/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[3]/td")).click();
 		driver.findElement(By.cssSelector("td.taskListItem")).click();
 		
-		wait.until(new ExpectedCondition<Boolean>() {
-			public Boolean apply(WebDriver webDriver) {
-				return webDriver.findElement(By.id("searchByNameBtn")).isDisplayed();
-			}
-		});
-		driver.findElement(By.id("searchByNameBtn")).click();
+		
 	}
 }
