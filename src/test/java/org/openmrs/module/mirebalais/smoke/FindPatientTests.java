@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.FindPatient;
 import org.openmrs.module.mirebalais.smoke.pageobjects.IdentificationSteps;
@@ -14,6 +15,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+@Ignore
 public class FindPatientTests {
 
 	private static WebDriver driver;

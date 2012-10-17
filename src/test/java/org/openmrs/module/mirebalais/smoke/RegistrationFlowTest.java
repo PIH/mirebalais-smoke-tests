@@ -2,6 +2,7 @@ package org.openmrs.module.mirebalais.smoke;
 
 import static org.junit.Assert.assertTrue;
 
+import org.apache.commons.lang.SystemUtils;
 import org.openmrs.module.mirebalais.smoke.pageobjects.IdentificationSteps;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
@@ -16,6 +17,8 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.net.URL;
+
 
 public class RegistrationFlowTest  {
 
@@ -29,21 +32,33 @@ public class RegistrationFlowTest  {
     
     @Before
     public void setUp() {
-    	System.setProperty("webdriver.chrome.driver","chromedriver");
+        setupChromedriver();
     	driver = new ChromeDriver();
-    	
+
     	wait = new WebDriverWait(driver, 30);
 		driver.get("http://bamboo.pih-emr.org:8080/mirebalais");
-		//driver.get("http://10.27.15.55:8080/mirebalais/");
-    
+
 		loginPage = new LoginPage(driver);
 		identificationSteps = new IdentificationSteps(driver, wait);
 		registration = new Registration(driver, wait);
     }
 
+    private void setupChromedriver() {
+        URL resource = null;
+        ClassLoader classLoader = this.getClass().getClassLoader();
+
+        if(SystemUtils.IS_OS_MAC_OSX) {
+            resource = classLoader.getResource("chromedriver/mac/chromedriver");
+        } else if(SystemUtils.IS_OS_LINUX) {
+            resource = classLoader.getResource("chromedriver/linux/chromedriver");
+        }
+        System.setProperty("webdriver.chrome.driver", resource.getPath());
+    }
+
     @After
     public void tearDown() {
     	driver.close();
+        driver.quit();
     }
      
     @Test
