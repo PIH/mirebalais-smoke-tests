@@ -15,48 +15,40 @@ public class Registration {
 		this.wait = wait;
 	}
 	
-	public void goThruRegistrationProcessPrintingCard() {
-		wait.until(new ExpectedCondition<Boolean>() {
-			public Boolean apply(WebDriver webDriver) {
-				return webDriver.findElement(By.id("searchByNameBtn")).isDisplayed();
-			}
-		});
-		driver.findElement(By.id("searchByNameBtn")).click();
-		
-		enterFirstAndLastName();
-		enterSexData();
-		enterDateOfBirthData();
-		enterAddressLandmarkData();
-		enterPatientLocality();
-		enterPhoneData();
-		confirmData() ;
-		
-		driver.findElement(By.id("printYes")).click();
-		// TODO: add printing functionality tests
-	}
-	
 	public void goThruRegistrationProcessWithoutPrintingCard() {
-		wait.until(new ExpectedCondition<Boolean>() {
-			public Boolean apply(WebDriver webDriver) {
-				return webDriver.findElement(By.id("searchByNameBtn")).isDisplayed();
-			}
-		});
-		driver.findElement(By.id("searchByNameBtn")).click();
-		
-		enterFirstAndLastName();
-		enterSexData();
-		enterDateOfBirthData();
-		enterAddressLandmarkData();
-		enterPatientLocality();
-		enterPhoneData();
-		confirmData() ;
+		registerPatient();
 		
 		driver.findElement(By.id("printNo")).click();
 	}
+	
+	public void goThruRegistrationProcessPrintingCard() {
+		registerPatient();
+		
+		driver.findElement(By.id("printYes")).click();
+	}
+	
+	private void registerPatient() {
+		clickOnSearchByNameButton();
+		enterFirstAndLastName();
+		enterSexData();
+		enterDateOfBirthData();
+		enterAddressLandmarkData();
+		enterPatientLocality();
+		enterPhoneData();
+		confirmData();
+	}
 
+	private void clickOnSearchByNameButton() {
+		wait.until(new ExpectedCondition<Boolean>() {
+			public Boolean apply(WebDriver webDriver) {
+				return webDriver.findElement(By.id("searchByNameBtn")).isDisplayed();
+			}
+		});
+		driver.findElement(By.id("searchByNameBtn")).click();
+	}
 	
 	private void confirmData() {
-		//TODD: assert something here?
+		//TODD: change this structure to assert something?
 		clickCheckMark();
 	}
 	
@@ -120,6 +112,5 @@ public class Registration {
 		});
 		driver.findElement(By.id("checkmark-yellow")).click();
 	}
-
 	
 }

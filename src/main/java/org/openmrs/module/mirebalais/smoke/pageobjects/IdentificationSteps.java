@@ -24,7 +24,6 @@ public class IdentificationSteps {
 		});
 		driver.findElement(By.xpath("//div[@id='locationDiv']/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[3]/td")).click();
 		driver.findElement(By.cssSelector("td.taskListItem")).click();
-		
-		
 	}
+
 }

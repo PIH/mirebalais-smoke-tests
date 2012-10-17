@@ -5,8 +5,8 @@ import static org.junit.Assert.assertTrue;
 import org.openmrs.module.mirebalais.smoke.pageobjects.IdentificationSteps;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
-//import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.By;
@@ -29,20 +29,18 @@ public class RegistrationFlowTest  {
     
     @Before
     public void setUp() {
-    	/*
     	System.setProperty("webdriver.chrome.driver","chromedriver");
     	driver = new ChromeDriver();
-    	*/
-    	driver = new FirefoxDriver();
     	
     	wait = new WebDriverWait(driver, 30);
 		driver.get("http://bamboo.pih-emr.org:8080/mirebalais");
+		//driver.get("http://10.27.15.55:8080/mirebalais/");
     
 		loginPage = new LoginPage(driver);
 		identificationSteps = new IdentificationSteps(driver, wait);
 		registration = new Registration(driver, wait);
     }
-    
+
     @After
     public void tearDown() {
     	driver.close();
@@ -50,7 +48,7 @@ public class RegistrationFlowTest  {
      
     @Test
     @Ignore
-    public void testRegistratePacientWithoutPrinting() {
+    public void registerPatientWithoutPrintingCard() {
     	loginPage.logIn("admin", "Admin123");
     	identificationSteps.setLocationAndChooseRegisterTask();
     	registration.goThruRegistrationProcessWithoutPrintingCard();
@@ -59,13 +57,17 @@ public class RegistrationFlowTest  {
     }
     
     @Test
-    @Ignore // until we define what's going on with the printer functionality
-    public void testRegistratePacientAndPrintingCard() {
+    public void registerPatientdPrintingCard() {
     	loginPage.logIn("admin", "Admin123");
     	identificationSteps.setLocationAndChooseRegisterTask();
     	registration.goThruRegistrationProcessPrintingCard();
     	
-    	assertTrue(driver.findElement(By.tagName("body")).getText().contains("Patient dashboard"));
+    	wait.until(new ExpectedCondition<Boolean>() {
+			public Boolean apply(WebDriver webDriver) {
+				return webDriver.findElement(By.id("scanPatientIdentifier")).isDisplayed();
+			}
+		});
+    	assertTrue(driver.findElement(By.tagName("body")).getText().contains("Please scan ID card to proceed..."));
     	// TODO: make sure it printed
     }
 }

@@ -31,7 +31,7 @@ public class IdentificationStepsTest {
 		loginPage = new LoginPage(driver);
 		identificationSteps = new IdentificationSteps(driver, wait);
     }
-    
+     
     @After
     public void tearDown() {
     	driver.close();
@@ -39,7 +39,7 @@ public class IdentificationStepsTest {
     
 	@Test
     @Ignore
-    public void testNavigateUntilFirstRegistrationPage() {
+    public void navigatesUntilFirstRegistrationPage() {
     	loginPage.logIn("admin", "Admin123");
     	identificationSteps.setLocationAndChooseRegisterTask();
     	
