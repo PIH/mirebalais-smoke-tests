@@ -9,7 +9,10 @@ public class Registration {
 
 	private WebDriver driver;
 	private Wait<WebDriver> wait;
-    
+	
+	private static final String[] FIRST_NAMES = {"Alexandre", "Cosmin", "Darius", "Ellen", "ƒmerson", "Evan", "Fernando", "M‡rio", "Mark", "Neil", "Renee"}; 
+	private static final String[] LAST_NAMES = {"Barbosa", "Ioan", "Jazayeri", "Ball", "Hernandez", "Waters", "Freire", "Areias", "Goodrich", "Craven", "Orser"}; 
+	
 	public Registration(WebDriver driver, Wait<WebDriver> wait) {
 		this.driver = driver;
 		this.wait = wait;
@@ -17,14 +20,33 @@ public class Registration {
 	
 	public void goThruRegistrationProcessWithoutPrintingCard() {
 		registerPatient();
-		
 		driver.findElement(By.id("printNo")).click();
 	}
 	
 	public void goThruRegistrationProcessPrintingCard() {
 		registerPatient();
-		
 		driver.findElement(By.id("printYes")).click();
+	}
+	
+	public void registerSpecificGuy(String firstName, String lastName) {
+		clickOnSearchByNameButton();
+		enterFirstAndLastName(firstName, lastName);
+		enterSexData();
+		enterDateOfBirthData();
+		enterAddressLandmarkData();
+		enterPatientLocality();
+		enterPhoneData();
+		confirmData();
+		driver.findElement(By.id("printNo")).click();
+		driver.findElement(By.id("checkmark-yellow")).click();
+	}
+	
+	public void openSimilarityWindow() {
+		clickOnSearchByNameButton();
+		driver.findElement(By.id("patientInputLastName")).sendKeys("Louis");
+		clickNext();
+		
+		driver.findElement(By.id("patientInputFirstName")).sendKeys("Marken");
 	}
 	
 	private void registerPatient() {
@@ -85,12 +107,24 @@ public class Registration {
 		clickNext();
 	}
 
-	private void enterFirstAndLastName() {
-		driver.findElement(By.id("patientInputLastName")).sendKeys("Silva");
+	private void enterFirstAndLastName(String firstName, String lastName) {
+		driver.findElement(By.id("patientInputLastName")).sendKeys(lastName);
 		clickNext();
 		
-		driver.findElement(By.id("patientInputFirstName")).sendKeys("Pedro");
+		driver.findElement(By.id("patientInputFirstName")).sendKeys(firstName);
 		clickNext();
+	}
+	
+	private void enterFirstAndLastName() {
+		enterFirstAndLastName(getFirstName(), getLastName());
+	}
+
+	private String getLastName() {
+		return FIRST_NAMES[(int)(Math.random() * FIRST_NAMES.length)];
+	}
+
+	private String getFirstName() {
+		return LAST_NAMES[(int)(Math.random() * LAST_NAMES.length)];
 	}
 
 	private void enterDateOfBirthData() {
