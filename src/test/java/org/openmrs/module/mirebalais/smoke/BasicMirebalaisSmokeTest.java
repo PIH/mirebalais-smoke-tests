@@ -30,7 +30,6 @@ public abstract class BasicMirebalaisSmokeTest {
 
 	@AfterClass
     public static void stopWebDriver() {
-    	driver.close();
         driver.quit();
     }
 
