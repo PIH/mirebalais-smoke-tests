@@ -8,13 +8,15 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
 
+
 public class DossieNumberGenerationTest extends BasicMirebalaisSmokeTest {
 
-    private LoginPage loginPage;
-    private IdentificationSteps identificationSteps;
-    private Registration registration;
-    private PatientDashboard patientDashboard;
-    
+	private LoginPage loginPage;
+	private IdentificationSteps identificationSteps;
+	private Registration registration;
+	private PatientDashboard patientDashboard;
+
+	@Override
     public void specificSetUp() {
 		loginPage = new LoginPage(driver);
 		identificationSteps = new IdentificationSteps(driver, wait);
@@ -29,7 +31,7 @@ public class DossieNumberGenerationTest extends BasicMirebalaisSmokeTest {
 		identificationSteps.setLocationAndChooseRegisterTask();
 		registration.goThruRegistrationProcessWithoutPrintingCard();
 		Integer dossieNumberOne = getDossieNumberWithoutLetters(patientDashboard.generateDossieNumber());
-		
+
 		registration.goThruRegistrationProcessWithoutPrintingCard();
 		Integer dossieNumberTwo = getDossieNumberWithoutLetters(patientDashboard.generateDossieNumber());
 

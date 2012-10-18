@@ -18,13 +18,13 @@ public class RegistrationFlowTest extends BasicMirebalaisSmokeTest {
     private IdentificationSteps identificationSteps;
     private Registration registration;
     
+    @Override
     public void specificSetUp() {
 		loginPage = new LoginPage(driver);
 		identificationSteps = new IdentificationSteps(driver, wait);
 		registration = new Registration(driver, wait);
     }
 
-     
     @Test
     @Ignore
     public void registerPatientWithoutPrintingCard() {

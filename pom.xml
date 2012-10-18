@@ -58,9 +58,29 @@
                 </executions>
                 <configuration>
                     <includes>
-                        <include>**/*</include>
+                        <include>**/*.java</include>
                     </includes>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <id>set-drivers-permissions</id>
+                        <phase>process-test-resources</phase>
+                        <configuration>
+                            <target>
+                                <chmod file="target/test-classes/chromedriver/mac/chromedriver" perm="755" />
+                                <chmod file="target/test-classes/chromedriver/linux/chromedriver" perm="755" />
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

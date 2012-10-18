@@ -41,12 +41,20 @@ public class Registration {
 		driver.findElement(By.id("checkmark-yellow")).click();
 	}
 	
-	public void openSimilarityWindow() {
+	public void openSimilarityWindow(String firstName, String lastName) {
 		clickOnSearchByNameButton();
-		driver.findElement(By.id("patientInputLastName")).sendKeys("Louis");
+		driver.findElement(By.id("patientInputLastName")).sendKeys(lastName);
 		clickNext();
 		
-		driver.findElement(By.id("patientInputFirstName")).sendKeys("Marken");
+		driver.findElement(By.id("patientInputFirstName")).sendKeys(firstName);
+		clickNext();
+		
+		wait.until(new ExpectedCondition<Boolean>() {
+			public Boolean apply(WebDriver webDriver) {
+				return webDriver.findElement(By.className("searchTableList")).isDisplayed();
+			}
+		});
+		driver.findElement(By.className("searchTableList")).click();
 	}
 	
 	private void registerPatient() {
