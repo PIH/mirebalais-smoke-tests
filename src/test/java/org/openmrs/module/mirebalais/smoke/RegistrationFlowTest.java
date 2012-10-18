@@ -20,22 +20,15 @@ import org.junit.Test;
 import java.net.URL;
 
 
-public class RegistrationFlowTest  {
+public class RegistrationFlowTest  extends BasicMirebalaisSmokeTest {
 
-    private static WebDriver driver;
-    private static Wait<WebDriver> wait;
-    
     private LoginPage loginPage;
     private IdentificationSteps identificationSteps;
     private Registration registration;
     
     
-    @Before
-    public void setUp() {
-        setupChromedriver();
-    	driver = new ChromeDriver();
-
-    	wait = new WebDriverWait(driver, 30);
+    @Override
+    protected void specificSetUp() {
 		driver.get("http://bamboo.pih-emr.org:8080/mirebalais");
 
 		loginPage = new LoginPage(driver);
@@ -43,24 +36,6 @@ public class RegistrationFlowTest  {
 		registration = new Registration(driver, wait);
     }
 
-    private void setupChromedriver() {
-        URL resource = null;
-        ClassLoader classLoader = this.getClass().getClassLoader();
-
-        if(SystemUtils.IS_OS_MAC_OSX) {
-            resource = classLoader.getResource("chromedriver/mac/chromedriver");
-        } else if(SystemUtils.IS_OS_LINUX) {
-            resource = classLoader.getResource("chromedriver/linux/chromedriver");
-        }
-        System.setProperty("webdriver.chrome.driver", resource.getPath());
-    }
-
-    @After
-    public void tearDown() {
-    	driver.close();
-        driver.quit();
-    }
-     
     @Test
     @Ignore
     public void registerPatientWithoutPrintingCard() {
