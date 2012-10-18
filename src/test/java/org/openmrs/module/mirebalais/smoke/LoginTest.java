@@ -1,39 +1,32 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import static org.junit.Assert.assertTrue;
-
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-@Ignore
-public class LoginTest {
+import static org.junit.Assert.assertTrue;
 
-	static WebDriver driver;
-    
+@Ignore
+public class LoginTest extends BasicMirebalaisSmokeTest{
+
     private LoginPage loginPage;
-    
+
     @Before
     public void setUp() {
     	driver = new FirefoxDriver();
+    }
+
+    @Override
+    protected void specificSetUp() {
 		driver.get("http://bamboo.pih-emr.org:8080/mirebalais");
-    
+
 		loginPage = new LoginPage(driver);
     }
-    
-    @After
-    public void tearDown() {
-    	driver.close();
-    }
-    
-    
+
 	@Test
-    @Ignore
     public void testLogin() {
     	loginPage.logIn("admin", "Admin123");
     	

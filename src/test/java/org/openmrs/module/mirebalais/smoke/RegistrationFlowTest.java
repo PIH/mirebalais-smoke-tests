@@ -1,23 +1,15 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import static org.junit.Assert.assertTrue;
-
-import org.apache.commons.lang.SystemUtils;
+import org.junit.Ignore;
+import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.IdentificationSteps;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 
-import java.net.URL;
+import static org.junit.Assert.assertTrue;
 
 
 public class RegistrationFlowTest  extends BasicMirebalaisSmokeTest {
