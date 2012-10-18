@@ -2,3 +2,7 @@
 *.iml
 target
 chromedriver.log
+.classpath
+.project
+.settings
+.DS_Store

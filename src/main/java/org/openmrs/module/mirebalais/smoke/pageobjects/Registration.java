@@ -10,7 +10,7 @@ public class Registration {
 	private WebDriver driver;
 	private Wait<WebDriver> wait;
 	
-	private static final String[] FIRST_NAMES = {"Alexandre", "Cosmin", "Darius", "Ellen", "ƒmerson", "Evan", "Fernando", "M‡rio", "Mark", "Neil", "Renee"}; 
+	private static final String[] FIRST_NAMES = {"Alexandre", "Cosmin", "Darius", "Ellen", "Ã‰merson", "Evan", "Fernando", "MÃ¡rio", "Mark", "Neil", "Renee"}; 
 	private static final String[] LAST_NAMES = {"Barbosa", "Ioan", "Jazayeri", "Ball", "Hernandez", "Waters", "Freire", "Areias", "Goodrich", "Craven", "Orser"}; 
 	
 	public Registration(WebDriver driver, Wait<WebDriver> wait) {
