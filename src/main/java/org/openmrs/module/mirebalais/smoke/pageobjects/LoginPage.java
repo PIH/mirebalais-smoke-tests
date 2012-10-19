@@ -16,5 +16,9 @@ public class LoginPage {
     	driver.findElement(By.name("pw")).sendKeys(password);
     	driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
 	}
+
+	public void logOut() {
+		driver.findElement(By.linkText("Log Out")).click();
+	}
 	
 }

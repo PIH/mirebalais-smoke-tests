@@ -43,18 +43,21 @@ public class Registration {
 	
 	public void openSimilarityWindow(String firstName, String lastName) {
 		clickOnSearchByNameButton();
-		driver.findElement(By.id("patientInputLastName")).sendKeys(lastName);
-		clickNext();
-		
-		driver.findElement(By.id("patientInputFirstName")).sendKeys(firstName);
-		clickNext();
+		enterFirstAndLastName(firstName, lastName);
 		
 		wait.until(new ExpectedCondition<Boolean>() {
 			public Boolean apply(WebDriver webDriver) {
-				return webDriver.findElement(By.className("searchTableList")).isDisplayed();
+				return 	webDriver.findElement(By.id("confirmExistingPatientDiv")).isDisplayed() &&
+						! (webDriver.findElement(By.id("confirmExistingPatientDiv")).getText().contains("searching"));
 			}
 		});
-		driver.findElement(By.className("searchTableList")).click();
+		driver.findElement(By.id("confirmExistingPatientDiv")).click();
+		
+		wait.until(new ExpectedCondition<Boolean>() {
+			public Boolean apply(WebDriver webDriver) {
+				return webDriver.findElement(By.id("confirmExistingPatientModalDiv")).isDisplayed();
+			}
+		});
 	}
 	
 	private void registerPatient() {
@@ -127,11 +130,11 @@ public class Registration {
 		enterFirstAndLastName(getFirstName(), getLastName());
 	}
 
-	private String getLastName() {
+	private String getFirstName() {
 		return FIRST_NAMES[(int)(Math.random() * FIRST_NAMES.length)];
 	}
 
-	private String getFirstName() {
+	private String getLastName() {
 		return LAST_NAMES[(int)(Math.random() * LAST_NAMES.length)];
 	}
 
@@ -152,6 +155,18 @@ public class Registration {
 				return webDriver.findElement(By.id("checkmark-yellow")).isDisplayed();
 			}
 		});
+		driver.findElement(By.id("checkmark-yellow")).click();
+	}
+
+	public void finishesRegistration() {
+		driver.findElement(By.id("cancelBtn")).click();
+		enterSexData();
+		enterDateOfBirthData();
+		enterAddressLandmarkData();
+		enterPatientLocality();
+		enterPhoneData();
+		confirmData();
+		driver.findElement(By.id("printNo")).click();
 		driver.findElement(By.id("checkmark-yellow")).click();
 	}
 	

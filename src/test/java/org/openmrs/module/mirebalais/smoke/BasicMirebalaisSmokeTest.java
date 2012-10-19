@@ -21,16 +21,16 @@ public abstract class BasicMirebalaisSmokeTest {
         setupChromeDriver();
     	driver = new ChromeDriver();
     	wait = new WebDriverWait(driver, 30);
+    	driver.get("http://bamboo.pih-emr.org:8080/mirebalais");
     }
 
 	@Before
 	public void setUp() {
-		driver.get("http://bamboo.pih-emr.org:8080/mirebalais");
 		specificSetUp();
 	}
 	
 	protected abstract void specificSetUp();
-
+	
 	@AfterClass
     public static void stopWebDriver() {
         driver.quit();
