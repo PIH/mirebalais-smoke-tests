@@ -1,18 +1,26 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
-import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.openmrs.module.mirebalais.smoke.pageobjects.CleanUpTests;
 import org.openmrs.module.mirebalais.smoke.pageobjects.IdentificationSteps;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+
+import org.openqa.selenium.WebDriverException;
+
+import java.sql.SQLException;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 
 
 public class PhoneticSearchTests extends BasicMirebalaisSmokeTest {
@@ -26,7 +34,7 @@ public class PhoneticSearchTests extends BasicMirebalaisSmokeTest {
 		registration = new Registration(driver, wait);
     }
 
-    
+
     @BeforeClass
     public static void setUpEnvironment() {
     	loginPage = new LoginPage(driver);
@@ -38,7 +46,6 @@ public class PhoneticSearchTests extends BasicMirebalaisSmokeTest {
 
     
     @Test
-    @Ignore
     public void findsAMatch() {
     	registration.registerSpecificGuy("Jayne", "Marconi");
     	registration.openSimilarityWindow("June", "Marken");
@@ -49,8 +56,8 @@ public class PhoneticSearchTests extends BasicMirebalaisSmokeTest {
     
     
     @Test
-    @Ignore
-    public void doesNotfindAMatch() {
+
+    public void doesNotFindAMatch() {
     	registration.registerSpecificGuy("June", "Marken");
     	registration.openSimilarityWindow("Jayne", "Marconi");
 
@@ -58,42 +65,25 @@ public class PhoneticSearchTests extends BasicMirebalaisSmokeTest {
     	assertFalse(driver.findElement(By.className("confirmExistingPatientModalList")).getText().contains("June Marken"));
     }
 
-    
     @After
-    public void byeBye() {
-    	registration.finishesRegistration();
-    	//voidPatient("June Marken");
+    public void tearDown(){
+        try{
+            driver.navigate().to("http://bamboo.pih-emr.org:8080/mirebalais/module/patientregistration/workflow/patientRegistrationTask.form");
+        } catch (WebDriverException e) {
+            Alert alert = driver.switchTo().alert();
+            alert.accept();
+        }
     }
+
+    @AfterClass
+    public static void deleteData() throws SQLException {
+        CleanUpTests cleanUpTests = new CleanUpTests();
+        cleanUpTests.deletePatientsWithNameAs("June","Marken");
+        cleanUpTests.deletePatientsWithNameAs("Jayne","Marconi");
+		cleanUpTests.closeConnection();
+		stopWebDriver();
+    }
+
     
-	private void voidPatient(String patientName) {
-		driver.findElement(By.linkText("Manage Patients")).click();
-    	wait.until(new ExpectedCondition<Boolean>() {
-			public Boolean apply(WebDriver webDriver) {
-				return webDriver.findElement(By.id("inputNode")).isDisplayed();
-			}
-		});
-    	driver.findElement(By.id("inputNode")).sendKeys(patientName);
-    	
-    	wait.until(new ExpectedCondition<Boolean>() {
-			public Boolean apply(WebDriver webDriver) {
-				return webDriver.findElement(By.id("openmrsSearchTable")).isDisplayed();
-			}
-		});
-    	driver.findElement(By.className("odd")).click();
-    	
-    	wait.until(new ExpectedCondition<Boolean>() {
-			public Boolean apply(WebDriver webDriver) {
-				return webDriver.findElement(By.name("names[0].voided")).isDisplayed();
-			}
-		});
-    	driver.findElement(By.name("names[0].voided")).click();
-    	
-    	wait.until(new ExpectedCondition<Boolean>() {
-			public Boolean apply(WebDriver webDriver) {
-				return webDriver.findElement(By.xpath("//*[@id=\"content\"]/form[2]/fieldset/input[2]")).isDisplayed();
-			}
-		});
-    	driver.findElement(By.xpath("//*[@id=\"content\"]/form[2]/fieldset/input[2]")).click();
-	}
      
 }

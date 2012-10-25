@@ -15,8 +15,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public abstract class BasicMirebalaisSmokeTest {
 
 
+
 	private static String DEFAULT_SERVER_URL = "http://bamboo.pih-emr.org:8080/mirebalais";
-	
+
 	protected static ChromeDriver driver;
     protected static Wait<WebDriver> wait;
 

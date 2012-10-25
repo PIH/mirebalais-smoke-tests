@@ -99,7 +99,7 @@ public class Registration {
 		driver.findElement(By.id("possibleLocalityField")).sendKeys("Mirebalais");
 		wait.until(new ExpectedCondition<Boolean>() {
 			public Boolean apply(WebDriver webDriver) {
-				return webDriver.findElement(By.cssSelector("tr.addressFieldRow.evenRow > td")) != null;
+				return !webDriver.findElement(By.id("loadingGraph")).isDisplayed();
 			}
 		});
 		driver.findElement(By.cssSelector("tr.addressFieldRow.evenRow > td")).click();
