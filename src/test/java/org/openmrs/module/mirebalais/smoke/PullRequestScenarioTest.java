@@ -2,7 +2,6 @@ package org.openmrs.module.mirebalais.smoke;
 
 import static org.junit.Assert.assertTrue;
 
-import org.ietf.jgss.Oid;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.ArchivesRoom;
 import org.openmrs.module.mirebalais.smoke.pageobjects.CheckIn;
