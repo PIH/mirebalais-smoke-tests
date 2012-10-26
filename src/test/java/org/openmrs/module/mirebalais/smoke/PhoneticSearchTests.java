@@ -1,8 +1,9 @@
 package org.openmrs.module.mirebalais.smoke;
 
 
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.CleanUpTests;
 import org.openmrs.module.mirebalais.smoke.pageobjects.IdentificationSteps;
@@ -10,10 +11,6 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
-
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-
 import org.openqa.selenium.WebDriverException;
 
 import java.sql.SQLException;
@@ -56,7 +53,6 @@ public class PhoneticSearchTests extends BasicMirebalaisSmokeTest {
     
     
     @Test
-
     public void doesNotFindAMatch() {
     	registration.registerSpecificGuy("June", "Marken");
     	registration.openSimilarityWindow("Jayne", "Marconi");
