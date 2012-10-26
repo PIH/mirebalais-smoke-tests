@@ -13,7 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class BasicMirebalaisSmokeTest {
 
-	protected static WebDriver driver;
+	protected static ChromeDriver driver;
     protected static Wait<WebDriver> wait;
 
     @BeforeClass

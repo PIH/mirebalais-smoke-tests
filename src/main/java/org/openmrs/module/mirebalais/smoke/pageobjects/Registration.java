@@ -96,7 +96,7 @@ public class Registration {
 	}
 
 	private void enterPatientLocality() {
-		driver.findElement(By.id("possibleLocalityField")).sendKeys("mirebal");
+		driver.findElement(By.id("possibleLocalityField")).sendKeys("Mirebalais");
 		wait.until(new ExpectedCondition<Boolean>() {
 			public Boolean apply(WebDriver webDriver) {
 				return webDriver.findElement(By.cssSelector("tr.addressFieldRow.evenRow > td")) != null;

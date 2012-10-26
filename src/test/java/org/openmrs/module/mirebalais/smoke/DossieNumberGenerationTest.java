@@ -21,7 +21,7 @@ public class DossieNumberGenerationTest extends BasicMirebalaisSmokeTest {
 		loginPage = new LoginPage(driver);
 		identificationSteps = new IdentificationSteps(driver, wait);
 		registration = new Registration(driver, wait);
-		patientDashboard = new PatientDashboard(driver);
+		patientDashboard = new PatientDashboard(driver, wait);
 	}
 
 	
