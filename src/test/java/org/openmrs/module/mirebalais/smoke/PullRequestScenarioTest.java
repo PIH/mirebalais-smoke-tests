@@ -43,7 +43,6 @@ public class PullRequestScenarioTest extends BasicMirebalaisSmokeTest {
 		registration.goThruRegistrationProcessWithoutPrintingCard();
 		patientIdentifier = patientDashboard.getIdentifier();
 		patientName = patientDashboard.getName();
-		System.out.println(patientName + "  " + patientIdentifier);
 		checkIn.setLocationAndChooseCheckInTask(patientIdentifier, patientName);
 		archivesRoom.openArchivesRoomApp();
 		

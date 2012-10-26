@@ -23,6 +23,7 @@ public class IdentificationStepsTest extends BasicMirebalaisSmokeTest {
     }
 
 	@Test
+	@Ignore
     public void navigatesUntilFirstRegistrationPage() {
     	loginPage.logIn("admin", "Admin123");
     	identificationSteps.setLocationAndChooseRegisterTask();

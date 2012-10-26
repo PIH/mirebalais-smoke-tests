@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.IdentificationSteps;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
@@ -37,6 +38,7 @@ public class PhoneticSearchTests extends BasicMirebalaisSmokeTest {
 
     
     @Test
+    @Ignore
     public void findsAMatch() {
     	registration.registerSpecificGuy("Jayne", "Marconi");
     	registration.openSimilarityWindow("June", "Marken");
@@ -47,6 +49,7 @@ public class PhoneticSearchTests extends BasicMirebalaisSmokeTest {
     
     
     @Test
+    @Ignore
     public void doesNotfindAMatch() {
     	registration.registerSpecificGuy("June", "Marken");
     	registration.openSimilarityWindow("Jayne", "Marconi");
@@ -59,66 +62,9 @@ public class PhoneticSearchTests extends BasicMirebalaisSmokeTest {
     @After
     public void byeBye() {
     	registration.finishesRegistration();
-    }
-    
-    
-    
-    @Test
-    public void cleanUpData() {
-    	driver.get("http://bamboo.pih-emr.org:8080/mirebalais/admin");
-    	
     	//voidPatient("June Marken");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
-    	voidPatient("Jayne Marconi");
     }
-
-
+    
 	private void voidPatient(String patientName) {
 		driver.findElement(By.linkText("Manage Patients")).click();
     	wait.until(new ExpectedCondition<Boolean>() {
