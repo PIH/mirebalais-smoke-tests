@@ -57,6 +57,9 @@ public class CleanUpTests {
         }
         resultSet.close();
         statement.close();
+    }
+
+    public void closeConnection() throws SQLException {
         connection.close();
     }
 
