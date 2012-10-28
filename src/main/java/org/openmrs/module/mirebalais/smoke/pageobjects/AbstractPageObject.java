@@ -1,17 +1,20 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Wait;
 
 public abstract class AbstractPageObject {
 
     private static String DEFAULT_SERVER_URL = "http://bamboo.pih-emr.org:8080/mirebalais/";
 
     protected WebDriver driver;
+    protected Wait<WebDriver> wait;
     private String baseServerUrl;
     private LoginPage loginPO;
 
-    public AbstractPageObject(WebDriver driver) {
+    public AbstractPageObject(WebDriver driver, Wait<WebDriver> wait) {
         this.driver = driver;
+        this.wait = wait;
         this.loginPO = new LoginPage(driver);
         setBaseServerUrl();
     }

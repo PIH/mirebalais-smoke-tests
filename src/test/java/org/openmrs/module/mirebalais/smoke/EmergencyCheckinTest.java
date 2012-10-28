@@ -1,8 +1,12 @@
 package org.openmrs.module.mirebalais.smoke;
 
+import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.EmergencyCheckin;
+import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 import org.openqa.selenium.By;
+
+import java.util.Arrays;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -14,7 +18,7 @@ public class EmergencyCheckinTest extends BasicMirebalaisSmokeTest {
 
     @Override
     protected void specificSetUp() {
-        emergencyCheckinPO = new EmergencyCheckin(driver);
+        emergencyCheckinPO = new EmergencyCheckin(driver, wait);
         emergencyCheckinPO.initialize();
     }
 
@@ -29,4 +33,16 @@ public class EmergencyCheckinTest extends BasicMirebalaisSmokeTest {
         assertThat(patientGender, is("M"));
         assertThat(zlEmrId, notNullValue());
     }
+
+    @Test
+    public void checkInByName() {
+        String lastName = "Emergency";
+        String firstName = "ByName";
+        emergencyCheckinPO.registerCreateByName(lastName, firstName);
+
+        PatientDashboard patientDashboard = new PatientDashboard(driver, wait);
+        assertThat(patientDashboard.getIdentifier(), is(notNullValue()));
+        assertThat(patientDashboard.getName(), Matchers.stringContainsInOrder(Arrays.asList(firstName, lastName)));
+    }
+
 }
