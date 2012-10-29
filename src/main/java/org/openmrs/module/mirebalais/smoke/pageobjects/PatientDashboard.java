@@ -34,4 +34,8 @@ public class PatientDashboard {
 	public String getName() {
 		return driver.findElement(By.xpath("//*[@id='overviewTable']/tbody/tr/td[1]/table/tbody/tr[2]/td[1]")).getText();
 	}
+	
+	public String getGender() {
+		return driver.findElement(By.xpath("//*[@id='overviewTable']/tbody/tr/td[1]/table/tbody/tr[4]/td[1]")).getText();
+	}
 }

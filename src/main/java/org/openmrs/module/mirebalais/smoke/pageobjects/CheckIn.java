@@ -5,16 +5,17 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Wait;
 
-public class CheckIn {
-
-	private WebDriver driver;
-	private Wait<WebDriver> wait;
+public class CheckIn extends AbstractPageObject {
 
 	public CheckIn(WebDriver driver, Wait<WebDriver> wait) {
-		this.driver = driver;
-		this.wait = wait;
+		super(driver, wait);
 	}
 
+	@Override
+	public void initialize() {
+		// TODO Auto-generated method stub
+	}
+	
 	public void setLocationAndChooseCheckInTask(String identifier, final String patientName) {
 		driver.get("http://bamboo.pih-emr.org:8080/mirebalais");
 		wait.until(new ExpectedCondition<Boolean>() {
@@ -32,7 +33,7 @@ public class CheckIn {
 		driver.findElement(By.xpath("//*[@id='taskDiv']/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[2]/td[1]")).click();
 		
 		driver.findElement(By.id("patientIdentifier")).sendKeys(identifier);
-		driver.findElement(By.id("right-arrow-yellow")).click();
+		clickNext();
 		
 		wait.until(new ExpectedCondition<Boolean>() {
 			public Boolean apply(WebDriver webDriver) {
@@ -43,27 +44,17 @@ public class CheckIn {
 		driver.findElement(By.id("okBtn")).click();
 
 		
-		wait.until(new ExpectedCondition<Boolean>() {
-			public Boolean apply(WebDriver webDriver) {
-				return webDriver.findElement(By.id("right-arrow-yellow")).isDisplayed();
-			}
-		});
-		driver.findElement(By.id("right-arrow-yellow")).click();
+		clickNext();
 		
-		driver.findElement(By.id("right-arrow-yellow")).click();
-		driver.findElement(By.xpath("//*[@id='visitReasonStatus121']")).click();
-		driver.findElement(By.id("right-arrow-yellow")).click();
-		driver.findElement(By.xpath("//*[@id='paymentAmountStatus50']")).click();
-		driver.findElement(By.id("receiptInput")).sendKeys("123456789");
-		driver.findElement(By.id("right-arrow-yellow")).click();
-		
-		wait.until(new ExpectedCondition<Boolean>() {
-			public Boolean apply(WebDriver webDriver) {
-				return 	webDriver.findElement(By.id("checkmark-yellow")).isDisplayed();
-			}
-		});
-		driver.findElement(By.id("checkmark-yellow")).click();
+		clickNext();
+		chooseVisitReason(MEDICAL_CERTIFICATE);
+		clickNext();
+		choosePaymentAmount(PAYMENT_50);
+		enterReceiptNumber("123456789");
+		clickNext();
 
+		clickYellowCheckMark();
+		
 		wait.until(new ExpectedCondition<Boolean>() {
 			public Boolean apply(WebDriver webDriver) {
 				return webDriver.findElement(By.id("okDialog")).isDisplayed();
@@ -71,5 +62,26 @@ public class CheckIn {
 		});
 		driver.findElement(By.id("okDialog")).click();
 	}
+	
+	public void enterReceiptNumber(String receiptNumber) {
+        driver.findElement(By.id("receiptInput")).sendKeys(receiptNumber);
+    }
 
+    public void choosePaymentAmount(String paymentAmountElementId) {
+        driver.findElement(By.id(paymentAmountElementId)).click();
+    }
+
+    public void chooseVisitReason(String visitReasonElementId) {
+        driver.findElement(By.id(visitReasonElementId)).click();
+    }
+    
+    public static final String MEDICAL_CERTIFICATE = "visitReasonStatus121";
+    public static final String STANDART_DENTAL_VISIT = "visitReasonStatus243";
+    public static final String MARRIAGE_CERTIFICATE = "visitReasonStatus135";
+    public static final String STANDART_OUTPATIENT = "visitReasonStatus242";
+    
+    public static final String PAYMENT_0 = "paymentAmountStatus0";
+    public static final String PAYMENT_50 = "paymentAmountStatus50";
+    public static final String PAYMENT_100 = "paymentAmountStatus100";
+    
 }

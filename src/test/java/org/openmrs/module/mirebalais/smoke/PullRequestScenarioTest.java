@@ -44,6 +44,7 @@ public class PullRequestScenarioTest extends BasicMirebalaisSmokeTest {
 		patientIdentifier = patientDashboard.getIdentifier();
 		patientName = patientDashboard.getName();
 		checkIn.setLocationAndChooseCheckInTask(patientIdentifier, patientName);
+		System.out.println(patientIdentifier + "  " + patientName);
 		archivesRoom.openArchivesRoomApp();
 		
 		assertTrue(driver.findElement(By.className("dataTable")).getText().contains(patientName));
