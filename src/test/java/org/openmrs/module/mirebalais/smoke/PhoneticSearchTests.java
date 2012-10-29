@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.CleanUpTests;
 import org.openmrs.module.mirebalais.smoke.pageobjects.IdentificationSteps;
@@ -18,7 +19,7 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriverException;
 
-
+@Ignore
 public class PhoneticSearchTests extends BasicMirebalaisSmokeTest {
 
     private static LoginPage loginPage;
@@ -26,15 +27,14 @@ public class PhoneticSearchTests extends BasicMirebalaisSmokeTest {
     private Registration registration;
     
     public void specificSetUp() {
-		
-		registration = new Registration(driver, wait);
+		registration = new Registration(driver);
     }
 
 
     @BeforeClass
     public static void setUpEnvironment() {
     	loginPage = new LoginPage(driver);
-		identificationSteps = new IdentificationSteps(driver, wait);
+		identificationSteps = new IdentificationSteps(driver);
 		
     	loginPage.logIn("admin", "Admin123");
     	identificationSteps.setLocationAndChooseRegisterTask();

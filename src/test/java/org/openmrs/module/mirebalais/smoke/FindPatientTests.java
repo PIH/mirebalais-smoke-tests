@@ -22,8 +22,8 @@ public class FindPatientTests extends BasicMirebalaisSmokeTest {
 		driver.get("http://bamboo.pih-emr.org:8080/mirebalais");
 
 		loginPage = new LoginPage(driver);
-		identificationSteps = new IdentificationSteps(driver, wait);
-		findPatient = new FindPatient(driver, wait);
+		identificationSteps = new IdentificationSteps(driver);
+		findPatient = new FindPatient(driver);
     }
 
 	@Test

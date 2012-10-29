@@ -7,26 +7,19 @@ import org.apache.commons.lang.SystemUtils;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class BasicMirebalaisSmokeTest {
-
-
 
 	private static String DEFAULT_SERVER_URL = "http://bamboo.pih-emr.org:8080/mirebalais";
 
 	protected static ChromeDriver driver;
-    protected static Wait<WebDriver> wait;
 
     @BeforeClass
     public static void startWebDriver() {
         setupChromeDriver();
     	driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(2000, TimeUnit.MILLISECONDS);
-    	wait = new WebDriverWait(driver, 30);
     	driver.get(DEFAULT_SERVER_URL);
     }
 

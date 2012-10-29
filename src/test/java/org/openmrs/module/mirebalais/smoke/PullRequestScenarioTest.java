@@ -19,7 +19,6 @@ public class PullRequestScenarioTest extends BasicMirebalaisSmokeTest {
 	private Registration registration;
 	private PatientDashboard patientDashboard;
 	private ArchivesRoom archivesRoom;
-
 	
 	private String patientName;
 	private String patientIdentifier;
@@ -28,10 +27,10 @@ public class PullRequestScenarioTest extends BasicMirebalaisSmokeTest {
 	@Override
     public void specificSetUp() {
 		loginPage = new LoginPage(driver);
-		identificationSteps = new IdentificationSteps(driver, wait);
-		registration = new Registration(driver, wait);
-		patientDashboard = new PatientDashboard(driver, wait);
-		checkIn = new CheckIn(driver, wait);
+		identificationSteps = new IdentificationSteps(driver);
+		registration = new Registration(driver);
+		patientDashboard = new PatientDashboard(driver);
+		checkIn = new CheckIn(driver);
 		archivesRoom = new ArchivesRoom(driver);
 	}
 
@@ -43,8 +42,8 @@ public class PullRequestScenarioTest extends BasicMirebalaisSmokeTest {
 		registration.goThruRegistrationProcessWithoutPrintingCard();
 		patientIdentifier = patientDashboard.getIdentifier();
 		patientName = patientDashboard.getName();
+		patientDashboard.generateDossieNumber();
 		checkIn.setLocationAndChooseCheckInTask(patientIdentifier, patientName);
-		System.out.println(patientIdentifier + "  " + patientName);
 		archivesRoom.openArchivesRoomApp();
 		
 		assertTrue(driver.findElement(By.className("dataTable")).getText().contains(patientName));
