@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.CleanUpTests;
 import org.openmrs.module.mirebalais.smoke.pageobjects.IdentificationSteps;
@@ -19,6 +20,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriverException;
 
 
+@Ignore
 public class PhoneticSearchTests extends BasicMirebalaisSmokeTest {
 
     private static LoginPage loginPage;
@@ -53,7 +55,7 @@ public class PhoneticSearchTests extends BasicMirebalaisSmokeTest {
     
     @Test
     public void doesNotFindAMatch() {
-    	registration.registerSpecificGuy("June", "Marken");
+    	registration.registerSpecificGuy("June", "Mark");
     	registration.openSimilarityWindow("Jayne", "Marconi");
 
     	assertTrue(driver.findElement(By.id("confirmExistingPatientModalDiv")).getText().contains("Jayne Marconi"));
@@ -74,6 +76,7 @@ public class PhoneticSearchTests extends BasicMirebalaisSmokeTest {
     public static void deleteData() throws SQLException {
         CleanUpTests cleanUpTests = new CleanUpTests();
         cleanUpTests.deletePatientsWithNameAs("June","Marken");
+        cleanUpTests.deletePatientsWithNameAs("June","Mark");
         cleanUpTests.deletePatientsWithNameAs("Jayne","Marconi");
 		cleanUpTests.closeConnection();
 		stopWebDriver();
