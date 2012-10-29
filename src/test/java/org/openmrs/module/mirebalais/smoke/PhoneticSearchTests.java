@@ -1,7 +1,6 @@
 package org.openmrs.module.mirebalais.smoke;
 
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.SQLException;
@@ -51,15 +50,6 @@ public class PhoneticSearchTests extends BasicMirebalaisSmokeTest {
     }
     
     
-    @Test
-    public void doesNotFindAMatch() {
-    	registration.registerSpecificGuy("June", "Marken");
-    	registration.openSimilarityWindow("Jayne", "Marconi");
-
-    	assertTrue(driver.findElement(By.id("confirmExistingPatientModalDiv")).getText().contains("Jayne Marconi"));
-    	assertFalse(driver.findElement(By.className("confirmExistingPatientModalList")).getText().contains("June Marken"));
-    }
-
     @After
     public void tearDown(){
         try{
@@ -74,11 +64,10 @@ public class PhoneticSearchTests extends BasicMirebalaisSmokeTest {
     public static void deleteData() throws SQLException {
         CleanUpTests cleanUpTests = new CleanUpTests();
         cleanUpTests.deletePatientsWithNameAs("June","Marken");
+        cleanUpTests.deletePatientsWithNameAs("June","Mark");
         cleanUpTests.deletePatientsWithNameAs("Jayne","Marconi");
 		cleanUpTests.closeConnection();
 		stopWebDriver();
     }
-
-    
      
 }
