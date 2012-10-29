@@ -1,7 +1,6 @@
 package org.openmrs.module.mirebalais.smoke;
 
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.SQLException;
@@ -19,7 +18,6 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriverException;
 
-
 @Ignore
 public class PhoneticSearchTests extends BasicMirebalaisSmokeTest {
 
@@ -28,15 +26,14 @@ public class PhoneticSearchTests extends BasicMirebalaisSmokeTest {
     private Registration registration;
     
     public void specificSetUp() {
-		
-		registration = new Registration(driver, wait);
+		registration = new Registration(driver);
     }
 
 
     @BeforeClass
     public static void setUpEnvironment() {
     	loginPage = new LoginPage(driver);
-		identificationSteps = new IdentificationSteps(driver, wait);
+		identificationSteps = new IdentificationSteps(driver);
 		
     	loginPage.logIn("admin", "Admin123");
     	identificationSteps.setLocationAndChooseRegisterTask();
@@ -53,15 +50,6 @@ public class PhoneticSearchTests extends BasicMirebalaisSmokeTest {
     }
     
     
-    @Test
-    public void doesNotFindAMatch() {
-    	registration.registerSpecificGuy("June", "Mark");
-    	registration.openSimilarityWindow("Jayne", "Marconi");
-
-    	assertTrue(driver.findElement(By.id("confirmExistingPatientModalDiv")).getText().contains("Jayne Marconi"));
-    	assertFalse(driver.findElement(By.className("confirmExistingPatientModalList")).getText().contains("June Marken"));
-    }
-
     @After
     public void tearDown(){
         try{
@@ -81,7 +69,5 @@ public class PhoneticSearchTests extends BasicMirebalaisSmokeTest {
 		cleanUpTests.closeConnection();
 		stopWebDriver();
     }
-
-    
      
 }

@@ -4,14 +4,17 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Registration extends AbstractPageObject {
 
     private static final String[] FIRST_NAMES = {"Alexandre", "Cosmin", "Darius", "Ellen", "Émerson", "Evan", "Fernando", "Mário", "Mark", "Neil", "Renee"};
 	private static final String[] LAST_NAMES = {"Barbosa", "Ioan", "Jazayeri", "Ball", "Hernandez", "Waters", "Freire", "Areias", "Goodrich", "Craven", "Orser"}; 
+	private Wait<WebDriver> wait;
 	
-	public Registration(WebDriver driver, Wait<WebDriver> wait) {
-        super(driver, wait);
+	public Registration(WebDriver driver) {
+        super(driver);
+        wait = new WebDriverWait(driver, 5);
     }
 	
 	@Override
@@ -74,11 +77,6 @@ public class Registration extends AbstractPageObject {
 	}
 
 	private void clickOnSearchByNameButton() {
-		wait.until(new ExpectedCondition<Boolean>() {
-			public Boolean apply(WebDriver webDriver) {
-				return webDriver.findElement(By.id("searchByNameBtn")).isDisplayed();
-			}
-		});
 		driver.findElement(By.id("searchByNameBtn")).click();
 	}
 
@@ -139,12 +137,12 @@ public class Registration extends AbstractPageObject {
 	}
 
     protected void enterPhoneData() {
-        wait.until(new ExpectedCondition<Boolean>() {
-            public Boolean apply(WebDriver webDriver) {
-                return webDriver.findElement(By.id("patientInputPhoneNumber")).isDisplayed();
-            }
-        });
-        driver.findElement(By.id("patientInputPhoneNumber")).sendKeys("11111111");
+		wait.until(new ExpectedCondition<Boolean>() {
+			public Boolean apply(WebDriver webDriver) {
+				return webDriver.findElement(By.id("patientInputPhoneNumber")).isDisplayed();
+			}
+		});
+		driver.findElement(By.id("patientInputPhoneNumber")).sendKeys("11111111");
         clickNext();
     }
 
@@ -154,11 +152,6 @@ public class Registration extends AbstractPageObject {
     }
 
     private void clickCheckMark() {
-		wait.until(new ExpectedCondition<Boolean>() {
-			public Boolean apply(WebDriver webDriver) {
-				return webDriver.findElement(By.id("checkmark-yellow")).isDisplayed();
-			}
-		});
 		driver.findElement(By.id("checkmark-yellow")).click();
 	}
 

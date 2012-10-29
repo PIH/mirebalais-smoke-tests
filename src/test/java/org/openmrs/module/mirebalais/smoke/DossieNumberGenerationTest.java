@@ -19,9 +19,9 @@ public class DossieNumberGenerationTest extends BasicMirebalaisSmokeTest {
 	@Override
     public void specificSetUp() {
 		loginPage = new LoginPage(driver);
-		identificationSteps = new IdentificationSteps(driver, wait);
-		registration = new Registration(driver, wait);
-		patientDashboard = new PatientDashboard(driver, wait);
+		identificationSteps = new IdentificationSteps(driver);
+		registration = new Registration(driver);
+		patientDashboard = new PatientDashboard(driver);
 	}
 
 	
