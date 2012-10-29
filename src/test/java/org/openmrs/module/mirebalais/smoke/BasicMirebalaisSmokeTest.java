@@ -50,6 +50,8 @@ public abstract class BasicMirebalaisSmokeTest {
             resource = classLoader.getResource("chromedriver/mac/chromedriver");
         } else if(SystemUtils.IS_OS_LINUX) {
             resource = classLoader.getResource("chromedriver/linux/chromedriver");
+        } else if(SystemUtils.IS_OS_WINDOWS) {
+            resource = classLoader.getResource("chromedriver/windows/chromedriver.exe");
         }
         System.setProperty("webdriver.chrome.driver", resource.getPath());
 
