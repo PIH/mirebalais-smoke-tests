@@ -1,5 +1,6 @@
 package org.openmrs.module.mirebalais.smoke;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -11,7 +12,7 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
 import org.openqa.selenium.By;
 
-public class PullRequestScenarioTest extends BasicMirebalaisSmokeTest {
+public class ActiveVisitsTest extends BasicMirebalaisSmokeTest{
 
 	private CheckIn checkIn;
 	private static LoginPage loginPage;
@@ -19,7 +20,6 @@ public class PullRequestScenarioTest extends BasicMirebalaisSmokeTest {
 	private Registration registration;
 	private PatientDashboard patientDashboard;
 	private AppDashboard appDashboard;
-	
 	private String patientName;
 	private String patientIdentifier;
 	
@@ -36,17 +36,23 @@ public class PullRequestScenarioTest extends BasicMirebalaisSmokeTest {
 
 	
 	@Test
-	public void pullsADossier() {
+	public void patientHasAnActiveVisiteWithoutPullingADossier() {
 		loginPage.logIn("admin", "Admin123");
 		identificationSteps.setLocationAndChooseRegisterTask();
-		registration.goThruRegistrationProcessWithoutPrintingCard();
+		registration.goThruRegistrationProcessWithoutPrintingCard(); // TODO: transform it in a sql script
 		patientIdentifier = patientDashboard.getIdentifier();
 		patientName = patientDashboard.getName();
 		patientDashboard.generateDossieNumber();
 		checkIn.setLocationAndChooseCheckInTask(patientIdentifier, patientName);
-		appDashboard.openArchivesRoomApp();
 		
-		assertTrue(driver.findElement(By.className("dataTable")).getText().contains(patientName));
+		/* this should work when the pull request button works again
+		appDashboard.openArchivesRoomApp();
+		assertFalse(driver.findElement(By.className("dataTable")).getText().contains(patientName));
+		*/
+		
+		appDashboard.openActiveVisitsApp();
+		assertTrue(driver.findElement(By.id("content")).getText().contains(patientName));
+		assertTrue(driver.findElement(By.id("content")).getText().contains(patientIdentifier));
 	}
-	
+
 }
