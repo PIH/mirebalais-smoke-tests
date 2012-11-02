@@ -38,6 +38,7 @@ public class ActiveVisitsTest extends BasicMirebalaisSmokeTest{
 	@Test
 	public void patientHasAnActiveVisiteWithoutPullingADossier() {
 		loginPage.logIn("admin", "Admin123");
+		appDashboard.openPatientRegistrationApp();
 		identificationSteps.setLocationAndChooseRegisterTask();
 		registration.goThruRegistrationProcessWithoutPrintingCard(); // TODO: transform it in a sql script
 		patientIdentifier = patientDashboard.getIdentifier();

@@ -2,6 +2,7 @@ package org.openmrs.module.mirebalais.smoke;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.CheckIn;
@@ -26,7 +27,6 @@ public class PullRequestScenarioTest extends BasicMirebalaisSmokeTest {
 	
 	@Override
     public void specificSetUp() {
-		loginPage = new LoginPage(driver);
 		identificationSteps = new IdentificationSteps(driver);
 		registration = new Registration(driver);
 		patientDashboard = new PatientDashboard(driver);
@@ -34,10 +34,15 @@ public class PullRequestScenarioTest extends BasicMirebalaisSmokeTest {
 		appDashboard = new AppDashboard(driver);
 	}
 
+	@BeforeClass
+    public static void setUpEnvironment() {
+    	loginPage = new LoginPage(driver);
+    	loginPage.logIn("admin", "Admin123");
+    }
 	
 	@Test
 	public void pullsADossier() {
-		loginPage.logIn("admin", "Admin123");
+		appDashboard.openPatientRegistrationApp();
 		identificationSteps.setLocationAndChooseRegisterTask();
 		registration.goThruRegistrationProcessWithoutPrintingCard();
 		patientIdentifier = patientDashboard.getIdentifier();
@@ -49,4 +54,20 @@ public class PullRequestScenarioTest extends BasicMirebalaisSmokeTest {
 		assertTrue(driver.findElement(By.className("dataTable")).getText().contains(patientName));
 	}
 	
+	@Test
+	public void createsARecord() {
+		appDashboard.openPatientRegistrationApp();
+		identificationSteps.setLocationAndChooseRegisterTask();
+		registration.goThruRegistrationProcessWithoutPrintingCard();
+		patientIdentifier = patientDashboard.getIdentifier();
+		patientName = patientDashboard.getName();
+		checkIn.setLocationAndChooseCheckInTask(patientIdentifier, patientName);
+		appDashboard.openArchivesRoomApp();
+		
+		// TODO: extract it!
+		driver.findElement(By.linkText("Create Record Requests")).click();
+		
+		assertTrue(driver.findElement(By.id("create_requests_table")).getText().contains(patientName));
+		assertTrue(driver.findElement(By.id("create_requests_table")).getText().contains(patientIdentifier));
+	}
 }

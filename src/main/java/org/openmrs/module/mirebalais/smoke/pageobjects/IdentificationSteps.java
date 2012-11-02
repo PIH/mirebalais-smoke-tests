@@ -11,7 +11,6 @@ public class IdentificationSteps extends AbstractPageObject {
 	}
 	
 	public void setLocationAndChooseRegisterTask() {
-		driver.findElement(By.linkText("Patient Registration")).click();
 		driver.findElement(By.xpath("//div[@id='locationDiv']/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[3]/td")).click();
 		driver.findElement(By.cssSelector("td.taskListItem")).click();
 	}

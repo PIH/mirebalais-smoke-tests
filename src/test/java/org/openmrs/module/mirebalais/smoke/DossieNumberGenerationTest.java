@@ -3,6 +3,7 @@ package org.openmrs.module.mirebalais.smoke;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.IdentificationSteps;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
@@ -15,6 +16,7 @@ public class DossieNumberGenerationTest extends BasicMirebalaisSmokeTest {
 	private IdentificationSteps identificationSteps;
 	private Registration registration;
 	private PatientDashboard patientDashboard;
+	private AppDashboard appDashboard;
 
 	@Override
     public void specificSetUp() {
@@ -22,12 +24,14 @@ public class DossieNumberGenerationTest extends BasicMirebalaisSmokeTest {
 		identificationSteps = new IdentificationSteps(driver);
 		registration = new Registration(driver);
 		patientDashboard = new PatientDashboard(driver);
+		appDashboard = new AppDashboard(driver);
 	}
 
 	
 	@Test
 	public void createsTwoSequentialAndUniqueDossieNumbers() {
 		loginPage.logIn("admin", "Admin123");
+		appDashboard.openPatientRegistrationApp();
 		identificationSteps.setLocationAndChooseRegisterTask();
 		registration.goThruRegistrationProcessWithoutPrintingCard();
 		Integer dossieNumberOne = getDossieNumberWithoutLetters(patientDashboard.generateDossieNumber());

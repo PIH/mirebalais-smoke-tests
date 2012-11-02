@@ -2,8 +2,8 @@ package org.openmrs.module.mirebalais.smoke;
 
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Ignore;
 import org.junit.Test;
+import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.IdentificationSteps;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
@@ -19,28 +19,22 @@ public class RegistrationFlowTest extends BasicMirebalaisSmokeTest {
     private LoginPage loginPage;
     private IdentificationSteps identificationSteps;
     private Registration registration;
+    private AppDashboard appDashboard;
     
     @Override
     public void specificSetUp() {
 		loginPage = new LoginPage(driver);
 		identificationSteps = new IdentificationSteps(driver);
 		registration = new Registration(driver);
+		appDashboard = new AppDashboard(driver);
     }
 
     @Test
-    @Ignore
-    public void registerPatientWithoutPrintingCard() {
-    	loginPage.logIn("admin", "Admin123");
-    	identificationSteps.setLocationAndChooseRegisterTask();
-    	registration.goThruRegistrationProcessWithoutPrintingCard();
-    	
-    	assertTrue(driver.findElement(By.tagName("body")).getText().contains("Patient dashboard"));
-    }
-    
-    @Test
     public void registerPatientdPrintingCard() {
     	loginPage.logIn("admin", "Admin123");
-    	identificationSteps.setLocationAndChooseRegisterTask();
+    	
+    	appDashboard.openPatientRegistrationApp();
+		identificationSteps.setLocationAndChooseRegisterTask();
     	registration.goThruRegistrationProcessPrintingCard();
 
     	Wait<WebDriver> wait = new WebDriverWait(driver, 2);
