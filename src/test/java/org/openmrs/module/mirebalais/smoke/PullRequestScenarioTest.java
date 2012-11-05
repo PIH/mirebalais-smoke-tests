@@ -1,5 +1,6 @@
 package org.openmrs.module.mirebalais.smoke;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.BeforeClass;
@@ -47,11 +48,14 @@ public class PullRequestScenarioTest extends BasicMirebalaisSmokeTest {
 		registration.goThruRegistrationProcessWithoutPrintingCard();
 		patientIdentifier = patientDashboard.getIdentifier();
 		patientName = patientDashboard.getName();
-		patientDashboard.generateDossieNumber();
+		String dossierNumber = patientDashboard.generateDossieNumber();
 		checkIn.setLocationAndChooseCheckInTask(patientIdentifier, patientName);
 		appDashboard.openArchivesRoomApp();
 		
-		assertTrue(driver.findElement(By.className("dataTable")).getText().contains(patientName));
+		//assertTrue(driver.findElement(By.className("dataTable")).getText().contains(patientName));
+		driver.findElement(By.id(dossierNumber)).click();
+		driver.findElement(By.id("pull_record_requests_button")).click();
+		assertFalse(driver.findElement(By.className("dataTable")).getText().contains(dossierNumber));
 	}
 	
 	@Test
