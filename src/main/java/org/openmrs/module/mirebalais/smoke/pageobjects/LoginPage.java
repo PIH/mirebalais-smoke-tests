@@ -12,13 +12,14 @@ public class LoginPage {
 	}
 	
 	public void logIn(String user, String password) {
-		driver.findElement(By.id("uname")).sendKeys(user);
-    	driver.findElement(By.name("pw")).sendKeys(password);
-    	driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
+		driver.findElement(By.id("username")).sendKeys(user);
+    	driver.findElement(By.id("password")).sendKeys(password);
+        driver.findElement(By.cssSelector("#sessionLocation option:first-child")).click();
+    	driver.findElement(By.id("login-button")).click();
 	}
 
 	public void logOut() {
-		driver.findElement(By.linkText("Log Out")).click();
+		driver.findElement(By.id("logout-button")).click();
 	}
 	
 }
