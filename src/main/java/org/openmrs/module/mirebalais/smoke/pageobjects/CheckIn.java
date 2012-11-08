@@ -23,7 +23,6 @@ public class CheckIn extends AbstractPageObject {
 	public void setLocationAndChooseCheckInTask(String identifier, final String patientName) {
 		driver.get("http://bamboo.pih-emr.org:8080/mirebalais");
 		driver.findElement(By.linkText("Patient Registration")).click();
-		driver.findElement(By.xpath("//div[@id='locationDiv']/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[3]/td")).click();
 		driver.findElement(By.xpath("//*[@id='taskDiv']/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[2]/td[1]")).click();
 		
 		driver.findElement(By.id("patientIdentifier")).sendKeys(identifier);
