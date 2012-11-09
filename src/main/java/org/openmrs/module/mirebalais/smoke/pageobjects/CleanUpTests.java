@@ -10,10 +10,12 @@ public class CleanUpTests {
 
     private Connection connection;
 
+    private SmokeTestProperties properties = new SmokeTestProperties();
+
     public CleanUpTests() {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            String url = "jdbc:mysql://bamboo.pih-emr.org:3306/openmrs";
+            String url = properties.getDatabaseUrl();
             connection = DriverManager.getConnection(url, "openmrs_editor", "dr0pper");
         } catch (Exception e) {
             e.printStackTrace();

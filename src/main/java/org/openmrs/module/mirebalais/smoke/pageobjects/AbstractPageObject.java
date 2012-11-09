@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 
 public abstract class AbstractPageObject {
 
-    private static String DEFAULT_SERVER_URL = "http://bamboo.pih-emr.org:8080/mirebalais/";
+    protected SmokeTestProperties properties = new SmokeTestProperties();
 
     protected WebDriver driver;
     private String baseServerUrl;
@@ -30,7 +30,7 @@ public abstract class AbstractPageObject {
 
     private void setBaseServerUrl() {
         String serverUrl = System.getProperty("baseServerUrl");
-        this.baseServerUrl = (serverUrl == null || serverUrl.isEmpty() ? DEFAULT_SERVER_URL : serverUrl);
+        this.baseServerUrl = (serverUrl == null || serverUrl.isEmpty() ? properties.getWebAppUrl() : serverUrl);
     }
     
     public void clickNext() {

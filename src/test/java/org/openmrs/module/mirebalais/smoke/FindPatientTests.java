@@ -1,13 +1,13 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import static org.junit.Assert.fail;
-
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.FindPatient;
 import org.openmrs.module.mirebalais.smoke.pageobjects.IdentificationSteps;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
+
+import static org.junit.Assert.fail;
 
 @Ignore
 public class FindPatientTests extends BasicMirebalaisSmokeTest {
@@ -19,7 +19,7 @@ public class FindPatientTests extends BasicMirebalaisSmokeTest {
 
     @Override
     protected void specificSetUp() {
-		driver.get("http://bamboo.pih-emr.org:8080/mirebalais");
+		driver.get(properties.getWebAppUrl());
 
 		loginPage = new LoginPage(driver);
 		identificationSteps = new IdentificationSteps(driver);

@@ -20,7 +20,7 @@ import org.openqa.selenium.WebDriver;
 public class AppDashboard extends AbstractPageObject {
 
 	public void openActiveVisitsApp() {
-		driver.get("http://bamboo.pih-emr.org:8080/mirebalais");
+		driver.get(properties.getWebAppUrl());
 		driver.findElement(By.linkText("Active Visits")).click();
 	}
 	
@@ -29,12 +29,12 @@ public class AppDashboard extends AbstractPageObject {
 	}
 
 	public void openArchivesRoomApp() {
-		driver.get("http://bamboo.pih-emr.org:8080/mirebalais");
+		driver.get(properties.getWebAppUrl());
 		driver.findElement(By.linkText("Archives Room")).click();
 	}
 
 	public void openPatientRegistrationApp() {
-		driver.get("http://bamboo.pih-emr.org:8080/mirebalais");
+		driver.get(properties.getWebAppUrl());
 		driver.findElement(By.linkText("Patient Registration")).click();
 	}
 

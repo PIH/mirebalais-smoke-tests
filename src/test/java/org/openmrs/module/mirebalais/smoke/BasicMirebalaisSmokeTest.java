@@ -1,17 +1,18 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import java.net.URL;
-import java.util.concurrent.TimeUnit;
-
 import org.apache.commons.lang.SystemUtils;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.openmrs.module.mirebalais.smoke.pageobjects.SmokeTestProperties;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 public abstract class BasicMirebalaisSmokeTest {
 
-	private static String DEFAULT_SERVER_URL = "http://bamboo.pih-emr.org:8080/mirebalais";
+    protected SmokeTestProperties properties = new SmokeTestProperties();
 
 	protected static ChromeDriver driver;
 
@@ -20,7 +21,7 @@ public abstract class BasicMirebalaisSmokeTest {
         setupChromeDriver();
     	driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(2000, TimeUnit.MILLISECONDS);
-    	driver.get(DEFAULT_SERVER_URL);
+    	driver.get(new SmokeTestProperties().getWebAppUrl());
     }
 
 	@Before

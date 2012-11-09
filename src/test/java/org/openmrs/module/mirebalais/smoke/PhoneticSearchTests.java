@@ -1,10 +1,6 @@
 package org.openmrs.module.mirebalais.smoke;
 
 
-import static org.junit.Assert.assertTrue;
-
-import java.sql.SQLException;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -17,6 +13,10 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriverException;
+
+import java.sql.SQLException;
+
+import static org.junit.Assert.assertTrue;
 
 @Ignore
 public class PhoneticSearchTests extends BasicMirebalaisSmokeTest {
@@ -53,7 +53,7 @@ public class PhoneticSearchTests extends BasicMirebalaisSmokeTest {
     @After
     public void tearDown(){
         try{
-            driver.navigate().to("http://bamboo.pih-emr.org:8080/mirebalais/module/patientregistration/workflow/patientRegistrationTask.form");
+            driver.navigate().to(properties.getWebAppUrl() +  "/mirebalais/module/patientregistration/workflow/patientRegistrationTask.form");
         } catch (WebDriverException e) {
             Alert alert = driver.switchTo().alert();
             alert.accept();

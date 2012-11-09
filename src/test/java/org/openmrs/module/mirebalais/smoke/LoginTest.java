@@ -7,7 +7,6 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-
 import static org.junit.Assert.assertTrue;
 
 @Ignore
@@ -22,7 +21,7 @@ public class LoginTest extends BasicMirebalaisSmokeTest{
 
     @Override
     protected void specificSetUp() {
-		driver.get("http://bamboo.pih-emr.org:8080/mirebalais");
+		driver.get(properties.getWebAppUrl());
 
 		loginPage = new LoginPage(driver);
     }
