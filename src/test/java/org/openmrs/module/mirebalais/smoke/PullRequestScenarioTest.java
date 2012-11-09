@@ -60,11 +60,11 @@ public class PullRequestScenarioTest extends BasicMirebalaisSmokeTest {
 		driver.findElement(By.id("pull_record_requests_button")).click();
 
         // confirm that the record has been removed from the pull request list
-        assertFalse(driver.findElement(By.className("dataTable")).getText().contains(dossierNumber));
+        assertFalse(driver.findElement(By.id("pull_requests_table")).getText().contains(dossierNumber));
 
         // switch to the assigned pull request tab and make sure that the request is there
         driver.findElement(By.id("tab-selector-assignedpullrequest")).click();
-        assertTrue(driver.findElement(By.className("dataTable")).getText().contains(dossierNumber));
+        assertTrue(driver.findElement(By.id("assigned_pull_requests_table")).getText().contains(dossierNumber));
 	}
 	
 	@Test
