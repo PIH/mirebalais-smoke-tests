@@ -15,8 +15,7 @@ public class CleanUpTests {
     public CleanUpTests() {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            String url = properties.getDatabaseUrl();
-            connection = DriverManager.getConnection(url, "openmrs_editor", "dr0pper");
+            connection = DriverManager.getConnection(properties.getDatabaseUrl(), properties.getDatabaseUsername(), properties.getDatabasePassword());
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -20,6 +20,14 @@ public class SmokeTestProperties {
         return properties.getProperty("database.url", "jdbc:mysql://bamboo.pih-emr.org:3306/openmrs");
     }
 
+    public String getDatabaseUsername() {
+        return properties.getProperty("database.username", "");
+    }
+
+    public String getDatabasePassword() {
+        return properties.getProperty("database.password", "");
+    }
+
     private Properties load() {
         try {
             properties.load(getClass().getResourceAsStream("/org/openmrs/module/mirebalais/smoke/smoketest.properties"));
