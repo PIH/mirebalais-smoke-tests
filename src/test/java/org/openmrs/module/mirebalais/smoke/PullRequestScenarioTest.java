@@ -1,8 +1,5 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
@@ -12,6 +9,9 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
 import org.openqa.selenium.By;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class PullRequestScenarioTest extends BasicMirebalaisSmokeTest {
 
@@ -51,7 +51,10 @@ public class PullRequestScenarioTest extends BasicMirebalaisSmokeTest {
 		String dossierNumber = patientDashboard.generateDossieNumber();
 		checkIn.setLocationAndChooseCheckInTask(patientIdentifier, patientName);
 		appDashboard.openArchivesRoomApp();
-		
+
+        // select the pull request tab
+        driver.findElement(By.id("tab-selector-pullrequest")).click();
+
 		//assertTrue(driver.findElement(By.className("dataTable")).getText().contains(patientName));
 		driver.findElement(By.id(dossierNumber)).click();
 		driver.findElement(By.id("pull_record_requests_button")).click();
@@ -67,9 +70,8 @@ public class PullRequestScenarioTest extends BasicMirebalaisSmokeTest {
 		patientName = patientDashboard.getName();
 		checkIn.setLocationAndChooseCheckInTask(patientIdentifier, patientName);
 		appDashboard.openArchivesRoomApp();
-		
-		// TODO: extract it!
-		driver.findElement(By.linkText("Create Record Requests")).click();
+
+		driver.findElement(By.id("tab-selector-createrequest")).click();
 		
 		assertTrue(driver.findElement(By.id("create_requests_table")).getText().contains(patientName));
 		assertTrue(driver.findElement(By.id("create_requests_table")).getText().contains(patientIdentifier));
