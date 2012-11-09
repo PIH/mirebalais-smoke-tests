@@ -13,7 +13,7 @@ public class SmokeTestProperties {
     }
 
     public String getWebAppUrl() {
-        return properties.getProperty("webapp.url", "http://localhost:8080/openmrs");
+        return properties.getProperty("webapp.url", "http://bamboo.pih-emr.org/openmrs");
     }
 
     public String getDatabaseUrl() {

@@ -13,7 +13,7 @@ public class EmergencyCheckin extends AbstractPageObject {
 
     @Override
     public void initialize() {
-        gotoPage("module/patientregistration/workflow/selectLocationAndService.form");
+        gotoPage("/module/patientregistration/workflow/selectLocationAndService.form");
         driver.findElement(By.xpath("//*[@id='taskDiv']/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[4]/td[1]")).click();
         registration = new Registration(driver);
     }
