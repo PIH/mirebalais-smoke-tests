@@ -23,6 +23,7 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
 import org.openqa.selenium.By;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class ActiveVisitsTest extends BasicMirebalaisSmokeTest{
@@ -57,12 +58,11 @@ public class ActiveVisitsTest extends BasicMirebalaisSmokeTest{
 		patientIdentifier = patientDashboard.getIdentifier();
 		patientName = patientDashboard.getName();
 		patientDashboard.generateDossieNumber();
-		checkIn.setLocationAndChooseCheckInTask(patientIdentifier, patientName);
 		
-		/* this should work when the pull request button works again
-		appDashboard.openArchivesRoomApp();
-		assertFalse(driver.findElement(By.className("dataTable")).getText().contains(patientName));
-		*/
+		appDashboard.openActiveVisitsApp();
+		assertFalse(driver.findElement(By.id("content")).getText().contains(patientIdentifier));
+    	
+		checkIn.setLocationAndChooseCheckInTask(patientIdentifier, patientName);
 		
 		appDashboard.openActiveVisitsApp();
 		assertTrue(driver.findElement(By.id("content")).getText().contains(patientName));

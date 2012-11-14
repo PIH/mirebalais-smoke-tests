@@ -1,5 +1,6 @@
 package org.openmrs.module.mirebalais.smoke;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -35,7 +36,7 @@ public class RegistrationFlowTest extends BasicMirebalaisSmokeTest {
     	
     	appDashboard.openPatientRegistrationApp();
 		identificationSteps.setLocationAndChooseRegisterTask();
-    	registration.goThruRegistrationProcessPrintingCard();
+    	String name = registration.goThruRegistrationProcessPrintingCard();
 
     	Wait<WebDriver> wait = new WebDriverWait(driver, 2);
     	wait.until(new ExpectedCondition<Boolean>() {

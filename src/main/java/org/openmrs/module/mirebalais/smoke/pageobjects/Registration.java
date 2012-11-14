@@ -28,9 +28,10 @@ public class Registration extends AbstractPageObject {
         chooseNotToPrintIdCard();
     }
 	
-	public void goThruRegistrationProcessPrintingCard() {
-		registerPatient();
+	public String goThruRegistrationProcessPrintingCard() {
+		String name = registerPatient();
         chooseToPrintIdCard();
+        return name;
     }
 
     public void registerSpecificGuy(String firstName, String lastName) {
@@ -65,23 +66,25 @@ public class Registration extends AbstractPageObject {
 		});
 	}
 	
-	private void registerPatient() {
+	private String registerPatient() {
 		clickOnSearchByNameButton();
-		enterFirstAndLastName();
+		String name = enterFirstAndLastName();
 		enterSexData();
 		enterDateOfBirthData();
 		enterAddressLandmarkData();
 		enterPatientLocality();
 		enterPhoneData();
 		confirmData();
+		return name;
 	}
 
 	private void clickOnSearchByNameButton() {
 		driver.findElement(By.id("searchByNameBtn")).click();
 	}
 
-    private void enterFirstAndLastName() {
+    private String enterFirstAndLastName() {
 		enterFirstAndLastName(getFirstName(), getLastName());
+		return new String(getFirstName() + " " + getLastName());
 	}
 
 	public String getFirstName() {

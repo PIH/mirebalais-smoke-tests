@@ -38,6 +38,7 @@ public class AppDashboard extends AbstractPageObject {
 		driver.findElement(By.linkText("Patient Registration")).click();
 	}
 
+	
 	@Override
 	public void initialize() {
 		// TODO Auto-generated method stub
