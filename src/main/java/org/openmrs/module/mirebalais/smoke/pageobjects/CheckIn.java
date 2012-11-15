@@ -68,13 +68,13 @@ public class CheckIn extends AbstractPageObject {
         driver.findElement(By.id(visitReasonElementId)).click();
     }
     
-    public static final String MEDICAL_CERTIFICATE = "visitReasonStatus121";
-    public static final String STANDART_DENTAL_VISIT = "visitReasonStatus243";
-    public static final String MARRIAGE_CERTIFICATE = "visitReasonStatus135";
-    public static final String STANDART_OUTPATIENT = "visitReasonStatus242";
+    public static final String MEDICAL_CERTIFICATE = "visitReasonStatus1";
+    public static final String STANDART_DENTAL_VISIT = "visitReasonStatus2";
+    public static final String MARRIAGE_CERTIFICATE = "visitReasonStatus3";
+    public static final String STANDART_OUTPATIENT = "visitReasonStatus4";
     
-    public static final String PAYMENT_0 = "paymentAmountStatus0";
-    public static final String PAYMENT_50 = "paymentAmountStatus50";
-    public static final String PAYMENT_100 = "paymentAmountStatus100";
+    public static final String PAYMENT_0 = "paymentAmountStatus3";
+    public static final String PAYMENT_50 = "paymentAmountStatus1";
+    public static final String PAYMENT_100 = "paymentAmountStatus2";
     
 }
