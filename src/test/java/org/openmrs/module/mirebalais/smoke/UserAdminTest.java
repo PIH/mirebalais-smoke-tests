@@ -24,9 +24,14 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     public void registerPatientdPrintingCard() {
 		loginPage.logIn("admin", "Admin123");
     	appDashboard.openSysAdminApp();
-    	userAdmin.createAccount("xxx", "yyy", "zzz", "Teste123");
+    	userAdmin.createAccount("xxx", "yyy", createUser(), "Teste123");
     	
     	assertTrue(userAdmin.isAccountCreatedSuccesfully());
 	}
+    
+    //TODO: atualizar para apagar o usuário criado
+    private String createUser() {
+    	return new String("user" + System.currentTimeMillis());
+    }
 
 }
