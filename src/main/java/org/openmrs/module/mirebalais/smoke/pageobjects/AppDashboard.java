@@ -38,6 +38,10 @@ public class AppDashboard extends AbstractPageObject {
 		driver.findElement(By.linkText("Patient Registration")).click();
 	}
 
+	public void openSysAdminApp() {
+		driver.get(properties.getWebAppUrl());
+		driver.findElement(By.linkText("System Administration")).click();
+	}
 	
 	@Override
 	public void initialize() {
