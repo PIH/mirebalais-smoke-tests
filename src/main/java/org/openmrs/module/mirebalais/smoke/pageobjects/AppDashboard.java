@@ -43,9 +43,23 @@ public class AppDashboard extends AbstractPageObject {
 		driver.findElement(By.linkText("System Administration")).click();
 	}
 	
-	@Override
-	public void initialize() {
-		// TODO Auto-generated method stub
-		
+	public boolean isPatientRegistrationAppPresented() {
+		return driver.findElement(By.id("apps")).getText().contains("Patient Registration");
+	}
+	
+	public boolean isArchivesRoomAppPresented() {
+		return driver.findElement(By.id("apps")).getText().contains("Archives Room");
+	}
+	
+	public boolean isSystemAdministrationAppPresented() {
+		return driver.findElement(By.id("apps")).getText().contains("System Administration");
+	}
+	
+	public boolean isFindAPatientAppPresented() {
+		return driver.findElement(By.id("apps")).getText().contains("Find a Patient");
+	}
+	
+	public boolean isActiveVisitsAppPresented() {
+		return driver.findElement(By.id("apps")).getText().contains("Active Visits");
 	}
 }

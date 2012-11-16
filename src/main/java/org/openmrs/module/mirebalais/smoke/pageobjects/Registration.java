@@ -17,11 +17,7 @@ public class Registration extends AbstractPageObject {
         wait = new WebDriverWait(driver, 5);
     }
 	
-	@Override
-	public void initialize() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 	
 	public void goThruRegistrationProcessWithoutPrintingCard() {
 		registerPatient();

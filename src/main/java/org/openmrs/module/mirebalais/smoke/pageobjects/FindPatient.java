@@ -16,9 +16,5 @@ public class FindPatient extends AbstractPageObject{
 		driver.findElement(By.linkText(name)).click();
 	}
 
-	@Override
-	public void initialize() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 }

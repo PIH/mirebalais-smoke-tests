@@ -22,7 +22,6 @@ public class EmergencyCheckinTest extends BasicMirebalaisSmokeTest {
     @Override
     protected void specificSetUp() {
         emergencyCheckinPO = new EmergencyCheckin(driver);
-        emergencyCheckinPO.initialize();
         patientDashboard = new PatientDashboard(driver);
     }
 

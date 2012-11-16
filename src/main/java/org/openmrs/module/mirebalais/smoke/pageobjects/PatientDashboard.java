@@ -29,9 +29,5 @@ public class PatientDashboard extends AbstractPageObject{
 		return driver.findElement(By.xpath("//*[@id='overviewTable']/tbody/tr/td[1]/table/tbody/tr[4]/td[1]")).getText();
 	}
 
-	@Override
-	public void initialize() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 }

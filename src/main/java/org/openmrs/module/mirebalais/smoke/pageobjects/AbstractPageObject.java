@@ -17,8 +17,6 @@ public abstract class AbstractPageObject {
         setBaseServerUrl();
     }
 
-    public abstract void initialize();
-
     protected void gotoPage(String addressSufix) {
         driver.get(baseServerUrl + addressSufix);
     }

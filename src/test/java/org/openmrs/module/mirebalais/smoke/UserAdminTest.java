@@ -1,5 +1,6 @@
 package org.openmrs.module.mirebalais.smoke;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -21,12 +22,24 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     }
 
     @Test
-    public void registerPatientdPrintingCard() {
+    public void registerPatientdPrintingCard() throws InterruptedException {
+    	String username = createUser();
+    	String password = "Teste123";
+    	
 		loginPage.logIn("admin", "Admin123");
     	appDashboard.openSysAdminApp();
-    	userAdmin.createAccount("xxx", "yyy", createUser(), "Teste123");
+    	userAdmin.createClinicalAccount("Test", "User", username, password);
     	
     	assertTrue(userAdmin.isAccountCreatedSuccesfully());
+    	
+    	loginPage.logOut();
+    	loginPage.logIn(username, password);
+    	
+    	assertTrue(appDashboard.isActiveVisitsAppPresented());
+    	assertTrue(appDashboard.isFindAPatientAppPresented());
+    	assertFalse(appDashboard.isSystemAdministrationAppPresented());
+    	assertFalse(appDashboard.isPatientRegistrationAppPresented());
+    	assertFalse(appDashboard.isArchivesRoomAppPresented());
 	}
     
     //TODO: atualizar para apagar o usuário criado

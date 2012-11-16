@@ -12,13 +12,23 @@ public class UserAdmin extends AbstractPageObject {
 		super(driver);
 	}
 
+	public boolean isAccountCreatedSuccesfully() {
+		return driver.findElement(By.id("info-message")).getText().contains("Saved account successfully");
+	}
+	
+	public void createClinicalAccount(String firstName, String lastName, String username, String password) {
+		createAccount(firstName, lastName, username, password);
+		chooseClinicalRole();
+	    clickOnSave();
+	}
 
-	public void createAccount(String firstName, String lastName, String username, String password) {
+	private void fillBasicInfo(String firstName, String lastName) {
 		driver.findElement(By.linkText("Create Account")).click();
 		driver.findElement(By.name("givenName")).sendKeys(firstName);
 		driver.findElement(By.name("familyName")).sendKeys(lastName);
-		
-		// clicar em user account details
+	}
+	
+	private void fillUserAccountDetails(String username, String password) {
 		driver.findElement(By.xpath("/html/body/div/div[2]/form/fieldset[2]/div[2]/input")).click();
 		
 		driver.findElement(By.name("username")).sendKeys(username);
@@ -31,21 +41,19 @@ public class UserAdmin extends AbstractPageObject {
 	        if("Privilege Level: Full".equals(option.getText()))
 	            option.click();
 	    }
-	    
-	    driver.findElement(By.xpath("//*[@id='capabilities']")).click();
-
-	    // clicar em save button
-	    driver.findElement(By.xpath("/html/body/div/div[2]/form/input[3]")).click();
-	}
-
-	public boolean isAccountCreatedSuccesfully() {
-		return driver.findElement(By.id("info-message")).getText().contains("Saved account successfully");
 	}
 	
-	@Override
-	public void initialize() {
-		// TODO Auto-generated method stub
-		
+	private void clickOnSave() {
+		driver.findElement(By.xpath("/html/body/div/div[2]/form/input[3]")).click();
 	}
-
+	
+	private void chooseClinicalRole() {
+		driver.findElement(By.xpath("//*[@id='capabilities']")).click();
+	}
+	
+	private void createAccount(String firstName, String lastName, String username, String password) {
+		fillBasicInfo(firstName, lastName);
+		fillUserAccountDetails(username, password);
+	}
+	
 }

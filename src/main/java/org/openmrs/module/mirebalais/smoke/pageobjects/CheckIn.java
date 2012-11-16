@@ -15,10 +15,7 @@ public class CheckIn extends AbstractPageObject {
 		wait = new WebDriverWait(driver,2);
 	}
 
-	@Override
-	public void initialize() {
-		// TODO Auto-generated method stub
-	}
+	
 	
 	public void setLocationAndChooseCheckInTask(String identifier, final String patientName) {
 		driver.get(properties.getWebAppUrl());

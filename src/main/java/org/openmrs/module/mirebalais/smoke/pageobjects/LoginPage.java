@@ -19,7 +19,7 @@ public class LoginPage {
 	}
 
 	public void logOut() {
-		driver.findElement(By.id("logout-button")).click();
+		driver.findElement(By.linkText("Logout")).click();
 	}
 	
 }
