@@ -19,7 +19,10 @@ import org.openqa.selenium.WebDriver;
 
 public class AppDashboard extends AbstractPageObject {
 
-	public void openActiveVisitsApp() {
+    public static final String PATIENT_REGISTRATION_AND_CHECK_IN = "Patient Registration and Check-In";
+    public static final String ARCHIVES = "Archives";
+
+    public void openActiveVisitsApp() {
 		driver.get(properties.getWebAppUrl());
 		driver.findElement(By.linkText("Active Visits")).click();
 	}
@@ -30,12 +33,12 @@ public class AppDashboard extends AbstractPageObject {
 
 	public void openArchivesRoomApp() {
 		driver.get(properties.getWebAppUrl());
-		driver.findElement(By.linkText("Archives Room")).click();
+		driver.findElement(By.linkText(ARCHIVES)).click();
 	}
 
 	public void openPatientRegistrationApp() {
 		driver.get(properties.getWebAppUrl());
-		driver.findElement(By.linkText("Patient Registration")).click();
+		driver.findElement(By.linkText(PATIENT_REGISTRATION_AND_CHECK_IN)).click();
 	}
 
 	public void openSysAdminApp() {
@@ -48,7 +51,7 @@ public class AppDashboard extends AbstractPageObject {
 	}
 	
 	public boolean isArchivesRoomAppPresented() {
-		return driver.findElement(By.id("apps")).getText().contains("Archives Room");
+		return driver.findElement(By.id("apps")).getText().contains(ARCHIVES);
 	}
 	
 	public boolean isSystemAdministrationAppPresented() {
