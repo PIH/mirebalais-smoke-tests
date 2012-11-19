@@ -21,9 +21,34 @@ public class UserAdmin extends AbstractPageObject {
 		chooseClinicalRole();
 	    clickOnSave();
 	}
+	
+	public void createRadiologyAccount(String firstName, String lastName, String username, String password) {
+		createAccount(firstName, lastName, username, password);
+		chooseRadiologyRole();
+	    clickOnSave();
+	}
 
+
+	public void createDataArchivesAccount(String firstName, String lastName, String username, String password) {
+		createAccount(firstName, lastName, username, password);
+		chooseDataArchivesRole();
+	    clickOnSave();
+	}
+	
+	public void createSysAdminAccount(String firstName, String lastName, String username, String password) {
+		createAccount(firstName, lastName, username, password);
+		chooseSysAdminRole();
+	    clickOnSave();
+	}
+	
+	private void createAccount(String firstName, String lastName, String username, String password) {
+		fillBasicInfo(firstName, lastName);
+		fillUserAccountDetails(username, password);
+	}
+	
 	private void fillBasicInfo(String firstName, String lastName) {
-		driver.findElement(By.linkText("Create Account")).click();
+		driver.findElement(By.linkText("Manage Accounts")).click();
+		driver.findElement(By.id("create-account-button")).click();
 		driver.findElement(By.name("givenName")).sendKeys(firstName);
 		driver.findElement(By.name("familyName")).sendKeys(lastName);
 	}
@@ -48,12 +73,21 @@ public class UserAdmin extends AbstractPageObject {
 	}
 	
 	private void chooseClinicalRole() {
-		driver.findElement(By.xpath("//*[@id='capabilities']")).click();
+		driver.findElement(By.id("clinical")).click();
 	}
 	
-	private void createAccount(String firstName, String lastName, String username, String password) {
-		fillBasicInfo(firstName, lastName);
-		fillUserAccountDetails(username, password);
+	private void chooseDataArchivesRole() {
+		driver.findElement(By.id("dataArchives")).click();
 	}
+	
+	private void chooseRadiologyRole() {
+		driver.findElement(By.id("radiology")).click();
+	}
+	
+	private void chooseSysAdminRole() {
+		driver.findElement(By.id("sysAdmin")).click();
+	}
+
+
 	
 }
