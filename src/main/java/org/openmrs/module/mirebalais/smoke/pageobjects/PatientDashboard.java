@@ -9,13 +9,6 @@ public class PatientDashboard extends AbstractPageObject{
 	public PatientDashboard(WebDriver driver) {
 		super(driver);
 	}
-	
-	public String generateDossieNumber() {
-		driver.findElement(By.id("generateDossierNumber")).click();
-		String result = driver.findElement(By.id("dossierNumber")).getText();
-		driver.findElement(By.id("checkmark-yellow")).click();
-		return result;
-	}
 
 	public String getIdentifier() {
 		return driver.findElement(By.xpath("//*[@id='overviewTable']/tbody/tr/td[2]/table/tbody/tr[2]/td[1]")).getText();
