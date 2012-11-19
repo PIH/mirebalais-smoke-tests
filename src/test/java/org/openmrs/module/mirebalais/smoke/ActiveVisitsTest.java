@@ -19,7 +19,7 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.CheckIn;
 import org.openmrs.module.mirebalais.smoke.pageobjects.IdentificationSteps;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
-import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
+import org.openmrs.module.mirebalais.smoke.pageobjects.PatientRegistrationDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
 import org.openqa.selenium.By;
 
@@ -32,7 +32,7 @@ public class ActiveVisitsTest extends BasicMirebalaisSmokeTest{
 	private static LoginPage loginPage;
 	private IdentificationSteps identificationSteps;
 	private Registration registration;
-	private PatientDashboard patientDashboard;
+	private PatientRegistrationDashboard patientDashboard;
 	private AppDashboard appDashboard;
 	private String patientName;
 	private String patientIdentifier;
@@ -43,7 +43,7 @@ public class ActiveVisitsTest extends BasicMirebalaisSmokeTest{
 		loginPage = new LoginPage(driver);
 		identificationSteps = new IdentificationSteps(driver);
 		registration = new Registration(driver);
-		patientDashboard = new PatientDashboard(driver);
+		patientDashboard = new PatientRegistrationDashboard(driver);
 		checkIn = new CheckIn(driver);
 		appDashboard = new AppDashboard(driver);
 	}

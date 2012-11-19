@@ -100,7 +100,5 @@ public class UserAdmin extends AbstractPageObject {
 	private void chooseSysAdminRole() {
 		driver.findElement(By.id("sysAdmin")).click();
 	}
-
-
 	
 }

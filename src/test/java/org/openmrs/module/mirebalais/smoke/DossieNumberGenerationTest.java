@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.IdentificationSteps;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
-import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
+import org.openmrs.module.mirebalais.smoke.pageobjects.PatientRegistrationDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
 
 @Ignore
@@ -16,7 +16,7 @@ public class DossieNumberGenerationTest extends BasicMirebalaisSmokeTest {
 	private LoginPage loginPage;
 	private IdentificationSteps identificationSteps;
 	private Registration registration;
-	private PatientDashboard patientDashboard;
+	private PatientRegistrationDashboard patientDashboard;
 	private AppDashboard appDashboard;
 
 	@Override
@@ -24,7 +24,7 @@ public class DossieNumberGenerationTest extends BasicMirebalaisSmokeTest {
 		loginPage = new LoginPage(driver);
 		identificationSteps = new IdentificationSteps(driver);
 		registration = new Registration(driver);
-		patientDashboard = new PatientDashboard(driver);
+		patientDashboard = new PatientRegistrationDashboard(driver);
 		appDashboard = new AppDashboard(driver);
 	}
 

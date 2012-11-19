@@ -11,18 +11,18 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.EmergencyCheckin;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
-import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
+import org.openmrs.module.mirebalais.smoke.pageobjects.PatientRegistrationDashboard;
 
 public class EmergencyCheckinTest extends BasicMirebalaisSmokeTest {
 
     private EmergencyCheckin emergencyCheckinPO;
     private static LoginPage loginPage;
-    private PatientDashboard patientDashboard;
+    private PatientRegistrationDashboard patientDashboard;
     
     @Override
     protected void specificSetUp() {
         emergencyCheckinPO = new EmergencyCheckin(driver);
-        patientDashboard = new PatientDashboard(driver);
+        patientDashboard = new PatientRegistrationDashboard(driver);
     }
 
     @BeforeClass
