@@ -42,33 +42,6 @@ public class PullRequestScenarioTest extends BasicMirebalaisSmokeTest {
     	loginPage.logIn("admin", "Admin123");
     }
 
-    @Ignore
-	@Test
-	public void pullsADossier() {
-		appDashboard.openPatientRegistrationApp();
-		identificationSteps.setLocationAndChooseRegisterTask();
-		registration.goThruRegistrationProcessWithoutPrintingCard();
-		patientIdentifier = patientDashboard.getIdentifier();
-		patientName = patientDashboard.getName();
-	//	String dossierNumber = patientDashboard.generateDossieNumber();
-		checkIn.setLocationAndChooseCheckInTask(patientIdentifier, patientName);
-		appDashboard.openArchivesRoomApp();
-
-        // select the pull request tab
-        driver.findElement(By.id("tab-selector-pullrequest")).click();
-
-		// select a record to pull
-	//	driver.findElement(By.id(dossierNumber)).click();
-		driver.findElement(By.id("pull_record_requests_button")).click();
-
-        // confirm that the record has been removed from the pull request list
-   //     assertFalse(driver.findElement(By.id("pull_requests_table")).getText().contains(dossierNumber));
-
-        // switch to the assigned pull request tab and make sure that the request is there
-        driver.findElement(By.id("tab-selector-assignedpullrequest")).click();
-   //     assertTrue(driver.findElement(By.id("assigned_pull_requests_table")).getText().contains(dossierNumber));
-	}
-	
 	@Test
 	public void createsARecord() {
 		appDashboard.openPatientRegistrationApp();
