@@ -57,8 +57,7 @@ public class ActiveVisitsTest extends BasicMirebalaisSmokeTest{
 		registration.goThruRegistrationProcessWithoutPrintingCard(); // TODO: transform it in a sql script
 		patientIdentifier = patientDashboard.getIdentifier();
 		patientName = patientDashboard.getName();
-		patientDashboard.generateDossieNumber();
-		
+
 		appDashboard.openActiveVisitsApp();
 		assertFalse(driver.findElement(By.id("content")).getText().contains(patientIdentifier));
     	
