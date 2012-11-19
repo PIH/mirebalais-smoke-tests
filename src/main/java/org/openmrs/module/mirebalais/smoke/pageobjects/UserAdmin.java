@@ -14,11 +14,11 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
-import java.util.List;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 public class UserAdmin extends AbstractPageObject {
 
@@ -47,7 +47,7 @@ public class UserAdmin extends AbstractPageObject {
                 option.click();
         }
 
-        driver.findElement(By.xpath("//*[@id='capabilities']")).click();
+        driver.findElement(By.xpath("//*[@name='capabilities']")).click();
 
         // clicar em save button
         driver.findElement(By.id("save-button")).click();
