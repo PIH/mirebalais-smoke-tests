@@ -6,8 +6,6 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard.PATIENT_REGISTRATION_AND_CHECK_IN;
-
 public class CheckIn extends AbstractPageObject {
 
 	private Wait<WebDriver> wait;
@@ -20,8 +18,7 @@ public class CheckIn extends AbstractPageObject {
 	
 	
 	public void setLocationAndChooseCheckInTask(String identifier, final String patientName) {
-		driver.get(properties.getWebAppUrl());
-		driver.findElement(By.linkText(PATIENT_REGISTRATION_AND_CHECK_IN)).click();
+        new AppDashboard(driver).openPatientRegistrationApp();
 		driver.findElement(By.xpath("//*[@id='taskDiv']/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[2]/td[1]")).click();
 		
 		driver.findElement(By.id("patientIdentifier")).sendKeys(identifier);

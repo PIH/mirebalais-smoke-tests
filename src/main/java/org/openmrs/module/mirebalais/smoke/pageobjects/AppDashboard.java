@@ -23,51 +23,54 @@ import java.util.List;
 
 public class AppDashboard extends AbstractPageObject {
 
-    public static final String PATIENT_REGISTRATION_AND_CHECK_IN = "Patient Registration and Check-In";
-    public static final String ARCHIVES = "Archives";
+    public static final String ARCHIVES_ROOM = "emr-archivesRoom-app";
+    public static final String PATIENT_REGISTRATION_AND_CHECK_IN = "patientregistration-main-app";
+    public static final String FIND_PATIENT = "emr-findPatient-app";
+    public static final String SYSTEM_ADMINISTRATION = "emr-systemAdministration-app";
+    public static final String ACTIVE_VISITS = "emr-activeVisits-app";
+
+    public AppDashboard(WebDriver driver) {
+        super(driver);
+    }
 
     public void openActiveVisitsApp() {
 		driver.get(properties.getWebAppUrl());
-		driver.findElement(By.linkText("Active Visits")).click();
-	}
-	
-	public AppDashboard(WebDriver driver) {
-		super(driver);
+        clickAppButton(ACTIVE_VISITS);
 	}
 
 	public void openArchivesRoomApp() {
 		driver.get(properties.getWebAppUrl());
-		driver.findElement(By.linkText(ARCHIVES)).click();
+        clickAppButton(ARCHIVES_ROOM);
 	}
 
 	public void openPatientRegistrationApp() {
 		driver.get(properties.getWebAppUrl());
-		driver.findElement(By.linkText(PATIENT_REGISTRATION_AND_CHECK_IN)).click();
+		clickAppButton(PATIENT_REGISTRATION_AND_CHECK_IN);
 	}
 
-	public void openSysAdminApp() {
+    public void openSysAdminApp() {
 		driver.get(properties.getWebAppUrl());
-		driver.findElement(By.linkText("System Administration")).click();
+        clickAppButton(SYSTEM_ADMINISTRATION);
 	}
 	
 	public boolean isPatientRegistrationAppPresented() {
-		return driver.findElement(By.id("apps")).getText().contains("Patient Registration");
+		return isAppButtonPresent(PATIENT_REGISTRATION_AND_CHECK_IN);
 	}
-	
-	public boolean isArchivesRoomAppPresented() {
-		return driver.findElement(By.id("apps")).getText().contains(ARCHIVES);
-	}
+
+    public boolean isArchivesRoomAppPresented() {
+        return isAppButtonPresent(ARCHIVES_ROOM);
+    }
 	
 	public boolean isSystemAdministrationAppPresented() {
-		return driver.findElement(By.id("apps")).getText().contains("System Administration");
-	}
+        return isAppButtonPresent(SYSTEM_ADMINISTRATION);
+    }
 	
 	public boolean isFindAPatientAppPresented() {
-		return driver.findElement(By.id("apps")).getText().contains("Find a Patient");
+		return isAppButtonPresent(FIND_PATIENT);
 	}
 	
 	public boolean isActiveVisitsAppPresented() {
-		return driver.findElement(By.id("apps")).getText().contains("Active Visits");
+		return isAppButtonPresent(ACTIVE_VISITS);
 	}
 
     public List<String> getAppsNames() {
@@ -78,4 +81,16 @@ public class AppDashboard extends AbstractPageObject {
         }
         return appsNames;
     }
-}
+
+    private void clickAppButton(String appId) {
+        driver.findElement(By.cssSelector("#" + appId + " a")).click();
+    }
+
+    private boolean isAppButtonPresent(String appId) {
+        try {
+            return driver.findElement(By.id(appId)) != null;
+        } catch (Exception ex) {
+            return false;
+        }
+        }
+    }
