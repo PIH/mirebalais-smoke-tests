@@ -2,6 +2,7 @@ package org.openmrs.module.mirebalais.smoke.pageobjects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public abstract class AbstractPageObject {
 
@@ -37,5 +38,11 @@ public abstract class AbstractPageObject {
     
     public void clickYellowCheckMark() {
         driver.findElement(By.id("checkmark-yellow")).click();
+    }
+    
+    public void setClearTextToField(String textFieldId, String text) {
+    	WebElement element = driver.findElement(By.id(textFieldId));
+		element.clear();
+		element.sendKeys(text);
     }
 }

@@ -35,5 +35,6 @@ public class PatientDashboard extends AbstractPageObject {
 	public boolean hasOrder(String orderDetails) {
 		return driver.findElement(By.id("content")).getText().contains(orderDetails);
 	}
+
 }
 

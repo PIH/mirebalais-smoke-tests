@@ -21,9 +21,12 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 
 public class UserAdmin extends AbstractPageObject {
-
+	
+	private SysAdminPage adminPage;
+	
 	public UserAdmin(WebDriver driver) {
 		super(driver);
+		adminPage = new SysAdminPage(driver);
 	}
 
 	public boolean isAccountCreatedSuccesfully() {
@@ -60,7 +63,7 @@ public class UserAdmin extends AbstractPageObject {
 	}
 	
 	private void fillBasicInfo(String firstName, String lastName) {
-		driver.findElement(By.linkText("Manage Accounts")).click();
+		adminPage.openManageAccounts();
 		driver.findElement(By.id("create-account-button")).click();
 		driver.findElement(By.name("givenName")).sendKeys(firstName);
 		driver.findElement(By.name("familyName")).sendKeys(lastName);
