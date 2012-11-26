@@ -11,11 +11,11 @@ public class MergeFlow extends AbstractPageObject {
 	}
 
 	public void setFirstPatient(String patientData) {
-		setClearTextToField("fr792-search", patientData);
+		setClearTextToField("choose-first-search", patientData);
 	}
 	
 	public void setSecondPatient(String patientData) {
-		setClearTextToField("fr6178-search", patientData);
+		setClearTextToField("choose-second-search", patientData);
 	}
 
 	public void setPatientsToMerge(String patientDataOne, String patientDataTwo) {

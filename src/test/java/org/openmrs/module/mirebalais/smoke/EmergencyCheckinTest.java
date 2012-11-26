@@ -21,7 +21,7 @@ public class EmergencyCheckinTest extends BasicMirebalaisSmokeTest {
     private PatientRegistrationDashboard patientDashboard;
     
     @Before
-    protected void setUp() {
+    public void setUp() {
         emergencyCheckinPO = new EmergencyCheckin(driver);
         patientDashboard = new PatientRegistrationDashboard(driver);
     }

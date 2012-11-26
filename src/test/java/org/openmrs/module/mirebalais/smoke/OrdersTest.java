@@ -19,7 +19,7 @@ public class OrdersTest extends BasicMirebalaisSmokeTest {
     private static final String STUDY_2 = "Elbow - Left, 2 views (X-ray)";
     
     @Before
-	protected void setUp() {
+	public void setUp() {
 		loginPage = new LoginPage(driver);
 		appDashboard = new AppDashboard(driver);
 		patientDashboard = new PatientDashboard(driver);

@@ -21,7 +21,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.CheckIn;
-import org.openmrs.module.mirebalais.smoke.pageobjects.IdentificationSteps;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientRegistrationDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
@@ -31,7 +30,6 @@ public class ActiveVisitsTest extends BasicMirebalaisSmokeTest{
 
 	private CheckIn checkIn;
 	private static LoginPage loginPage;
-	private IdentificationSteps identificationSteps;
 	private Registration registration;
 	private PatientRegistrationDashboard patientDashboard;
 	private AppDashboard appDashboard;
@@ -42,7 +40,6 @@ public class ActiveVisitsTest extends BasicMirebalaisSmokeTest{
 	@Before
     public void setUp() {
 		loginPage = new LoginPage(driver);
-		identificationSteps = new IdentificationSteps(driver);
 		registration = new Registration(driver);
 		patientDashboard = new PatientRegistrationDashboard(driver);
 		checkIn = new CheckIn(driver);
@@ -54,7 +51,6 @@ public class ActiveVisitsTest extends BasicMirebalaisSmokeTest{
 	public void patientHasAnActiveVisiteWithoutPullingADossier() {
 		loginPage.logIn("admin", "Admin123");
 		appDashboard.openPatientRegistrationApp();
-		identificationSteps.setLocationAndChooseRegisterTask();
 		registration.goThruRegistrationProcessWithoutPrintingCard(); // TODO: transform it in a sql script
 		patientIdentifier = patientDashboard.getIdentifier();
 		patientName = patientDashboard.getName();

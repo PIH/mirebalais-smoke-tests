@@ -31,12 +31,15 @@ public class MergePatientTest extends BasicMirebalaisSmokeTest {
 
 		loginPage.logIn("admin", "Admin123");
 
+		appDashboard.openPatientRegistrationApp();
 		registration.registerSpecificGuyWithoutPrintingCard("Merge","Gonzales");
+		
+		appDashboard.openPatientRegistrationApp();
 		registration.registerSpecificGuyWithoutPrintingCard("Merge","Gonzalez");
 	}
 	
 	@Test
-	public void mergePatientsById() {
+	public void mergePatientsByName() {
 		appDashboard.openSysAdminApp();
 		sysAdminPage.openManagePatientRecords();
 		

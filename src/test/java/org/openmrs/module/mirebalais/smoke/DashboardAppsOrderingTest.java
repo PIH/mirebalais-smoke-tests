@@ -1,28 +1,24 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import org.junit.BeforeClass;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.contains;
+
+import java.util.List;
+
+import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 
-import java.util.List;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
-
 public class DashboardAppsOrderingTest extends BasicMirebalaisSmokeTest {
-
-    private AppDashboard dashboardPO;
+	
+	private AppDashboard dashboardPO;
     private static LoginPage loginPage;
 
-    @BeforeClass
-    public static void setUpEnvironment() {
-        loginPage = new LoginPage(driver);
+    @Before
+    public void setup() {
+    	loginPage = new LoginPage(driver);
         loginPage.logIn("admin", "Admin123");
-    }
-
-    @Override
-    protected void specificSetUp() {
         dashboardPO = new AppDashboard(driver);
     }
 

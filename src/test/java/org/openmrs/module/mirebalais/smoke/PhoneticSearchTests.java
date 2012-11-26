@@ -11,7 +11,6 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.CleanUpTests;
-import org.openmrs.module.mirebalais.smoke.pageobjects.IdentificationSteps;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
 import org.openqa.selenium.Alert;
@@ -22,7 +21,6 @@ import org.openqa.selenium.WebDriverException;
 public class PhoneticSearchTests extends BasicMirebalaisSmokeTest {
 
     private static LoginPage loginPage;
-    private static IdentificationSteps identificationSteps;
     private Registration registration;
     
     public void specificSetUp() {
@@ -33,15 +31,13 @@ public class PhoneticSearchTests extends BasicMirebalaisSmokeTest {
     @BeforeClass
     public static void setUpEnvironment() {
     	loginPage = new LoginPage(driver);
-		identificationSteps = new IdentificationSteps(driver);
-		
     	loginPage.logIn("admin", "Admin123");
-    	identificationSteps.setLocationAndChooseRegisterTask();
     }
 
     
     @Test
     public void findsAMatch() {
+    	
     	registration.registerSpecificGuyWithoutPrintingCard("Jayne", "Marconi");
     	registration.openSimilarityWindow("June", "Marken");
     	
