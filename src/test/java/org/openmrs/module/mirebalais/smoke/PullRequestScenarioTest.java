@@ -2,6 +2,7 @@ package org.openmrs.module.mirebalais.smoke;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
@@ -25,8 +26,8 @@ public class PullRequestScenarioTest extends BasicMirebalaisSmokeTest {
 	private String patientIdentifier;
 	
 	
-	@Override
-    public void specificSetUp() {
+	@Before
+    public void setUp() {
 		identificationSteps = new IdentificationSteps(driver);
 		registration = new Registration(driver);
 		patientDashboard = new PatientRegistrationDashboard(driver);

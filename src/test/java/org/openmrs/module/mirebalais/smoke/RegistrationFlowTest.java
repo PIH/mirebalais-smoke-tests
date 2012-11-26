@@ -2,6 +2,7 @@ package org.openmrs.module.mirebalais.smoke;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.IdentificationSteps;
@@ -21,8 +22,8 @@ public class RegistrationFlowTest extends BasicMirebalaisSmokeTest {
     private Registration registration;
     private AppDashboard appDashboard;
     
-    @Override
-    public void specificSetUp() {
+    @Before
+    public void setUp() {
 		loginPage = new LoginPage(driver);
 		identificationSteps = new IdentificationSteps(driver);
 		registration = new Registration(driver);

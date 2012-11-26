@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
@@ -17,8 +18,8 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     private String username;
 	private static final String password = "Teste123";
     
-    @Override
-    public void specificSetUp() {
+	@Before
+    public void setUp() {
 		loginPage = new LoginPage(driver);
 		appDashboard = new AppDashboard(driver);
 		userAdmin = new UserAdmin(driver);

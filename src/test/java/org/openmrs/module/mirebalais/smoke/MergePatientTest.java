@@ -1,15 +1,14 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
-import java.util.Set;
-
-import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
-import org.openmrs.module.mirebalais.smoke.dao.PatientDao;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.MergeFlow;
+import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
+import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
 import org.openmrs.module.mirebalais.smoke.pageobjects.SysAdminPage;
 
 public class MergePatientTest extends BasicMirebalaisSmokeTest {
@@ -18,25 +17,22 @@ public class MergePatientTest extends BasicMirebalaisSmokeTest {
 	private AppDashboard appDashboard;
 	private SysAdminPage sysAdminPage;
 	private MergeFlow mergeFlow;
-	private PatientDao patientDao;
-
-	private String patientOneId;
-	private String patientTwoId;
+	private Registration registration;
+	private PatientDashboard patientDashboard; 
 	
-	@Override
-    public void specificSetUp() {
+	@Before
+    public void setUp() {
 		loginPage = new LoginPage(driver);
 		appDashboard = new AppDashboard(driver);
 		sysAdminPage = new SysAdminPage(driver);
 		mergeFlow = new MergeFlow(driver);
-		patientDao = new PatientDao();
+		registration = new Registration(driver);
+		patientDashboard = new PatientDashboard(driver);
 
 		loginPage.logIn("admin", "Admin123");
-		patientOneId = "TT2346";
-		patientTwoId = "TT6432";
-		
-		patientDao.insertPatient("João da Silva", patientOneId);
-		patientDao.insertPatient("João da Silva", patientTwoId);
+
+		registration.registerSpecificGuyWithoutPrintingCard("Merge","Gonzales");
+		registration.registerSpecificGuyWithoutPrintingCard("Merge","Gonzalez");
 	}
 	
 	@Test
@@ -44,15 +40,10 @@ public class MergePatientTest extends BasicMirebalaisSmokeTest {
 		appDashboard.openSysAdminApp();
 		sysAdminPage.openManagePatientRecords();
 		
-		mergeFlow.setPatientsToMerge(patientOneId, patientTwoId);
-		Set<Integer> patientIds = patientDao.getPatientId(patientOneId);
-		assertTrue(patientIds.contains(patientTwoId));
+		mergeFlow.setPatientsToMerge("Merge Gonzales", "Merge Gonzalez");
+		
+		assertEquals(patientDashboard.getIdentifiers().size(), 2);
 	}
 
-	@After
-	public void tearDown() {
-		patientDao.deletePatient(patientOneId);
-		// precisa deletar o segundo? patientDao.deletePatient(patientTwoId);
-	}
 
 }

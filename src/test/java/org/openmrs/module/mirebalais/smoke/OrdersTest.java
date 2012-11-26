@@ -1,7 +1,8 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
@@ -17,8 +18,8 @@ public class OrdersTest extends BasicMirebalaisSmokeTest {
     private static final String STUDY_1 = "Chest, 1 view (X-ray)";
     private static final String STUDY_2 = "Elbow - Left, 2 views (X-ray)";
     
-    @Override
-	protected void specificSetUp() {
+    @Before
+	protected void setUp() {
 		loginPage = new LoginPage(driver);
 		appDashboard = new AppDashboard(driver);
 		patientDashboard = new PatientDashboard(driver);

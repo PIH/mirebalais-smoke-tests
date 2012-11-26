@@ -1,13 +1,14 @@
 package org.openmrs.module.mirebalais.smoke;
 
+import static org.junit.Assert.fail;
+
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.FindPatient;
 import org.openmrs.module.mirebalais.smoke.pageobjects.IdentificationSteps;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
-
-import static org.junit.Assert.fail;
 
 @Ignore
 public class FindPatientTests extends BasicMirebalaisSmokeTest {
@@ -17,8 +18,8 @@ public class FindPatientTests extends BasicMirebalaisSmokeTest {
     private Registration registration;
     private FindPatient findPatient;
 
-    @Override
-    protected void specificSetUp() {
+    @Before
+    protected void setUp() {
 		driver.get(properties.getWebAppUrl());
 
 		loginPage = new LoginPage(driver);

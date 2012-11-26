@@ -92,5 +92,5 @@ public class AppDashboard extends AbstractPageObject {
         } catch (Exception ex) {
             return false;
         }
-        }
     }
+}

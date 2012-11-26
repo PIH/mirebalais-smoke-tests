@@ -7,6 +7,7 @@ import static org.junit.Assert.assertThat;
 import java.util.Arrays;
 
 import org.hamcrest.Matchers;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.EmergencyCheckin;
@@ -19,8 +20,8 @@ public class EmergencyCheckinTest extends BasicMirebalaisSmokeTest {
     private static LoginPage loginPage;
     private PatientRegistrationDashboard patientDashboard;
     
-    @Override
-    protected void specificSetUp() {
+    @Before
+    protected void setUp() {
         emergencyCheckinPO = new EmergencyCheckin(driver);
         patientDashboard = new PatientRegistrationDashboard(driver);
     }

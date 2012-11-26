@@ -17,20 +17,17 @@ public class Registration extends AbstractPageObject {
         wait = new WebDriverWait(driver, 5);
     }
 	
-	
-	
 	public void goThruRegistrationProcessWithoutPrintingCard() {
 		registerPatient();
         chooseNotToPrintIdCard();
     }
 	
-	public String goThruRegistrationProcessPrintingCard() {
-		String name = registerPatient();
+	public void goThruRegistrationProcessPrintingCard() {
+		registerPatient();
         chooseToPrintIdCard();
-        return name;
     }
 
-    public void registerSpecificGuy(String firstName, String lastName) {
+    public void registerSpecificGuyWithoutPrintingCard(String firstName, String lastName) {
 		clickOnSearchByNameButton();
 		enterFirstAndLastName(firstName, lastName);
 		enterSexData();
@@ -42,6 +39,17 @@ public class Registration extends AbstractPageObject {
         chooseNotToPrintIdCard();
         clickYellowCheckMark();
     }
+    
+	private void registerPatient() {
+		clickOnSearchByNameButton();
+		enterFirstAndLastName();
+		enterSexData();
+		enterDateOfBirthData();
+		enterAddressLandmarkData();
+		enterPatientLocality();
+		enterPhoneData();
+		confirmData();
+	}
 	
 	public void openSimilarityWindow(String firstName, String lastName) {
 		clickOnSearchByNameButton();
@@ -62,25 +70,14 @@ public class Registration extends AbstractPageObject {
 		});
 	}
 	
-	private String registerPatient() {
-		clickOnSearchByNameButton();
-		String name = enterFirstAndLastName();
-		enterSexData();
-		enterDateOfBirthData();
-		enterAddressLandmarkData();
-		enterPatientLocality();
-		enterPhoneData();
-		confirmData();
-		return name;
-	}
+
 
 	private void clickOnSearchByNameButton() {
 		driver.findElement(By.id("searchByNameBtn")).click();
 	}
 
-    private String enterFirstAndLastName() {
+    private void enterFirstAndLastName() {
 		enterFirstAndLastName(getFirstName(), getLastName());
-		return new String(getFirstName() + " " + getLastName());
 	}
 
 	public String getFirstName() {

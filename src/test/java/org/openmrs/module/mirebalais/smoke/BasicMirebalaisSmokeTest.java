@@ -1,14 +1,13 @@
 package org.openmrs.module.mirebalais.smoke;
 
+import java.net.URL;
+import java.util.concurrent.TimeUnit;
+
 import org.apache.commons.lang.SystemUtils;
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.openmrs.module.mirebalais.smoke.pageobjects.SmokeTestProperties;
 import org.openqa.selenium.chrome.ChromeDriver;
-
-import java.net.URL;
-import java.util.concurrent.TimeUnit;
 
 public abstract class BasicMirebalaisSmokeTest {
 
@@ -24,13 +23,6 @@ public abstract class BasicMirebalaisSmokeTest {
     	driver.get(new SmokeTestProperties().getWebAppUrl());
     }
 
-	@Before
-	public void setUp() {
-		specificSetUp();
-	}
-	
-	protected abstract void specificSetUp();
-	
 	@AfterClass
     public static void stopWebDriver() {
         driver.quit();
@@ -50,6 +42,5 @@ public abstract class BasicMirebalaisSmokeTest {
         System.setProperty("webdriver.chrome.driver", resource.getPath());
 
     }
-
 
 }

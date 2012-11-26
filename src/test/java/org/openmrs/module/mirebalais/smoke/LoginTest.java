@@ -1,13 +1,13 @@
 package org.openmrs.module.mirebalais.smoke;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
-
-import static org.junit.Assert.assertTrue;
 
 @Ignore
 public class LoginTest extends BasicMirebalaisSmokeTest{
@@ -17,10 +17,6 @@ public class LoginTest extends BasicMirebalaisSmokeTest{
     @Before
     public void setUp() {
     	driver = new ChromeDriver();
-    }
-
-    @Override
-    protected void specificSetUp() {
 		driver.get(properties.getWebAppUrl());
 
 		loginPage = new LoginPage(driver);

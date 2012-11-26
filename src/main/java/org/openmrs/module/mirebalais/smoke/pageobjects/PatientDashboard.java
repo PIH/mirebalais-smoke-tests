@@ -1,5 +1,9 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.StringTokenizer;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -36,5 +40,14 @@ public class PatientDashboard extends AbstractPageObject {
 		return driver.findElement(By.id("content")).getText().contains(orderDetails);
 	}
 
+	public Set<String> getIdentifiers() {
+		String temp = driver.findElement(By.className("identifiers")).getText().trim();
+		StringTokenizer st = new StringTokenizer(temp.substring(3), ",");
+		Set<String> result = new HashSet<String>();
+		while(st.hasMoreTokens()) {
+			result.add(st.nextToken());
+		}
+		return result;
+	}
 }
 
