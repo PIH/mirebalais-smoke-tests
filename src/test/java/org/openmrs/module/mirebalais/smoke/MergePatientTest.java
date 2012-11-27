@@ -1,6 +1,6 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -45,7 +45,7 @@ public class MergePatientTest extends BasicMirebalaisSmokeTest {
 		
 		mergeFlow.setPatientsToMerge("Merge Gonzales", "Merge Gonzalez");
 		
-		assertEquals(patientDashboard.getIdentifiers().size(), 2);
+		assertTrue(patientDashboard.getIdentifiers().size() > 1);
 	}
 
 
