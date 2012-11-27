@@ -12,10 +12,12 @@ public class MergeFlow extends AbstractPageObject {
 
 	public void setFirstPatient(String patientData) {
 		setClearTextToField("choose-first-search", patientData);
+		driver.findElement(By.xpath("/html/body/ul[1]/li[1]/a")).click();
 	}
 	
 	public void setSecondPatient(String patientData) {
 		setClearTextToField("choose-second-search", patientData);
+		driver.findElement(By.xpath("/html/body/ul[2]/li[1]/a")).click();
 	}
 
 	public void setPatientsToMerge(String patientDataOne, String patientDataTwo) {
@@ -34,11 +36,13 @@ public class MergeFlow extends AbstractPageObject {
 	}
 
 	private void clickOnLeftPatient() {
-		driver.findElement(By.id("choose1")).click();
+		//driver.findElement(By.id("choose1")).click();
+		driver.findElement(By.className("left-option")).click();
 	}
 
 	private void clickOnContinueMergeButton() {
-		driver.findElement(By.id("confirm-button")).click();
+		driver.findElement(By.className("primary")).click();
+		//driver.findElement(By.id("confirm-button")).click();
 	}
 	
 }

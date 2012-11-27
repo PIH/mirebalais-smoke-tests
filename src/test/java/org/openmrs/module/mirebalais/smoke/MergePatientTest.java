@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.Ignore;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.MergeFlow;
@@ -40,7 +39,6 @@ public class MergePatientTest extends BasicMirebalaisSmokeTest {
 	}
 	
 	@Test
-	@Ignore
 	public void mergePatientsByName() {
 		appDashboard.openSysAdminApp();
 		sysAdminPage.openManagePatientRecords();
