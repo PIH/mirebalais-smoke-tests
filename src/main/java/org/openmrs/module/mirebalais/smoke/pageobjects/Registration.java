@@ -27,10 +27,10 @@ public class Registration extends AbstractPageObject {
         chooseToPrintIdCard();
     }
 
-    public void registerSpecificGuyWithoutPrintingCard(String firstName, String lastName) {
+    public void registerSpecificGuyWithoutPrintingCard(String name) {
     	driver.findElement(By.cssSelector("td.taskListItem")).click();
     	clickOnSearchByNameButton();
-		enterFirstAndLastName(firstName, lastName);
+		enterFirstAndLastName(name);
 		enterSexData();
 		enterDateOfBirthData();
 		enterAddressLandmarkData();
@@ -53,9 +53,9 @@ public class Registration extends AbstractPageObject {
 		confirmData();
 	}
 	
-	public void openSimilarityWindow(String firstName, String lastName) {
+	public void openSimilarityWindow(String name) {
 		clickOnSearchByNameButton();
-		enterFirstAndLastName(firstName, lastName);
+		enterFirstAndLastName(name);
 		
 		wait.until(new ExpectedCondition<Boolean>() {
 			public Boolean apply(WebDriver webDriver) {
@@ -79,7 +79,7 @@ public class Registration extends AbstractPageObject {
 	}
 
     private void enterFirstAndLastName() {
-		enterFirstAndLastName(getFirstName(), getLastName());
+		enterFirstAndLastName(new StringBuilder(getFirstName() + " " + getLastName()).toString());
 	}
 
 	public String getFirstName() {
@@ -163,9 +163,10 @@ public class Registration extends AbstractPageObject {
         clickNext();
     }
 
-    protected void enterFirstAndLastName(String firstName, String lastName) {
-        enterLastName(lastName);
-        enterFirstName(firstName);
+    protected void enterFirstAndLastName(String name) {
+    	int spaceIndex = name.indexOf(' '); 
+        enterLastName(name.substring(spaceIndex).trim());
+        enterFirstName(name.substring(0, spaceIndex).trim());
 	}
 
     protected void chooseNotToPrintIdCard() {

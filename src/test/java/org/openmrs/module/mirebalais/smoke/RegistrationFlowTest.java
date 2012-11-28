@@ -41,6 +41,5 @@ public class RegistrationFlowTest extends BasicMirebalaisSmokeTest {
 			}
 		});
     	assertTrue(driver.findElement(By.tagName("body")).getText().contains("Please scan ID card to proceed..."));
-    	// TODO: make sure it printed
     }
 }

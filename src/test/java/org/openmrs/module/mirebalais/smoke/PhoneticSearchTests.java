@@ -23,6 +23,9 @@ public class PhoneticSearchTests extends BasicMirebalaisSmokeTest {
     private static LoginPage loginPage;
     private Registration registration;
     
+    private String patientOne = "June Marken";
+	private String patientTwo = "Jayne Marconi";
+    
     public void specificSetUp() {
 		registration = new Registration(driver);
     }
@@ -38,11 +41,11 @@ public class PhoneticSearchTests extends BasicMirebalaisSmokeTest {
     @Test
     public void findsAMatch() {
     	
-    	registration.registerSpecificGuyWithoutPrintingCard("Jayne", "Marconi");
-    	registration.openSimilarityWindow("June", "Marken");
+    	registration.registerSpecificGuyWithoutPrintingCard(patientTwo);
+    	registration.openSimilarityWindow(patientOne);
     	
-    	assertTrue(driver.findElement(By.id("confirmExistingPatientModalDiv")).getText().contains("June Marken"));
-    	assertTrue(driver.findElement(By.className("confirmExistingPatientModalList")).getText().contains("Jayne Marconi"));
+    	assertTrue(driver.findElement(By.id("confirmExistingPatientModalDiv")).getText().contains(patientOne));
+    	assertTrue(driver.findElement(By.className("confirmExistingPatientModalList")).getText().contains(patientTwo));
     }
     
     

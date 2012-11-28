@@ -20,6 +20,9 @@ public class MergePatientTest extends BasicMirebalaisSmokeTest {
 	private Registration registration;
 	private PatientDashboard patientDashboard; 
 	
+	private String patientOne = "Juanito Gonzalez";
+	private String patientTwo = "Jean-Luc Pottier";
+	
 	@Before
     public void setUp() {
 		loginPage = new LoginPage(driver);
@@ -32,10 +35,10 @@ public class MergePatientTest extends BasicMirebalaisSmokeTest {
 		loginPage.logIn("admin", "Admin123");
 
 		appDashboard.openPatientRegistrationApp();
-		registration.registerSpecificGuyWithoutPrintingCard("Merge","Gonzales");
+		registration.registerSpecificGuyWithoutPrintingCard(patientOne);
 		
 		appDashboard.openPatientRegistrationApp();
-		registration.registerSpecificGuyWithoutPrintingCard("Merge","Gonzalez");
+		registration.registerSpecificGuyWithoutPrintingCard(patientTwo);
 	}
 	
 	@Test
@@ -43,7 +46,7 @@ public class MergePatientTest extends BasicMirebalaisSmokeTest {
 		appDashboard.openSysAdminApp();
 		sysAdminPage.openManagePatientRecords();
 		
-		mergeFlow.setPatientsToMerge("Merge Gonzales", "Merge Gonzalez");
+		mergeFlow.setPatientsToMerge(patientOne, patientTwo);
 		
 		assertTrue(patientDashboard.getIdentifiers().size() > 1);
 	}
