@@ -17,7 +17,7 @@ public class MergeFlow extends AbstractPageObject {
 	
 	public void setSecondPatient(String patientData) {
 		setClearTextToField("choose-second-search", patientData);
-		driver.findElement(By.xpath("/html/body/ul[2]/li[1]/a")).click();
+		driver.findElement(By.xpath("/html/body/ul[2]/li[2]/a")).click();
 	}
 
 	public void setPatientsToMerge(String patientDataOne, String patientDataTwo) {

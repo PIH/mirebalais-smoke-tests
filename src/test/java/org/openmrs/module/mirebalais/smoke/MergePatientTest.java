@@ -20,8 +20,9 @@ public class MergePatientTest extends BasicMirebalaisSmokeTest {
 	private Registration registration;
 	private PatientDashboard patientDashboard; 
 	
-	private String patientOne = "Juanito Gonzalez";
-	private String patientTwo = "Jean-Luc Pottier";
+	private String patientOne = "Bruce Wayne";
+	private String patientTwo = "Clark Kent";
+	
 	
 	@Before
     public void setUp() {
