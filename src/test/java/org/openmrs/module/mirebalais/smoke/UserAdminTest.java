@@ -15,6 +15,8 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     private LoginPage loginPage;
     private AppDashboard appDashboard;
     private UserAdmin userAdmin;
+    private HeaderPage header;
+    
     private String username;
 	private static final String password = "Teste123";
     
@@ -23,6 +25,7 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
 		loginPage = new LoginPage(driver);
 		appDashboard = new AppDashboard(driver);
 		userAdmin = new UserAdmin(driver);
+		header = new HeaderPage(driver);
     }
 
     @Test
@@ -64,7 +67,7 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
 	}
     
     @Test
-    public void createUserWithDataArchivesRole() throws InterruptedException {
+    public void createUserWithDataArchivesRoleAndChangeItsLocation() throws InterruptedException {
     	username = createUser();
     	
 		loginPage.logIn("admin", "Admin123");
@@ -110,7 +113,7 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
    
     @After
     public void tearDown() {
-    	loginPage.logOut();
+    	header.logOut();
     }
     
     /* TODO: atualizar para:
@@ -123,7 +126,7 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
 
        
     private void logOutAndLogInWithNewUser() {
-    	loginPage.logOut();
+    	header.logOut();
     	loginPage.logIn(username, password);
     }
 }

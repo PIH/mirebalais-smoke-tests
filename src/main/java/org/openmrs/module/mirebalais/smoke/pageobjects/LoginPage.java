@@ -18,8 +18,6 @@ public class LoginPage {
     	driver.findElement(By.id("login-button")).click();
 	}
 
-	public void logOut() {
-		driver.findElement(By.linkText("Logout")).click();
-	}
+	
 	
 }

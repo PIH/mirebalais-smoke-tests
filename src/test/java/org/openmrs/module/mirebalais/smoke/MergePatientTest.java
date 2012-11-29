@@ -3,6 +3,7 @@ package org.openmrs.module.mirebalais.smoke;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
@@ -42,6 +43,7 @@ public class MergePatientTest extends BasicMirebalaisSmokeTest {
 		registration.registerSpecificGuyWithoutPrintingCard(patientTwo);
 	}
 	
+	@Ignore
 	@Test
 	public void mergePatientsByName() {
 		appDashboard.openSysAdminApp();
@@ -51,6 +53,5 @@ public class MergePatientTest extends BasicMirebalaisSmokeTest {
 		
 		assertTrue(patientDashboard.getIdentifiers().size() > 1);
 	}
-
 
 }

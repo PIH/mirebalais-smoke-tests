@@ -18,6 +18,12 @@ public class PatientDashboard extends AbstractPageObject {
 		
 		driver.findElement(By.name("clinicalHistory")).sendKeys("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eu neque ut mi auctor pulvinar. Mauris in orci non sem consequat posuere.");
 		
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		driver.findElement(By.id("study-search")).sendKeys(study1);
 		driver.findElement(By.linkText(study1)).click();
 		
@@ -49,5 +55,5 @@ public class PatientDashboard extends AbstractPageObject {
 		}
 		return result;
 	}
+	
 }
-
