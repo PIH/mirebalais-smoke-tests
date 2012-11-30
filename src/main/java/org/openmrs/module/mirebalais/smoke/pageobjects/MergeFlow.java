@@ -1,7 +1,10 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class MergeFlow extends AbstractPageObject {
 
@@ -12,12 +15,12 @@ public class MergeFlow extends AbstractPageObject {
 
 	public void setFirstPatient(String patientData) {
 		setClearTextToField("choose-first-search", patientData);
-		driver.findElement(By.xpath("/html/body/ul[1]/li[1]/a")).click();
+		clickOnTheRightName("/html/body/ul[1]/li", patientData);
 	}
 	
 	public void setSecondPatient(String patientData) {
 		setClearTextToField("choose-second-search", patientData);
-		driver.findElement(By.xpath("/html/body/ul[2]/li[2]/a")).click();
+		clickOnTheRightName("/html/body/ul[2]/li", patientData);
 	}
 
 	public void setPatientsToMerge(String patientDataOne, String patientDataTwo) {
@@ -31,6 +34,15 @@ public class MergeFlow extends AbstractPageObject {
 		clickOnPerformMerge();
 	}
 
+	private void clickOnTheRightName(String xpath, String patientData) {
+		List<WebElement> options = driver.findElements(By.xpath(xpath));
+		for(WebElement option: options){
+		    if(option.getText().contains(patientData)) {
+		    	option.click();
+		    }               
+		}
+	}
+	
 	private void clickOnPerformMerge() {
 		driver.findElement(By.id("perform-merge")).click();
 	}
