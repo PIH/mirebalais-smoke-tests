@@ -26,7 +26,7 @@ public class DashboardAppsOrderingTest extends BasicMirebalaisSmokeTest {
     public void appsAreCorrectlyOrdered() {
         List<String> appsNames = dashboardPO.getAppsNames();
         assertThat(appsNames, contains(
-                "Archives", "Patient Registration and Check-In", "Find a Patient",
+                "Archives", "Retrospective Checkin", "Patient Registration and Check-In", "Find a Patient",
                 "System Administration", "Active Visits", "(Legacy) OpenMRS Administration"));
     }
 }
