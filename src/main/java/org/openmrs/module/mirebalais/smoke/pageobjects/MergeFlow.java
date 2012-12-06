@@ -28,10 +28,8 @@ public class MergeFlow extends AbstractPageObject {
 		setSecondPatient(patientDataTwo);
 		
 		clickOnContinueMergeButton();
-		clickOnContinueMergeButton(); // Yes, the button is the same, it just changes the caption!
-		
 		clickOnLeftPatient();
-		clickOnPerformMerge();
+		clickOnContinueMergeButton(); // Yes, the button is the same, it just changes the caption!
 	}
 
 	private void clickOnTheRightName(String xpath, String patientData) {
@@ -42,14 +40,10 @@ public class MergeFlow extends AbstractPageObject {
 		    }               
 		}
 	}
-	
-	private void clickOnPerformMerge() {
-		driver.findElement(By.id("perform-merge")).click();
-	}
 
 	private void clickOnLeftPatient() {
 		//driver.findElement(By.id("choose1")).click();
-		driver.findElement(By.className("left-option")).click();
+		driver.findElement(By.className("first-patient")).click();
 	}
 
 	private void clickOnContinueMergeButton() {
