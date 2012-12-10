@@ -17,8 +17,7 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     private UserAdmin userAdmin;
     private HeaderPage header;
     
-    private String username;
-	private static final String password = "Teste123";
+	private static final String DEFAULT_PASSWORD = "Teste123";
     
 	@Before
     public void setUp() {
@@ -30,15 +29,15 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
 
     @Test
     public void createUserWithClinicalRole() throws InterruptedException {
-    	username = createUser();
+    	String username = createUser();
     	
 		loginPage.logIn("admin", "Admin123");
     	appDashboard.openSysAdminApp();
-    	userAdmin.createClinicalAccount("Test", "User", username, password);
+    	userAdmin.createClinicalAccount("Test", "User", username, DEFAULT_PASSWORD);
     	
     	assertTrue(userAdmin.isAccountCreatedSuccesfully());
     	
-    	logOutAndLogInWithNewUser();
+    	logOutAndLogInWithNewUser(username);
     	
     	assertTrue(appDashboard.isActiveVisitsAppPresented());
     	assertTrue(appDashboard.isFindAPatientAppPresented());
@@ -49,15 +48,15 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     
     @Test
     public void createUserWithRadiologyRole() throws InterruptedException {
-    	username = createUser();
+    	String username = createUser();
     	
 		loginPage.logIn("admin", "Admin123");
 		appDashboard.openSysAdminApp();
-    	userAdmin.createRadiologyAccount("Test", "User", username, password);
+    	userAdmin.createRadiologyAccount("Test", "User", username, DEFAULT_PASSWORD);
     	
     	assertTrue(userAdmin.isAccountCreatedSuccesfully());
     	
-    	logOutAndLogInWithNewUser();
+    	logOutAndLogInWithNewUser(username);
     	
     	assertTrue(appDashboard.isActiveVisitsAppPresented());
     	assertTrue(appDashboard.isFindAPatientAppPresented());
@@ -67,16 +66,16 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
 	}
     
     @Test
-    public void createUserWithDataArchivesRoleAndChangeItsLocation() throws InterruptedException {
-    	username = createUser();
+    public void createUserWithDataArchivesRole() throws InterruptedException {
+    	String username = createUser();
     	
 		loginPage.logIn("admin", "Admin123");
 		appDashboard.openSysAdminApp();
-    	userAdmin.createDataArchivesAccount("Test", "User", username, password);
+    	userAdmin.createDataArchivesAccount("Test", "User", username, DEFAULT_PASSWORD);
     	
     	assertTrue(userAdmin.isAccountCreatedSuccesfully());
     	
-    	logOutAndLogInWithNewUser();
+    	logOutAndLogInWithNewUser(username);
     	
     	assertTrue(appDashboard.isActiveVisitsAppPresented());
     	assertTrue(appDashboard.isFindAPatientAppPresented());
@@ -87,7 +86,7 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     
     @Test
     public void createUserWithSysAdminRole() throws InterruptedException {
-    	username = createUser();
+    	String username = createUser();
     	
 		loginPage.logIn("admin", "Admin123");
     	
@@ -98,11 +97,11 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     	assertTrue(appDashboard.isArchivesRoomAppPresented());
     	
     	appDashboard.openSysAdminApp();
-    	userAdmin.createSysAdminAccount("Test", "User", username, password);
+    	userAdmin.createSysAdminAccount("Test", "User", username, DEFAULT_PASSWORD);
     	
     	assertTrue(userAdmin.isAccountCreatedSuccesfully());
     	
-    	logOutAndLogInWithNewUser();
+    	logOutAndLogInWithNewUser(username);
     	
     	assertTrue(appDashboard.isActiveVisitsAppPresented());
     	assertTrue(appDashboard.isFindAPatientAppPresented());
@@ -125,8 +124,8 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     }
 
        
-    private void logOutAndLogInWithNewUser() {
+    private void logOutAndLogInWithNewUser(String username) {
     	header.logOut();
-    	loginPage.logIn(username, password);
+    	loginPage.logIn(username, DEFAULT_PASSWORD);
     }
 }

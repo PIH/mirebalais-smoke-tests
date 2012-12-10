@@ -18,6 +18,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.gargoylesoftware.htmlunit.ElementNotFoundException;
+
 import java.util.List;
 
 public class UserAdmin extends AbstractPageObject {
@@ -103,5 +105,21 @@ public class UserAdmin extends AbstractPageObject {
 	private void chooseSysAdminRole() {
 		driver.findElement(By.id("sysAdmin")).click();
 	}
+
+	public void unlockUser(String username) {
+		adminPage.openManageAccounts();
+		this.getRightUserElement(username).click();
+		driver.findElement(By.id("unlock-button")).click();
+	}
 	
+	private WebElement getRightUserElement(String username) {
+		List<WebElement> options = driver.findElements(By.tagName("a"));
+		for (int i = options.size(); i > 0; i = i-1) {
+			WebElement option = options.get(i-1);
+	        if(option.getText().contains(username)) {
+	            return option;
+	        }
+		}
+		throw new ElementNotFoundException(username, username, username);
+	}
 }
