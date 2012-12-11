@@ -42,13 +42,11 @@ public class MergeFlow extends AbstractPageObject {
 	}
 
 	private void clickOnLeftPatient() {
-		//driver.findElement(By.id("choose1")).click();
 		driver.findElement(By.className("first-patient")).click();
 	}
 
 	private void clickOnContinueMergeButton() {
-		driver.findElement(By.className("primary")).click();
-		//driver.findElement(By.id("confirm-button")).click();
+		driver.findElement(By.className("confirm")).click();
 	}
 	
 }
