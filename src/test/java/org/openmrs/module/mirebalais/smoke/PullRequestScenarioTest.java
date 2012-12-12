@@ -1,7 +1,5 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -11,6 +9,8 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientRegistrationDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
 import org.openqa.selenium.By;
+
+import static org.junit.Assert.assertTrue;
 
 public class PullRequestScenarioTest extends BasicMirebalaisSmokeTest {
 
@@ -47,7 +47,7 @@ public class PullRequestScenarioTest extends BasicMirebalaisSmokeTest {
 		checkIn.setLocationAndChooseCheckInTask(patientIdentifier, patientName);
 		appDashboard.openArchivesRoomApp();
 
-		driver.findElement(By.id("tab-selector-createrequest")).click();
+		driver.findElement(By.id("tab-selector-create")).click();
 		
 		assertTrue(driver.findElement(By.id("create_requests_table")).getText().contains(patientName));
 		assertTrue(driver.findElement(By.id("create_requests_table")).getText().contains(patientIdentifier));
