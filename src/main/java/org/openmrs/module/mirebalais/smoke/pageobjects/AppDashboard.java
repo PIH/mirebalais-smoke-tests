@@ -75,9 +75,9 @@ public class AppDashboard extends AbstractPageObject {
 
     public List<String> getAppsNames() {
         List<String> appsNames = new ArrayList<String>();
-        List<WebElement> apps = driver.findElements(By.className("app"));
+        List<WebElement> apps = driver.findElements(By.cssSelector(".apps a"));
         for(WebElement app: apps) {
-            appsNames.add(app.findElement(By.tagName("a")).getText());
+            appsNames.add(app.getText());
         }
         return appsNames;
     }
