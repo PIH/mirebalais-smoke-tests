@@ -31,7 +31,7 @@ public class UserAdmin extends AbstractPageObject {
 		adminPage = new SysAdminPage(driver);
 	}
 
-	public boolean isAccountCreatedSuccesfully() {
+	public boolean isAccountCreatedSuccessfully() {
 		return driver.findElement(By.id("info-message")).getText().contains("Saved account successfully");
 	}
 	
@@ -89,7 +89,7 @@ public class UserAdmin extends AbstractPageObject {
 	}
 	
 	private void clickOnEnabledButton() {
-		// ...
+		driver.findElement(By.name("enabled")).click();
 	}
 
 	private void clickOnSave() {

@@ -35,7 +35,7 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     	appDashboard.openSysAdminApp();
     	userAdmin.createClinicalAccount("Test", "User", username, DEFAULT_PASSWORD);
     	
-    	assertTrue(userAdmin.isAccountCreatedSuccesfully());
+    	assertTrue(userAdmin.isAccountCreatedSuccessfully());
     	
     	logOutAndLogInWithNewUser(username);
     	
@@ -54,7 +54,7 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
 		appDashboard.openSysAdminApp();
     	userAdmin.createRadiologyAccount("Test", "User", username, DEFAULT_PASSWORD);
     	
-    	assertTrue(userAdmin.isAccountCreatedSuccesfully());
+    	assertTrue(userAdmin.isAccountCreatedSuccessfully());
     	
     	logOutAndLogInWithNewUser(username);
     	
@@ -73,7 +73,7 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
 		appDashboard.openSysAdminApp();
     	userAdmin.createDataArchivesAccount("Test", "User", username, DEFAULT_PASSWORD);
     	
-    	assertTrue(userAdmin.isAccountCreatedSuccesfully());
+    	assertTrue(userAdmin.isAccountCreatedSuccessfully());
     	
     	logOutAndLogInWithNewUser(username);
     	
@@ -99,7 +99,7 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     	appDashboard.openSysAdminApp();
     	userAdmin.createSysAdminAccount("Test", "User", username, DEFAULT_PASSWORD);
     	
-    	assertTrue(userAdmin.isAccountCreatedSuccesfully());
+    	assertTrue(userAdmin.isAccountCreatedSuccessfully());
     	
     	logOutAndLogInWithNewUser(username);
     	
