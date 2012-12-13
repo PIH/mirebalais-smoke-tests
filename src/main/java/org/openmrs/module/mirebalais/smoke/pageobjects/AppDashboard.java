@@ -83,7 +83,7 @@ public class AppDashboard extends AbstractPageObject {
     }
 
     private void clickAppButton(String appId) {
-        driver.findElement(By.cssSelector("#" + appId + " a")).click();
+        driver.findElement(By.id(appId)).click();
     }
 
     private boolean isAppButtonPresent(String appId) {

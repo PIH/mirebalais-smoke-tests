@@ -72,7 +72,9 @@ public class UserAdmin extends AbstractPageObject {
 	}
 	
 	private void fillUserAccountDetails(String username, String password) {
-		driver.findElement(By.xpath("/html/body/div/div[2]/form/fieldset[2]/div[2]/input")).click();
+		driver.findElement(By.id("createUserAccountButton")).click();
+		
+		clickOnEnabledButton();
 		
 		driver.findElement(By.name("username")).sendKeys(username);
 		driver.findElement(By.name("password")).sendKeys(password);
@@ -86,30 +88,44 @@ public class UserAdmin extends AbstractPageObject {
 	    }
 	}
 	
+	private void clickOnEnabledButton() {
+		// ...
+	}
+
 	private void clickOnSave() {
-		driver.findElement(By.xpath("/html/body/div/div[2]/form/input[3]")).click();
+		driver.findElement(By.id("save-button")).click();
 	}
 	
 	private void chooseClinicalRole() {
-		driver.findElement(By.id("clinical")).click();
+		getRightRole("clinical").click();
 	}
 	
 	private void chooseDataArchivesRole() {
-		driver.findElement(By.id("dataArchives")).click();
+		getRightRole("dataArchives").click();
 	}
 	
 	private void chooseRadiologyRole() {
-		driver.findElement(By.id("radiology")).click();
+		getRightRole("radiology").click();
 	}
 	
 	private void chooseSysAdminRole() {
-		driver.findElement(By.id("sysAdmin")).click();
+		getRightRole("sysAdmin").click();
 	}
 
 	public void unlockUser(String username) {
 		adminPage.openManageAccounts();
 		this.getRightUserElement(username).click();
 		driver.findElement(By.id("unlock-button")).click();
+	}
+	
+	private WebElement getRightRole(String role) {
+		List<WebElement> options = driver.findElements(By.name("capabilities"));
+		for (WebElement element : options) {
+			if(element.getAttribute("value").contains(role)) {
+	            return element;
+	        }
+		}
+		throw new ElementNotFoundException(role, role, role);
 	}
 	
 	private WebElement getRightUserElement(String username) {
