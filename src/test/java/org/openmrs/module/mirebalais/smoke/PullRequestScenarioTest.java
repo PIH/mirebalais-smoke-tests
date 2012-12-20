@@ -39,7 +39,7 @@ public class PullRequestScenarioTest extends BasicMirebalaisSmokeTest {
     }
 
 	@Test
-	public void createsARecord() {
+	public void createsARecord() throws InterruptedException {
 		appDashboard.openPatientRegistrationApp();
 		registration.goThruRegistrationProcessWithoutPrintingCard();
 		patientIdentifier = patientDashboard.getIdentifier();
@@ -48,7 +48,9 @@ public class PullRequestScenarioTest extends BasicMirebalaisSmokeTest {
 		appDashboard.openArchivesRoomApp();
 
 		driver.findElement(By.id("tab-selector-create")).click();
-		
+
+        Thread.sleep(5000);
+
 		assertTrue(driver.findElement(By.id("create_requests_table")).getText().contains(patientName));
 		assertTrue(driver.findElement(By.id("create_requests_table")).getText().contains(patientIdentifier));
 	}
