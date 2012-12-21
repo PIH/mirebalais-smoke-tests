@@ -1,13 +1,16 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import java.net.URL;
-import java.util.concurrent.TimeUnit;
-
 import org.apache.commons.lang.SystemUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.openmrs.module.mirebalais.smoke.pageobjects.SmokeTestProperties;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
+import org.openqa.selenium.support.pagefactory.ElementLocatorFactory;
+
+import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 public abstract class BasicMirebalaisSmokeTest {
 
@@ -15,12 +18,17 @@ public abstract class BasicMirebalaisSmokeTest {
 
 	protected static ChromeDriver driver;
 
+    public static int DRIVER_WAIT = 30; // 30 seconds
+
     @BeforeClass
     public static void startWebDriver() {
         setupChromeDriver();
     	driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(2000, TimeUnit.MILLISECONDS);
     	driver.get(new SmokeTestProperties().getWebAppUrl());
+
+        ElementLocatorFactory finder = new AjaxElementLocatorFactory(driver, DRIVER_WAIT);
+        PageFactory.initElements(finder, driver);
     }
 
 	@AfterClass
