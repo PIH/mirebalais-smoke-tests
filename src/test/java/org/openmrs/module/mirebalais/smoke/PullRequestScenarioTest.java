@@ -49,7 +49,7 @@ public class PullRequestScenarioTest extends BasicMirebalaisSmokeTest {
 
 		driver.findElement(By.id("tab-selector-create")).click();
 
-        Thread.sleep(5000);
+        Thread.sleep(10000);
 
 		assertTrue(driver.findElement(By.id("create_requests_table")).getText().contains(patientName));
 		assertTrue(driver.findElement(By.id("create_requests_table")).getText().contains(patientIdentifier));
