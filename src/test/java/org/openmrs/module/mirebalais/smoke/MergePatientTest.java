@@ -3,6 +3,7 @@ package org.openmrs.module.mirebalais.smoke;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
@@ -11,6 +12,7 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
 import org.openmrs.module.mirebalais.smoke.pageobjects.SysAdminPage;
 
+@Ignore
 public class MergePatientTest extends BasicMirebalaisSmokeTest {
 
 	private static LoginPage loginPage;
