@@ -40,7 +40,6 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     	logOutAndLogInWithNewUser(username);
     	
     	assertTrue(appDashboard.isActiveVisitsAppPresented());
-    	assertTrue(appDashboard.isFindAPatientAppPresented());
     	assertFalse(appDashboard.isSystemAdministrationAppPresented());
     	assertFalse(appDashboard.isPatientRegistrationAppPresented());
     	assertFalse(appDashboard.isArchivesRoomAppPresented());
@@ -59,7 +58,6 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     	logOutAndLogInWithNewUser(username);
     	
     	assertTrue(appDashboard.isActiveVisitsAppPresented());
-    	assertTrue(appDashboard.isFindAPatientAppPresented());
     	assertFalse(appDashboard.isSystemAdministrationAppPresented());
     	assertFalse(appDashboard.isPatientRegistrationAppPresented());
     	assertFalse(appDashboard.isArchivesRoomAppPresented());
@@ -78,7 +76,6 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     	logOutAndLogInWithNewUser(username);
     	
     	assertTrue(appDashboard.isActiveVisitsAppPresented());
-    	assertTrue(appDashboard.isFindAPatientAppPresented());
     	assertFalse(appDashboard.isSystemAdministrationAppPresented());
     	assertTrue(appDashboard.isPatientRegistrationAppPresented());
     	assertTrue(appDashboard.isArchivesRoomAppPresented());
@@ -91,7 +88,6 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
 		loginPage.logIn("admin", "Admin123");
     	
     	assertTrue(appDashboard.isActiveVisitsAppPresented());
-    	assertTrue(appDashboard.isFindAPatientAppPresented());
     	assertTrue(appDashboard.isSystemAdministrationAppPresented());
     	assertTrue(appDashboard.isPatientRegistrationAppPresented());
     	assertTrue(appDashboard.isArchivesRoomAppPresented());
@@ -104,7 +100,6 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     	logOutAndLogInWithNewUser(username);
     	
     	assertTrue(appDashboard.isActiveVisitsAppPresented());
-    	assertTrue(appDashboard.isFindAPatientAppPresented());
     	assertTrue(appDashboard.isSystemAdministrationAppPresented());
     	assertTrue(appDashboard.isPatientRegistrationAppPresented());
     	assertTrue(appDashboard.isArchivesRoomAppPresented());
