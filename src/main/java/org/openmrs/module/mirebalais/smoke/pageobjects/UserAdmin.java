@@ -74,7 +74,7 @@ public class UserAdmin extends AbstractPageObject {
 	private void fillUserAccountDetails(String username, String password) {
 		driver.findElement(By.id("createUserAccountButton")).click();
 		
-		clickOnEnabledButton();
+		clickOnUserEnabledCheckbox();
 		
 		driver.findElement(By.name("username")).sendKeys(username);
 		driver.findElement(By.name("password")).sendKeys(password);
@@ -88,8 +88,8 @@ public class UserAdmin extends AbstractPageObject {
 	    }
 	}
 	
-	private void clickOnEnabledButton() {
-		driver.findElement(By.name("enabled")).click();
+	private void clickOnUserEnabledCheckbox() {
+		driver.findElement(By.name("userEnabled")).click();
 	}
 
 	private void clickOnSave() {
