@@ -73,9 +73,6 @@ public class UserAdmin extends AbstractPageObject {
 	
 	private void fillUserAccountDetails(String username, String password) {
 		driver.findElement(By.id("createUserAccountButton")).click();
-		
-		clickOnUserEnabledCheckbox();
-		
 		driver.findElement(By.name("username")).sendKeys(username);
 		driver.findElement(By.name("password")).sendKeys(password);
 		driver.findElement(By.name("confirmPassword")).sendKeys(password);
@@ -86,10 +83,6 @@ public class UserAdmin extends AbstractPageObject {
 	        if("Privilege Level: Full".equals(option.getText()))
 	            option.click();
 	    }
-	}
-	
-	private void clickOnUserEnabledCheckbox() {
-		driver.findElement(By.name("userEnabled")).click();
 	}
 
 	private void clickOnSave() {
