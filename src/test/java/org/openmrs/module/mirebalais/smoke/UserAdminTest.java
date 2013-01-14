@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.UserAdmin;
+import org.openqa.selenium.By;
 
 public class UserAdminTest extends BasicMirebalaisSmokeTest {
 
@@ -82,7 +83,7 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
 	}
     
     @Test
-    public void createUserWithSysAdminRole() throws InterruptedException {
+    public void createUserWithSysAdminRoleWithKreyolAsDesiredLanguage() throws InterruptedException {
     	String username = createUser();
     	
 		loginPage.logIn("admin", "Admin123");
@@ -93,7 +94,7 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     	assertTrue(appDashboard.isArchivesRoomAppPresented());
     	
     	appDashboard.openSysAdminApp();
-    	userAdmin.createSysAdminAccount("Test", "User", username, DEFAULT_PASSWORD);
+    	userAdmin.createSysAdminAccount("Test", "User", username, DEFAULT_PASSWORD, "Haitian");
     	
     	assertTrue(userAdmin.isAccountCreatedSuccessfully());
     	
@@ -103,6 +104,11 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     	assertTrue(appDashboard.isSystemAdministrationAppPresented());
     	assertTrue(appDashboard.isPatientRegistrationAppPresented());
     	assertTrue(appDashboard.isArchivesRoomAppPresented());
+    	
+    	appDashboard.openSysAdminApp();
+    	String text = driver.findElement(By.className("task")).getText();
+    	assertTrue(text.contains("Jere Kont"));
+    	assertFalse(text.contains("Manage Accounts"));
 	}
    
     @After

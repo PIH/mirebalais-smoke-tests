@@ -17,6 +17,7 @@ package org.openmrs.module.mirebalais.smoke.pageobjects;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 
@@ -59,6 +60,18 @@ public class UserAdmin extends AbstractPageObject {
 	    clickOnSave();
 	}
 	
+	public void createSysAdminAccount(String firstName, String lastName, String username, String password, String language) {
+		createAccount(firstName, lastName, username, password);
+		chooseSysAdminRole();
+		chooseLanguage(language);
+	    clickOnSave();
+	}
+	
+	private void chooseLanguage(String language) {
+		Select select = new Select(driver.findElement(By.name("defaultLocale")));
+		select.selectByVisibleText(language);
+	}
+
 	private void createAccount(String firstName, String lastName, String username, String password) {
 		fillBasicInfo(firstName, lastName);
 		fillUserAccountDetails(username, password);
@@ -131,4 +144,6 @@ public class UserAdmin extends AbstractPageObject {
 		}
 		throw new ElementNotFoundException(username, username, username);
 	}
+
+	
 }
