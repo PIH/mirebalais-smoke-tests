@@ -11,7 +11,7 @@ public class HeaderPage extends AbstractPageObject {
 	}
 
 	public void logOut() {
-		driver.findElement(By.linkText("Logout")).click();
+		driver.findElement(By.className("logout")).click();
 	}
 	
 	public String getLocation() {

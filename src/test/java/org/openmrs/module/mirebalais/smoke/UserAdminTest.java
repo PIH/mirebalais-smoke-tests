@@ -105,10 +105,12 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     	assertTrue(appDashboard.isPatientRegistrationAppPresented());
     	assertTrue(appDashboard.isArchivesRoomAppPresented());
     	
+    	
     	appDashboard.openSysAdminApp();
     	String text = driver.findElement(By.className("task")).getText();
     	assertTrue(text.contains("Jere Kont"));
     	assertFalse(text.contains("Manage Accounts"));
+    	
 	}
    
     @After
