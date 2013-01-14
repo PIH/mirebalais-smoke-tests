@@ -28,7 +28,7 @@ public class OrdersTest extends BasicMirebalaisSmokeTest {
     
 	@Test
 	public void orderSingleXRay() {
-		loginPage.logIn("admin", "Admin123");
+		loginPage.logInAsAdmin();
 		appDashboard.openActiveVisitsApp();
 		
 		//TODO: create an user to do this instead of using this from other test

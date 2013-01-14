@@ -35,7 +35,7 @@ public class MergePatientTest extends BasicMirebalaisSmokeTest {
 		registration = new Registration(driver);
 		patientDashboard = new PatientDashboard(driver);
 
-		loginPage.logIn("admin", "Admin123");
+		loginPage.logInAsAdmin();
 
 		appDashboard.openPatientRegistrationApp();
 		registration.registerSpecificGuyWithoutPrintingCard(patientOne);

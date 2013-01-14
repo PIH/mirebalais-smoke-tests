@@ -49,7 +49,7 @@ public class ActiveVisitsTest extends BasicMirebalaisSmokeTest{
 	
 	@Test
 	public void patientHasAnActiveVisiteWithoutPullingADossier() {
-		loginPage.logIn("admin", "Admin123");
+		loginPage.logInAsAdmin();
 		appDashboard.openPatientRegistrationApp();
 		registration.goThruRegistrationProcessWithoutPrintingCard(); // TODO: transform it in a sql script
 		patientIdentifier = patientDashboard.getIdentifier();

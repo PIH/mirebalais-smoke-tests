@@ -29,7 +29,7 @@ public class RegistrationFlowTest extends BasicMirebalaisSmokeTest {
 
     @Test
     public void registerPatientdPrintingCard() {
-    	loginPage.logIn("admin", "Admin123");
+    	loginPage.logInAsAdmin();
     	
     	appDashboard.openPatientRegistrationApp();
     	registration.goThruRegistrationProcessPrintingCard();

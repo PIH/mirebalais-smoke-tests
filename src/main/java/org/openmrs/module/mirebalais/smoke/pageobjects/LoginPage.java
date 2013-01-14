@@ -17,5 +17,8 @@ public class LoginPage {
         driver.findElement(By.xpath("//*[@id='sessionLocation']/li[1]")).click();
     	driver.findElement(By.id("login-button")).click();
 	}
-
+	
+	public void logInAsAdmin() {
+		this.logIn("admin", "teste");
+	}
 }

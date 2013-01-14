@@ -32,7 +32,7 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     public void createUserWithClinicalRole() throws InterruptedException {
     	String username = createUser();
     	
-		loginPage.logIn("admin", "Admin123");
+		loginPage.logInAsAdmin();
     	appDashboard.openSysAdminApp();
     	userAdmin.createClinicalAccount("Test", "User", username, DEFAULT_PASSWORD);
     	
@@ -50,7 +50,7 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     public void createUserWithRadiologyRole() throws InterruptedException {
     	String username = createUser();
     	
-		loginPage.logIn("admin", "Admin123");
+    	loginPage.logInAsAdmin();
 		appDashboard.openSysAdminApp();
     	userAdmin.createRadiologyAccount("Test", "User", username, DEFAULT_PASSWORD);
     	
@@ -68,7 +68,7 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     public void createUserWithDataArchivesRole() throws InterruptedException {
     	String username = createUser();
     	
-		loginPage.logIn("admin", "Admin123");
+    	loginPage.logInAsAdmin();
 		appDashboard.openSysAdminApp();
     	userAdmin.createDataArchivesAccount("Test", "User", username, DEFAULT_PASSWORD);
     	
@@ -86,7 +86,7 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     public void createUserWithSysAdminRoleWithKreyolAsDesiredLanguage() throws InterruptedException {
     	String username = createUser();
     	
-		loginPage.logIn("admin", "Admin123");
+    	loginPage.logInAsAdmin();
     	
     	assertTrue(appDashboard.isActiveVisitsAppPresented());
     	assertTrue(appDashboard.isSystemAdministrationAppPresented());

@@ -35,7 +35,7 @@ public class PullRequestScenarioTest extends BasicMirebalaisSmokeTest {
 	@BeforeClass
     public static void setUpEnvironment() {
     	loginPage = new LoginPage(driver);
-    	loginPage.logIn("admin", "Admin123");
+    	loginPage.logInAsAdmin();
     }
 
 	@Test
