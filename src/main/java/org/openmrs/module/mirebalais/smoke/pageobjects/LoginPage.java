@@ -19,6 +19,6 @@ public class LoginPage {
 	}
 	
 	public void logInAsAdmin() {
-		this.logIn("admin", "teste");
+		this.logIn("admin", "test");
 	}
 }
