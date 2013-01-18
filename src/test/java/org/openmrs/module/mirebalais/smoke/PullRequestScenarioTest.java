@@ -47,7 +47,7 @@ public class PullRequestScenarioTest extends BasicMirebalaisSmokeTest {
 		checkIn.setLocationAndChooseCheckInTask(patientIdentifier, patientName);
 		appDashboard.openArchivesRoomApp();
 
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, 1000);
         wait.until(ExpectedConditions.textToBePresentInElement(By.id("create_requests_table"), patientName));
         wait.until(ExpectedConditions.textToBePresentInElement(By.id("create_requests_table"), patientIdentifier));
 	}
