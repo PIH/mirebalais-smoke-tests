@@ -93,7 +93,7 @@ public class UserAdmin extends AbstractPageObject {
 		WebElement select = driver.findElement(By.name("privilegeLevel"));
 	    List<WebElement> options = select.findElements(By.tagName("option"));
 	    for (WebElement option : options) {
-	        if("Privilege Level: Full".equals(option.getText()))
+	        if("Full".equals(option.getText()))
 	            option.click();
 	    }
 	}
