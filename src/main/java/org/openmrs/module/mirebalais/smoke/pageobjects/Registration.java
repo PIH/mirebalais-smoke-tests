@@ -27,7 +27,7 @@ public class Registration extends AbstractPageObject {
         chooseToPrintIdCard();
     }
 
-    public void registerSpecificGuyWithoutPrintingCard(String name) {
+    public String registerSpecificGuyWithoutPrintingCard(String name) {
     	driver.findElement(By.cssSelector("td.taskListItem")).click();
     	clickOnSearchByNameButton();
 		enterFirstAndLastName(name);
@@ -38,9 +38,9 @@ public class Registration extends AbstractPageObject {
 		enterPhoneData();
 		confirmData();
         chooseNotToPrintIdCard();
-        clickYellowCheckMark();
+        return driver.findElement(By.id("patientPreferredId")).getText();
     }
-    
+
 	private void registerPatient() {
 		driver.findElement(By.cssSelector("td.taskListItem")).click();
 		clickOnSearchByNameButton();

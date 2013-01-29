@@ -55,5 +55,12 @@ public class PatientDashboard extends AbstractPageObject {
 		}
 		return result;
 	}
+
+    public boolean verifyIfSuccessfulMessageIsDisplayed(){
+        if (driver.findElement(By.className("icon-ok")) != null){
+            return true;
+        }
+        return false;
+    }
 	
 }

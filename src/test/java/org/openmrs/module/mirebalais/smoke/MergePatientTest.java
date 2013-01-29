@@ -3,16 +3,15 @@ package org.openmrs.module.mirebalais.smoke;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.MergeFlow;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
+import org.openmrs.module.mirebalais.smoke.pageobjects.PatientRegistrationDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
 import org.openmrs.module.mirebalais.smoke.pageobjects.SysAdminPage;
 
-@Ignore
 public class MergePatientTest extends BasicMirebalaisSmokeTest {
 
 	private static LoginPage loginPage;
@@ -22,11 +21,15 @@ public class MergePatientTest extends BasicMirebalaisSmokeTest {
 	private Registration registration;
 	private PatientDashboard patientDashboard; 
 	
-	private String patientOne = "Bruce Wayne";
-	private String patientTwo = "Clark Kent";
-	
-	
-	@Before
+	private String patientNameOne = "Bruce Wayne";
+	private String patientNameTwo = "Clark Kent";
+
+    private String patientIdOne = "";
+    private String patientIdTwo = "";
+    private PatientRegistrationDashboard patientRegistrationDashboard;
+
+
+    @Before
     public void setUp() {
 		loginPage = new LoginPage(driver);
 		appDashboard = new AppDashboard(driver);
@@ -35,13 +38,13 @@ public class MergePatientTest extends BasicMirebalaisSmokeTest {
 		registration = new Registration(driver);
 		patientDashboard = new PatientDashboard(driver);
 
-		loginPage.logInAsAdmin();
+        loginPage.logInAsAdmin();
 
-		appDashboard.openPatientRegistrationApp();
-		registration.registerSpecificGuyWithoutPrintingCard(patientOne);
-		
-		appDashboard.openPatientRegistrationApp();
-		registration.registerSpecificGuyWithoutPrintingCard(patientTwo);
+        appDashboard.openPatientRegistrationApp();
+        patientIdOne = registration.registerSpecificGuyWithoutPrintingCard(patientNameOne);
+
+        appDashboard.openPatientRegistrationApp();
+		patientIdTwo = registration.registerSpecificGuyWithoutPrintingCard(patientNameTwo);
 	}
 	
 	@Test
@@ -49,9 +52,9 @@ public class MergePatientTest extends BasicMirebalaisSmokeTest {
 		appDashboard.openSysAdminApp();
 		sysAdminPage.openManagePatientRecords();
 		
-		mergeFlow.setPatientsToMerge(patientOne, patientTwo);
+		mergeFlow.setPatientsToMerge(patientIdOne, patientIdTwo);
 		
-		assertTrue(patientDashboard.getIdentifiers().size() > 1);
+		assertTrue(patientDashboard.verifyIfSuccessfulMessageIsDisplayed());
 	}
 
 }

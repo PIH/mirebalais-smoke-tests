@@ -1,6 +1,7 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -44,5 +45,6 @@ public abstract class AbstractPageObject {
     	WebElement element = driver.findElement(By.id(textFieldId));
 		element.clear();
 		element.sendKeys(text);
+        element.sendKeys(Keys.RETURN);
     }
 }
