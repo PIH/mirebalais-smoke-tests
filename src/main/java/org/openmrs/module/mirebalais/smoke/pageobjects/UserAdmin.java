@@ -33,7 +33,7 @@ public class UserAdmin extends AbstractPageObject {
 	}
 
 	public boolean isAccountCreatedSuccessfully() {
-		return driver.findElement(By.class("toast-item")).getText().contains("Saved account successfully");
+		return driver.findElement(By.className("toast-item")).getText().contains("Saved account successfully");
 	}
 	
 	public void createClinicalAccount(String firstName, String lastName, String username, String password) {
