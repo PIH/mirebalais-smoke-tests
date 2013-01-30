@@ -15,6 +15,7 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -33,7 +34,12 @@ public class UserAdmin extends AbstractPageObject {
 	}
 
 	public boolean isAccountCreatedSuccessfully() {
-		return driver.findElement(By.className("toast-item")).getText().contains("Saved account successfully");
+		WebElement element = driver.findElement(By.className("toast-item"));
+        boolean isCreatedSuccesfully = element.getText().contains("Saved account successfully");
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("return jQuery('.toast-item').hide();");
+
+        return isCreatedSuccesfully;
 	}
 	
 	public void createClinicalAccount(String firstName, String lastName, String username, String password) {
