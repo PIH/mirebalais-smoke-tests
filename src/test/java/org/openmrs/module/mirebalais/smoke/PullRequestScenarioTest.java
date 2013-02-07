@@ -44,7 +44,7 @@ public class PullRequestScenarioTest extends BasicMirebalaisSmokeTest {
 		registration.goThruRegistrationProcessWithoutPrintingCard();
 		patientIdentifier = patientDashboard.getIdentifier();
 		patientName = patientDashboard.getName();
-		checkIn.setLocationAndChooseCheckInTask(patientIdentifier, patientName);
+		checkIn.checkInPatient(patientIdentifier, patientName);
 		appDashboard.openArchivesRoomApp();
 
         WebDriverWait wait = new WebDriverWait(driver, 1000);

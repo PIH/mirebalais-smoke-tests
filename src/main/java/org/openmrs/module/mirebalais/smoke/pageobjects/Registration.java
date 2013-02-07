@@ -28,7 +28,6 @@ public class Registration extends AbstractPageObject {
     }
 
     public String registerSpecificGuyWithoutPrintingCard(String name) {
-    	driver.findElement(By.cssSelector("td.taskListItem")).click();
     	clickOnSearchByNameButton();
 		enterFirstAndLastName(name);
 		enterSexData();
@@ -42,7 +41,6 @@ public class Registration extends AbstractPageObject {
     }
 
 	private void registerPatient() {
-		driver.findElement(By.cssSelector("td.taskListItem")).click();
 		clickOnSearchByNameButton();
 		enterFirstAndLastName();
 		enterSexData();

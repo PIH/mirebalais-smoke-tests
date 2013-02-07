@@ -57,8 +57,9 @@ public class ActiveVisitsTest extends BasicMirebalaisSmokeTest{
 
 		appDashboard.openActiveVisitsApp();
 		assertFalse(driver.findElement(By.id("content")).getText().contains(patientIdentifier));
-    	
-		checkIn.setLocationAndChooseCheckInTask(patientIdentifier, patientName);
+
+        appDashboard.openStartClinicVisitApp();
+		checkIn.checkInPatient(patientIdentifier, patientName);
 		
 		appDashboard.openActiveVisitsApp();
 		assertTrue(driver.findElement(By.id("content")).getText().contains(patientName));

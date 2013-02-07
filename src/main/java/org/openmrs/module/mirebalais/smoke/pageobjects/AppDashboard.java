@@ -24,7 +24,10 @@ import java.util.List;
 public class AppDashboard extends AbstractPageObject {
 
     public static final String ARCHIVES_ROOM = "emr-archivesRoom-app";
-    public static final String PATIENT_REGISTRATION_AND_CHECK_IN = "patientregistration-main-app";
+    public static final String PATIENT_REGISTRATION = "patientRegistration-registration-app";
+    public static final String START_HOSPITAL_VISIT = "patientRegistration-emergencyCheckin-app";
+    public static final String START_CLINIC_VISIT = "patientRegistration-checkin-app";
+    public static final String EDIT_PATIENT = "patientRegistration-lookup-app";
     public static final String FIND_PATIENT = "emr-findPatient-app";
     public static final String SYSTEM_ADMINISTRATION = "emr-systemAdministration-app";
     public static final String ACTIVE_VISITS = "emr-activeVisits-app";
@@ -34,27 +37,35 @@ public class AppDashboard extends AbstractPageObject {
     }
 
     public void openActiveVisitsApp() {
-		driver.get(properties.getWebAppUrl());
-        clickAppButton(ACTIVE_VISITS);
+        openApp(ACTIVE_VISITS);
 	}
 
 	public void openArchivesRoomApp() {
-		driver.get(properties.getWebAppUrl());
-        clickAppButton(ARCHIVES_ROOM);
+        openApp(ARCHIVES_ROOM);
 	}
 
 	public void openPatientRegistrationApp() {
-		driver.get(properties.getWebAppUrl());
-		clickAppButton(PATIENT_REGISTRATION_AND_CHECK_IN);
+        openApp(PATIENT_REGISTRATION);
 	}
 
+    public void openStartHospitalVisitApp() {
+        openApp(START_HOSPITAL_VISIT);
+    }
+
+    public void openStartClinicVisitApp() {
+        openApp(START_CLINIC_VISIT);
+    }
+
+    public void editPatientApp() {
+        openApp(EDIT_PATIENT);
+    }
+
     public void openSysAdminApp() {
-		driver.get(properties.getWebAppUrl());
-        clickAppButton(SYSTEM_ADMINISTRATION);
+        openApp(SYSTEM_ADMINISTRATION);
 	}
 	
 	public boolean isPatientRegistrationAppPresented() {
-		return isAppButtonPresent(PATIENT_REGISTRATION_AND_CHECK_IN);
+		return isAppButtonPresent(PATIENT_REGISTRATION);
 	}
 
     public boolean isArchivesRoomAppPresented() {
@@ -92,5 +103,10 @@ public class AppDashboard extends AbstractPageObject {
         } catch (Exception ex) {
             return false;
         }
+    }
+
+    private void openApp(String appIdentifier) {
+        driver.get(properties.getWebAppUrl());
+        clickAppButton(appIdentifier);
     }
 }

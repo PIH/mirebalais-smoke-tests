@@ -17,10 +17,7 @@ public class CheckIn extends AbstractPageObject {
 
 	
 	
-	public void setLocationAndChooseCheckInTask(String identifier, final String patientName) {
-        new AppDashboard(driver).openPatientRegistrationApp();
-		driver.findElement(By.xpath("//*[@id='taskDiv']/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[2]/td[1]")).click();
-		
+	public void checkInPatient(String identifier, final String patientName) {
 		driver.findElement(By.id("patientIdentifier")).sendKeys(identifier);
 		clickNext();
 		
