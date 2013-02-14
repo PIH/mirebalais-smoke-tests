@@ -1,10 +1,7 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
-import java.util.List;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 public class MergeFlow extends AbstractPageObject {
 
@@ -28,15 +25,6 @@ public class MergeFlow extends AbstractPageObject {
 		clickOnContinueMergeButton();
 		clickOnLeftPatient();
 		clickOnContinueMergeButton(); // Yes, the button is the same, it just changes the caption!
-	}
-
-	private void clickOnTheRightName(String xpath, String patientData) {
-		List<WebElement> options = driver.findElements(By.xpath(xpath));
-		for(WebElement option: options){
-		    if(option.getText().contains(patientData)) {
-		    	option.click();
-		    }               
-		}
 	}
 
 	private void clickOnLeftPatient() {

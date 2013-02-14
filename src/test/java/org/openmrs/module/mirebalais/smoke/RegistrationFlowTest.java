@@ -36,6 +36,7 @@ public class RegistrationFlowTest extends BasicMirebalaisSmokeTest {
 
     	Wait<WebDriver> wait = new WebDriverWait(driver, 2);
     	wait.until(new ExpectedCondition<Boolean>() {
+			@Override
 			public Boolean apply(WebDriver webDriver) {
 				return webDriver.findElement(By.id("scanPatientIdentifier")).isDisplayed();
 			}

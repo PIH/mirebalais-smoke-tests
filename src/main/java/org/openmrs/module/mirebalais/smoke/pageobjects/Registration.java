@@ -56,6 +56,7 @@ public class Registration extends AbstractPageObject {
 		enterFirstAndLastName(name);
 		
 		wait.until(new ExpectedCondition<Boolean>() {
+			@Override
 			public Boolean apply(WebDriver webDriver) {
 				return 	webDriver.findElement(By.id("confirmExistingPatientDiv")).isDisplayed() &&
 						! (webDriver.findElement(By.id("confirmExistingPatientDiv")).getText().contains("searching"));
@@ -64,6 +65,7 @@ public class Registration extends AbstractPageObject {
 		driver.findElement(By.id("confirmExistingPatientDiv")).click();
 		
 		wait.until(new ExpectedCondition<Boolean>() {
+			@Override
 			public Boolean apply(WebDriver webDriver) {
 				return webDriver.findElement(By.id("confirmExistingPatientModalDiv")).isDisplayed();
 			}
@@ -105,7 +107,8 @@ public class Registration extends AbstractPageObject {
     protected void enterPatientLocality() {
         driver.findElement(By.id("possibleLocalityField")).sendKeys("Mirebalais");
         wait.until(new ExpectedCondition<Boolean>() {
-            public Boolean apply(WebDriver webDriver) {
+            @Override
+			public Boolean apply(WebDriver webDriver) {
                 return !webDriver.findElement(By.id("loadingGraph")).isDisplayed();
             }
         });
@@ -134,6 +137,7 @@ public class Registration extends AbstractPageObject {
 
     protected void enterPhoneData() {
 		wait.until(new ExpectedCondition<Boolean>() {
+			@Override
 			public Boolean apply(WebDriver webDriver) {
 				return webDriver.findElement(By.id("patientInputPhoneNumber")).isDisplayed();
 			}

@@ -23,14 +23,16 @@ import java.util.List;
 
 public class AppDashboard extends AbstractPageObject {
 
+	public static final String ACTIVE_VISITS = "emr-activeVisits-app";
     public static final String ARCHIVES_ROOM = "emr-archivesRoom-app";
+    public static final String EDIT_PATIENT = "patientRegistration-lookup-app";
+    public static final String FIND_PATIENT = "emr-findPatient-app";
     public static final String PATIENT_REGISTRATION = "patientRegistration-registration-app";
     public static final String START_HOSPITAL_VISIT = "patientRegistration-emergencyCheckin-app";
     public static final String START_CLINIC_VISIT = "patientRegistration-checkin-app";
-    public static final String EDIT_PATIENT = "patientRegistration-lookup-app";
-    public static final String FIND_PATIENT = "emr-findPatient-app";
     public static final String SYSTEM_ADMINISTRATION = "emr-systemAdministration-app";
-    public static final String ACTIVE_VISITS = "emr-activeVisits-app";
+    
+    public static final String CAPTURE_VITALS = "mirebalais-outpatientVitals-app";
 
     public AppDashboard(WebDriver driver) {
         super(driver);
@@ -62,6 +64,10 @@ public class AppDashboard extends AbstractPageObject {
 
     public void openSysAdminApp() {
         openApp(SYSTEM_ADMINISTRATION);
+	}
+    
+    public void openCaptureVitalsApp() {
+        openApp(CAPTURE_VITALS);
 	}
 	
 	public boolean isPatientRegistrationAppPresented() {

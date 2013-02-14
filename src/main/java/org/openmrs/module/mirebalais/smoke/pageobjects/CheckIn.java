@@ -22,6 +22,7 @@ public class CheckIn extends AbstractPageObject {
 		clickNext();
 		
 		wait.until(new ExpectedCondition<Boolean>() {
+			@Override
 			public Boolean apply(WebDriver webDriver) {
 				return 	webDriver.findElement(By.id("okBtn")).isDisplayed() &&
 						webDriver.findElement(By.className("confirmExistingPatientModalList")).getText().contains(patientName) ;
@@ -42,6 +43,7 @@ public class CheckIn extends AbstractPageObject {
 		clickYellowCheckMark();
 		
 		wait.until(new ExpectedCondition<Boolean>() {
+			@Override
 			public Boolean apply(WebDriver webDriver) {
 				return webDriver.findElement(By.id("okDialog")).isDisplayed();
 			}

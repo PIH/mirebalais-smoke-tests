@@ -8,7 +8,6 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.MergeFlow;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
-import org.openmrs.module.mirebalais.smoke.pageobjects.PatientRegistrationDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
 import org.openmrs.module.mirebalais.smoke.pageobjects.SysAdminPage;
 
@@ -26,8 +25,7 @@ public class MergePatientTest extends BasicMirebalaisSmokeTest {
 
     private String patientIdOne = "";
     private String patientIdTwo = "";
-    private PatientRegistrationDashboard patientRegistrationDashboard;
-
+    
 
     @Before
     public void setUp() {
