@@ -42,9 +42,20 @@ public abstract class AbstractPageObject {
     }
     
     public void setClearTextToField(String textFieldId, String text) {
-    	WebElement element = driver.findElement(By.id(textFieldId));
-		element.clear();
+        setText(driver.findElement(By.id(textFieldId)), text);
+    }
+    
+    public void setClearTextToFieldThruSpan(String spanId, String text) {
+    	setText(findTextFieldInsideSpan(spanId), text);
+	}
+    
+    private void setText(WebElement element, String text) {
+    	element.clear();
 		element.sendKeys(text);
         element.sendKeys(Keys.RETURN);
+    }
+    
+    private WebElement findTextFieldInsideSpan(String spanId) {
+    	return driver.findElement(By.id(spanId)).findElement(By.tagName("input"));
     }
 }

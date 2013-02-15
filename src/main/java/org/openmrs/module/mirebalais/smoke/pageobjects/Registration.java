@@ -8,9 +8,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Registration extends AbstractPageObject {
 
-    private static final String[] FIRST_NAMES = {"Alexandre", "Cosmin", "Darius", "Ellen", "Émerson", "Evan", "Fernando", "Mário", "Mark", "Neil", "Renee"};
-	private static final String[] LAST_NAMES = {"Barbosa", "Ioan", "Jazayeri", "Ball", "Hernandez", "Waters", "Freire", "Areias", "Goodrich", "Craven", "Orser"}; 
 	private Wait<WebDriver> wait;
+	
+    private static final String[] FIRST_NAMES = 
+    	{"Alexandre", "Cosmin", "Darius", "Ellen", "Émerson", "Evan", "Fernando", "Glauber", "Louise",
+    	"Mário", "Mark", "Natália", "Neil", "Renee"};
+	private static final String[] LAST_NAMES = 
+		{"Barbosa", "Ioan", "Jazayeri", "Ball", "Hernandez", "Waters", "Freire", "Ramos", "Sécordel", 
+		"Areias", "Goodrich", "Arsand", "Craven", "Orser"}; 
 	
 	public Registration(WebDriver driver) {
         super(driver);
@@ -122,11 +127,13 @@ public class Registration extends AbstractPageObject {
         driver.findElement(By.id("rdioM")).click();
         clickNext();
     }
-
+    
     protected void enterDateOfBirthData() {
-        driver.findElement(By.id("day")).sendKeys("1");
+    	int day = 1 + (int)(Math.random() * 28);
+    	int year = 1930 + (int)(Math.random() * 71);
+        driver.findElement(By.id("day")).sendKeys(new Integer(day).toString());
         driver.findElement(By.id("ui-active-menuitem")).click();
-        driver.findElement(By.id("year")).sendKeys("1970");
+        driver.findElement(By.id("year")).sendKeys(new Integer(year).toString());
         clickNext();
     }
 
