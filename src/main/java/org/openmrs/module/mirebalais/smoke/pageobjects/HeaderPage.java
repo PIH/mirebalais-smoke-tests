@@ -1,6 +1,5 @@
-package org.openmrs.module.mirebalais.smoke;
+package org.openmrs.module.mirebalais.smoke.pageobjects;
 
-import org.openmrs.module.mirebalais.smoke.pageobjects.AbstractPageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 

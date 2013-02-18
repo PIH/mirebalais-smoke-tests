@@ -2,14 +2,16 @@ package org.openmrs.module.mirebalais.smoke;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 import org.openqa.selenium.By;
-@Ignore
+import org.openqa.selenium.WebElement;
+
 public class OrdersTest extends BasicMirebalaisSmokeTest {
 
 	private LoginPage loginPage;
@@ -35,10 +37,20 @@ public class OrdersTest extends BasicMirebalaisSmokeTest {
 		driver.findElement(By.linkText("UNKNOWN UNKNOWN")).click();
 		patientDashboard.orderXRay(STUDY_1, STUDY_2);
 		
-		assertTrue(patientDashboard.hasOrder(STUDY_1));
+		assertTrue(confirmRadiologyOrderInPatientDashboard());
 	}
 
-	
-
+	//TODO: for now it's simple. sometime in the future this will be probably clickable so we can change behavior
+	private boolean confirmRadiologyOrderInPatientDashboard() {
+		List<WebElement> elements = driver.findElement(By.id("encountersList")).findElements(By.tagName("strong"));
+		System.out.println("Tamanhao= " +  elements.size());
+		for(WebElement element: elements) {
+			if (element.getText().contains("Radiology Order")) {
+				return true;
+			}
+			System.out.println(element.getText());
+		}
+		return false;
+	}
 }
 

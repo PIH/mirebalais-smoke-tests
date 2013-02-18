@@ -59,7 +59,6 @@ public class CaptureVitalsTest extends BasicMirebalaisSmokeTest {
 		vitals.confirmPatient();
 		vitals.enterVitals();
 		
-//		assertTrue(driver.findElement(By.className("toast-container")).isDisplayed());
 		assertTrue(driver.findElement(By.id("content")).isDisplayed());
 	}
 
