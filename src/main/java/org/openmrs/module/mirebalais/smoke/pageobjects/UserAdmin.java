@@ -28,6 +28,10 @@ public class UserAdmin extends AbstractPageObject {
 	
 	private SysAdminPage adminPage;
 	
+	private String[] PROVIDER_TYPES = { "Anaesthetist", /*"Archivist/Clerk",*/ "Clinical Doctor",
+			"General Admin", "Lab Technician", "Nurse (RN)", "Nursing Auxiliary",
+			"Pharmacist", "Radiology Technician", "Surgeon"	};
+	
 	public UserAdmin(WebDriver driver) {
 		super(driver);
 		adminPage = new SysAdminPage(driver);
@@ -42,6 +46,22 @@ public class UserAdmin extends AbstractPageObject {
         return isCreatedSuccesfully;
 	}
 	
+	public void createProvider(String firstName, String lastName) {
+		fillBasicInfo(firstName, lastName);
+		chooseProviderType();
+		clickOnSave();
+	}
+	
+	private void chooseProviderType() {
+		driver.findElement(By.id("createProviderAccountButton")).click();
+		Select select = new Select(driver.findElement(By.name("providerRole")));
+		select.selectByVisibleText(drawProviderType());
+	}
+
+	private String drawProviderType() {
+		return PROVIDER_TYPES[(int)(Math.random() * PROVIDER_TYPES.length)];
+	}
+
 	public void createClinicalAccount(String firstName, String lastName, String username, String password) {
 		createAccount(firstName, lastName, username, password);
 		chooseClinicalRole();

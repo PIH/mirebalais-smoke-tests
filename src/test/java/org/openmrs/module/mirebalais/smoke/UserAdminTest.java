@@ -114,6 +114,16 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     	
 	}
    
+    @Test
+    public void createProvider() {
+    	loginPage.logInAsAdmin();
+		appDashboard.openSysAdminApp();
+    	userAdmin.createProvider("Providêncio", "da Silva");
+    	
+    	assertTrue(userAdmin.isAccountCreatedSuccessfully());
+    }
+    
+    
     @After
     public void tearDown() {
     	header.logOut();

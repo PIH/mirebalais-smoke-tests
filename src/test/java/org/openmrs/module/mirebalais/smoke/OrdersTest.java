@@ -43,12 +43,10 @@ public class OrdersTest extends BasicMirebalaisSmokeTest {
 	//TODO: for now it's simple. sometime in the future this will be probably clickable so we can change behavior
 	private boolean confirmRadiologyOrderInPatientDashboard() {
 		List<WebElement> elements = driver.findElement(By.id("encountersList")).findElements(By.tagName("strong"));
-		System.out.println("Tamanhao= " +  elements.size());
 		for(WebElement element: elements) {
 			if (element.getText().contains("Radiology Order")) {
 				return true;
 			}
-			System.out.println(element.getText());
 		}
 		return false;
 	}
