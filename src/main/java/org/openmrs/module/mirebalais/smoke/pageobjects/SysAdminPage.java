@@ -11,7 +11,7 @@ public class SysAdminPage extends AbstractPageObject {
 	}
 
 	public void openManageAccounts() {
-		driver.findElement(By.linkText("Manage User Accounts")).click();
+		driver.findElement(By.linkText("Manage Accounts")).click();
 	}
 	
 	public void openManagePatientRecords() {
