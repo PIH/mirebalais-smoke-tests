@@ -26,6 +26,7 @@ public class VitalsApp extends AbstractPageObject {
 		setClearTextToFieldThruSpan("weight", "50");
 		hitEnterOnBMI();
 		setClearTextToFieldThruSpan("temperature_c", "36");
+        hitEnterOnFahrenheitField();
 		setClearTextToFieldThruSpan("heart_rate", "50");
 		setClearTextToFieldThruSpan("respiratory_rate", "50");
 		setClearTextToFieldThruSpan("bp_systolic", "120");
@@ -41,5 +42,9 @@ public class VitalsApp extends AbstractPageObject {
 		driver.findElement(By.id("hidden-calculated-bmi")).clear();
 		driver.findElement(By.id("hidden-calculated-bmi")).sendKeys(Keys.RETURN);
 	}
+
+    private void hitEnterOnFahrenheitField() {
+        driver.findElement(By.id("temperature_f")).sendKeys(Keys.RETURN);
+    }
 	
 }
