@@ -16,9 +16,9 @@ package org.openmrs.module.mirebalais.smoke;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.CheckIn;
@@ -49,11 +49,10 @@ public class ActiveVisitsTest extends BasicMirebalaisSmokeTest{
 
 	
 	@Test
-	@Ignore
-	public void patientHasAnActiveVisiteWithoutPullingADossier() {
+	public void checkInPatientDeleteEncounterAndKeepsActiveVisit() {
 		loginPage.logInAsAdmin();
 		appDashboard.openPatientRegistrationApp();
-		registration.goThruRegistrationProcessWithoutPrintingCard(); // TODO: transform it in a sql script
+		registration.goThruRegistrationProcessWithoutPrintingCard(); 
 		patientIdentifier = patientDashboard.getIdentifier();
 		patientName = patientDashboard.getName();
 
@@ -63,9 +62,22 @@ public class ActiveVisitsTest extends BasicMirebalaisSmokeTest{
         appDashboard.openStartClinicVisitApp();
 		checkIn.checkInPatient(patientIdentifier, patientName);
 		
-		appDashboard.openActiveVisitsApp();
-		assertTrue(driver.findElement(By.id("content")).getText().contains(patientName));
-		assertTrue(driver.findElement(By.id("content")).getText().contains(patientIdentifier));
+		appDashboard.findPatientById(patientIdentifier);
+		assertTrue(patientDashboard.hasActiveVisit());
+		
+		try {
+			patientDashboard.deleteEncounter(PatientRegistrationDashboard.CHECKIN);
+		} catch (Exception e) {
+			fail();
+		}
+		
+		try {
+			patientDashboard.deleteEncounter(PatientRegistrationDashboard.CHECKIN);
+			fail();
+		} catch (Exception e) {
+			assertTrue(patientDashboard.hasActiveVisit());
+		}
+		
 	}
 
 }

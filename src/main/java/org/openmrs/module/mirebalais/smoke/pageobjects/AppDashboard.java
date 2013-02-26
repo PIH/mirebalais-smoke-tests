@@ -15,6 +15,7 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -115,4 +116,22 @@ public class AppDashboard extends AbstractPageObject {
         driver.get(properties.getWebAppUrl());
         clickAppButton(appIdentifier);
     }
+
+	public void findPatientById(String patientIdentifier) {
+		driver.get(properties.getWebAppUrl());
+		WebElement element = driver.findElement(By.id("patient-search-field-search"));
+		element.sendKeys(patientIdentifier);
+		clickOnTheRightPatient(patientIdentifier);
+		element.sendKeys(Keys.RETURN);
+	}
+	
+	
+	private void clickOnTheRightPatient(String patientIdentifier) {
+		List<WebElement> options = driver.findElements(By.cssSelector("li.ui-menu-item"));
+	    for (WebElement option : options) {
+	        if(option.getText().contains(patientIdentifier))
+	            option.click();
+	    }
+	}
+	
 }
