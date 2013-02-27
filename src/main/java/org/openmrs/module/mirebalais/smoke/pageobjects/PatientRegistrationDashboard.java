@@ -40,7 +40,7 @@ public class PatientRegistrationDashboard extends AbstractPageObject{
 	        if (encounter.getAttribute("data-encounter-id").equals(encounterId))
 	        	encounter.click();
 	    }
-		driver.findElement(By.cssSelector("button.confirm")).click();
+		driver.findElement(By.xpath("//*[@id='delete-encounter-dialog']/div[2]/button[1]")).click();
 	}
 	
 	public String findEncounterId(String encounterName) throws Exception {
@@ -51,6 +51,16 @@ public class PatientRegistrationDashboard extends AbstractPageObject{
 	    }
 		
 		throw new Exception("No encounter of this type found.");
+	}
+
+	public Integer countEncouters(String encounterName) {
+		int count = 0;
+		List<WebElement> encounters = driver.findElements(By.cssSelector("span.encounter-name"));
+		for (WebElement encounter : encounters) {
+	        if (encounter.getText().equals(encounterName))
+	        	count++;
+	    }
+		return count;
 	}
 
 	

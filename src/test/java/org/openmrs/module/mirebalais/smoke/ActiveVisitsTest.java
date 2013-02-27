@@ -14,9 +14,7 @@
 
 package org.openmrs.module.mirebalais.smoke;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -26,6 +24,8 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientRegistrationDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
 import org.openqa.selenium.By;
+
+import static org.hamcrest.CoreMatchers.*;
 
 public class ActiveVisitsTest extends BasicMirebalaisSmokeTest{
 
@@ -71,12 +71,10 @@ public class ActiveVisitsTest extends BasicMirebalaisSmokeTest{
 			fail();
 		}
 		
-		try {
-			patientDashboard.deleteEncounter(PatientRegistrationDashboard.CHECKIN);
-			fail();
-		} catch (Exception e) {
-			assertTrue(patientDashboard.hasActiveVisit());
-		}
+		appDashboard.findPatientById(patientIdentifier);
+		
+		assertThat(patientDashboard.countEncouters(PatientRegistrationDashboard.CHECKIN), is(0));
+		assertTrue(patientDashboard.hasActiveVisit());
 		
 	}
 
