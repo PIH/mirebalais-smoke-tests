@@ -63,5 +63,17 @@ public class PatientRegistrationDashboard extends AbstractPageObject{
 		return count;
 	}
 
+	public void startVisit() {
+		driver.findElement(By.cssSelector("i.icon-check-in")).click();
+		driver.findElement(By.xpath("//*[@id='quick-visit-creation-dialog']/div[2]/button[1]")).click();
+	}
+
+	public void addConsultationNote() {
+		driver.findElement(By.xpath("//*[@id='visit-details']/div[2]/a[1]")).click();
+		setClearTextToField("diagnosis-search", "asthma");
+		driver.findElement(By.cssSelector("strong.matched-name")).click();
+		driver.findElement(By.xpath("//*[@id='buttons']/button[1]")).click();
+	}
+
 	
 }
