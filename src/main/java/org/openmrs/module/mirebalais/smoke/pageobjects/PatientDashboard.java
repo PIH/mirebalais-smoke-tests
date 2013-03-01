@@ -1,14 +1,21 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class PatientDashboard extends AbstractPageObject {
 
+	public static final String CHECKIN = "Check-in";
+	public static final String CONSULTATION = "Consultation";
+	public static final String VITALS = "Vitals";
+	public static final String RADIOLOGY = "Radiology Order";
+	
 	public PatientDashboard(WebDriver driver) {
 		super(driver);
 	}
@@ -17,17 +24,10 @@ public class PatientDashboard extends AbstractPageObject {
 		driver.findElement(By.linkText("Order X-Ray")).click();
 		
 		driver.findElement(By.name("clinicalHistory")).sendKeys("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eu neque ut mi auctor pulvinar. Mauris in orci non sem consequat posuere.");
-		
-		try {
-			Thread.sleep(10000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		driver.findElement(By.id("study-search")).sendKeys(study1);
+		setClearTextToField("study-search", study1);
 		driver.findElement(By.linkText(study1)).click();
 		
-		driver.findElement(By.id("study-search")).sendKeys(study2);
+		setClearTextToField("study-search", study2);
 		driver.findElement(By.linkText(study2)).click();
 		
 		driver.findElement(By.id("next")).click();
@@ -63,4 +63,50 @@ public class PatientDashboard extends AbstractPageObject {
         return false;
     }
 	
+    
+    public boolean hasActiveVisit() {
+		return driver.findElement(By.id("visit-details")).getText().contains("Active Visit");
+	}
+
+	public void deleteEncounter(String encounterName) throws Exception {
+		String encounterId = findEncounterId(encounterName);
+		List<WebElement> encounters = driver.findElements(By.cssSelector("i.deleteEncounterId"));
+		for (WebElement encounter : encounters) {
+	        if (encounter.getAttribute("data-encounter-id").equals(encounterId))
+	        	encounter.click();
+	    }
+		driver.findElement(By.xpath("//*[@id='delete-encounter-dialog']/div[2]/button[1]")).click();
+	}
+	
+	public String findEncounterId(String encounterName) throws Exception {
+		List<WebElement> encounters = driver.findElements(By.cssSelector("span.encounter-name"));
+		for (WebElement encounter : encounters) {
+	        if (encounter.getText().equals(encounterName))
+	        	return encounter.getAttribute("data-encounter-id");
+	    }
+		
+		throw new Exception("No encounter of this type found.");
+	}
+
+	public Integer countEncouters(String encounterName) {
+		int count = 0;
+		List<WebElement> encounters = driver.findElements(By.cssSelector("span.encounter-name"));
+		for (WebElement encounter : encounters) {
+	        if (encounter.getText().equals(encounterName))
+	        	count++;
+	    }
+		return count;
+	}
+
+	public void startVisit() {
+		driver.findElement(By.cssSelector("i.icon-check-in")).click();
+		driver.findElement(By.cssSelector("#quick-visit-creation-dialog .confirm")).click();
+	}
+
+	public void addConsultationNote() {
+		driver.findElement(By.cssSelector("#visit-details .icon-stethoscope")).click();
+		setClearTextToField("diagnosis-search", "asthma");
+		driver.findElement(By.cssSelector("strong.matched-name")).click();
+		driver.findElement(By.cssSelector("#buttons .confirm")).click();
+	}
 }

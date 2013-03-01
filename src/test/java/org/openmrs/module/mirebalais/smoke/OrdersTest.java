@@ -1,8 +1,7 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import static org.junit.Assert.assertTrue;
-
-import java.util.List;
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +9,6 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 public class OrdersTest extends BasicMirebalaisSmokeTest {
 
@@ -37,18 +35,8 @@ public class OrdersTest extends BasicMirebalaisSmokeTest {
 		driver.findElement(By.linkText("UNKNOWN UNKNOWN")).click();
 		patientDashboard.orderXRay(STUDY_1, STUDY_2);
 		
-		assertTrue(confirmRadiologyOrderInPatientDashboard());
+		assertThat(patientDashboard.countEncouters(PatientDashboard.RADIOLOGY), not(0));
 	}
 
-	//TODO: for now it's simple. sometime in the future this will be probably clickable so we can change behavior
-	private boolean confirmRadiologyOrderInPatientDashboard() {
-		List<WebElement> elements = driver.findElement(By.id("encountersList")).findElements(By.tagName("strong"));
-		for(WebElement element: elements) {
-			if (element.getText().contains("Radiology Order")) {
-				return true;
-			}
-		}
-		return false;
-	}
 }
 

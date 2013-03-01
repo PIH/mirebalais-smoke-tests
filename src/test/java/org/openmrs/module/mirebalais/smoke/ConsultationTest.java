@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
+import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientRegistrationDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
 import org.openqa.selenium.By;
@@ -19,7 +20,8 @@ public class ConsultationTest extends BasicMirebalaisSmokeTest {
 
 	private static LoginPage loginPage;
 	private Registration registration;
-	private PatientRegistrationDashboard patientDashboard;
+	private PatientRegistrationDashboard patientRegistrationDashboard;
+	private PatientDashboard patientDashboard;
 	private AppDashboard appDashboard;
 	private String patientIdentifier;
 	
@@ -28,7 +30,8 @@ public class ConsultationTest extends BasicMirebalaisSmokeTest {
     public void setUp() {
 		loginPage = new LoginPage(driver);
 		registration = new Registration(driver);
-		patientDashboard = new PatientRegistrationDashboard(driver);
+		patientRegistrationDashboard = new PatientRegistrationDashboard(driver);
+		patientDashboard = new PatientDashboard(driver);
 		appDashboard = new AppDashboard(driver);
 	}
 	
@@ -37,7 +40,7 @@ public class ConsultationTest extends BasicMirebalaisSmokeTest {
 		loginPage.logInAsAdmin();
 		appDashboard.openPatientRegistrationApp();
 		registration.goThruRegistrationProcessWithoutPrintingCard(); 
-		patientIdentifier = patientDashboard.getIdentifier();
+		patientIdentifier = patientRegistrationDashboard.getIdentifier();
 
 		appDashboard.findPatientById(patientIdentifier);
 		patientDashboard.startVisit();
@@ -54,7 +57,7 @@ public class ConsultationTest extends BasicMirebalaisSmokeTest {
 		
 		
 		patientDashboard.addConsultationNote();
-		assertThat(patientDashboard.countEncouters(PatientRegistrationDashboard.CONSULTATION), is(1));
+		assertThat(patientDashboard.countEncouters(PatientDashboard.CONSULTATION), is(1));
 	
 	}
 }
