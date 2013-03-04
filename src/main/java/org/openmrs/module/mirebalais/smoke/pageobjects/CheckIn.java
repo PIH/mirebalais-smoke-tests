@@ -34,12 +34,15 @@ public class CheckIn extends AbstractPageObject {
 		clickNext();
 		
 		clickNext();
+        /*
 		chooseVisitReason(MEDICAL_CERTIFICATE);
 		clickNext();
+		*/
 		choosePaymentAmount(PAYMENT_50);
+        /*
 		enterReceiptNumber("123456789");
 		clickNext();
-
+        */
 		clickYellowCheckMark();
 		
 		wait.until(new ExpectedCondition<Boolean>() {
