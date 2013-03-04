@@ -14,7 +14,7 @@ public class LoginPage {
 	public void logIn(String user, String password) {
 		driver.findElement(By.id("username")).sendKeys(user);
     	driver.findElement(By.id("password")).sendKeys(password);
-        driver.findElement(By.xpath("//*[@id='sessionLocation']/li[1]")).click();
+        driver.findElement(By.cssSelector("#sessionLocation li")).click();
     	driver.findElement(By.id("login-button")).click();
 	}
 	

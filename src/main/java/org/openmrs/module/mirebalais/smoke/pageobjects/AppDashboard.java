@@ -14,13 +14,12 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class AppDashboard extends AbstractPageObject {
 
@@ -90,15 +89,6 @@ public class AppDashboard extends AbstractPageObject {
 	public boolean isActiveVisitsAppPresented() {
 		return isAppButtonPresent(ACTIVE_VISITS);
 	}
-
-    public List<String> getAppsNames() {
-        List<String> appsNames = new ArrayList<String>();
-        List<WebElement> apps = driver.findElements(By.xpath("//div[@id='apps']/a"));
-        for(WebElement app: apps) {
-            appsNames.add(app.getText());
-        }
-        return appsNames;
-    }
 
     private void clickAppButton(String appId) {
         driver.findElement(By.id(appId)).click();
