@@ -109,4 +109,9 @@ public class PatientDashboard extends AbstractPageObject {
 		driver.findElement(By.cssSelector("strong.matched-name")).click();
 		driver.findElement(By.cssSelector("#buttons .confirm")).click();
 	}
+
+	public void requestRecord() {
+		driver.findElement(By.cssSelector("i.icon-folder-open")).click();
+		driver.findElement(By.cssSelector("#request-paper-record-dialog .confirm")).click();
+	}
 }
