@@ -33,7 +33,7 @@ public class VitalsApp extends AbstractPageObject {
 		setClearTextToFieldThruSpan("bp_diastolic", "80");
 		setClearTextToFieldThruSpan("o2_sat", "50");
 		
-		driver.findElement(By.id("confirmationQuestion")).findElement(By.tagName("input")).click();
+		driver.findElement(By.id("confirmationQuestion")).findElement(By.className("confirm")).click();
 	}
 
 	private void hitEnterOnBMI() {
