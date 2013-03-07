@@ -15,24 +15,12 @@ public class LoginPage {
 	}
 	
 	public void logIn(String user, String password) {
-		dealingWithConcurrentDeploys();
-		
 		driver.findElement(By.id("username")).sendKeys(user);
-    	driver.findElement(By.id("password")).sendKeys(password);
-        driver.findElement(By.cssSelector("#sessionLocation li")).click();
-    	driver.findElement(By.id("login-button")).click();
+    		driver.findElement(By.id("password")).sendKeys(password);
+        	driver.findElement(By.cssSelector("#sessionLocation li")).click();
+    		driver.findElement(By.id("login-button")).click();
 	}
 	
-	private void dealingWithConcurrentDeploys() {
-		Wait<WebDriver> wait = new WebDriverWait(driver, 600);
-		wait.until(new ExpectedCondition<Boolean>() {
-			@Override
-			public Boolean apply(WebDriver webDriver) {
-				return webDriver.findElement(By.id("username")).isDisplayed();
-			}
-		});
-	}
-
 	public void logInAsAdmin() {
 		this.logIn("admin", "Admin123");
 	}
