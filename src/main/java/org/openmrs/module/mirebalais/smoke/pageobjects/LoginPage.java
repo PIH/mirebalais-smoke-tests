@@ -24,7 +24,7 @@ public class LoginPage {
 	}
 	
 	private void dealingWithConcurrentDeploys() {
-		Wait<WebDriver> wait = new WebDriverWait(driver, 300);
+		Wait<WebDriver> wait = new WebDriverWait(driver, 600);
 		wait.until(new ExpectedCondition<Boolean>() {
 			@Override
 			public Boolean apply(WebDriver webDriver) {
