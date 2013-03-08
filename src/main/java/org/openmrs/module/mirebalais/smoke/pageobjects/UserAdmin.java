@@ -66,24 +66,28 @@ public class UserAdmin extends AbstractPageObject {
 	public void createClinicalAccount(String firstName, String lastName, String username, String password) {
 		createAccount(firstName, lastName, username, password);
 		chooseClinicalRole();
+        chooseProviderType();
 	    clickOnSave();
 	}
 	
 	public void createRadiologyAccount(String firstName, String lastName, String username, String password) {
 		createAccount(firstName, lastName, username, password);
 		chooseRadiologyRole();
+        chooseProviderType();
 	    clickOnSave();
 	}
 
 	public void createDataArchivesAccount(String firstName, String lastName, String username, String password) {
 		createAccount(firstName, lastName, username, password);
 		chooseDataArchivesRole();
+        chooseProviderType();
 	    clickOnSave();
 	}
 	
 	public void createSysAdminAccount(String firstName, String lastName, String username, String password) {
 		createAccount(firstName, lastName, username, password);
 		chooseSysAdminRole();
+        chooseProviderType();
 	    clickOnSave();
 	}
 	
@@ -91,6 +95,7 @@ public class UserAdmin extends AbstractPageObject {
 		createAccount(firstName, lastName, username, password);
 		chooseSysAdminRole();
 		chooseLanguage(language);
+        chooseProviderType();
 	    clickOnSave();
 	}
 	
