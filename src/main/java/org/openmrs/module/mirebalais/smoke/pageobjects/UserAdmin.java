@@ -53,7 +53,8 @@ public class UserAdmin extends AbstractPageObject {
 	}
 	
 	private void chooseProviderType() {
-		driver.findElement(By.id("createProviderAccountButton")).click();
+		// disabled since we are no longer featuring this button
+		//driver.findElement(By.id("createProviderAccountButton")).click();
 		Select select = new Select(driver.findElement(By.name("providerRole")));
 		select.selectByVisibleText(drawProviderType());
 	}
