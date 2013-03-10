@@ -46,5 +46,13 @@ public class VitalsApp extends AbstractPageObject {
     private void hitEnterOnFahrenheitField() {
         driver.findElement(By.id("temperature_f")).sendKeys(Keys.RETURN);
     }
+
+    private void hitEnterOnLbsField() {
+        driver.findElement(By.id("weight_lbs")).sendKeys(Keys.RETURN);
+    }
+
+    private void hitEnterOnInchesField() {
+        driver.findElement(By.id("height_inches")).sendKeys(Keys.RETURN);
+    }
 	
 }
