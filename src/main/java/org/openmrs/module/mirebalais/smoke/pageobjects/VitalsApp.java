@@ -22,9 +22,9 @@ public class VitalsApp extends AbstractPageObject {
 	}
 
 	public void enterVitals() {
-		setClearTextToFieldThruSpan("height", "1.5");
+		setClearTextToFieldThruSpan("height_cm", "1.5");
         hitEnterOnInchesField();
-		setClearTextToFieldThruSpan("weight", "50");
+		setClearTextToFieldThruSpan("weight_kg", "50");
         hitEnterOnLbsField();
 		hitEnterOnBMI();
 		setClearTextToFieldThruSpan("temperature_c", "36");
