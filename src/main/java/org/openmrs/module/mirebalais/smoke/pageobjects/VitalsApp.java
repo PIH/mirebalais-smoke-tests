@@ -13,8 +13,8 @@ public class VitalsApp extends AbstractPageObject {
 
 	public void enterPatientIdentifier(String patientID) {
 		setClearTextToField("patient-search-field-search", patientID);
-		driver.findElement(By.id("ui-id-2")).click();
-		driver.findElement(By.id("patient-search-field-search")).sendKeys(Keys.RETURN);
+		//driver.findElement(By.id("ui-id-2")).click();
+		//driver.findElement(By.id("patient-search-field-search")).sendKeys(Keys.RETURN);
 	}
 
 	public void confirmPatient() {
