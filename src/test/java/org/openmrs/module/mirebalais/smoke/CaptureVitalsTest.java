@@ -12,6 +12,10 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.PatientRegistrationDashbo
 import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
 import org.openmrs.module.mirebalais.smoke.pageobjects.VitalsApp;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.hamcrest.CoreMatchers.*;
 
@@ -62,11 +66,17 @@ public class CaptureVitalsTest extends BasicMirebalaisSmokeTest {
 		vitals.enterPatientIdentifier(patientIdentifier);
 		vitals.confirmPatient();
 		vitals.enterVitals();
-		
-		assertTrue(driver.findElement(By.className("scan-input")).isDisplayed());
-		
-		appDashboard.findPatientById(patientIdentifier);
-		assertThat(patientDashboard.countEncouters(PatientDashboard.VITALS), is(1));
-	}
+
+        Wait<WebDriver> wait = new WebDriverWait(driver, 5);
+        wait.until(new ExpectedCondition<Boolean>() {
+            @Override
+            public Boolean apply(WebDriver webDriver) {
+                return driver.findElement(By.className("scan-input")).isDisplayed();
+            }
+        });
+
+        appDashboard.findPatientById(patientIdentifier);
+        assertThat(patientDashboard.countEncouters(PatientDashboard.VITALS), is(1));
+    }
 
 }
