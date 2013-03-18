@@ -12,16 +12,24 @@ public class ArchivesRoomApp extends AbstractPageObject {
 		super(driver);
 	}
 
-	public boolean isNewRecordRequested(String patientIdentifier) {
-		List<WebElement> elements = driver.findElement(By.id("create_requests_table")).findElements(By.tagName("span"));
+	public boolean isPatientInList(String patientIdentifier, String list) {
+		try {
+			findPatientInTheList(patientIdentifier, list);
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
+	
+
+	public WebElement findPatientInTheList(String patientIdentifier, String list) throws Exception {
+		List<WebElement> elements = driver.findElement(By.id(list)).findElements(By.tagName("span"));
 		for(WebElement element : elements) {
 			if (element.getText().contains(patientIdentifier)) {
-				return true;
+				return element;
 			}
 		}
-		return false;
+		throw new Exception("Patient not found");
 	}
-
-	
 	
 }
