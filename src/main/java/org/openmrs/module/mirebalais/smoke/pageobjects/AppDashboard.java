@@ -112,7 +112,6 @@ public class AppDashboard extends AbstractPageObject {
 		WebElement element = driver.findElement(By.id("patient-search-field-search"));
 		element.sendKeys(patientIdentifier);
 		clickOnTheRightPatient(patientIdentifier);
-		element.sendKeys(Keys.RETURN);
 	}
 	
 	
