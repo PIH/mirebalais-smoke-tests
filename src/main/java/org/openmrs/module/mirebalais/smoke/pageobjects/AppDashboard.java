@@ -30,8 +30,8 @@ public class AppDashboard extends AbstractPageObject {
     public static final String START_HOSPITAL_VISIT = "patientRegistration-emergencyCheckin-app";
     public static final String START_CLINIC_VISIT = "patientRegistration-checkin-app";
     public static final String SYSTEM_ADMINISTRATION = "emr-systemAdministration-app";
-    
     public static final String CAPTURE_VITALS = "mirebalais-outpatientVitals-app";
+    public static final String REPORTS = "mirebalaisreports-Reports-app";
 
     public AppDashboard(WebDriver driver) {
         super(driver);
@@ -67,6 +67,10 @@ public class AppDashboard extends AbstractPageObject {
     
     public void openCaptureVitalsApp() {
         openApp(CAPTURE_VITALS);
+	}
+    
+    public void openReportApp() {
+    	 openApp(REPORTS);
 	}
 	
 	public boolean isPatientRegistrationAppPresented() {
@@ -113,7 +117,6 @@ public class AppDashboard extends AbstractPageObject {
 		clickOnTheRightPatient(patientIdentifier);
 	}
 	
-	
 	private void clickOnTheRightPatient(String patientIdentifier) {
 		List<WebElement> options = driver.findElements(By.cssSelector("li.ui-menu-item"));
 	    for (WebElement option : options) {
@@ -121,5 +124,5 @@ public class AppDashboard extends AbstractPageObject {
 	            option.click();
 	    }
 	}
-	
+
 }
