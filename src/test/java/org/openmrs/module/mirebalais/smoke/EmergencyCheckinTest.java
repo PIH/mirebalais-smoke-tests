@@ -54,6 +54,6 @@ public class EmergencyCheckinTest extends BasicMirebalaisSmokeTest {
         BasicReportData brd2 = basicReport.getData();
         
         assertThat(brd2.getOpenVisits(), Matchers.greaterThan(brd1.getOpenVisits()));
-        assertThat(brd2.getRegistrationToday(), Matchers.greaterThan(brd1.getOpenVisits()));
+        assertThat(brd2.getRegistrationToday(), Matchers.greaterThan(brd1.getRegistrationToday()));
     }
 }
