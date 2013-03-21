@@ -32,6 +32,7 @@ public class AppDashboard extends AbstractPageObject {
     public static final String SYSTEM_ADMINISTRATION = "emr-systemAdministration-app";
     public static final String CAPTURE_VITALS = "mirebalais-outpatientVitals-app";
     public static final String REPORTS = "mirebalaisreports-Reports-app";
+    public static final String LEGACY = "legacy-admin-app";
 
     public AppDashboard(WebDriver driver) {
         super(driver);
@@ -93,9 +94,33 @@ public class AppDashboard extends AbstractPageObject {
 		return isAppButtonPresent(ACTIVE_VISITS);
 	}
 
-    private void clickAppButton(String appId) {
+	public boolean isCaptureVitalsAppPresented() {
+		return isAppButtonPresent(CAPTURE_VITALS);
+	}
+	
+	public boolean isReportsAppPresented() {
+		return isAppButtonPresent(REPORTS);
+	}
+	
+	public Boolean isStartHospitalVisitAppPresented() {
+		return isAppButtonPresent(START_HOSPITAL_VISIT);
+	}
+
+	public Boolean isStartClinicVisitAppPresented() {
+		return isAppButtonPresent(START_CLINIC_VISIT);
+	}
+
+	public Boolean isEditPatientAppPresented() {
+		return isAppButtonPresent(EDIT_PATIENT);
+	}
+	
+	public Boolean isLegacyAppPresented() {
+		return isAppButtonPresent(LEGACY);
+	}
+
+	private void clickAppButton(String appId) {
         driver.findElement(By.id(appId)).click();
-   }
+	}
 
     private boolean isAppButtonPresent(String appId) {
         try {

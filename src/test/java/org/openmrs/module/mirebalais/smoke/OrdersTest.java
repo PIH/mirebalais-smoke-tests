@@ -1,14 +1,12 @@
 package org.openmrs.module.mirebalais.smoke;
 
 import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
-import org.openmrs.module.mirebalais.smoke.pageobjects.CheckIn;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientRegistrationDashboard;
@@ -21,7 +19,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class OrdersTest extends BasicMirebalaisSmokeTest {
 
-    private CheckIn checkIn;
     private static LoginPage loginPage;
     private Registration registration;
     private PatientRegistrationDashboard patientRegistrationDashboard;
@@ -38,7 +35,6 @@ public class OrdersTest extends BasicMirebalaisSmokeTest {
         registration = new Registration(driver);
         patientDashboard = new PatientDashboard(driver);
         patientRegistrationDashboard = new PatientRegistrationDashboard(driver);
-        checkIn = new CheckIn(driver);
         appDashboard = new AppDashboard(driver);
 	}
     

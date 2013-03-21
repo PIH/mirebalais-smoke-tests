@@ -28,7 +28,7 @@ public class UserAdmin extends AbstractPageObject {
 	
 	private SysAdminPage adminPage;
 	
-	private String[] PROVIDER_TYPES = { "Anaesthetist", /*"Archivist/Clerk",*/ "Clinical Doctor",
+	private String[] PROVIDER_TYPES = { "Anaesthetist", "Archivist/Clerk", "Clinical Doctor",
 			"General Admin", "Lab Technician", "Nurse (RN)", "Nursing Auxiliary",
 			"Pharmacist", "Radiology Technician", "Surgeon"	};
 	
@@ -40,10 +40,14 @@ public class UserAdmin extends AbstractPageObject {
 	public boolean isAccountCreatedSuccessfully() {
 		WebElement element = driver.findElement(By.className("toast-item"));
         boolean isCreatedSuccesfully = element.getText().contains("Saved account successfully");
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("return jQuery('.toast-item').hide();");
+        closeToast();
 
         return isCreatedSuccesfully;
+	}
+	
+	public void closeToast() {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("return jQuery('.toast-item').hide();");
 	}
 	
 	public void createProvider(String firstName, String lastName) {

@@ -2,6 +2,7 @@ package org.openmrs.module.mirebalais.smoke;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertThat;
 
 import org.junit.After;
 import org.junit.Before;
@@ -11,6 +12,8 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.UserAdmin;
 import org.openqa.selenium.By;
+
+import static org.hamcrest.CoreMatchers.is;
 
 public class UserAdminTest extends BasicMirebalaisSmokeTest {
 
@@ -37,14 +40,23 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     	appDashboard.openSysAdminApp();
     	userAdmin.createClinicalAccount("Test", "User", username, DEFAULT_PASSWORD);
     	
-    	assertTrue(userAdmin.isAccountCreatedSuccessfully());
+    	userAdmin.closeToast();
     	
     	logOutAndLogInWithNewUser(username);
     	
-    	assertTrue(appDashboard.isActiveVisitsAppPresented());
-    	assertFalse(appDashboard.isSystemAdministrationAppPresented());
-    	assertFalse(appDashboard.isPatientRegistrationAppPresented());
-    	assertFalse(appDashboard.isArchivesRoomAppPresented());
+    	assertThat(appDashboard.isActiveVisitsAppPresented(), is(true));
+    	assertThat(appDashboard.isCaptureVitalsAppPresented(), is(true));
+    	
+    	assertThat(appDashboard.isSystemAdministrationAppPresented(), is(false));
+    	assertThat(appDashboard.isPatientRegistrationAppPresented(), is(false));
+    	assertThat(appDashboard.isArchivesRoomAppPresented(), is(false));
+    	assertThat(appDashboard.isReportsAppPresented(), is(false));
+    	
+    	assertThat(appDashboard.isStartHospitalVisitAppPresented(), is(false));
+    	assertThat(appDashboard.isStartClinicVisitAppPresented(), is(false));
+    	assertThat(appDashboard.isEditPatientAppPresented(), is(false));
+    	
+    	assertThat(appDashboard.isLegacyAppPresented(), is(false));
 	}
     
     @Test
@@ -55,14 +67,22 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
 		appDashboard.openSysAdminApp();
     	userAdmin.createRadiologyAccount("Test", "User", username, DEFAULT_PASSWORD);
     	
-    	assertTrue(userAdmin.isAccountCreatedSuccessfully());
-    	
+    	userAdmin.closeToast();
     	logOutAndLogInWithNewUser(username);
     	
-    	assertTrue(appDashboard.isActiveVisitsAppPresented());
-    	assertFalse(appDashboard.isSystemAdministrationAppPresented());
-    	assertFalse(appDashboard.isPatientRegistrationAppPresented());
-    	assertFalse(appDashboard.isArchivesRoomAppPresented());
+    	assertThat(appDashboard.isActiveVisitsAppPresented(), is(true));
+    	assertThat(appDashboard.isCaptureVitalsAppPresented(), is(false));
+    	
+    	assertThat(appDashboard.isSystemAdministrationAppPresented(), is(false));
+    	assertThat(appDashboard.isPatientRegistrationAppPresented(), is(false));
+    	assertThat(appDashboard.isArchivesRoomAppPresented(), is(false));
+    	assertThat(appDashboard.isReportsAppPresented(), is(false));
+    	
+    	assertThat(appDashboard.isStartHospitalVisitAppPresented(), is(false));
+    	assertThat(appDashboard.isStartClinicVisitAppPresented(), is(false));
+    	assertThat(appDashboard.isEditPatientAppPresented(), is(false));
+    	
+    	assertThat(appDashboard.isLegacyAppPresented(), is(false));
 	}
     
     @Test
@@ -73,14 +93,22 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
 		appDashboard.openSysAdminApp();
     	userAdmin.createDataArchivesAccount("Test", "User", username, DEFAULT_PASSWORD);
     	
-    	assertTrue(userAdmin.isAccountCreatedSuccessfully());
-    	
+    	userAdmin.closeToast();
     	logOutAndLogInWithNewUser(username);
     	
-    	assertTrue(appDashboard.isActiveVisitsAppPresented());
-    	assertFalse(appDashboard.isSystemAdministrationAppPresented());
-    	assertTrue(appDashboard.isPatientRegistrationAppPresented());
-    	assertTrue(appDashboard.isArchivesRoomAppPresented());
+    	assertThat(appDashboard.isActiveVisitsAppPresented(), is(true));
+    	assertThat(appDashboard.isCaptureVitalsAppPresented(), is(false));
+    	
+    	assertThat(appDashboard.isSystemAdministrationAppPresented(), is(false));
+    	assertThat(appDashboard.isPatientRegistrationAppPresented(), is(true));
+    	assertThat(appDashboard.isArchivesRoomAppPresented(), is(true));
+    	assertThat(appDashboard.isReportsAppPresented(), is(false));
+    	
+    	assertThat(appDashboard.isStartHospitalVisitAppPresented(), is(false));
+    	assertThat(appDashboard.isStartClinicVisitAppPresented(), is(true));
+    	assertThat(appDashboard.isEditPatientAppPresented(), is(true));
+    	
+    	assertThat(appDashboard.isLegacyAppPresented(), is(false));
 	}
     
     @Test
@@ -97,15 +125,22 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     	appDashboard.openSysAdminApp();
     	userAdmin.createSysAdminAccount("Test", "User", username, DEFAULT_PASSWORD, "Haitian");
     	
-    	assertTrue(userAdmin.isAccountCreatedSuccessfully());
-    	
+    	userAdmin.closeToast();
     	logOutAndLogInWithNewUser(username);
     	
-    	assertTrue(appDashboard.isActiveVisitsAppPresented());
-    	assertTrue(appDashboard.isSystemAdministrationAppPresented());
-    	assertTrue(appDashboard.isPatientRegistrationAppPresented());
-    	assertTrue(appDashboard.isArchivesRoomAppPresented());
+    	assertThat(appDashboard.isActiveVisitsAppPresented(), is(true));
+    	assertThat(appDashboard.isCaptureVitalsAppPresented(), is(false));
     	
+    	assertThat(appDashboard.isSystemAdministrationAppPresented(), is(true));
+    	assertThat(appDashboard.isPatientRegistrationAppPresented(), is(true));
+    	assertThat(appDashboard.isArchivesRoomAppPresented(), is(true));
+    	assertThat(appDashboard.isReportsAppPresented(), is(true));
+    	
+    	assertThat(appDashboard.isStartHospitalVisitAppPresented(), is(true));
+    	assertThat(appDashboard.isStartClinicVisitAppPresented(), is(true));
+    	assertThat(appDashboard.isEditPatientAppPresented(), is(true));
+    	
+    	assertThat(appDashboard.isLegacyAppPresented(), is(false));
     	
     	appDashboard.openSysAdminApp();
     	String text = driver.findElement(By.className("task")).getText();

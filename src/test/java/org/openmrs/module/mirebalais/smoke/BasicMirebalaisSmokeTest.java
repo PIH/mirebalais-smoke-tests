@@ -19,7 +19,7 @@ public abstract class BasicMirebalaisSmokeTest {
     public static void startWebDriver() {
         setupChromeDriver();
     	driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(2000, TimeUnit.MILLISECONDS);
+        driver.manage().timeouts().implicitlyWait(3000, TimeUnit.MILLISECONDS);
     	driver.get(new SmokeTestProperties().getWebAppUrl());
     }
 
