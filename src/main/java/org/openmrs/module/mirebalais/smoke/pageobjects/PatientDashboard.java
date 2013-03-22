@@ -114,4 +114,13 @@ public class PatientDashboard extends AbstractPageObject {
 		driver.findElement(By.cssSelector("i.icon-folder-open")).click();
 		driver.findElement(By.cssSelector("#request-paper-record-dialog .confirm")).click();
 	}
+
+	public String getDossieNumber() {
+		List<WebElement> elements = driver.findElements(By.cssSelector(".identifiers span"));
+		return elements.get(1).getText();
+	}
+
+	public boolean canRequestRecord() {
+		return driver.findElement(By.className("icon-folder-open")).isDisplayed();
+	}
 }

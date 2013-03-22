@@ -15,14 +15,15 @@ public class PatientRegistrationDashboard extends AbstractPageObject{
 	}
 
 	public String getName() {
-		return driver.findElement(By.xpath("//*[@id='overviewTable']/tbody/tr/td[1]/table/tbody/tr[2]/td[1]")).getText();
+		return new StringBuilder()
+				.append(driver.findElement(By.xpath("//*[@id='overviewTable']/tbody/tr/td[1]/table/tbody/tr[4]/td[1]")).getText())
+				.append(" ")
+				.append(driver.findElement(By.xpath("//*[@id='overviewTable']/tbody/tr/td[1]/table/tbody/tr[2]/td[1]")).getText()).toString();
 	}
 	
 	public String getGender() {
 		return driver.findElement(By.id("tdGenderId")).getText();
 	}
-
-	
 
 	
 }

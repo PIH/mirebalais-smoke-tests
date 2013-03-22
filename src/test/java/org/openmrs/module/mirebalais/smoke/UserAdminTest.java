@@ -41,7 +41,6 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     	userAdmin.createClinicalAccount("Test", "User", username, DEFAULT_PASSWORD);
     	
     	userAdmin.closeToast();
-    	
     	logOutAndLogInWithNewUser(username);
     	
     	assertThat(appDashboard.isActiveVisitsAppPresented(), is(true));

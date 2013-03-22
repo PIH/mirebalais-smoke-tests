@@ -40,7 +40,6 @@ public class OrdersTest extends BasicMirebalaisSmokeTest {
     
 	@Test
 	public void orderSingleXRay() {
-
         loginPage.logInAsAdmin();
         appDashboard.openPatientRegistrationApp();
         registration.goThruRegistrationProcessWithoutPrintingCard();
@@ -48,7 +47,6 @@ public class OrdersTest extends BasicMirebalaisSmokeTest {
 
         appDashboard.findPatientById(patientIdentifier);
         patientDashboard.startVisit();
-
 
         Wait<WebDriver> wait = new WebDriverWait(driver, 5);
         wait.until(new ExpectedCondition<Boolean>() {
@@ -62,6 +60,5 @@ public class OrdersTest extends BasicMirebalaisSmokeTest {
 		
 		assertThat(patientDashboard.countEncouters(PatientDashboard.RADIOLOGY), not(0));
 	}
-
 }
 

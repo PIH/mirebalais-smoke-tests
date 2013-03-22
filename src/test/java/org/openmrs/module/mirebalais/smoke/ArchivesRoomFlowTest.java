@@ -1,6 +1,7 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
 import org.junit.Before;
@@ -12,6 +13,10 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientRegistrationDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ArchivesRoomFlowTest extends BasicMirebalaisSmokeTest {
 
@@ -38,6 +43,8 @@ public class ArchivesRoomFlowTest extends BasicMirebalaisSmokeTest {
 	
 	@Test
 	public void requestRecord() {
+		String dossieNumber = null;
+		
 		loginPage.logInAsAdmin();
 		appDashboard.openPatientRegistrationApp();
 		registration.goThruRegistrationProcessWithoutPrintingCard(); 
@@ -52,12 +59,29 @@ public class ArchivesRoomFlowTest extends BasicMirebalaisSmokeTest {
 		try {
 			archivesRoomApp.findPatientInTheList(patientIdentifier, "create_requests_table").click();
 			driver.findElement(By.id("assign-to-create-button")).click();
+			
+			appDashboard.openArchivesRoomApp();
+			
+			Wait<WebDriver> wait = new WebDriverWait(driver, 2);
+	    	wait.until(new ExpectedCondition<Boolean>() {
+				@Override
+				public Boolean apply(WebDriver webDriver) {
+					return webDriver.findElement(By.id("assigned_create_requests_table")).isDisplayed();
+				}
+			});
+			
+			dossieNumber = archivesRoomApp.getDossieNumber(patientName);
+			archivesRoomApp.sendDossie(dossieNumber);
+			archivesRoomApp.returnRecord(dossieNumber);
+				
+			appDashboard.findPatientById(patientIdentifier);
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
 		}
 		
-		assertTrue(archivesRoomApp.isPatientInList(patientName, "assigned_create_requests_table"));
+		assertThat(patientDashboard.getDossieNumber(), is(dossieNumber));
+		assertThat(patientDashboard.canRequestRecord(), is(true));
 	}
 	
 }
