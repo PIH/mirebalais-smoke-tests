@@ -58,4 +58,13 @@ public abstract class AbstractPageObject {
     private WebElement findTextFieldInsideSpan(String spanId) {
     	return driver.findElement(By.id(spanId)).findElement(By.tagName("input"));
     }
+    
+    public String format(String patientName) {
+		int index = patientName.indexOf(" ");
+		return new StringBuffer()
+					.append(patientName.substring(index).trim())
+					.append(", ")
+					.append(patientName.substring(0,index).trim())
+					.toString();
+	}
 }

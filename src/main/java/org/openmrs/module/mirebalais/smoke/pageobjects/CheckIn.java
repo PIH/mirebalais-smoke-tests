@@ -16,7 +16,6 @@ public class CheckIn extends AbstractPageObject {
 	}
 
 	
-	
 	public void checkInPatient(String identifier, final String patientName) {
 		driver.findElement(By.id("patientIdentifier")).sendKeys(identifier);
 		clickNext();
@@ -25,7 +24,7 @@ public class CheckIn extends AbstractPageObject {
 			@Override
 			public Boolean apply(WebDriver webDriver) {
 				return 	webDriver.findElement(By.id("okBtn")).isDisplayed() &&
-						webDriver.findElement(By.className("confirmExistingPatientModalList")).getText().contains(patientName) ;
+						webDriver.findElement(By.className("confirmExistingPatientModalList")).getText().contains(format(patientName)) ;
 			}
 		});
 		driver.findElement(By.id("okBtn")).click();
