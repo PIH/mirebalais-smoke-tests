@@ -55,7 +55,7 @@ public class AppDashboard extends AbstractPageObject {
     }
 
     public void openStartClinicVisitApp() {
-        openApp(START_CLINIC_VISIT);
+        gotoPage("/mirebalais/patientRegistration/appRouter.page?task=primaryCareReception");
     }
 
     public void editPatientApp() {
