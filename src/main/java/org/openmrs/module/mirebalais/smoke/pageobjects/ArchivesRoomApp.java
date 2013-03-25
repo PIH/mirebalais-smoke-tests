@@ -36,7 +36,7 @@ public class ArchivesRoomApp extends AbstractPageObject {
 		List<WebElement> elements = driver.findElements(By.cssSelector("#assigned_create_requests_table td"));
 		for(int i = elements.size()-1; i>=0; i--) {
 			if (elements.get(i).getText().contains(patientName)) {
-				return elements.get(i-1).getText();
+				return elements.get(i+1).getText();
 			}
 		}
 		throw new Exception("Patient not found");
