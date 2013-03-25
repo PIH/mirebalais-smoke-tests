@@ -22,7 +22,6 @@ public class ArchivesRoomApp extends AbstractPageObject {
 		return true;
 	}
 	
-
 	public WebElement findPatientInTheList(String patientIdentifier, String list) throws Exception {
 		List<WebElement> elements = driver.findElement(By.id(list)).findElements(By.tagName("span"));
 		for(WebElement element : elements) {
@@ -35,9 +34,9 @@ public class ArchivesRoomApp extends AbstractPageObject {
 	
 	public String getDossieNumber(String patientName) throws Exception {
 		List<WebElement> elements = driver.findElements(By.cssSelector("#assigned_create_requests_table td"));
-		for(int i = 0; i<elements.size(); i++) {
+		for(int i = elements.size()-1; i>=0; i--) {
 			if (elements.get(i).getText().contains(patientName)) {
-				return elements.get(i+1).getText();
+				return elements.get(i-1).getText();
 			}
 		}
 		throw new Exception("Patient not found");
