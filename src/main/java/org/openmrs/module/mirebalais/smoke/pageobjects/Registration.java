@@ -154,7 +154,6 @@ public class Registration extends AbstractPageObject {
     }
 
     protected void confirmData() {
-        //TODD: change this structure to assert something?
         clickCheckMark();
     }
 

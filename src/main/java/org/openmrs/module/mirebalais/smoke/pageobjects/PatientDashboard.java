@@ -11,17 +11,17 @@ import org.openqa.selenium.WebElement;
 
 public class PatientDashboard extends AbstractPageObject {
 
-	public static final String CHECKIN = "Check-in";
+	public static final String CHECKIN = "Tcheke"; 
 	public static final String CONSULTATION = "Consultation";
-	public static final String VITALS = "Vitals";
-	public static final String RADIOLOGY = "Radiology Order";
+	public static final String VITALS = "Siy Vito";
+	public static final String RADIOLOGY = "Preskripsyon Radyoloji";
 	
 	public PatientDashboard(WebDriver driver) {
 		super(driver);
 	}
 
 	public void orderXRay(String study1, String study2) {
-		driver.findElement(By.linkText("Order X-Ray")).click();
+		driver.findElement(By.className("icon-x-ray")).click();
 		
 		driver.findElement(By.name("clinicalHistory")).sendKeys("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eu neque ut mi auctor pulvinar. Mauris in orci non sem consequat posuere.");
 		setClearTextToField("study-search", study1);
@@ -32,15 +32,7 @@ public class PatientDashboard extends AbstractPageObject {
 		
 		driver.findElement(By.id("next")).click();
 	}
-	
-	public void orderUltrassound() {
-		driver.findElement(By.linkText("Order Ultrasound")).click();
-	}
 
-	public void orderCTScan() {
-		driver.findElement(By.linkText("Order CT Scan")).click();
-	}
-	
 	// TODO: add more data to compare?
 	public boolean hasOrder(String orderDetails) {
 		return driver.findElement(By.id("content")).getText().contains(orderDetails);

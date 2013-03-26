@@ -28,9 +28,7 @@ public class UserAdmin extends AbstractPageObject {
 	
 	private SysAdminPage adminPage;
 	
-	private String[] PROVIDER_TYPES = { "Anaesthetist", "Archivist/Clerk", "Clinical Doctor",
-			"General Admin", "Lab Technician", "Nurse (RN)", "Nursing Auxiliary",
-			"Pharmacist", "Radiology Technician", "Surgeon"	};
+	private String[] PROVIDER_TYPES = { "Teknisyen Laboratwa", "Enfimyè", "Administratè Jeneral" };
 	
 	public UserAdmin(WebDriver driver) {
 		super(driver);
@@ -57,8 +55,6 @@ public class UserAdmin extends AbstractPageObject {
 	}
 	
 	private void chooseProviderType() {
-		// disabled since we are no longer featuring this button
-		//driver.findElement(By.id("createProviderAccountButton")).click();
 		Select select = new Select(driver.findElement(By.name("providerRole")));
 		select.selectByVisibleText(drawProviderType());
 	}

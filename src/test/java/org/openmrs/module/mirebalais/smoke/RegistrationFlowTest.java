@@ -41,6 +41,6 @@ public class RegistrationFlowTest extends BasicMirebalaisSmokeTest {
 				return webDriver.findElement(By.id("scanPatientIdentifier")).isDisplayed();
 			}
 		});
-    	assertTrue(driver.findElement(By.tagName("body")).getText().contains("Please scan ID card to proceed..."));
+    	assertTrue(driver.findElement(By.tagName("body")).getText().contains("Tanpri skane kat idantifikasyon kontinye..."));
     }
 }

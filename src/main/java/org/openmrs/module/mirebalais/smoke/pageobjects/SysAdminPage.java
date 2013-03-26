@@ -11,11 +11,11 @@ public class SysAdminPage extends AbstractPageObject {
 	}
 
 	public void openManageAccounts() {
-		driver.findElement(By.linkText("Manage Accounts")).click();
+		driver.findElement(By.cssSelector(".task .icon-book")).click();
 	}
 	
 	public void openManagePatientRecords() {
-		driver.findElement(By.linkText("Merge Patient Electronic Records")).click();
+		driver.findElement(By.cssSelector(".task .icon-group")).click();
 	}
 	
 }

@@ -48,7 +48,7 @@ public class CaptureVitalsTest extends BasicMirebalaisSmokeTest {
 		loginPage.logInAsAdmin();
 		
 		appDashboard.openPatientRegistrationApp();
-		registration.goThruRegistrationProcessWithoutPrintingCard(); // TODO: transform it in a sql script
+		registration.goThruRegistrationProcessWithoutPrintingCard(); 
 		patientIdentifier = patientRegistrationDashboard.getIdentifier();
 		patientName = patientRegistrationDashboard.getName();
 
