@@ -20,6 +20,9 @@ public class RegistrationFlowTest extends BasicMirebalaisSmokeTest {
     private Registration registration;
     private AppDashboard appDashboard;
     
+    private final static String SCAN_MESSAGE = "Tanpri skane kat idantifikasyon kontinye...";
+   //Scannez la carte pour continuer...
+    
     @Before
     public void setUp() {
 		loginPage = new LoginPage(driver);
@@ -41,6 +44,6 @@ public class RegistrationFlowTest extends BasicMirebalaisSmokeTest {
 				return webDriver.findElement(By.id("scanPatientIdentifier")).isDisplayed();
 			}
 		});
-    	assertTrue(driver.findElement(By.tagName("body")).getText().contains("Tanpri skane kat idantifikasyon kontinye..."));
+    	assertTrue(driver.findElement(By.tagName("body")).getText().contains(SCAN_MESSAGE));
     }
 }

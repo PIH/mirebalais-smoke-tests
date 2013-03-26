@@ -28,6 +28,11 @@ public class UserAdmin extends AbstractPageObject {
 	
 	private SysAdminPage adminPage;
 	
+	private static final String CLINICAL_ROLE = "clinical";
+	private static final String DATA_ARCHIVES = "dataArchives";
+	private static final String RADIOLOGY = "radiology";
+	private static final String SYS_ADMIN= "sysAdmin";
+	
 	private String[] PROVIDER_TYPES = { "Teknisyen Laboratwa", "Enfimyè", "Administratè Jeneral" };
 	
 	public UserAdmin(WebDriver driver) {
@@ -125,7 +130,7 @@ public class UserAdmin extends AbstractPageObject {
 		WebElement select = driver.findElement(By.name("privilegeLevel"));
 	    List<WebElement> options = select.findElements(By.tagName("option"));
 	    for (WebElement option : options) {
-	        if("Full".equals(option.getText()))
+	        if("Konplè".equals(option.getText()))
 	            option.click();
 	    }
 	}
@@ -135,19 +140,19 @@ public class UserAdmin extends AbstractPageObject {
 	}
 	
 	private void chooseClinicalRole() {
-		getRightRole("clinical").click();
+		getRightRole(CLINICAL_ROLE).click();
 	}
 	
 	private void chooseDataArchivesRole() {
-		getRightRole("dataArchives").click();
+		getRightRole(DATA_ARCHIVES).click();
 	}
 	
 	private void chooseRadiologyRole() {
-		getRightRole("radiology").click();
+		getRightRole(RADIOLOGY).click();
 	}
 	
 	private void chooseSysAdminRole() {
-		getRightRole("sysAdmin").click();
+		getRightRole(SYS_ADMIN).click();
 	}
 
 	public void unlockUser(String username) {

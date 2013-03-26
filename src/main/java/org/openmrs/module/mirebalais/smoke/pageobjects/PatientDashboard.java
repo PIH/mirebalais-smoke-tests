@@ -16,6 +16,8 @@ public class PatientDashboard extends AbstractPageObject {
 	public static final String VITALS = "Siy Vito";
 	public static final String RADIOLOGY = "Preskripsyon Radyoloji";
 	
+	public static final String ACTIVE_VISIT_MESSAGE = "Vizit aktiv";
+	
 	public PatientDashboard(WebDriver driver) {
 		super(driver);
 	}
@@ -57,7 +59,7 @@ public class PatientDashboard extends AbstractPageObject {
 	
     
     public boolean hasActiveVisit() {
-		return driver.findElement(By.id("visit-details")).getText().contains("Active Visit");
+		return driver.findElement(By.id("visit-details")).getText().contains(ACTIVE_VISIT_MESSAGE);
 	}
 
 	public void deleteEncounter(String encounterName) throws Exception {
