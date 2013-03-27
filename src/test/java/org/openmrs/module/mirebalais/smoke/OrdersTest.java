@@ -26,8 +26,8 @@ public class OrdersTest extends BasicMirebalaisSmokeTest {
     private AppDashboard appDashboard;
     private String patientIdentifier;
     
-    private static final String STUDY_1 = "Chest, 1 view (X-ray)";
-    private static final String STUDY_2 = "Elbow - Left, 2 views (X-ray)";
+    private static final String STUDY_1 = "Hanche - Gauche, 2 vues (Radiographie)";
+    private static final String STUDY_2 = "Humérus - Gauche, 2 vues (Radiographie)";
     
     @Before
 	public void setUp() {
