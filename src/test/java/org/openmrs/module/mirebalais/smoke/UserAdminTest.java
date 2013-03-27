@@ -148,16 +148,6 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     	
 	}
    
-    @Test
-    public void createProvider() {
-    	loginPage.logInAsAdmin();
-		appDashboard.openSysAdminApp();
-    	userAdmin.createProvider("Providêncio", "da Silva");
-    	
-    	assertTrue(userAdmin.isAccountCreatedSuccessfully());
-    }
-    
-    
     @After
     public void tearDown() {
     	header.logOut();
@@ -170,7 +160,6 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     private String createUser() {
     	return new String("user" + System.currentTimeMillis());
     }
-
        
     private void logOutAndLogInWithNewUser(String username) {
     	header.logOut();

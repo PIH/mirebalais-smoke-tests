@@ -33,7 +33,8 @@ public class UserAdmin extends AbstractPageObject {
 	private static final String RADIOLOGY = "radiology";
 	private static final String SYS_ADMIN= "sysAdmin";
 	
-	private String[] PROVIDER_TYPES = { "Teknisyen Laboratwa", "Enfimyè", "Administratè Jeneral" };
+	private String[] PROVIDER_TYPES = { "Teknisyen Laboratwa", "Enfimyè (RN)", "Administratè Jeneral", 
+			"Teknisyen Radyoloji", "Famasis", "Anestezist"};
 	
 	public UserAdmin(WebDriver driver) {
 		super(driver);
