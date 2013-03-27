@@ -111,7 +111,7 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
 	}
     
     @Test
-    public void createUserWithSysAdminRoleWithKreyolAsDesiredLanguage() throws InterruptedException {
+    public void createUserWithSysAdminRoleWithEnglishAsDesiredLanguage() throws InterruptedException {
     	String username = createUser();
     	
     	loginPage.logInAsAdmin();
@@ -122,7 +122,7 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     	assertTrue(appDashboard.isArchivesRoomAppPresented());
     	
     	appDashboard.openSysAdminApp();
-    	userAdmin.createSysAdminAccount("Test", "User", username, DEFAULT_PASSWORD, "Haitian");
+    	userAdmin.createSysAdminAccount("Test", "User", username, DEFAULT_PASSWORD, "English");
     	
     	userAdmin.closeToast();
     	logOutAndLogInWithNewUser(username);
@@ -143,8 +143,8 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     	
     	appDashboard.openSysAdminApp();
     	String text = driver.findElement(By.className("task")).getText();
-    	assertTrue(text.contains("Jere Kont"));
-    	assertFalse(text.contains("Manage Accounts"));
+    	assertFalse(text.contains("Jere Kont"));
+    	assertTrue(text.contains("Manage Accounts"));
     	
 	}
    
