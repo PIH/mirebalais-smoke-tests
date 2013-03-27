@@ -5,7 +5,6 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.ArchivesRoomApp;
@@ -41,7 +40,6 @@ public class ArchivesRoomFlowTest extends BasicMirebalaisSmokeTest {
 		archivesRoomApp = new ArchivesRoomApp(driver);
 	}
 
-	@Ignore // Printer is not working on bamboo
 	@Test
 	public void requestRecord() {
 		String dossieNumber = null;
