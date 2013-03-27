@@ -122,7 +122,7 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     	assertTrue(appDashboard.isArchivesRoomAppPresented());
     	
     	appDashboard.openSysAdminApp();
-    	userAdmin.createSysAdminAccount("Test", "User", username, DEFAULT_PASSWORD, "Haitian");
+    	userAdmin.createSysAdminAccount("Test", "User", username, DEFAULT_PASSWORD, "Haitian Creole");
     	
     	userAdmin.closeToast();
     	logOutAndLogInWithNewUser(username);
