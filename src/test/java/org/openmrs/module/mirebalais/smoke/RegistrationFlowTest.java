@@ -21,7 +21,6 @@ public class RegistrationFlowTest extends BasicMirebalaisSmokeTest {
     private AppDashboard appDashboard;
     
     private final static String SCAN_MESSAGE = "Tanpri skane kat idantifikasyon kontinye...";
-   //Scannez la carte pour continuer...
     
     @Before
     public void setUp() {

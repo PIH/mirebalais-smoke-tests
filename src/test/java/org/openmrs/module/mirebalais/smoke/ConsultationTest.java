@@ -44,7 +44,6 @@ public class ConsultationTest extends BasicMirebalaisSmokeTest {
 
 		appDashboard.findPatientById(patientIdentifier);
 		patientDashboard.startVisit();
-		
 		 
 		Wait<WebDriver> wait = new WebDriverWait(driver, 5);
 		wait.until(new ExpectedCondition<Boolean>() {
@@ -55,9 +54,7 @@ public class ConsultationTest extends BasicMirebalaisSmokeTest {
 		});
 		assertTrue(patientDashboard.hasActiveVisit());
 		
-		
 		patientDashboard.addConsultationNote();
 		assertThat(patientDashboard.countEncouters(PatientDashboard.CONSULTATION), is(1));
-	
 	}
 }

@@ -52,7 +52,7 @@ public class ActiveVisitsTest extends BasicMirebalaisSmokeTest{
 
 	
 	@Test
-	public void checkInPatientDeleteEncounterAndKeepsActiveVisit() {
+	public void checkInPatientDeletingEncounterMustKeepActiveVisit() {
 		loginPage.logInAsAdmin();
 		appDashboard.openPatientRegistrationApp();
 		registration.goThruRegistrationProcessWithoutPrintingCard(); 
@@ -78,7 +78,6 @@ public class ActiveVisitsTest extends BasicMirebalaisSmokeTest{
 		
 		assertThat(patientDashboard.countEncouters(PatientDashboard.CHECKIN), is(0));
 		assertTrue(patientDashboard.hasActiveVisit());
-		
 	}
 
 }
