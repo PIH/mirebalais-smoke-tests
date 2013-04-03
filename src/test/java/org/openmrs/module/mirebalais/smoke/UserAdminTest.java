@@ -49,11 +49,11 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     	assertThat(appDashboard.isSystemAdministrationAppPresented(), is(false));
     	assertThat(appDashboard.isPatientRegistrationAppPresented(), is(false));
     	assertThat(appDashboard.isArchivesRoomAppPresented(), is(false));
-    	assertThat(appDashboard.isReportsAppPresented(), is(false));
+    	assertThat(appDashboard.isReportsAppPresented(), is(true));
     	
     	assertThat(appDashboard.isStartHospitalVisitAppPresented(), is(false));
     	assertThat(appDashboard.isStartClinicVisitAppPresented(), is(false));
-    	assertThat(appDashboard.isEditPatientAppPresented(), is(false));
+    	assertThat(appDashboard.isEditPatientAppPresented(), is(true));
     	
     	assertThat(appDashboard.isLegacyAppPresented(), is(false));
 	}
@@ -75,11 +75,11 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     	assertThat(appDashboard.isSystemAdministrationAppPresented(), is(false));
     	assertThat(appDashboard.isPatientRegistrationAppPresented(), is(false));
     	assertThat(appDashboard.isArchivesRoomAppPresented(), is(false));
-    	assertThat(appDashboard.isReportsAppPresented(), is(false));
+    	assertThat(appDashboard.isReportsAppPresented(), is(true));
     	
     	assertThat(appDashboard.isStartHospitalVisitAppPresented(), is(false));
     	assertThat(appDashboard.isStartClinicVisitAppPresented(), is(false));
-    	assertThat(appDashboard.isEditPatientAppPresented(), is(false));
+    	assertThat(appDashboard.isEditPatientAppPresented(), is(true));
     	
     	assertThat(appDashboard.isLegacyAppPresented(), is(false));
 	}
@@ -101,7 +101,7 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     	assertThat(appDashboard.isSystemAdministrationAppPresented(), is(false));
     	assertThat(appDashboard.isPatientRegistrationAppPresented(), is(true));
     	assertThat(appDashboard.isArchivesRoomAppPresented(), is(true));
-    	assertThat(appDashboard.isReportsAppPresented(), is(false));
+    	assertThat(appDashboard.isReportsAppPresented(), is(true));
     	
     	assertThat(appDashboard.isStartHospitalVisitAppPresented(), is(false));
     	assertThat(appDashboard.isStartClinicVisitAppPresented(), is(true));
@@ -128,7 +128,7 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     	logOutAndLogInWithNewUser(username);
     	
     	assertThat(appDashboard.isActiveVisitsAppPresented(), is(true));
-    	assertThat(appDashboard.isCaptureVitalsAppPresented(), is(false));
+    	assertThat(appDashboard.isCaptureVitalsAppPresented(), is(true));
     	
     	assertThat(appDashboard.isSystemAdministrationAppPresented(), is(true));
     	assertThat(appDashboard.isPatientRegistrationAppPresented(), is(true));
