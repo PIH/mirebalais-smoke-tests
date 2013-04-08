@@ -111,7 +111,7 @@ public class PatientDashboard extends AbstractPageObject {
 
 	public String getDossieNumber() {
 		List<WebElement> elements = driver.findElements(By.cssSelector(".identifiers span"));
-		return elements.get(1).getText();
+		return elements.get(2).getText();
 	}
 
 	public boolean canRequestRecord() {

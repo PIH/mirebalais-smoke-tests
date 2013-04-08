@@ -52,4 +52,9 @@ public class ArchivesRoomApp extends AbstractPageObject {
 		driver.findElement(By.name("mark-as-returned-identifier")).sendKeys(dossieNumber);
 		driver.findElement(By.name("mark-as-returned-identifier")).sendKeys(Keys.RETURN);
 	}
+
+	public void createRecord(String patientIdentifier) throws Exception {
+		findPatientInTheList(patientIdentifier, "create_requests_table").click();
+		driver.findElement(By.id("assign-to-create-button")).click();
+	}
 }

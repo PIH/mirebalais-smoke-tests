@@ -56,8 +56,7 @@ public class ArchivesRoomFlowTest extends BasicMirebalaisSmokeTest {
 		appDashboard.openArchivesRoomApp();
 		
 		try {
-			archivesRoomApp.findPatientInTheList(patientIdentifier, "create_requests_table").click();
-			driver.findElement(By.id("assign-to-create-button")).click();
+			archivesRoomApp.createRecord(patientIdentifier);
 			
 			appDashboard.openArchivesRoomApp();
 			
@@ -70,6 +69,7 @@ public class ArchivesRoomFlowTest extends BasicMirebalaisSmokeTest {
 			});
 			
 			dossieNumber = archivesRoomApp.getDossieNumber(patientName);
+			
 			archivesRoomApp.sendDossie(dossieNumber);
 			archivesRoomApp.returnRecord(dossieNumber);
 				
