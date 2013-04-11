@@ -2,6 +2,9 @@ package org.openmrs.module.mirebalais.smoke.pageobjects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class MergeFlow extends AbstractPageObject {
 
@@ -21,8 +24,9 @@ public class MergeFlow extends AbstractPageObject {
 	public void setPatientsToMerge(String patientDataOne, String patientDataTwo) {
 		setFirstPatient(patientDataOne);
 		setSecondPatient(patientDataTwo);
-		
-		clickOnContinueMergeButton();
+
+        waitUntilContinueMergeButtonEnabled();
+        clickOnContinueMergeButton();
 		clickOnLeftPatient();
 		clickOnContinueMergeButton(); // Yes, the button is the same, it just changes the caption!
 	}
@@ -34,5 +38,17 @@ public class MergeFlow extends AbstractPageObject {
 	private void clickOnContinueMergeButton() {
 		driver.findElement(By.className("confirm")).click();
 	}
+
+    private void waitUntilContinueMergeButtonEnabled() {
+
+        Wait<WebDriver> wait = new WebDriverWait(driver, 2);
+        wait.until(new ExpectedCondition<Boolean>() {
+            @Override
+            public Boolean apply(WebDriver webDriver) {
+                return driver.findElement(By.className("confirm")).isEnabled();
+            }
+        });
+
+    }
 	
 }
