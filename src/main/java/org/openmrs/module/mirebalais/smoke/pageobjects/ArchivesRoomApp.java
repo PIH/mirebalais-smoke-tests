@@ -1,5 +1,6 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -57,4 +58,25 @@ public class ArchivesRoomApp extends AbstractPageObject {
 		findPatientInTheList(patientIdentifier, "create_requests_table").click();
 		driver.findElement(By.id("assign-to-create-button")).click();
 	}
+	
+	/* It will probably not clear all of them, because the script is faster than the response.
+	   At least, it will keep the list smaller. */
+	public void clearRequestList() {
+		List<String> dossierNumbers = filterDossierNumbers(driver.findElements(By.cssSelector("#assigned_create_requests_table span")));
+		for (String dossieNumber : dossierNumbers) {
+			sendDossie(dossieNumber);
+		}
+	}
+
+	private List<String> filterDossierNumbers(List<WebElement> elements) {
+		List<String> dossierNumbers = new ArrayList<String>();
+		for (WebElement e : elements) {
+			String text = e.getText();
+			if (text.length() == 7 && text.startsWith("A")) {
+				dossierNumbers.add(text);
+			}
+		}
+		return dossierNumbers;
+	}
+
 }

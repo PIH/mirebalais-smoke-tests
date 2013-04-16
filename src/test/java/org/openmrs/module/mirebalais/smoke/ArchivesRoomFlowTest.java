@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
@@ -83,4 +84,10 @@ public class ArchivesRoomFlowTest extends BasicMirebalaisSmokeTest {
 		assertThat(patientDashboard.canRequestRecord(), is(true));
 	}
 	
+	@After
+	public void cleanAllRequests() {
+		appDashboard.openArchivesRoomApp();
+		archivesRoomApp.clearRequestList();
+	}
+		
 }
