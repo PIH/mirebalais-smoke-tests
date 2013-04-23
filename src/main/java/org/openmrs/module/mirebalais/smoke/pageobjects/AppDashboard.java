@@ -14,11 +14,8 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
-import java.util.List;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 public class AppDashboard extends AbstractPageObject {
 
@@ -33,6 +30,8 @@ public class AppDashboard extends AbstractPageObject {
     public static final String CAPTURE_VITALS = "mirebalais-outpatientVitals-app";
     public static final String REPORTS = "mirebalaisreports-Reports-app";
     public static final String LEGACY = "legacy-admin-app";
+    public static final String START_CLINIC_VISIT_NEW = "mirebalais-checkin-app";
+    
 
     public AppDashboard(WebDriver driver) {
         super(driver);
@@ -73,6 +72,11 @@ public class AppDashboard extends AbstractPageObject {
     public void openReportApp() {
     	 openApp(REPORTS);
 	}
+    
+    public void startClinicVisit() {
+		openApp(START_CLINIC_VISIT_NEW);
+	}
+
 	
 	public boolean isPatientRegistrationAppPresented() {
 		return isAppButtonPresent(PATIENT_REGISTRATION);
@@ -137,17 +141,8 @@ public class AppDashboard extends AbstractPageObject {
 
 	public void findPatientById(String patientIdentifier) {
 		driver.get(properties.getWebAppUrl());
-		WebElement element = driver.findElement(By.id("patient-search-field-search"));
-		element.sendKeys(patientIdentifier);
-		clickOnTheRightPatient(patientIdentifier);
-	}
-	
-	private void clickOnTheRightPatient(String patientIdentifier) {
-		List<WebElement> options = driver.findElements(By.cssSelector("li.ui-menu-item"));
-	    for (WebElement option : options) {
-	        if(option.getText().contains(patientIdentifier))
-	            option.click();
-	    }
+		super.findPatientById(patientIdentifier, "patient-search-field-search");
 	}
 
+	
 }

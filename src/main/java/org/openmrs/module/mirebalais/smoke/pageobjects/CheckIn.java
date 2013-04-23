@@ -28,21 +28,11 @@ public class CheckIn extends AbstractPageObject {
 			}
 		});
 		driver.findElement(By.id("okBtn")).click();
-
 		
 		clickNext();
-		
 		clickNext();
-        /*
-		chooseVisitReason(MEDICAL_CERTIFICATE);
-		clickNext();
-		*/
 		choosePaymentAmount(PAYMENT_50);
-        /*
-		enterReceiptNumber("123456789");
-		clickNext();
-        */
-		clickYellowCheckMark();
+        clickYellowCheckMark();
 		
 		wait.until(new ExpectedCondition<Boolean>() {
 			@Override

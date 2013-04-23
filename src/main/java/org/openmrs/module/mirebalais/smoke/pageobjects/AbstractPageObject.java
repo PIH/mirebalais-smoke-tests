@@ -1,5 +1,7 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -66,5 +68,19 @@ public abstract class AbstractPageObject {
 					.append(", ")
 					.append(patientName.substring(0,index).trim())
 					.toString();
+	}
+    
+    public void findPatientById(String patientIdentifier, String idField) {
+		WebElement element = driver.findElement(By.id(idField));
+		element.sendKeys(patientIdentifier);
+		clickOnTheRightPatient(patientIdentifier);
+	}
+    
+    private void clickOnTheRightPatient(String patientIdentifier) {
+		List<WebElement> options = driver.findElements(By.cssSelector("li.ui-menu-item"));
+	    for (WebElement option : options) {
+	        if(option.getText().contains(patientIdentifier))
+	            option.click();
+	    }
 	}
 }

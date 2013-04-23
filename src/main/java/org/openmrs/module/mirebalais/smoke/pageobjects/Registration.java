@@ -11,11 +11,11 @@ public class Registration extends AbstractPageObject {
 	private Wait<WebDriver> wait;
 	
     private static final String[] FIRST_NAMES = 
-    	{"Alexandre", "Cosmin", "Darius", "Ellen", "Émerson", "Evan", "Fernando", "Glauber", "Louise",
-    	"Mário", "Mark", "Natália", "Neil", "Renee"};
+    	{"Alexandre", "Achint", "Burke", "Cosmin", "Daniel", "Darius", "Ellen", "Émerson", "Evan", "Fernando", 
+    	"Glauber", "Louise", "Mário", "Mark", "Natália", "Neil", "Nelice", "Rafal", "Renee", "Wyclif"};
 	private static final String[] LAST_NAMES = 
-		{"Barbosa", "Ioan", "Jazayeri", "Ball", "Hernandez", "Waters", "Freire", "Ramos", "Sécordel", 
-		"Areias", "Goodrich", "Arsand", "Craven", "Orser"}; 
+		{"Barbosa", "Sethi", "Mamlin", "Ioan", "Kayiwa", "Jazayeri", "Ball", "Hernandez", "Waters", "Freire", 
+		"Ramos", "Sécordel", "Areias", "Goodrich", "Arsand", "Craven", "Heck", "Korytkowski", "Orser", "Luyima"}; 
 	
 	public Registration(WebDriver driver) {
         super(driver);
