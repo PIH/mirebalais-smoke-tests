@@ -67,5 +67,4 @@ public class NewCheckIn extends AbstractPageObject {
 	public boolean isPatientSearchDisplayed() {
 		return driver.findElement(By.id("patient-search-field-search")).isDisplayed();
 	}
-}
-
+}	
