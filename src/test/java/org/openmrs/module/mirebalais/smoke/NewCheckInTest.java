@@ -38,7 +38,7 @@ public class NewCheckInTest extends BasicMirebalaisSmokeTest {
         patientIdentifier = patientRegistrationDashboard.getIdentifier();
         
         appDashboard.startClinicVisit();
-        newCheckIn.checkInPatient(patientIdentifier);
+        newCheckIn.checkInPatientFillingTheFormTwice(patientIdentifier);
         
         assertThat(newCheckIn.isPatientSearchDisplayed(), is(true));
 	}

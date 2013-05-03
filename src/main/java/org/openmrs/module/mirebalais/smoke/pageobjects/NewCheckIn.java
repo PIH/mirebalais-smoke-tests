@@ -12,6 +12,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class NewCheckIn extends AbstractPageObject {
 	
 	private static final String CONFIRM_TEXT = "Konfime";
+	private static final String PAYMENT_EXEMPT = "Exempt";
+	private static final String PAYMENT_50 = "50";
 	
 	public NewCheckIn(WebDriver driver) {
 		super(driver);
@@ -20,11 +22,21 @@ public class NewCheckIn extends AbstractPageObject {
 	public void checkInPatient(String patientIdentifier) {
 		findPatient(patientIdentifier);
 		confirmRightPatient();
-		clickOnPaymentOption("50");
+		clickOnPaymentOption(PAYMENT_50);
 		confirmData();
 		confirmPopup();
 	}
 
+	public void checkInPatientFillingTheFormTwice(String patientIdentifier) {
+		findPatient(patientIdentifier);
+		confirmRightPatient();
+		clickOnPaymentOption(PAYMENT_50);
+		clickOnNoButton();
+		clickOnPaymentOption(PAYMENT_EXEMPT);
+		confirmData();
+		confirmPopup();
+	}
+	
 	private void findPatient(String patientIdentifier) {
 		super.findPatientById(patientIdentifier, "patient-search-field-search");
 	}
@@ -43,14 +55,22 @@ public class NewCheckIn extends AbstractPageObject {
 	}
 	
 	private void confirmData() {
+		clickOnConfirmationTab();
+		driver.findElement(By.cssSelector("#confirmationQuestion input.confirm")).click();
+	}
+	
+	private void clickOnNoButton() {
+		clickOnConfirmationTab();
+		driver.findElement(By.cssSelector("#confirmationQuestion input.cancel")).click();
+	}
+	
+	private void clickOnConfirmationTab() {
 		List<WebElement> elements = driver.findElements(By.cssSelector("#formBreadcrumb span"));
 		for (WebElement element : elements) {
 	        if(element.getText().contains(CONFIRM_TEXT)) {
 	        	element.click();
 	        }
 	    }
-		
-		driver.findElement(By.cssSelector("#confirmationQuestion input")).click();
 	}
 	
 	private void confirmPopup() {
@@ -67,4 +87,5 @@ public class NewCheckIn extends AbstractPageObject {
 	public boolean isPatientSearchDisplayed() {
 		return driver.findElement(By.id("patient-search-field-search")).isDisplayed();
 	}
+	
 }	
