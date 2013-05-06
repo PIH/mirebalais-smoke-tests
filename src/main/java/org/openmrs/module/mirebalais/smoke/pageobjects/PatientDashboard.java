@@ -11,6 +11,7 @@ import org.openqa.selenium.WebElement;
 
 public class PatientDashboard extends AbstractPageObject {
 
+	private static final String PRIMARY_DIAGNOSIS = "IGU";
 	public static final String CHECKIN = "Tcheke"; 
 	public static final String CONSULTATION = "Consultation";
 	public static final String VITALS = "Siy Vito";
@@ -35,7 +36,6 @@ public class PatientDashboard extends AbstractPageObject {
 		driver.findElement(By.id("next")).click();
 	}
 
-	// TODO: add more data to compare?
 	public boolean hasOrder(String orderDetails) {
 		return driver.findElement(By.id("content")).getText().contains(orderDetails);
 	}
@@ -99,7 +99,7 @@ public class PatientDashboard extends AbstractPageObject {
 
 	public void addConsultationNote() {
 		driver.findElement(By.cssSelector("#visit-details .icon-stethoscope")).click();
-		setClearTextToField("diagnosis-search", "asthma");
+		setClearTextToField("diagnosis-search", PRIMARY_DIAGNOSIS);
 		driver.findElement(By.cssSelector("strong.matched-name")).click();
 		driver.findElement(By.cssSelector("#buttons .confirm")).click();
 	}
