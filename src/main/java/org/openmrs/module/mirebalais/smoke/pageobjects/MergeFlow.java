@@ -40,7 +40,6 @@ public class MergeFlow extends AbstractPageObject {
 	}
 
     private void waitUntilContinueMergeButtonEnabled() {
-
         Wait<WebDriver> wait = new WebDriverWait(driver, 2);
         wait.until(new ExpectedCondition<Boolean>() {
             @Override

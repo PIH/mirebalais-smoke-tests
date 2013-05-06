@@ -76,8 +76,6 @@ public class Registration extends AbstractPageObject {
 			}
 		});
 	}
-	
-
 
 	private void clickOnSearchByNameButton() {
 		driver.findElement(By.id("searchByNameBtn")).click();
@@ -106,8 +104,6 @@ public class Registration extends AbstractPageObject {
         chooseNotToPrintIdCard();
         clickYellowCheckMark();
     }
-	
-    
 
     protected void enterPatientLocality() {
         driver.findElement(By.id("possibleLocalityField")).sendKeys("Mirebalais");
