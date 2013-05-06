@@ -19,7 +19,7 @@ public class NewCheckIn extends AbstractPageObject {
 		super(driver);
 	}
 	
-	public void checkInPatient(String patientIdentifier) {
+	public void checkInPatient(String patientIdentifier) throws Exception {
 		findPatient(patientIdentifier);
 		confirmRightPatient();
 		clickOnPaymentOption(PAYMENT_50);
@@ -27,7 +27,7 @@ public class NewCheckIn extends AbstractPageObject {
 		confirmPopup();
 	}
 
-	public void checkInPatientFillingTheFormTwice(String patientIdentifier) {
+	public void checkInPatientFillingTheFormTwice(String patientIdentifier) throws Exception {
 		findPatient(patientIdentifier);
 		confirmRightPatient();
 		clickOnPaymentOption(PAYMENT_50);
@@ -37,7 +37,7 @@ public class NewCheckIn extends AbstractPageObject {
 		confirmPopup();
 	}
 	
-	private void findPatient(String patientIdentifier) {
+	private void findPatient(String patientIdentifier) throws Exception {
 		super.findPatientById(patientIdentifier, "patient-search-field-search");
 	}
 
@@ -45,13 +45,8 @@ public class NewCheckIn extends AbstractPageObject {
 		driver.findElement(By.className("icon-arrow-right")).click();
 	}
 	
-	private void clickOnPaymentOption(String payment) {
-		List<WebElement> options = driver.findElements(By.cssSelector("#paymentAmount option"));
-		for (WebElement option : options) {
-	        if(option.getText().contains(payment)) {
-	            option.click();
-	        }
-	    }
+	private void clickOnPaymentOption(String payment) throws Exception{
+		clickOnOptionLookingForText(payment, By.cssSelector("#paymentAmount option"));
 	}
 	
 	private void confirmData() {

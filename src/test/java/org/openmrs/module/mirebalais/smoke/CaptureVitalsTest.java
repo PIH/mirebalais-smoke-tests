@@ -44,7 +44,7 @@ public class CaptureVitalsTest extends BasicMirebalaisSmokeTest {
 
 	
 	@Test
-	public void checkInAndCaptureVitalsThruVitalsApp() {
+	public void checkInAndCaptureVitalsThruVitalsApp() throws Exception {
 		loginPage.logInAsAdmin();
 		
 		appDashboard.openPatientRegistrationApp();

@@ -22,7 +22,7 @@ public class LoginTest extends BasicMirebalaisSmokeTest {
     }
 
 	@Test
-    public void loginAndChangeLocation() {
+    public void loginAndChangeLocation() throws Exception {
 		loginPage.logInAsAdmin();
 		headerPage.changeLocation(NEW_LOCATION);
 		assertThat(headerPage.getLocation().contains(NEW_LOCATION), is(true));

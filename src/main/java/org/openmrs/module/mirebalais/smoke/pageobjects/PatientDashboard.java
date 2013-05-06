@@ -1,3 +1,17 @@
+/*
+ * The contents of this file are subject to the OpenMRS Public License
+ * Version 1.0 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at
+ * http://license.openmrs.org
+ *
+ * Software distributed under the License is distributed on an "AS IS"
+ * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+ * License for the specific language governing rights and limitations
+ * under the License.
+ *
+ * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+ */
+
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
 import java.util.HashSet;
@@ -50,13 +64,9 @@ public class PatientDashboard extends AbstractPageObject {
 		return result;
 	}
 
-    public boolean verifyIfSuccessfulMessageIsDisplayed(){
-        if (driver.findElement(By.className("icon-ok")) != null){
-            return true;
-        }
-        return false;
+	public boolean verifyIfSuccessfulMessageIsDisplayed(){
+        return (driver.findElement(By.className("icon-ok")) != null) ;
     }
-	
     
     public boolean hasActiveVisit() {
 		return driver.findElement(By.id("visit-details")).getText().contains(ACTIVE_VISIT_MESSAGE);
@@ -69,17 +79,16 @@ public class PatientDashboard extends AbstractPageObject {
 	        if (encounter.getAttribute("data-encounter-id").equals(encounterId))
 	        	encounter.click();
 	    }
+		
 		driver.findElement(By.xpath("//*[@id='delete-encounter-dialog']/div[2]/button[1]")).click();
 	}
 	
 	public String findEncounterId(String encounterName) throws Exception {
-		List<WebElement> encounters = driver.findElements(By.cssSelector("span.encounter-name"));
-		for (WebElement encounter : encounters) {
-	        if (encounter.getText().equals(encounterName))
-	        	return encounter.getAttribute("data-encounter-id");
-	    }
-		
-		throw new Exception("No encounter of this type found.");
+		try {		
+			return getOptionBasedOnText(encounterName, By.cssSelector("span.encounter-name")).getAttribute("data-encounter-id");
+		} catch (Exception e) {
+			throw new Exception("No encounter of this type found.");
+		}
 	}
 
 	public Integer countEncouters(String encounterName) {

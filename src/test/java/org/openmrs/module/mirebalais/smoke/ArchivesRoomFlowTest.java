@@ -42,7 +42,7 @@ public class ArchivesRoomFlowTest extends BasicMirebalaisSmokeTest {
 	}
 
 	@Test
-	public void requestRecord() {
+	public void requestRecord() throws Exception{
 		String dossieNumber = null;
 		
 		loginPage.logInAsAdmin();

@@ -39,7 +39,7 @@ public class OrdersTest extends BasicMirebalaisSmokeTest {
 	}
     
 	@Test
-	public void orderSingleXRay() {
+	public void orderSingleXRay() throws Exception{
         loginPage.logInAsAdmin();
         appDashboard.openPatientRegistrationApp();
         registration.goThruRegistrationProcessWithoutPrintingCard();

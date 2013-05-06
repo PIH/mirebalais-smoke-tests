@@ -146,7 +146,7 @@ public class AppDashboard extends AbstractPageObject {
         clickAppButton(appIdentifier);
     }
 
-	public void findPatientById(String patientIdentifier) {
+	public void findPatientById(String patientIdentifier) throws Exception{
 		driver.get(properties.getWebAppUrl());
 		super.findPatientById(patientIdentifier, "patient-search-field-search");
 	}

@@ -36,7 +36,7 @@ public class ConsultationTest extends BasicMirebalaisSmokeTest {
 	}
 	
 	@Test
-	public void addConsultationToAVisitWithoutCheckin() {
+	public void addConsultationToAVisitWithoutCheckin() throws Exception {
 		loginPage.logInAsAdmin();
 		appDashboard.openPatientRegistrationApp();
 		registration.goThruRegistrationProcessWithoutPrintingCard(); 

@@ -52,7 +52,7 @@ public class ActiveVisitsTest extends BasicMirebalaisSmokeTest{
 
 	
 	@Test
-	public void checkInPatientDeletingEncounterMustKeepActiveVisit() {
+	public void checkInPatientDeletingEncounterMustKeepActiveVisit() throws Exception {
 		loginPage.logInAsAdmin();
 		appDashboard.openPatientRegistrationApp();
 		registration.goThruRegistrationProcessWithoutPrintingCard(); 

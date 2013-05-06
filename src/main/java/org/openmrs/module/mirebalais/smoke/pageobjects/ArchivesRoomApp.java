@@ -30,6 +30,7 @@ public class ArchivesRoomApp extends AbstractPageObject {
 				return element;
 			}
 		}
+		
 		throw new Exception("Patient not found");
 	}
 	

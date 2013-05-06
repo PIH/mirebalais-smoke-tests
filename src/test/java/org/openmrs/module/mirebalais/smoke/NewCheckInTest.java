@@ -31,7 +31,7 @@ public class NewCheckInTest extends BasicMirebalaisSmokeTest {
 	}
     
 	@Test
-	public void startAClinicVisit() {
+	public void startAClinicVisit() throws Exception {
         loginPage.logInAsAdmin();
         appDashboard.openPatientRegistrationApp();
         registration.goThruRegistrationProcessWithoutPrintingCard();
