@@ -1,32 +1,31 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.chrome.ChromeDriver;
 
-@Ignore
-public class LoginTest extends BasicMirebalaisSmokeTest{
+public class LoginTest extends BasicMirebalaisSmokeTest {
 
     private LoginPage loginPage;
+    private HeaderPage headerPage;
+    
+    private static final String NEW_LOCATION = "Ijans";
 
     @Before
     public void setUp() {
-    	driver = new ChromeDriver();
-		driver.get(properties.getWebAppUrl());
-
 		loginPage = new LoginPage(driver);
+		headerPage = new HeaderPage(driver);
     }
 
 	@Test
-    public void testLogin() {
-    	loginPage.logIn("admin", "Admin123");
-    	
-    	assertTrue(driver.findElement(By.tagName("body")).getText().contains("Welcome to the Mirebalais EMR."));
+    public void loginAndChangeLocation() {
+		loginPage.logInAsAdmin();
+		headerPage.changeLocation(NEW_LOCATION);
+		assertThat(headerPage.getLocation().contains(NEW_LOCATION), is(true));
     }
 	
 }
