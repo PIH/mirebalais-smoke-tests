@@ -76,8 +76,7 @@ public class ArchivesRoomFlowTest extends BasicMirebalaisSmokeTest {
 				
 			appDashboard.findPatientById(patientIdentifier);
 		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
+			fail(e.getMessage());
 		}
 		
 		assertThat(patientDashboard.getDossieNumber(), is(dossieNumber));
