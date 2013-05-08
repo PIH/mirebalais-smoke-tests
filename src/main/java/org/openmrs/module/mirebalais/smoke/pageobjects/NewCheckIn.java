@@ -69,11 +69,11 @@ public class NewCheckIn extends AbstractPageObject {
 	}
 	
 	private void confirmPopup() {
-		Wait<WebDriver> wait = new WebDriverWait(driver, 5);
+		Wait<WebDriver> wait = new WebDriverWait(driver, 10);
 		wait.until(new ExpectedCondition<Boolean>() {
 			@Override
 			public Boolean apply(WebDriver webDriver) {
-				return 	webDriver.findElement(By.id("request-paper-record-dialog")).isDisplayed();
+				return webDriver.findElement(By.id("request-paper-record-dialog")).isDisplayed();
 			}
 		});
 		driver.findElement(By.cssSelector("#request-paper-record-dialog button")).click();
