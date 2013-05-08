@@ -42,7 +42,7 @@ public class ArchivesRoomApp extends AbstractPageObject {
     	wait.until(new ExpectedCondition<Boolean>() {
 			@Override
 			public Boolean apply(WebDriver webDriver) {
-				return webDriver.findElement(By.id("assigned_create_requests_table")).isDisplayed();
+				return webDriver.findElement(By.cssSelector("#assigned_create_requests_table td")).isDisplayed();
 			}
 		});
     	
