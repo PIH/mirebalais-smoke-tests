@@ -7,6 +7,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ArchivesRoomApp extends AbstractPageObject {
 
@@ -35,6 +38,14 @@ public class ArchivesRoomApp extends AbstractPageObject {
 	}
 	
 	public String getDossieNumber(String patientName) throws Exception {
+		Wait<WebDriver> wait = new WebDriverWait(driver, 10);
+    	wait.until(new ExpectedCondition<Boolean>() {
+			@Override
+			public Boolean apply(WebDriver webDriver) {
+				return webDriver.findElement(By.id("assigned_create_requests_table")).isDisplayed();
+			}
+		});
+    	
 		List<WebElement> elements = driver.findElements(By.cssSelector("#assigned_create_requests_table td"));
 		for(int i = elements.size()-1; i>=0; i--) {
 			if (elements.get(i).getText().contains(patientName)) {

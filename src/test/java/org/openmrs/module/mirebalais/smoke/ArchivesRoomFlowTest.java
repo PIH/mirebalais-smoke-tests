@@ -13,11 +13,6 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientRegistrationDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ArchivesRoomFlowTest extends BasicMirebalaisSmokeTest {
 
@@ -60,14 +55,6 @@ public class ArchivesRoomFlowTest extends BasicMirebalaisSmokeTest {
 			archivesRoomApp.createRecord(patientIdentifier);
 			
 			appDashboard.openArchivesRoomApp();
-			
-			Wait<WebDriver> wait = new WebDriverWait(driver, 2);
-	    	wait.until(new ExpectedCondition<Boolean>() {
-				@Override
-				public Boolean apply(WebDriver webDriver) {
-					return webDriver.findElement(By.id("assigned_create_requests_table")).isDisplayed();
-				}
-			});
 			
 			dossieNumber = archivesRoomApp.getDossieNumber(patientName);
 			
