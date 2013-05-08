@@ -13,7 +13,7 @@ public class ArchivesRoomApp extends AbstractPageObject {
 	public ArchivesRoomApp(WebDriver driver) {
 		super(driver);
 	}
-
+	
 	public boolean isPatientInList(String patientIdentifier, String list) {
 		try {
 			findPatientInTheList(patientIdentifier, list);
@@ -31,7 +31,7 @@ public class ArchivesRoomApp extends AbstractPageObject {
 			}
 		}
 		
-		throw new Exception("Patient not found");
+		throw new Exception(String.format("Patient %s not found", patientIdentifier));
 	}
 	
 	public String getDossieNumber(String patientName) throws Exception {
@@ -41,7 +41,7 @@ public class ArchivesRoomApp extends AbstractPageObject {
 				return elements.get(i+1).getText();
 			}
 		}
-		throw new Exception("Patient not found");
+		throw new Exception(String.format("Patient %s not found", patientName));
 	}
 
 	public void sendDossie(String dossieNumber) {
