@@ -37,24 +37,6 @@ public class ArchivesRoomApp extends AbstractPageObject {
 		throw new Exception(String.format("Patient %s not found", patientIdentifier));
 	}
 	
-	public String getDossieNumber(String patientName) throws Exception {
-		Wait<WebDriver> wait = new WebDriverWait(driver, 10);
-    	wait.until(new ExpectedCondition<Boolean>() {
-			@Override
-			public Boolean apply(WebDriver webDriver) {
-				return webDriver.findElement(By.cssSelector("#assigned_create_requests_table td")).isDisplayed();
-			}
-		});
-    	
-		List<WebElement> elements = driver.findElements(By.cssSelector("#assigned_create_requests_table td"));
-		for(int i = elements.size()-1; i>=0; i--) {
-			if (elements.get(i).getText().contains(patientName)) {
-				return elements.get(i+1).getText();
-			}
-		}
-		throw new Exception(String.format("Patient %s not found", patientName));
-	}
-
 	public void sendDossie(String dossieNumber) {
 		driver.findElement(By.name("mark-as-pulled-identifier")).sendKeys(dossieNumber);
 		driver.findElement(By.name("mark-as-pulled-identifier")).sendKeys(Keys.RETURN);
@@ -66,9 +48,40 @@ public class ArchivesRoomApp extends AbstractPageObject {
 		driver.findElement(By.name("mark-as-returned-identifier")).sendKeys(Keys.RETURN);
 	}
 
-	public void createRecord(String patientIdentifier) throws Exception {
+	public String createRecord(String patientIdentifier, String patientName) throws Exception {
 		findPatientInTheList(patientIdentifier, "create_requests_table").click();
+		final int size = getAssignedRequestsTableSize();
+		clickOnAssign();
+		waitForTableToUpdate(size);
+		return getDossieNumber(patientName);
+	}
+	
+	private int getAssignedRequestsTableSize() {
+		return driver.findElements(By.cssSelector("#assigned_create_requests_table td")).size();
+	}
+	
+	private void clickOnAssign() {
 		driver.findElement(By.id("assign-to-create-button")).click();
+	}
+
+	private String getDossieNumber(String patientName) throws Exception {
+		List<WebElement> elements = driver.findElements(By.cssSelector("#assigned_create_requests_table td"));
+		for(int i = 0; i<elements.size(); i+=6) {
+			if (elements.get(i).getText().contains(patientName)) {
+				return elements.get(i+1).getText();
+			}
+		}
+		throw new Exception(String.format("Patient %s not found", patientName));
+	}
+	
+	private void waitForTableToUpdate(final int oldSize) {
+		Wait<WebDriver> wait = new WebDriverWait(driver, 10);
+    	wait.until(new ExpectedCondition<Boolean>() {
+			@Override
+			public Boolean apply(WebDriver webDriver) {
+				return (getAssignedRequestsTableSize() > oldSize);
+			}
+		});
 	}
 	
 	/* It will probably not clear all of them, because the script is faster than the response.
