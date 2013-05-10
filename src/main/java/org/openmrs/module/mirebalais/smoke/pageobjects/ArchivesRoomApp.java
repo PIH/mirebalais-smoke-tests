@@ -49,8 +49,8 @@ public class ArchivesRoomApp extends AbstractPageObject {
 	}
 
 	public String createRecord(String patientIdentifier, String patientName) throws Exception {
+		int size = getAssignedRequestsTableSize();
 		findPatientInTheList(patientIdentifier, "create_requests_table").click();
-		final int size = getAssignedRequestsTableSize();
 		clickOnAssign();
 		waitForTableToUpdate(size);
 		return getDossieNumber(patientName);
@@ -66,7 +66,7 @@ public class ArchivesRoomApp extends AbstractPageObject {
 
 	private String getDossieNumber(String patientName) throws Exception {
 		List<WebElement> elements = driver.findElements(By.cssSelector("#assigned_create_requests_table td"));
-		for(int i = 0; i<elements.size(); i+=6) {
+		for(int i = elements.size(); i>=0; i--) {
 			if (elements.get(i).getText().contains(patientName)) {
 				return elements.get(i+1).getText();
 			}
