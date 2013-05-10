@@ -66,7 +66,7 @@ public class ArchivesRoomApp extends AbstractPageObject {
 
 	private String getDossieNumber(String patientName) throws Exception {
 		List<WebElement> elements = driver.findElements(By.cssSelector("#assigned_create_requests_table td"));
-		for(int i = elements.size(); i>=0; i--) {
+		for(int i = elements.size()-1; i>=0; i--) {
 			if (elements.get(i).getText().contains(patientName)) {
 				return elements.get(i+1).getText();
 			}
