@@ -103,7 +103,7 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     	assertThat(appDashboard.isArchivesRoomAppPresented(), is(true));
     	assertThat(appDashboard.isReportsAppPresented(), is(true));
     	
-    	assertThat(appDashboard.isStartHospitalVisitAppPresented(), is(false));
+    	assertThat(appDashboard.isStartHospitalVisitAppPresented(), is(true));
     	assertThat(appDashboard.isStartClinicVisitAppPresented(), is(true));
     	assertThat(appDashboard.isEditPatientAppPresented(), is(true));
     	
