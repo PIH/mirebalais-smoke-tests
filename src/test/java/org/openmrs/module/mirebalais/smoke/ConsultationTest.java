@@ -54,7 +54,7 @@ public class ConsultationTest extends BasicMirebalaisSmokeTest {
 		});
 		assertTrue(patientDashboard.hasActiveVisit());
 		
-		patientDashboard.addConsultationNote();
+		patientDashboard.addConsulteNote();
 		assertThat(patientDashboard.countEncouters(PatientDashboard.CONSULTATION), is(1));
 	}
 }

@@ -50,11 +50,11 @@ public abstract class AbstractPageObject {
     }
     
     public void clickNext() {
-        driver.findElement(By.id("right-arrow-yellow")).click();
+        clickOn(By.id("right-arrow-yellow"));
     }
     
     public void clickYellowCheckMark() {
-        driver.findElement(By.id("checkmark-yellow")).click();
+    	clickOn(By.id("checkmark-yellow"));
     }
     
     public void setClearTextToField(String textFieldId, String text) {
@@ -107,4 +107,8 @@ public abstract class AbstractPageObject {
 	    } 
 		throw new Exception("Option not found");
     }
+    
+    public void clickOn(By elementId) {
+    	driver.findElement(elementId).click();
+	}
 }

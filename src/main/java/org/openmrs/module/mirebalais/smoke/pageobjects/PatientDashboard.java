@@ -19,13 +19,15 @@ import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+import org.openmrs.module.mirebalais.smoke.pageobjects.forms.ConsultNoteForm;
+import org.openmrs.module.mirebalais.smoke.pageobjects.forms.SurgicalPostOperativeNoteForm;
+import org.openmrs.module.mirebalais.smoke.pageobjects.forms.XRayForm;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class PatientDashboard extends AbstractPageObject {
 
-	private static final String PRIMARY_DIAGNOSIS = "IGU";
 	public static final String CHECKIN = "Tcheke"; 
 	public static final String CONSULTATION = "Consultation";
 	public static final String VITALS = "Siy Vito";
@@ -33,21 +35,20 @@ public class PatientDashboard extends AbstractPageObject {
 	
 	public static final String ACTIVE_VISIT_MESSAGE = "Vizit aktiv";
 	
+	private ConsultNoteForm consultNoteForm;
+	private SurgicalPostOperativeNoteForm surgicalPostOperativeNoteForm;
+	private XRayForm xRayForm;
+	
 	public PatientDashboard(WebDriver driver) {
 		super(driver);
+		consultNoteForm = new ConsultNoteForm(driver);
+		surgicalPostOperativeNoteForm = new SurgicalPostOperativeNoteForm(driver);
+		xRayForm = new XRayForm(driver);
 	}
 
 	public void orderXRay(String study1, String study2) {
 		driver.findElement(By.className("icon-x-ray")).click();
-		
-		driver.findElement(By.name("clinicalHistory")).sendKeys("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eu neque ut mi auctor pulvinar. Mauris in orci non sem consequat posuere.");
-		setClearTextToField("study-search", study1);
-		driver.findElement(By.linkText(study1)).click();
-		
-		setClearTextToField("study-search", study2);
-		driver.findElement(By.linkText(study2)).click();
-		
-		driver.findElement(By.id("next")).click();
+		xRayForm.fillForm(study1, study2);
 	}
 
 	public boolean hasOrder(String orderDetails) {
@@ -65,7 +66,7 @@ public class PatientDashboard extends AbstractPageObject {
 	}
 
 	public boolean verifyIfSuccessfulMessageIsDisplayed(){
-        return (driver.findElement(By.className("icon-ok")) != null) ;
+        return (driver.findElement(By.className("icon-ok")) != null);
     }
     
     public boolean hasActiveVisit() {
@@ -80,7 +81,7 @@ public class PatientDashboard extends AbstractPageObject {
 	        	encounter.click();
 	    }
 		
-		driver.findElement(By.xpath("//*[@id='delete-encounter-dialog']/div[2]/button[1]")).click();
+		clickOn(By.xpath("//*[@id='delete-encounter-dialog']/div[2]/button[1]"));
 	}
 	
 	public String findEncounterId(String encounterName) throws Exception {
@@ -102,15 +103,22 @@ public class PatientDashboard extends AbstractPageObject {
 	}
 
 	public void startVisit() {
-		driver.findElement(By.cssSelector("i.icon-check-in")).click();
-		driver.findElement(By.cssSelector("#quick-visit-creation-dialog .confirm")).click();
+		clickOn(By.cssSelector("i.icon-check-in"));
+		clickOn(By.cssSelector("#quick-visit-creation-dialog .confirm"));
 	}
 
-	public void addConsultationNote() {
-		driver.findElement(By.cssSelector("#visit-details .icon-stethoscope")).click();
-		setClearTextToField("diagnosis-search", PRIMARY_DIAGNOSIS);
-		driver.findElement(By.cssSelector("strong.matched-name")).click();
-		driver.findElement(By.cssSelector("#buttons .confirm")).click();
+	public void addConsulteNote() {
+		openForm(By.cssSelector("#visit-details .icon-stethoscope"));
+		consultNoteForm.fillForm();
+	}
+	
+	public void addSurgicalNote() throws Exception {
+		openForm(By.cssSelector("#visit-details .icon-paste"));
+		surgicalPostOperativeNoteForm.fillBasicForm();
+	}
+
+	public void openForm(By formIdentification) {
+		clickOn(formIdentification);
 	}
 
 	public void requestRecord() {
