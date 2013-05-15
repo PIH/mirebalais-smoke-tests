@@ -108,7 +108,7 @@ public class PatientDashboard extends AbstractPageObject {
 	}
 
 	public void addConsulteNote() {
-		openForm(By.cssSelector("#visit-details .icon-stethoscope"));
+		openForm(By.cssSelector("#visit-details a:nth-child(2) .icon-stethoscope"));
 		consultNoteForm.fillForm();
 	}
 	
