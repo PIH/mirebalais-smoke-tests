@@ -1,9 +1,5 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
@@ -16,6 +12,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class OrdersTest extends BasicMirebalaisSmokeTest {
 
@@ -52,7 +52,7 @@ public class OrdersTest extends BasicMirebalaisSmokeTest {
         wait.until(new ExpectedCondition<Boolean>() {
             @Override
             public Boolean apply(WebDriver webDriver) {
-                return webDriver.findElement(By.cssSelector("div.visit-status")).isDisplayed();
+                return webDriver.findElement(By.cssSelector("div.status-container")).isDisplayed();
             }
         });
         assertTrue(patientDashboard.hasActiveVisit());
