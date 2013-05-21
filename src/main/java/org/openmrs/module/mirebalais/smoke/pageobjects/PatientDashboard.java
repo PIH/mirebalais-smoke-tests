@@ -107,7 +107,7 @@ public class PatientDashboard extends AbstractPageObject {
 		clickOn(By.cssSelector("#quick-visit-creation-dialog .confirm"));
 	}
 
-	public void addConsulteNote() {
+	public void addConsulteNote() throws Exception {
 		openForm(By.cssSelector("#visit-details a:nth-child(2) .icon-stethoscope"));
 		consultNoteForm.fillForm();
 	}

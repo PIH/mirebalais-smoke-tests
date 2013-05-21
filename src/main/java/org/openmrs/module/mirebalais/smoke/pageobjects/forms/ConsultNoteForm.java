@@ -21,14 +21,25 @@ import org.openqa.selenium.WebDriver;
 public class ConsultNoteForm extends AbstractPageObject {
 
 	private static final String PRIMARY_DIAGNOSIS = "IGU";
+	private static final String DISPOSITION = "Death";
 	
 	public ConsultNoteForm(WebDriver driver) {
 		super(driver);
 	}
 
-	public void fillForm() {
+	public void fillForm() throws Exception {
+		choosePrimaryDiagnosis();
+		chooseDisposition();
+		clickOn(By.cssSelector("#buttons .confirm"));
+	}
+
+	private void choosePrimaryDiagnosis() {
 		setClearTextToField("diagnosis-search", PRIMARY_DIAGNOSIS);
 		driver.findElement(By.cssSelector("strong.matched-name")).click();
-		driver.findElement(By.cssSelector("#buttons .confirm")).click();
 	}
+	
+	private void chooseDisposition() throws Exception {
+		clickOnOptionLookingForText(DISPOSITION, By.id("dispositions"));	
+	}
+	
 }

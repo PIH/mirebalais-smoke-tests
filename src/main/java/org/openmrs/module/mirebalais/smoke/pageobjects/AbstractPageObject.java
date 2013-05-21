@@ -107,7 +107,7 @@ public abstract class AbstractPageObject {
 	    } 
 		throw new Exception("Option not found");
     }
-    
+   
     public void clickOn(By elementId) {
     	driver.findElement(elementId).click();
 	}
