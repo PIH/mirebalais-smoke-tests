@@ -98,8 +98,8 @@ public abstract class AbstractPageObject {
 		getOptionBasedOnText(text,by).click();
 	}
     
-    public WebElement getOptionBasedOnText(String text, By by) throws Exception {
-		List<WebElement> options = driver.findElements(by);
+    public WebElement getOptionBasedOnText(String text, By elementIdentifier) throws Exception {
+		List<WebElement> options = driver.findElements(elementIdentifier);
 		for (WebElement option : options) {
 	        if(option.getText().contains(text)) {
 	            return option;
@@ -108,8 +108,8 @@ public abstract class AbstractPageObject {
 		throw new Exception("Option not found");
     }
     
-    public void clickOnRandomOption(By by) {
-    	List<WebElement> options = driver.findElements(by);
+    public void clickOnRandomOption(By elementIdentifier) {
+    	List<WebElement> options = driver.findElements(elementIdentifier);
     	options.get((int)(Math.random() * options.size())).click();
     }
    
