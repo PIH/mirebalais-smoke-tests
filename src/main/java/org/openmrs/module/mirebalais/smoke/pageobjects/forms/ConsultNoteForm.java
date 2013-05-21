@@ -21,7 +21,7 @@ import org.openqa.selenium.WebDriver;
 public class ConsultNoteForm extends AbstractPageObject {
 
 	private static final String PRIMARY_DIAGNOSIS = "IGU";
-	private static final String DISPOSITION = "Admission";
+	private static final String DISPOSITION = "Discharge";
 	
 	public ConsultNoteForm(WebDriver driver) {
 		super(driver);
