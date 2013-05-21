@@ -21,7 +21,6 @@ import org.openqa.selenium.WebDriver;
 public class ConsultNoteForm extends AbstractPageObject {
 
 	private static final String PRIMARY_DIAGNOSIS = "IGU";
-	private static final String DISPOSITION = "Death";
 	
 	public ConsultNoteForm(WebDriver driver) {
 		super(driver);
@@ -39,7 +38,7 @@ public class ConsultNoteForm extends AbstractPageObject {
 	}
 	
 	private void chooseDisposition() throws Exception {
-		clickOnOptionLookingForText(DISPOSITION, By.id("dispositions"));	
+		clickOnRandomOption(By.id("dispositions"));
 	}
 	
 }

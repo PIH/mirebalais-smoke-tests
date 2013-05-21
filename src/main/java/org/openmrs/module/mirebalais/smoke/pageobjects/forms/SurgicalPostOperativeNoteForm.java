@@ -21,14 +21,13 @@ import org.openqa.selenium.WebDriver;
 public class SurgicalPostOperativeNoteForm extends AbstractPageObject {
 
 	private final static String REQUIRED_PROVIDER = "//*[@id='htmlform']/htmlform/fieldset[1]/p[2]/select";
-	private final static String SYS_ADMIN = "Sys Admin";
 	
 	public SurgicalPostOperativeNoteForm(WebDriver driver) {
 		super(driver);
 	}
 
 	public void fillBasicForm() throws Exception {
-		clickOnOptionLookingForText(SYS_ADMIN, By.xpath(REQUIRED_PROVIDER));
+		clickOnRandomOption(By.xpath(REQUIRED_PROVIDER));
 		clickOnSubmit();
 	}
 

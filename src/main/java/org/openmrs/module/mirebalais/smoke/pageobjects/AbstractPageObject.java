@@ -107,6 +107,11 @@ public abstract class AbstractPageObject {
 	    } 
 		throw new Exception("Option not found");
     }
+    
+    public void clickOnRandomOption(By by) {
+    	List<WebElement> options = driver.findElements(by);
+    	options.get((int)(Math.random() * options.size())).click();
+    }
    
     public void clickOn(By elementId) {
     	driver.findElement(elementId).click();
