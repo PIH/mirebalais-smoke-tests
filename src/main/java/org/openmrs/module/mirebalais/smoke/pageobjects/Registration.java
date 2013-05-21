@@ -1,5 +1,6 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
+import org.openmrs.module.mirebalais.smoke.helper.NameGenerator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -9,13 +10,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class Registration extends AbstractPageObject {
 
 	private Wait<WebDriver> wait;
-	
-    private static final String[] FIRST_NAMES = 
-    	{"Alexandre", "Achint", "Burke", "Cosmin", "Daniel", "Darius", "Ellen", "Émerson", "Evan", "Fernando", 
-    	"Glauber", "Louise", "Mário", "Mark", "Natália", "Neil", "Nelice", "Rafal", "Renee", "Wyclif"};
-	private static final String[] LAST_NAMES = 
-		{"Barbosa", "Sethi", "Mamlin", "Ioan", "Kayiwa", "Jazayeri", "Ball", "Hernandez", "Waters", "Freire", 
-		"Ramos", "Sécordel", "Areias", "Goodrich", "Arsand", "Craven", "Heck", "Korytkowski", "Orser", "Luyima"}; 
 	
 	public Registration(WebDriver driver) {
         super(driver);
@@ -82,15 +76,7 @@ public class Registration extends AbstractPageObject {
 	}
 
     private void enterFirstAndLastName() {
-		enterFirstAndLastName(new StringBuilder(getFirstName() + " " + getLastName()).toString());
-	}
-
-	public String getFirstName() {
-		return FIRST_NAMES[(int)(Math.random() * FIRST_NAMES.length)];
-	}
-
-	public String getLastName() {
-		return LAST_NAMES[(int)(Math.random() * LAST_NAMES.length)];
+		enterFirstAndLastName(NameGenerator.getPatientName());
 	}
 
     public void finishesRegistration() {

@@ -7,6 +7,7 @@ import static org.junit.Assert.assertThat;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openmrs.module.mirebalais.smoke.helper.NameGenerator;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
@@ -38,7 +39,7 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     	
 		loginPage.logInAsAdmin();
     	appDashboard.openSysAdminApp();
-    	userAdmin.createClinicalAccount("Test", "User", username, DEFAULT_PASSWORD);
+    	userAdmin.createClinicalAccount(NameGenerator.getUserFirstName(), NameGenerator.getUserLastName(), username, DEFAULT_PASSWORD);
     	
     	userAdmin.closeToast();
     	logOutAndLogInWithNewUser(username);
@@ -64,7 +65,7 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     	
     	loginPage.logInAsAdmin();
 		appDashboard.openSysAdminApp();
-    	userAdmin.createRadiologyAccount("Test", "User", username, DEFAULT_PASSWORD);
+    	userAdmin.createRadiologyAccount(NameGenerator.getUserFirstName(), NameGenerator.getUserLastName(), username, DEFAULT_PASSWORD);
     	
     	userAdmin.closeToast();
     	logOutAndLogInWithNewUser(username);
@@ -90,7 +91,7 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     	
     	loginPage.logInAsAdmin();
 		appDashboard.openSysAdminApp();
-    	userAdmin.createDataArchivesAccount("Test", "User", username, DEFAULT_PASSWORD);
+    	userAdmin.createDataArchivesAccount(NameGenerator.getUserFirstName(), NameGenerator.getUserLastName(), username, DEFAULT_PASSWORD);
     	
     	userAdmin.closeToast();
     	logOutAndLogInWithNewUser(username);
@@ -122,7 +123,7 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     	assertTrue(appDashboard.isArchivesRoomAppPresented());
     	
     	appDashboard.openSysAdminApp();
-    	userAdmin.createSysAdminAccount("Test", "User", username, DEFAULT_PASSWORD, "English");
+    	userAdmin.createSysAdminAccount(NameGenerator.getUserFirstName(), NameGenerator.getUserLastName(), username, DEFAULT_PASSWORD, "English");
     	
     	userAdmin.closeToast();
     	logOutAndLogInWithNewUser(username);
@@ -165,4 +166,5 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     	header.logOut();
     	loginPage.logIn(username, DEFAULT_PASSWORD);
     }
+    
 }
