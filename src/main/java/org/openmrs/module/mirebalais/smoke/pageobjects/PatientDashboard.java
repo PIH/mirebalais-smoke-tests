@@ -134,6 +134,7 @@ public class PatientDashboard extends AbstractPageObject {
 	}
 
 	public boolean canRequestRecord() {
+		hoverOn(By.cssSelector(".actions"));
 		return driver.findElement(By.className("icon-folder-open")).isDisplayed();
 	}
 }
