@@ -39,7 +39,7 @@ public class ConsultNoteForm extends AbstractPageObject {
 	}
 	
 	private void chooseDisposition() throws Exception {
-		clickOnOptionLookingForText(DISPOSITION, By.id("dispositions"));	
+		clickOnOptionLookingForText(DISPOSITION, By.cssSelector("#dispositions option"));	
 	}
 	
 }
