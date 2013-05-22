@@ -103,6 +103,7 @@ public class PatientDashboard extends AbstractPageObject {
 	}
 
 	public void startVisit() {
+		hoverOn(By.cssSelector(".actions"));
 		clickOn(By.cssSelector("i.icon-check-in"));
 		clickOn(By.cssSelector("#quick-visit-creation-dialog .confirm"));
 	}
@@ -122,6 +123,7 @@ public class PatientDashboard extends AbstractPageObject {
 	}
 
 	public void requestRecord() {
+		hoverOn(By.cssSelector(".actions"));
 		driver.findElement(By.cssSelector("i.icon-folder-open")).click();
 		driver.findElement(By.cssSelector("#request-paper-record-dialog .confirm")).click();
 	}
