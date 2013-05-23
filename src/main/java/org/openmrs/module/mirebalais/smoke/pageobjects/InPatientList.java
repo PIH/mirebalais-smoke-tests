@@ -18,10 +18,15 @@ public class InPatientList extends AbstractPageObject {
 		List<Visit> visits = new ArrayList<Visit>();
 		List<WebElement> tds = driver.findElements(By.cssSelector("#active-visits td"));
 		for (int i = 0; i < tds.size(); i+=4) {
-			visits.add(new Visit(tds.get(i).getText(), tds.get(i+1).getText(), tds.get(i+2).getText(), tds.get(i+3).getText()));
+			visits.add(new Visit(tds.get(i).getText(), 
+								 tds.get(i+1).getText(), 
+								 cleanDispositionPlace(tds.get(i+2).getText()), 
+								 cleanDispositionPlace(tds.get(i+3).getText())));
 		}
 		return visits;
 	}
 	
-	 
+	private String cleanDispositionPlace(String rawText) {
+		return rawText.substring(0,rawText.indexOf('\n')).trim();
+	}
 }

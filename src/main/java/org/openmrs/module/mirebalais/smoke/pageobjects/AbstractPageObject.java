@@ -110,8 +110,12 @@ public abstract class AbstractPageObject {
     }
     
     public void clickOnRandomOption(By elementIdentifier) {
+    	getRandomOption(elementIdentifier).click();
+    }
+    
+    public WebElement getRandomOption(By elementIdentifier) {
     	List<WebElement> options = driver.findElements(elementIdentifier);
-    	options.get((int)(Math.random() * options.size())).click();
+    	return options.get((int)(Math.random() * options.size()));
     }
    
     public void clickOn(By elementId) {

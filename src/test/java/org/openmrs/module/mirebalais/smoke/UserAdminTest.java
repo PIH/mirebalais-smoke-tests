@@ -8,6 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.helper.NameGenerator;
+import org.openmrs.module.mirebalais.smoke.helper.Toast;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
@@ -41,7 +42,7 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     	appDashboard.openSysAdminApp();
     	userAdmin.createClinicalAccount(NameGenerator.getUserFirstName(), NameGenerator.getUserLastName(), username, DEFAULT_PASSWORD);
     	
-    	userAdmin.closeToast();
+    	Toast.closeToast(driver);
     	logOutAndLogInWithNewUser(username);
     	
     	assertThat(appDashboard.isActiveVisitsAppPresented(), is(true));
@@ -67,7 +68,7 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
 		appDashboard.openSysAdminApp();
     	userAdmin.createRadiologyAccount(NameGenerator.getUserFirstName(), NameGenerator.getUserLastName(), username, DEFAULT_PASSWORD);
     	
-    	userAdmin.closeToast();
+    	Toast.closeToast(driver);
     	logOutAndLogInWithNewUser(username);
     	
     	assertThat(appDashboard.isActiveVisitsAppPresented(), is(true));
@@ -93,7 +94,7 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
 		appDashboard.openSysAdminApp();
     	userAdmin.createDataArchivesAccount(NameGenerator.getUserFirstName(), NameGenerator.getUserLastName(), username, DEFAULT_PASSWORD);
     	
-    	userAdmin.closeToast();
+    	Toast.closeToast(driver);
     	logOutAndLogInWithNewUser(username);
     	
     	assertThat(appDashboard.isActiveVisitsAppPresented(), is(true));
@@ -125,7 +126,7 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     	appDashboard.openSysAdminApp();
     	userAdmin.createSysAdminAccount(NameGenerator.getUserFirstName(), NameGenerator.getUserLastName(), username, DEFAULT_PASSWORD, "English");
     	
-    	userAdmin.closeToast();
+    	Toast.closeToast(driver);
     	logOutAndLogInWithNewUser(username);
     	
     	assertThat(appDashboard.isActiveVisitsAppPresented(), is(true));

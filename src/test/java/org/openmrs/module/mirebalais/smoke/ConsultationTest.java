@@ -1,11 +1,15 @@
 package org.openmrs.module.mirebalais.smoke;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Visit;
+import org.openmrs.module.mirebalais.smoke.helper.Toast;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.InPatientList;
@@ -18,10 +22,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 public class ConsultationTest extends BasicMirebalaisSmokeTest {
 
@@ -45,7 +45,6 @@ public class ConsultationTest extends BasicMirebalaisSmokeTest {
 	}
 	
 	@Test
-	@Ignore
 	public void addConsultationToAVisitWithoutCheckin() throws Exception {
 		loginPage.logInAsAdmin();
 		appDashboard.openPatientRegistrationApp();
@@ -66,11 +65,11 @@ public class ConsultationTest extends BasicMirebalaisSmokeTest {
 		
 		patientDashboard.addConsultNoteWithDischarge();		
 		assertThat(patientDashboard.countEncouters(PatientDashboard.CONSULTATION), is(1));
+		Toast.closeToast(driver);
 		headerPage.logOut();
 	}
 	
 	@Test
-	@Ignore
 	public void addConsultationNoteWithAdmission() throws Exception {
 		loginPage.logInAsAdmin();
 		appDashboard.openPatientRegistrationApp();
@@ -89,19 +88,18 @@ public class ConsultationTest extends BasicMirebalaisSmokeTest {
 		});
 		assertTrue(patientDashboard.hasActiveVisit());
 		
-		patientDashboard.addConsultNoteWithAdmission();		
+		String dispositionPlace = patientDashboard.addConsultNoteWithAdmission();		
 		assertThat(patientDashboard.countEncouters(PatientDashboard.CONSULTATION), is(1));
 		assertThat(patientDashboard.countEncouters(PatientDashboard.ADMISSION), is(1));
 		
 		appDashboard.openInPatientApp();
 		InPatientList ipl = new InPatientList(driver);
 		List<Visit> visits = ipl.getVisits();
-		/*for (Visit visit : visits) {
+		for (Visit visit : visits) {
 			if (visit.getPatientId().contains(patientIdentifier)) {
-				assertThat(visit.getCurrentWard(), is());
+				assertThat(visit.getCurrentWard(), is(dispositionPlace));
 			}
-		}*/
-		System.out.print(visits.size());
+		}
 		headerPage.logOut();
 	}
 }

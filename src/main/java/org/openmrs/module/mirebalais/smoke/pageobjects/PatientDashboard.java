@@ -114,9 +114,9 @@ public class PatientDashboard extends AbstractPageObject {
 		consultNoteForm.fillFormWithDischarge();
 	}
 	
-	public void addConsultNoteWithAdmission() throws Exception {
+	public String addConsultNoteWithAdmission() throws Exception {
 		openForm(By.cssSelector("#visit-details a:nth-child(2) .icon-stethoscope"));
-		consultNoteForm.fillFormWithAdmission();
+		return consultNoteForm.fillFormWithAdmissionAndReturnPlace();
 	}
 	
 	public void addSurgicalNote() throws Exception {

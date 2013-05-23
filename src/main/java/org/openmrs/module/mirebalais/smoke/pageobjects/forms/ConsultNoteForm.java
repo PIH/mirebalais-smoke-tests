@@ -17,6 +17,7 @@ package org.openmrs.module.mirebalais.smoke.pageobjects.forms;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AbstractPageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class ConsultNoteForm extends AbstractPageObject {
 
@@ -37,11 +38,14 @@ public class ConsultNoteForm extends AbstractPageObject {
 		clickOn(By.cssSelector("#buttons .confirm"));
 	}
 	
-	public void fillFormWithAdmission() throws Exception {
+	public String fillFormWithAdmissionAndReturnPlace() throws Exception {
 		choosePrimaryDiagnosis();
 		chooseDisposition(ADMISSION);
-		clickOnRandomOption(By.cssSelector("#admitToHospital-field option"));
+		WebElement option = getRandomOption(By.cssSelector("#admitToHospital-field option"));
+		option.click();
+		String dischargePlace = option.getText();
 		clickOn(By.cssSelector("#buttons .confirm"));
+		return dischargePlace;
 	}
 
 	private void choosePrimaryDiagnosis() {
