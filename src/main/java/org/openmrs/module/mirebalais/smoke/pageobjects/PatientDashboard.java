@@ -34,6 +34,7 @@ public class PatientDashboard extends AbstractPageObject {
 	public static final String RADIOLOGY = "Preskripsyon Radyoloji";
 	
 	public static final String ACTIVE_VISIT_MESSAGE = "Vizit aktiv";
+	public static final String ADMISSION = "Admission";
 	
 	private ConsultNoteForm consultNoteForm;
 	private SurgicalPostOperativeNoteForm surgicalPostOperativeNoteForm;
@@ -108,9 +109,14 @@ public class PatientDashboard extends AbstractPageObject {
 		clickOn(By.cssSelector("#quick-visit-creation-dialog .confirm"));
 	}
 
-	public void addConsulteNote() throws Exception {
+	public void addConsultNoteWithDischarge() throws Exception {
 		openForm(By.cssSelector("#visit-details a:nth-child(2) .icon-stethoscope"));
-		consultNoteForm.fillForm();
+		consultNoteForm.fillFormWithDischarge();
+	}
+	
+	public void addConsultNoteWithAdmission() throws Exception {
+		openForm(By.cssSelector("#visit-details a:nth-child(2) .icon-stethoscope"));
+		consultNoteForm.fillFormWithAdmission();
 	}
 	
 	public void addSurgicalNote() throws Exception {
@@ -137,4 +143,6 @@ public class PatientDashboard extends AbstractPageObject {
 		hoverOn(By.cssSelector(".actions"));
 		return driver.findElement(By.className("icon-folder-open")).isDisplayed();
 	}
+
+	
 }

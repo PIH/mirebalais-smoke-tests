@@ -21,15 +21,26 @@ import org.openqa.selenium.WebDriver;
 public class ConsultNoteForm extends AbstractPageObject {
 
 	private static final String PRIMARY_DIAGNOSIS = "IGU";
-	private static final String DISPOSITION = "Discharge";
+	
+	// TODO: enum
+	public static final String DISCHARGE = "Soti";
+	public static final String ADMISSION = "Admission";
 	
 	public ConsultNoteForm(WebDriver driver) {
 		super(driver);
 	}
 
-	public void fillForm() throws Exception {
+	// TODO: tb dá pra melhorar isso. 
+	public void fillFormWithDischarge() throws Exception {
 		choosePrimaryDiagnosis();
-		chooseDisposition();
+		chooseDisposition(DISCHARGE);
+		clickOn(By.cssSelector("#buttons .confirm"));
+	}
+	
+	public void fillFormWithAdmission() throws Exception {
+		choosePrimaryDiagnosis();
+		chooseDisposition(ADMISSION);
+		clickOnRandomOption(By.cssSelector("#admitToHospital-field option"));
 		clickOn(By.cssSelector("#buttons .confirm"));
 	}
 
@@ -38,8 +49,8 @@ public class ConsultNoteForm extends AbstractPageObject {
 		driver.findElement(By.cssSelector("strong.matched-name")).click();
 	}
 	
-	private void chooseDisposition() throws Exception {
-		clickOnOptionLookingForText(DISPOSITION, By.cssSelector("#dispositions option"));	
+	private void chooseDisposition(String disposition) throws Exception {
+		clickOnOptionLookingForText(disposition, By.cssSelector("#dispositions option"));	
 	}
 	
 }

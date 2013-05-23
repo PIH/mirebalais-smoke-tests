@@ -32,6 +32,8 @@ public class AppDashboard extends AbstractPageObject {
     public static final String LEGACY = "legacy-admin-app";
     public static final String START_CLINIC_VISIT_NEW = "mirebalais-checkin-app";
     public static final String MASTER_PATIENT_INDEX = "mirebalais-mpi-app";
+    public static final String IN_PATIENT = "emr-inpatients-app";
+    
 
     public AppDashboard(WebDriver driver) {
         super(driver);
@@ -41,6 +43,10 @@ public class AppDashboard extends AbstractPageObject {
         openApp(ACTIVE_VISITS);
 	}
 
+    public void openInPatientApp() {
+        openApp(IN_PATIENT);
+	}
+    
 	public void openArchivesRoomApp() {
         openApp(ARCHIVES_ROOM);
 	}
