@@ -45,6 +45,7 @@ public class ConsultationTest extends BasicMirebalaisSmokeTest {
 	}
 	
 	@Test
+	@Ignore
 	public void addConsultationToAVisitWithoutCheckin() throws Exception {
 		loginPage.logInAsAdmin();
 		appDashboard.openPatientRegistrationApp();
@@ -69,7 +70,6 @@ public class ConsultationTest extends BasicMirebalaisSmokeTest {
 	}
 	
 	@Test
-	@Ignore
 	public void addConsultationNoteWithAdmission() throws Exception {
 		loginPage.logInAsAdmin();
 		appDashboard.openPatientRegistrationApp();

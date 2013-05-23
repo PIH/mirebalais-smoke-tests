@@ -24,7 +24,7 @@ public class ConsultNoteForm extends AbstractPageObject {
 	
 	// TODO: enum
 	public static final String DISCHARGE = "Soti";
-	public static final String ADMISSION = "Admission";
+	public static final String ADMISSION = "Admisyon";
 	
 	public ConsultNoteForm(WebDriver driver) {
 		super(driver);
