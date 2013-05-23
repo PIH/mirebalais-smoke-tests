@@ -70,6 +70,7 @@ public class ConsultationTest extends BasicMirebalaisSmokeTest {
 	}
 	
 	@Test
+	@Ignore
 	public void addConsultationNoteWithAdmission() throws Exception {
 		loginPage.logInAsAdmin();
 		appDashboard.openPatientRegistrationApp();
@@ -95,6 +96,11 @@ public class ConsultationTest extends BasicMirebalaisSmokeTest {
 		appDashboard.openInPatientApp();
 		InPatientList ipl = new InPatientList(driver);
 		List<Visit> visits = ipl.getVisits();
+		/*for (Visit visit : visits) {
+			if (visit.getPatientId().contains(patientIdentifier)) {
+				assertThat(visit.getCurrentWard(), is());
+			}
+		}*/
 		System.out.print(visits.size());
 		headerPage.logOut();
 	}
