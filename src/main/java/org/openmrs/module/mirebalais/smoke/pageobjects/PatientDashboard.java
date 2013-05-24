@@ -14,17 +14,17 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.StringTokenizer;
-
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.ConsultNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.SurgicalPostOperativeNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.XRayForm;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.StringTokenizer;
 
 public class PatientDashboard extends AbstractPageObject {
 
@@ -34,7 +34,7 @@ public class PatientDashboard extends AbstractPageObject {
 	public static final String RADIOLOGY = "Preskripsyon Radyoloji";
 	
 	public static final String ACTIVE_VISIT_MESSAGE = "Vizit aktiv";
-	public static final String ADMISSION = "Admission";
+	public static final String ADMISSION = "Admisyon";
 	
 	private ConsultNoteForm consultNoteForm;
 	private SurgicalPostOperativeNoteForm surgicalPostOperativeNoteForm;
