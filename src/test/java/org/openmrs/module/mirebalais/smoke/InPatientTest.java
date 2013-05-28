@@ -4,11 +4,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
-import org.openmrs.module.mirebalais.smoke.dataModel.Visit;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.InPatientList;
@@ -31,6 +28,7 @@ public class InPatientTest extends BasicMirebalaisSmokeTest {
 	private AppDashboard appDashboard;
 	private String patientIdentifier;
 	private HeaderPage headerPage;
+	private InPatientList ipl;
 	
 	
 	@Before
@@ -41,6 +39,7 @@ public class InPatientTest extends BasicMirebalaisSmokeTest {
 		patientDashboard = new PatientDashboard(driver);
 		appDashboard = new AppDashboard(driver);
 		headerPage = new HeaderPage(driver);
+		ipl  = new InPatientList(driver);
 	}
 	
 	@Test
@@ -66,31 +65,24 @@ public class InPatientTest extends BasicMirebalaisSmokeTest {
 		assertThat(patientDashboard.countEncouters(PatientDashboard.CONSULTATION), is(1));
 		assertThat(patientDashboard.countEncouters(PatientDashboard.ADMISSION), is(1));
 		
-		appDashboard.openInPatientApp();
-		InPatientList ipl = new InPatientList(driver);
-		List<Visit> visits = ipl.getVisits();
-		for (Visit visit : visits) {
-			if (visit.getPatientId().contains(patientIdentifier)) {
-				assertThat(visit.getCurrentWard(), is(admissionPlace));
-				assertThat(visit.getFirstAdmitted(), is(admissionPlace));
-			}
-		}
+		assurePlaces(admissionPlace, admissionPlace);
 		
 		appDashboard.findPatientById(patientIdentifier);
+		
 		String transferPlace = patientDashboard.addConsultNoteWithTransfer();		
 		assertThat(patientDashboard.countEncouters(PatientDashboard.CONSULTATION), is(2));
 		assertThat(patientDashboard.countEncouters(PatientDashboard.TRANSFER), is(1));
 		
-		appDashboard.openInPatientApp();
-		visits = ipl.getVisits();
-		for (Visit visit : visits) {
-			if (visit.getPatientId().contains(patientIdentifier)) {
-				assertThat(visit.getCurrentWard(), is(transferPlace));
-				assertThat(visit.getFirstAdmitted(), is(admissionPlace));
-			}
-		}
+		assurePlaces(admissionPlace, transferPlace);
 		
 		headerPage.logOut();
 	}
 	
+	private void assurePlaces(String firstAdmitted, String currentWard) throws Exception {
+		appDashboard.openInPatientApp();
+		
+		assertThat(ipl.getCurrentWard(patientIdentifier), is(currentWard));
+		assertThat(ipl.getFirstAdmitted(patientIdentifier), is(firstAdmitted));
+	}
+
 }

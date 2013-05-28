@@ -23,7 +23,6 @@ public class ConsultNoteForm extends AbstractPageObject {
 
 	private static final String PRIMARY_DIAGNOSIS = "IGU";
 	
-	// TODO: enum
 	public static final String DISCHARGE = "Soti";
 	public static final String ADMISSION = "Admisyon";
 	public static final String TRANSFER = "Transfè anndan";
@@ -32,7 +31,6 @@ public class ConsultNoteForm extends AbstractPageObject {
 		super(driver);
 	}
 
-	// TODO: tb dá pra melhorar isso. 
 	public void fillFormWithDischarge() throws Exception {
 		choosePrimaryDiagnosis();
 		chooseDisposition(DISCHARGE);
@@ -40,15 +38,23 @@ public class ConsultNoteForm extends AbstractPageObject {
 	}
 	
 	public String fillFormWithAdmissionAndReturnPlace() throws Exception {
+		return fillFormAndReturnPlace(ADMISSION, By.cssSelector("#admitToHospital-field option"));
+	}
+
+	public String fillFormWithTransferAndReturnPlace() throws Exception {
+		return fillFormAndReturnPlace(TRANSFER, By.cssSelector("#transferWithinHospital-field option"));
+	}
+	
+	private String fillFormAndReturnPlace(String disposition, By placeCombo) throws Exception  {
 		choosePrimaryDiagnosis();
-		chooseDisposition(ADMISSION);
-		WebElement option = getRandomOption(By.cssSelector("#admitToHospital-field option"));
+		chooseDisposition(disposition);
+		WebElement option = getRandomOption(placeCombo);
 		option.click();
 		String dischargePlace = option.getText();
 		clickOn(By.cssSelector("#buttons .confirm"));
 		return dischargePlace;
 	}
-
+	
 	private void choosePrimaryDiagnosis() {
 		setClearTextToField("diagnosis-search", PRIMARY_DIAGNOSIS);
 		driver.findElement(By.cssSelector("strong.matched-name")).click();
@@ -58,14 +64,4 @@ public class ConsultNoteForm extends AbstractPageObject {
 		clickOnOptionLookingForText(disposition, By.cssSelector("#dispositions option"));	
 	}
 
-	public String fillFormWithTransferAndReturnPlace() throws Exception {
-		choosePrimaryDiagnosis();
-		chooseDisposition(TRANSFER);
-		WebElement option = getRandomOption(By.cssSelector("#transferWithinHospital-field option"));
-		option.click();
-		String dischargePlace = option.getText();
-		clickOn(By.cssSelector("#buttons .confirm"));
-		return dischargePlace;
-	}
-	
 }

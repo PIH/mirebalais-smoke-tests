@@ -26,7 +26,27 @@ public class InPatientList extends AbstractPageObject {
 		return visits;
 	}
 	
+
+	public String getCurrentWard(String patientIdentifier) throws Exception {
+		return getVisit(patientIdentifier).getCurrentWard();
+	}
+
+	public String getFirstAdmitted(String patientIdentifier) throws Exception {
+		return getVisit(patientIdentifier).getFirstAdmitted();
+	}
+	
+	private Visit getVisit(String patientIdentifier) throws Exception {
+		List<Visit> visits = this.getVisits();
+		for (Visit visit : visits) {
+			if (visit.getPatientId().contains(patientIdentifier)) {
+				return visit;
+			}
+		}
+		throw new Exception(String.format("Visit not found for patient %s", patientIdentifier));
+	}
+	
 	private String cleanDispositionPlace(String rawText) {
 		return rawText.substring(0,rawText.indexOf('\n')).trim();
 	}
+	
 }
