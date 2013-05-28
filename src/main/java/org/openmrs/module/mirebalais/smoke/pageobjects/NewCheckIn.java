@@ -42,7 +42,7 @@ public class NewCheckIn extends AbstractPageObject {
 	}
 
 	private void confirmRightPatient() {
-		driver.findElement(By.className("icon-arrow-right")).click();
+		clickOn(By.className("icon-arrow-right"));
 	}
 	
 	private void clickOnPaymentOption(String payment) throws Exception{
@@ -51,12 +51,12 @@ public class NewCheckIn extends AbstractPageObject {
 	
 	private void confirmData() {
 		clickOnConfirmationTab();
-		driver.findElement(By.cssSelector("#confirmationQuestion input.confirm")).click();
+		clickOn(By.cssSelector("#confirmationQuestion input.confirm"));
 	}
 	
 	private void clickOnNoButton() {
 		clickOnConfirmationTab();
-		driver.findElement(By.cssSelector("#confirmationQuestion input.cancel")).click();
+		clickOn(By.cssSelector("#confirmationQuestion input.cancel"));
 	}
 	
 	private void clickOnConfirmationTab() {
@@ -76,7 +76,7 @@ public class NewCheckIn extends AbstractPageObject {
 				return webDriver.findElement(By.id("request-paper-record-dialog")).isDisplayed();
 			}
 		});
-		driver.findElement(By.cssSelector("#request-paper-record-dialog button")).click();
+		clickOn(By.cssSelector("#request-paper-record-dialog button"));
 	}
 
 	public boolean isPatientSearchDisplayed() {

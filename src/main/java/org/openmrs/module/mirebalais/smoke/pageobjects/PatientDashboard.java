@@ -52,9 +52,8 @@ public class PatientDashboard extends AbstractPageObject {
 		createFormsMap();
 	}
 
-	
 	public void orderXRay(String study1, String study2) {
-		driver.findElement(By.className("icon-x-ray")).click();
+		clickOn(By.className("icon-x-ray"));
 		xRayForm.fillForm(study1, study2);
 	}
 
@@ -141,8 +140,8 @@ public class PatientDashboard extends AbstractPageObject {
 
 	public void requestRecord() {
 		hoverOn(By.cssSelector(".actions"));
-		driver.findElement(By.cssSelector("i.icon-folder-open")).click();
-		driver.findElement(By.cssSelector("#request-paper-record-dialog .confirm")).click();
+		clickOn(By.cssSelector("i.icon-folder-open"));
+		clickOn(By.cssSelector("#request-paper-record-dialog .confirm"));
 	}
 
 	public String getDossieNumber() {

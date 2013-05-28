@@ -32,11 +32,11 @@ public class MergeFlow extends AbstractPageObject {
 	}
 
 	private void clickOnLeftPatient() {
-		driver.findElement(By.id("first-patient")).click();
+		clickOn(By.id("first-patient"));
 	}
 
 	private void clickOnContinueMergeButton() {
-		driver.findElement(By.className("confirm")).click();
+		clickOn(By.className("confirm"));
 	}
 
     private void waitUntilContinueMergeButtonEnabled() {
@@ -47,7 +47,6 @@ public class MergeFlow extends AbstractPageObject {
                 return driver.findElement(By.className("confirm")).isEnabled();
             }
         });
-
     }
 	
 }

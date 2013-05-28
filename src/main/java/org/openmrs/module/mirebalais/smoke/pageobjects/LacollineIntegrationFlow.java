@@ -11,7 +11,7 @@ public class LacollineIntegrationFlow extends AbstractPageObject {
 
 	public void searchByName(String patientName) {
 		driver.findElement(By.cssSelector("#search-by-name input")).sendKeys(patientName);
-		driver.findElement(By.id("search-button")).click();
+		clickOn(By.id("search-button"));
 	}
 
 	public boolean isImportButtonPresented() {
