@@ -21,6 +21,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -41,13 +42,17 @@ public class PatientDashboard extends AbstractPageObject {
 	private SurgicalPostOperativeNoteForm surgicalPostOperativeNoteForm;
 	private XRayForm xRayForm;
 	
+	private HashMap<String, By> formList;
+	
 	public PatientDashboard(WebDriver driver) {
 		super(driver);
 		consultNoteForm = new ConsultNoteForm(driver);
 		surgicalPostOperativeNoteForm = new SurgicalPostOperativeNoteForm(driver);
 		xRayForm = new XRayForm(driver);
+		createFormsMap();
 	}
 
+	
 	public void orderXRay(String study1, String study2) {
 		driver.findElement(By.className("icon-x-ray")).click();
 		xRayForm.fillForm(study1, study2);
@@ -111,20 +116,25 @@ public class PatientDashboard extends AbstractPageObject {
 	}
 
 	public void addConsultNoteWithDischarge() throws Exception {
-		openForm(By.cssSelector("#visit-details a:nth-child(2) .icon-stethoscope"));
+		openForm(formList.get("Consult Note"));
 		consultNoteForm.fillFormWithDischarge();
 	}
 	
 	public String addConsultNoteWithAdmission() throws Exception {
-		openForm(By.cssSelector("#visit-details a:nth-child(2) .icon-stethoscope"));
+		openForm(formList.get("Consult Note"));
 		return consultNoteForm.fillFormWithAdmissionAndReturnPlace();
+	}
+
+	public String addConsultNoteWithTransfer() throws Exception {
+		openForm(formList.get("Consult Note"));
+		return consultNoteForm.fillFormWithTransferAndReturnPlace();
 	}
 	
 	public void addSurgicalNote() throws Exception {
-		openForm(By.cssSelector("#visit-details .icon-paste"));
+		openForm(formList.get("Surgical Note"));
 		surgicalPostOperativeNoteForm.fillBasicForm();
 	}
-
+	
 	public void openForm(By formIdentification) {
 		clickOn(formIdentification);
 	}
@@ -145,10 +155,9 @@ public class PatientDashboard extends AbstractPageObject {
 		return driver.findElement(By.className("icon-folder-open")).isDisplayed();
 	}
 
-	public String addConsultNoteWithTransfer() throws Exception {
-		openForm(By.cssSelector("#visit-details a:nth-child(2) .icon-stethoscope"));
-		return consultNoteForm.fillFormWithTransferAndReturnPlace();
+	private void createFormsMap() {
+		formList = new HashMap<String, By>();
+		formList.put("Consult Note", By.cssSelector("#visit-details a:nth-child(2) .icon-stethoscope"));
+		formList.put("Surgical Note", By.cssSelector("#visit-details .icon-paste"));
 	}
-
-	
 }

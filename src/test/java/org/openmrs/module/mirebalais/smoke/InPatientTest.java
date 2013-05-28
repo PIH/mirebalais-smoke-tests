@@ -43,7 +43,7 @@ public class InPatientTest extends BasicMirebalaisSmokeTest {
 	}
 	
 	@Test
-	public void admitPatientAndTrasnfer() throws Exception {
+	public void admitPatientAndTransferInsideHospital() throws Exception {
 		loginPage.logInAsAdmin();
 		appDashboard.openPatientRegistrationApp();
 		registration.goThruRegistrationProcessWithoutPrintingCard(); 
