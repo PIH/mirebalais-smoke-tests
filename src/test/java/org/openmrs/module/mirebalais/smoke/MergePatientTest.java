@@ -13,8 +13,6 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.SysAdminPage;
 
 public class MergePatientTest extends BasicMirebalaisSmokeTest {
 
-	private static LoginPage loginPage;
-	private AppDashboard appDashboard;
 	private SysAdminPage sysAdminPage;
 	private MergeFlow mergeFlow;
 	private Registration registration;

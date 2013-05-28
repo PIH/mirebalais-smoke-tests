@@ -16,11 +16,9 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
 
 public class ArchivesRoomFlowTest extends BasicMirebalaisSmokeTest {
 
-	private static LoginPage loginPage;
 	private Registration registration;
 	private PatientDashboard patientDashboard;
 	private PatientRegistrationDashboard patientRegistrationDashboard;
-	private AppDashboard appDashboard;
 	private String patientIdentifier;
 	private String patientName;
 	private ArchivesRoomApp archivesRoomApp;

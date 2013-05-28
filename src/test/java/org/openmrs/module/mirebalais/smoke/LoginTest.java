@@ -11,7 +11,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginTest extends BasicMirebalaisSmokeTest {
 
-    private LoginPage loginPage;
     private HeaderPage headerPage;
     
     private static final String NEW_LOCATION = "Ijans";

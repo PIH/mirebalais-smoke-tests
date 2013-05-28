@@ -13,12 +13,9 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-
 public class RegistrationFlowTest extends BasicMirebalaisSmokeTest {
 
-    private LoginPage loginPage;
     private Registration registration;
-    private AppDashboard appDashboard;
     
     private final static String SCAN_MESSAGE = "Tanpri skane kat idantifikasyon kontinye...";
     

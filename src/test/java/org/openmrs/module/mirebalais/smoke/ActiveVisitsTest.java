@@ -31,11 +31,9 @@ import static org.hamcrest.CoreMatchers.*;
 public class ActiveVisitsTest extends BasicMirebalaisSmokeTest{
 
 	private CheckIn checkIn;
-	private static LoginPage loginPage;
 	private Registration registration;
 	private PatientDashboard patientDashboard;
 	private PatientRegistrationDashboard patientRegistrationDashboard;
-	private AppDashboard appDashboard;
 	private String patientName;
 	private String patientIdentifier;
 	

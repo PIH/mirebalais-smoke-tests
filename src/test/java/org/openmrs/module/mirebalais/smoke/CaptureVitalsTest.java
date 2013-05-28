@@ -22,11 +22,9 @@ import static org.hamcrest.CoreMatchers.*;
 public class CaptureVitalsTest extends BasicMirebalaisSmokeTest {
 
 	private CheckIn checkIn;
-	private static LoginPage loginPage;
 	private Registration registration;
 	private PatientRegistrationDashboard patientRegistrationDashboard;
 	private PatientDashboard patientDashboard;
-	private AppDashboard appDashboard;
 	private String patientName;
 	private String patientIdentifier;
 	private VitalsApp vitals;

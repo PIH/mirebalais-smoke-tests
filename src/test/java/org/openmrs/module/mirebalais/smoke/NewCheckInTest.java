@@ -28,8 +28,6 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
 
 public class NewCheckInTest extends BasicMirebalaisSmokeTest {
 
-	private static LoginPage loginPage;
-	private AppDashboard appDashboard;
 	private Registration registration;
 	private PatientDashboard patientDashboard;
 	private PatientRegistrationDashboard patientRegistrationDashboard; 

@@ -3,6 +3,8 @@ package org.openmrs.module.mirebalais.smoke;
 import org.apache.commons.lang.SystemUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
+import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.SmokeTestProperties;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -12,7 +14,9 @@ import java.util.concurrent.TimeUnit;
 public abstract class BasicMirebalaisSmokeTest {
 
     protected SmokeTestProperties properties = new SmokeTestProperties();
-
+    protected static LoginPage loginPage;
+    protected AppDashboard appDashboard;
+	
 	protected static ChromeDriver driver;
 
     @BeforeClass

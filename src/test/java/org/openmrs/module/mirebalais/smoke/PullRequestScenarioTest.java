@@ -15,10 +15,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class PullRequestScenarioTest extends BasicMirebalaisSmokeTest {
 
 	private CheckIn checkIn;
-	private static LoginPage loginPage;
 	private Registration registration;
 	private PatientRegistrationDashboard patientDashboard;
-	private AppDashboard appDashboard;
 	
 	private String patientName;
 	private String patientIdentifier;

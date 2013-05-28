@@ -19,8 +19,6 @@ import static org.hamcrest.CoreMatchers.is;
 
 public class UserAdminTest extends BasicMirebalaisSmokeTest {
 
-    private LoginPage loginPage;
-    private AppDashboard appDashboard;
     private UserAdmin userAdmin;
     private HeaderPage header;
     

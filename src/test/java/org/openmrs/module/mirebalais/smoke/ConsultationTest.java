@@ -21,11 +21,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ConsultationTest extends BasicMirebalaisSmokeTest {
 
-	private static LoginPage loginPage;
 	private Registration registration;
 	private PatientRegistrationDashboard patientRegistrationDashboard;
 	private PatientDashboard patientDashboard;
-	private AppDashboard appDashboard;
 	private String patientIdentifier;
 	private HeaderPage headerPage;
 	

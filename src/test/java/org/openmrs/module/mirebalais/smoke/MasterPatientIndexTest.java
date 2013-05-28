@@ -11,8 +11,6 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 
 public class MasterPatientIndexTest extends BasicMirebalaisSmokeTest {
 
-	private static LoginPage loginPage;
-	private AppDashboard appDashboard;
 	private LacollineIntegrationFlow lacollineIntegrationFlow;
 	
 	private static final String DEFAULT_NAME = "alex";

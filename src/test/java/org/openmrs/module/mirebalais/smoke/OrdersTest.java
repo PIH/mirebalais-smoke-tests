@@ -19,11 +19,9 @@ import static org.junit.Assert.assertTrue;
 
 public class OrdersTest extends BasicMirebalaisSmokeTest {
 
-    private static LoginPage loginPage;
     private Registration registration;
     private PatientRegistrationDashboard patientRegistrationDashboard;
     private PatientDashboard patientDashboard;
-    private AppDashboard appDashboard;
     private String patientIdentifier;
     
     private static final String STUDY_1 = "Hanche - Gauche, 2 vues (Radiographie)";
