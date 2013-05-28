@@ -26,6 +26,7 @@ public class ConsultNoteForm extends AbstractPageObject {
 	// TODO: enum
 	public static final String DISCHARGE = "Soti";
 	public static final String ADMISSION = "Admisyon";
+	public static final String TRANSFER = "Transfè anndan";
 	
 	public ConsultNoteForm(WebDriver driver) {
 		super(driver);
@@ -55,6 +56,16 @@ public class ConsultNoteForm extends AbstractPageObject {
 	
 	private void chooseDisposition(String disposition) throws Exception {
 		clickOnOptionLookingForText(disposition, By.cssSelector("#dispositions option"));	
+	}
+
+	public String fillFormWithTransferAndReturnPlace() throws Exception {
+		choosePrimaryDiagnosis();
+		chooseDisposition(TRANSFER);
+		WebElement option = getRandomOption(By.cssSelector("#transferWithinHospital-field option"));
+		option.click();
+		String dischargePlace = option.getText();
+		clickOn(By.cssSelector("#buttons .confirm"));
+		return dischargePlace;
 	}
 	
 }

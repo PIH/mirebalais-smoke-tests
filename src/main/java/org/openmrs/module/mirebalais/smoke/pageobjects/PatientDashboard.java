@@ -35,6 +35,7 @@ public class PatientDashboard extends AbstractPageObject {
 	
 	public static final String ACTIVE_VISIT_MESSAGE = "Vizit aktiv";
 	public static final String ADMISSION = "Admisyon";
+	public static final String TRANSFER = "Transfè";
 	
 	private ConsultNoteForm consultNoteForm;
 	private SurgicalPostOperativeNoteForm surgicalPostOperativeNoteForm;
@@ -142,6 +143,11 @@ public class PatientDashboard extends AbstractPageObject {
 	public boolean canRequestRecord() {
 		hoverOn(By.cssSelector(".actions"));
 		return driver.findElement(By.className("icon-folder-open")).isDisplayed();
+	}
+
+	public String addConsultNoteWithTransfer() throws Exception {
+		openForm(By.cssSelector("#visit-details a:nth-child(2) .icon-stethoscope"));
+		return consultNoteForm.fillFormWithTransferAndReturnPlace();
 	}
 
 	
