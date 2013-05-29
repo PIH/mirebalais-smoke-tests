@@ -7,12 +7,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.helper.Toast;
-import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
-import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
-import org.openmrs.module.mirebalais.smoke.pageobjects.PatientRegistrationDashboard;
-import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -21,20 +17,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ConsultationTest extends BasicMirebalaisSmokeTest {
 
-	private Registration registration;
-	private PatientRegistrationDashboard patientRegistrationDashboard;
-	private PatientDashboard patientDashboard;
-	private String patientIdentifier;
 	private HeaderPage headerPage;
 	
 	
 	@Before
     public void setUp() {
-		loginPage = new LoginPage(driver);
-		registration = new Registration(driver);
-		patientRegistrationDashboard = new PatientRegistrationDashboard(driver);
-		patientDashboard = new PatientDashboard(driver);
-		appDashboard = new AppDashboard(driver);
+		initBasicPageObjects();
 		headerPage = new HeaderPage(driver);
 	}
 	

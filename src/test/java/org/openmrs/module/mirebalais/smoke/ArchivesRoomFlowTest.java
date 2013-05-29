@@ -7,30 +7,17 @@ import static org.junit.Assert.fail;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.ArchivesRoomApp;
-import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
-import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
-import org.openmrs.module.mirebalais.smoke.pageobjects.PatientRegistrationDashboard;
-import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
 
 public class ArchivesRoomFlowTest extends BasicMirebalaisSmokeTest {
 
-	private Registration registration;
-	private PatientDashboard patientDashboard;
-	private PatientRegistrationDashboard patientRegistrationDashboard;
-	private String patientIdentifier;
 	private String patientName;
 	private ArchivesRoomApp archivesRoomApp;
 	
 	
 	@Before
     public void setUp() {
-		loginPage = new LoginPage(driver);
-		registration = new Registration(driver);
-		patientDashboard = new PatientDashboard(driver);
-		patientRegistrationDashboard = new PatientRegistrationDashboard(driver);
-		appDashboard = new AppDashboard(driver);
+		initBasicPageObjects();
 		archivesRoomApp = new ArchivesRoomApp(driver);
 	}
 

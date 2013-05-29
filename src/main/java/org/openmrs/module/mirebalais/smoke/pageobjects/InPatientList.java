@@ -10,6 +10,8 @@ import org.openqa.selenium.WebElement;
 
 public class InPatientList extends AbstractPageObject {
 
+	private By WARD_FILTER = By.cssSelector("#inpatients-filterByLocation-field options");
+	
 	public InPatientList(WebDriver driver) {
 		super(driver);
 	}
@@ -33,6 +35,27 @@ public class InPatientList extends AbstractPageObject {
 
 	public String getFirstAdmitted(String patientIdentifier) throws Exception {
 		return getVisit(patientIdentifier).getFirstAdmitted();
+	}
+	
+	public boolean isListFilteredBy(String ward) {
+		for (Visit visit : getVisits()) {
+			if (!visit.getCurrentWard().contains(ward)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public String randomFilter() {
+		WebElement element = getRandomOption(WARD_FILTER);
+		String optionText = element.getText();
+		element.click();
+		return optionText;
+	}
+	
+	public void filterBy(String transferPlace) throws Exception {
+	System.out.println(transferPlace);
+		clickOnOptionLookingForText(transferPlace, WARD_FILTER);
 	}
 	
 	private Visit getVisit(String patientIdentifier) throws Exception {

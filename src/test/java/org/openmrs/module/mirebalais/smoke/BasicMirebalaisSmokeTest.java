@@ -5,8 +5,16 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
+import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
+import org.openmrs.module.mirebalais.smoke.pageobjects.PatientRegistrationDashboard;
+import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
 import org.openmrs.module.mirebalais.smoke.pageobjects.SmokeTestProperties;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
@@ -16,6 +24,10 @@ public abstract class BasicMirebalaisSmokeTest {
     protected SmokeTestProperties properties = new SmokeTestProperties();
     protected static LoginPage loginPage;
     protected AppDashboard appDashboard;
+    protected Registration registration;
+    protected PatientRegistrationDashboard patientRegistrationDashboard;
+    protected PatientDashboard patientDashboard;
+    protected String patientIdentifier;
 	
 	protected static ChromeDriver driver;
 
@@ -31,6 +43,33 @@ public abstract class BasicMirebalaisSmokeTest {
     public static void stopWebDriver() {
         driver.quit();
     }
+	
+	protected void initBasicPageObjects() {
+		loginPage = new LoginPage(driver);
+		registration = new Registration(driver);
+		patientRegistrationDashboard = new PatientRegistrationDashboard(driver);
+		patientDashboard = new PatientDashboard(driver);
+		appDashboard = new AppDashboard(driver);
+	}
+	
+	protected void createPatient() {
+		appDashboard.openPatientRegistrationApp();
+		registration.goThruRegistrationProcessWithoutPrintingCard(); 
+		patientIdentifier = patientRegistrationDashboard.getIdentifier();
+	}
+	
+	protected void startVisit() throws Exception {
+		appDashboard.findPatientById(patientIdentifier);
+		patientDashboard.startVisit();
+		 
+		Wait<WebDriver> wait = new WebDriverWait(driver, 5);
+		wait.until(new ExpectedCondition<Boolean>() {
+			@Override
+			public Boolean apply(WebDriver webDriver) {
+				return webDriver.findElement(By.cssSelector("div.status-container")).isDisplayed();
+			}
+		});
+	}
 	
 	private static void setupChromeDriver() {
         URL resource = null;

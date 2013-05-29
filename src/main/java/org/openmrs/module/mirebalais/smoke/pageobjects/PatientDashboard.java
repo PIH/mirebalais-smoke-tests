@@ -113,7 +113,7 @@ public class PatientDashboard extends AbstractPageObject {
 		clickOn(By.cssSelector("i.icon-check-in"));
 		clickOn(By.cssSelector("#quick-visit-creation-dialog .confirm"));
 	}
-
+	
 	public void addConsultNoteWithDischarge() throws Exception {
 		openForm(formList.get("Consult Note"));
 		consultNoteForm.fillFormWithDischarge();

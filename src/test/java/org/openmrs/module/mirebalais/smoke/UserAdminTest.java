@@ -1,21 +1,18 @@
 package org.openmrs.module.mirebalais.smoke;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.helper.NameGenerator;
 import org.openmrs.module.mirebalais.smoke.helper.Toast;
-import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
-import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.UserAdmin;
 import org.openqa.selenium.By;
-
-import static org.hamcrest.CoreMatchers.is;
 
 public class UserAdminTest extends BasicMirebalaisSmokeTest {
 
@@ -26,8 +23,7 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     
 	@Before
     public void setUp() {
-		loginPage = new LoginPage(driver);
-		appDashboard = new AppDashboard(driver);
+		initBasicPageObjects();
 		userAdmin = new UserAdmin(driver);
 		header = new HeaderPage(driver);
     }

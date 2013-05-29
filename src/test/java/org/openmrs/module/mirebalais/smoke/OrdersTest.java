@@ -1,47 +1,32 @@
 package org.openmrs.module.mirebalais.smoke;
 
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
-import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
-import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
-import org.openmrs.module.mirebalais.smoke.pageobjects.PatientRegistrationDashboard;
-import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-
 public class OrdersTest extends BasicMirebalaisSmokeTest {
 
-    private Registration registration;
-    private PatientRegistrationDashboard patientRegistrationDashboard;
-    private PatientDashboard patientDashboard;
-    private String patientIdentifier;
-    
     private static final String STUDY_1 = "Hanche - Gauche, 2 vues (Radiographie)";
     private static final String STUDY_2 = "Humérus - Gauche, 2 vues (Radiographie)";
     
     @Before
 	public void setUp() {
-        loginPage = new LoginPage(driver);
-        registration = new Registration(driver);
-        patientDashboard = new PatientDashboard(driver);
-        patientRegistrationDashboard = new PatientRegistrationDashboard(driver);
-        appDashboard = new AppDashboard(driver);
-	}
+    	initBasicPageObjects();
+    }
     
 	@Test
 	public void orderSingleXRay() throws Exception{
         loginPage.logInAsAdmin();
-        appDashboard.openPatientRegistrationApp();
-        registration.goThruRegistrationProcessWithoutPrintingCard();
-        patientIdentifier = patientRegistrationDashboard.getIdentifier();
+        createPatient();
 
         appDashboard.findPatientById(patientIdentifier);
         patientDashboard.startVisit();

@@ -1,6 +1,7 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 import java.util.Arrays;
@@ -10,25 +11,19 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.BasicReportData;
-import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.BasicReportPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.EmergencyCheckin;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
-import org.openmrs.module.mirebalais.smoke.pageobjects.PatientRegistrationDashboard;
 
 public class EmergencyCheckinTest extends BasicMirebalaisSmokeTest {
 
     private EmergencyCheckin emergencyCheckinPO;
-    private static LoginPage loginPage;
-    private PatientRegistrationDashboard patientDashboard;
 	private BasicReportPage basicReport;
-	private AppDashboard appDashboard;
     
     @Before
     public void setUp() {
+    	initBasicPageObjects();
         emergencyCheckinPO = new EmergencyCheckin(driver);
-        patientDashboard = new PatientRegistrationDashboard(driver);
-        appDashboard = new AppDashboard(driver);
         basicReport = new BasicReportPage(driver);
     }
 
@@ -46,9 +41,9 @@ public class EmergencyCheckinTest extends BasicMirebalaisSmokeTest {
     	appDashboard.openStartHospitalVisitApp();
         emergencyCheckinPO.checkinMaleUnindentifiedPatient();
         
-        assertThat(patientDashboard.getIdentifier(), is(notNullValue()));
-        assertThat(patientDashboard.getGender(), is("M"));
-        assertThat(patientDashboard.getName(), Matchers.stringContainsInOrder(Arrays.asList("UNKNOWN", "UNKNOWN")));
+        assertThat(patientRegistrationDashboard.getIdentifier(), is(notNullValue()));
+        assertThat(patientRegistrationDashboard.getGender(), is("M"));
+        assertThat(patientRegistrationDashboard.getName(), Matchers.stringContainsInOrder(Arrays.asList("UNKNOWN", "UNKNOWN")));
         
         appDashboard.openReportApp();
         BasicReportData brd2 = basicReport.getData();
