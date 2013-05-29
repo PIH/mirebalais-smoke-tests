@@ -12,8 +12,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class PullRequestScenarioTest extends BasicMirebalaisSmokeTest {
 
 	private CheckIn checkIn;
-	private String patientName;
-	
 	
 	@Before
     public void setUp() {
@@ -29,18 +27,15 @@ public class PullRequestScenarioTest extends BasicMirebalaisSmokeTest {
 
 	@Test
 	public void createsARecord() throws InterruptedException {
-		appDashboard.openPatientRegistrationApp();
-		registration.goThruRegistrationProcessWithoutPrintingCard();
-		patientIdentifier = patientRegistrationDashboard.getIdentifier();
-		patientName = patientRegistrationDashboard.getName();
+		createPatient();
 
         appDashboard.openStartClinicVisitApp();
-		checkIn.checkInPatient(patientIdentifier, patientName);
+		checkIn.checkInPatient(testPatient.getIdentifier(), testPatient.getName());
 		appDashboard.openArchivesRoomApp();
 
         WebDriverWait wait = new WebDriverWait(driver, 1000);
-        wait.until(ExpectedConditions.textToBePresentInElement(By.id("create_requests_table"), patientName));
-        wait.until(ExpectedConditions.textToBePresentInElement(By.id("create_requests_table"), patientIdentifier));
+        wait.until(ExpectedConditions.textToBePresentInElement(By.id("create_requests_table"), testPatient.getName()));
+        wait.until(ExpectedConditions.textToBePresentInElement(By.id("create_requests_table"), testPatient.getIdentifier()));
 	}
 
 }

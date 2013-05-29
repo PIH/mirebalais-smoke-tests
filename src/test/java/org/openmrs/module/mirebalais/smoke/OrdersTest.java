@@ -28,7 +28,7 @@ public class OrdersTest extends BasicMirebalaisSmokeTest {
         loginPage.logInAsAdmin();
         createPatient();
 
-        appDashboard.findPatientById(patientIdentifier);
+        appDashboard.findPatientById(testPatient.getIdentifier());
         patientDashboard.startVisit();
 
         Wait<WebDriver> wait = new WebDriverWait(driver, 5);

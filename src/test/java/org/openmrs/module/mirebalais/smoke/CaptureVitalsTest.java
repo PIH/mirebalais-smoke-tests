@@ -18,7 +18,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class CaptureVitalsTest extends BasicMirebalaisSmokeTest {
 
 	private CheckIn checkIn;
-	private String patientName;
 	private VitalsApp vitals;
 	
 	@Before
@@ -31,25 +30,21 @@ public class CaptureVitalsTest extends BasicMirebalaisSmokeTest {
 	@Test
 	public void checkInAndCaptureVitalsThruVitalsApp() throws Exception {
 		loginPage.logInAsAdmin();
-		
-		appDashboard.openPatientRegistrationApp();
-		registration.goThruRegistrationProcessWithoutPrintingCard(); 
-		patientIdentifier = patientRegistrationDashboard.getIdentifier();
-		patientName = patientRegistrationDashboard.getName();
+		createPatient();
 
 		appDashboard.openActiveVisitsApp();
-		assertFalse(driver.findElement(By.id("content")).getText().contains(patientIdentifier));
+		assertFalse(driver.findElement(By.id("content")).getText().contains(testPatient.getIdentifier()));
 
         appDashboard.openStartClinicVisitApp();
-		checkIn.checkInPatient(patientIdentifier, patientName);
+		checkIn.checkInPatient(testPatient.getIdentifier(), testPatient.getName());
 		
 		appDashboard.openActiveVisitsApp();
 		String contentText = driver.findElement(By.id("content")).getText();
-		assertThat(contentText.contains(patientName), is(true));
-		assertThat(contentText.contains(patientIdentifier), is(true));
+		assertThat(contentText.contains(testPatient.getName()), is(true));
+		assertThat(contentText.contains(testPatient.getIdentifier()), is(true));
 		
 		appDashboard.openCaptureVitalsApp();
-		vitals.enterPatientIdentifier(patientIdentifier);
+		vitals.enterPatientIdentifier(testPatient.getIdentifier());
 		vitals.confirmPatient();
 		vitals.enterVitals();
 
@@ -61,7 +56,7 @@ public class CaptureVitalsTest extends BasicMirebalaisSmokeTest {
             }
         });
 
-        appDashboard.findPatientById(patientIdentifier);
+        appDashboard.findPatientById(testPatient.getIdentifier());
         assertThat(patientDashboard.countEncouters(PatientDashboard.VITALS), is(1));
     }
 

@@ -19,7 +19,6 @@ public class ConsultationTest extends BasicMirebalaisSmokeTest {
 
 	private HeaderPage headerPage;
 	
-	
 	@Before
     public void setUp() {
 		initBasicPageObjects();
@@ -29,11 +28,9 @@ public class ConsultationTest extends BasicMirebalaisSmokeTest {
 	@Test
 	public void addConsultationToAVisitWithoutCheckin() throws Exception {
 		loginPage.logInAsAdmin();
-		appDashboard.openPatientRegistrationApp();
-		registration.goThruRegistrationProcessWithoutPrintingCard(); 
-		patientIdentifier = patientRegistrationDashboard.getIdentifier();
+		createPatient();
 
-		appDashboard.findPatientById(patientIdentifier);
+		appDashboard.findPatientById(testPatient.getIdentifier());
 		patientDashboard.startVisit();
 		 
 		Wait<WebDriver> wait = new WebDriverWait(driver, 5);

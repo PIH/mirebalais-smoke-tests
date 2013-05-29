@@ -29,31 +29,25 @@ import org.openqa.selenium.By;
 public class ActiveVisitsTest extends BasicMirebalaisSmokeTest{
 
 	private CheckIn checkIn;
-	private String patientName;
-	
 	
 	@Before
     public void setUp() {
 		initBasicPageObjects();
 		checkIn = new CheckIn(driver);
 	}
-
 	
 	@Test
 	public void checkInPatientDeletingEncounterMustKeepActiveVisit() throws Exception {
 		loginPage.logInAsAdmin();
-		appDashboard.openPatientRegistrationApp();
-		registration.goThruRegistrationProcessWithoutPrintingCard(); 
-		patientIdentifier = patientRegistrationDashboard.getIdentifier();
-		patientName = patientRegistrationDashboard.getName();
+		createPatient();
 
 		appDashboard.openActiveVisitsApp();
-		assertFalse(driver.findElement(By.id("content")).getText().contains(patientIdentifier));
+		assertFalse(driver.findElement(By.id("content")).getText().contains(testPatient.getIdentifier()));
 
         appDashboard.openStartClinicVisitApp();
-		checkIn.checkInPatient(patientIdentifier, patientName);
+		checkIn.checkInPatient(testPatient.getIdentifier(), testPatient.getName());
 		
-		appDashboard.findPatientById(patientIdentifier);
+		appDashboard.findPatientById(testPatient.getIdentifier());
 		assertTrue(patientDashboard.hasActiveVisit());
 		
 		try {
@@ -62,7 +56,7 @@ public class ActiveVisitsTest extends BasicMirebalaisSmokeTest{
 			fail();
 		}
 		
-		appDashboard.findPatientById(patientIdentifier);
+		appDashboard.findPatientById(testPatient.getIdentifier());
 		
 		assertThat(patientDashboard.countEncouters(PatientDashboard.CHECKIN), is(0));
 		assertTrue(patientDashboard.hasActiveVisit());

@@ -11,7 +11,6 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.ArchivesRoomApp;
 
 public class ArchivesRoomFlowTest extends BasicMirebalaisSmokeTest {
 
-	private String patientName;
 	private ArchivesRoomApp archivesRoomApp;
 	
 	
@@ -26,22 +25,19 @@ public class ArchivesRoomFlowTest extends BasicMirebalaisSmokeTest {
 		String dossieNumber = null;
 		
 		loginPage.logInAsAdmin();
-		appDashboard.openPatientRegistrationApp();
-		registration.goThruRegistrationProcessWithoutPrintingCard(); 
-		patientIdentifier = patientRegistrationDashboard.getIdentifier();
-		patientName = patientRegistrationDashboard.getName();
+		createPatient();
 
-		appDashboard.findPatientById(patientIdentifier);
+		appDashboard.findPatientById(testPatient.getIdentifier());
 		patientDashboard.requestRecord();
 		 
 		appDashboard.openArchivesRoomApp();
 		
 		try {
-			dossieNumber = archivesRoomApp.createRecord(patientIdentifier, patientName);
+			dossieNumber = archivesRoomApp.createRecord(testPatient.getIdentifier(), testPatient.getName());
 			archivesRoomApp.sendDossie(dossieNumber);
 			archivesRoomApp.returnRecord(dossieNumber);
 				
-			appDashboard.findPatientById(patientIdentifier);
+			appDashboard.findPatientById(testPatient.getIdentifier());
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}

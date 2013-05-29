@@ -3,6 +3,7 @@ package org.openmrs.module.mirebalais.smoke;
 import org.apache.commons.lang.SystemUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
@@ -27,7 +28,7 @@ public abstract class BasicMirebalaisSmokeTest {
     protected Registration registration;
     protected PatientRegistrationDashboard patientRegistrationDashboard;
     protected PatientDashboard patientDashboard;
-    protected String patientIdentifier;
+    protected Patient testPatient;
 	
 	protected static ChromeDriver driver;
 
@@ -55,11 +56,11 @@ public abstract class BasicMirebalaisSmokeTest {
 	protected void createPatient() {
 		appDashboard.openPatientRegistrationApp();
 		registration.goThruRegistrationProcessWithoutPrintingCard(); 
-		patientIdentifier = patientRegistrationDashboard.getIdentifier();
+		testPatient = new Patient(patientRegistrationDashboard.getIdentifier(), patientRegistrationDashboard.getName());
 	}
 	
 	protected void startVisit() throws Exception {
-		appDashboard.findPatientById(patientIdentifier);
+		appDashboard.findPatientById(testPatient.getIdentifier());
 		patientDashboard.startVisit();
 		 
 		Wait<WebDriver> wait = new WebDriverWait(driver, 5);

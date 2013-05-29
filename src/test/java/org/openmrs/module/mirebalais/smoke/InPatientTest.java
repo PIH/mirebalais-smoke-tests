@@ -34,7 +34,7 @@ public class InPatientTest extends BasicMirebalaisSmokeTest {
 		
 		assurePlaces(admissionPlace, admissionPlace);
 		
-		appDashboard.findPatientById(patientIdentifier);
+		appDashboard.findPatientById(testPatient.getIdentifier());
 		
 		String transferPlace = patientDashboard.addConsultNoteWithTransfer();		
 		assertThat(patientDashboard.countEncouters(PatientDashboard.CONSULTATION), is(2));
@@ -51,8 +51,8 @@ public class InPatientTest extends BasicMirebalaisSmokeTest {
 	private void assurePlaces(String firstAdmitted, String currentWard) throws Exception {
 		appDashboard.openInPatientApp();
 		
-		assertThat(ipl.getCurrentWard(patientIdentifier), is(currentWard));
-		assertThat(ipl.getFirstAdmitted(patientIdentifier), is(firstAdmitted));
+		assertThat(ipl.getCurrentWard(testPatient.getIdentifier()), is(currentWard));
+		assertThat(ipl.getFirstAdmitted(testPatient.getIdentifier()), is(firstAdmitted));
 	}
 
 }
