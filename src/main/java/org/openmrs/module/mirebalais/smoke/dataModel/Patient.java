@@ -5,7 +5,7 @@ public class Patient {
 	private String name;
 	private String identifier;
 	
-	public Patient(String name, String identifier) {
+	public Patient(String identifier, String name) {
 		this.name = name;
 		this.identifier = identifier;
 	}
