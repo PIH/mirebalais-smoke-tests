@@ -1,5 +1,6 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
+import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -16,15 +17,15 @@ public class CheckIn extends AbstractPageObject {
 	}
 
 	
-	public void checkInPatient(String identifier, final String patientName) {
-		driver.findElement(By.id("patientIdentifier")).sendKeys(identifier);
+	public void checkInPatient(final Patient testPatient) {
+		driver.findElement(By.id("patientIdentifier")).sendKeys(testPatient.getIdentifier());
 		clickNext();
 		
 		wait.until(new ExpectedCondition<Boolean>() {
 			@Override
 			public Boolean apply(WebDriver webDriver) {
 				return 	webDriver.findElement(By.id("okBtn")).isDisplayed() &&
-						webDriver.findElement(By.className("confirmExistingPatientModalList")).getText().contains(format(patientName)) ;
+						webDriver.findElement(By.className("confirmExistingPatientModalList")).getText().contains(format(testPatient.getName())) ;
 			}
 		});
 		driver.findElement(By.id("okBtn")).click();

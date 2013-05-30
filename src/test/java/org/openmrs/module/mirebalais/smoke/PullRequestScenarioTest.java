@@ -30,7 +30,7 @@ public class PullRequestScenarioTest extends BasicMirebalaisSmokeTest {
 		createPatient();
 
         appDashboard.openStartClinicVisitApp();
-		checkIn.checkInPatient(testPatient.getIdentifier(), testPatient.getName());
+		checkIn.checkInPatient(testPatient);
 		appDashboard.openArchivesRoomApp();
 
         WebDriverWait wait = new WebDriverWait(driver, 1000);

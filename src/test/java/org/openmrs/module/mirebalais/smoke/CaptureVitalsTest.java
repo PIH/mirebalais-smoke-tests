@@ -36,7 +36,7 @@ public class CaptureVitalsTest extends BasicMirebalaisSmokeTest {
 		assertFalse(driver.findElement(By.id("content")).getText().contains(testPatient.getIdentifier()));
 
         appDashboard.openStartClinicVisitApp();
-		checkIn.checkInPatient(testPatient.getIdentifier(), testPatient.getName());
+		checkIn.checkInPatient(testPatient);
 		
 		appDashboard.openActiveVisitsApp();
 		String contentText = driver.findElement(By.id("content")).getText();

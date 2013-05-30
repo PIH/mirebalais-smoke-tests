@@ -8,6 +8,10 @@ import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.InPatientList;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class InPatientTest extends BasicMirebalaisSmokeTest {
 
@@ -41,10 +45,12 @@ public class InPatientTest extends BasicMirebalaisSmokeTest {
 		assertThat(patientDashboard.countEncouters(PatientDashboard.TRANSFER), is(1));
 		
 		assurePlaces(admissionPlace, transferPlace);
-		/*
+		
+		int oldSize = getPatientCount();
 		ipl.filterBy(transferPlace);
+		waitForTableToUpdate(oldSize);
 		assertThat(ipl.isListFilteredBy(transferPlace), is(true));
-		*/
+		
 		headerPage.logOut();
 	}
 	
@@ -55,4 +61,17 @@ public class InPatientTest extends BasicMirebalaisSmokeTest {
 		assertThat(ipl.getFirstAdmitted(testPatient.getIdentifier()), is(firstAdmitted));
 	}
 
+	private void waitForTableToUpdate(final int oldSize) {
+		Wait<WebDriver> wait = new WebDriverWait(driver, 10);
+    	wait.until(new ExpectedCondition<Boolean>() {
+			@Override
+			public Boolean apply(WebDriver webDriver) {
+				return (getPatientCount() < oldSize);
+			}
+		});
+	}
+	
+	private int getPatientCount() {
+		return ipl.getPatientCount();
+	}
 }
