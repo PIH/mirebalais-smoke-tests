@@ -2,12 +2,10 @@ package org.openmrs.module.mirebalais.smoke.pageobjects;
 
 import java.util.List;
 
+import org.openmrs.module.mirebalais.smoke.helper.Waiter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class NewCheckIn extends AbstractPageObject {
 	
@@ -69,13 +67,7 @@ public class NewCheckIn extends AbstractPageObject {
 	}
 	
 	private void confirmPopup() {
-		Wait<WebDriver> wait = new WebDriverWait(driver, 10);
-		wait.until(new ExpectedCondition<Boolean>() {
-			@Override
-			public Boolean apply(WebDriver webDriver) {
-				return webDriver.findElement(By.id("request-paper-record-dialog")).isDisplayed();
-			}
-		});
+		Waiter.waitForElementToDisplay(By.id("request-paper-record-dialog"), 10, driver);
 		clickOn(By.cssSelector("#request-paper-record-dialog button"));
 	}
 

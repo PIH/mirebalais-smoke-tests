@@ -4,11 +4,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.openmrs.module.mirebalais.smoke.helper.Waiter;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class RegistrationFlowTest extends BasicMirebalaisSmokeTest {
 
@@ -26,13 +23,7 @@ public class RegistrationFlowTest extends BasicMirebalaisSmokeTest {
     	appDashboard.openPatientRegistrationApp();
     	registration.goThruRegistrationProcessPrintingCard();
 
-    	Wait<WebDriver> wait = new WebDriverWait(driver, 2);
-    	wait.until(new ExpectedCondition<Boolean>() {
-			@Override
-			public Boolean apply(WebDriver webDriver) {
-				return webDriver.findElement(By.id("scanPatientIdentifier")).isDisplayed();
-			}
-		});
+    	Waiter.waitForElementToDisplay(By.id("scanPatientIdentifier"), 2, driver);
     	assertTrue(driver.findElement(By.tagName("body")).getText().contains(SCAN_MESSAGE));
     }
 }

@@ -1,9 +1,13 @@
 package org.openmrs.module.mirebalais.smoke;
 
+import java.net.URL;
+import java.util.concurrent.TimeUnit;
+
 import org.apache.commons.lang.SystemUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
+import org.openmrs.module.mirebalais.smoke.helper.Waiter;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
@@ -11,14 +15,7 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.PatientRegistrationDashbo
 import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
 import org.openmrs.module.mirebalais.smoke.pageobjects.SmokeTestProperties;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.net.URL;
-import java.util.concurrent.TimeUnit;
 
 public abstract class BasicMirebalaisSmokeTest {
 
@@ -63,13 +60,7 @@ public abstract class BasicMirebalaisSmokeTest {
 		appDashboard.findPatientById(testPatient.getIdentifier());
 		patientDashboard.startVisit();
 		 
-		Wait<WebDriver> wait = new WebDriverWait(driver, 5);
-		wait.until(new ExpectedCondition<Boolean>() {
-			@Override
-			public Boolean apply(WebDriver webDriver) {
-				return webDriver.findElement(By.cssSelector("div.status-container")).isDisplayed();
-			}
-		});
+		Waiter.waitForElementToDisplay(By.cssSelector("div.status-container"), 5, driver);
 	}
 	
 	private static void setupChromeDriver() {
@@ -84,7 +75,6 @@ public abstract class BasicMirebalaisSmokeTest {
             resource = classLoader.getResource("chromedriver/windows/chromedriver.exe");
         }
         System.setProperty("webdriver.chrome.driver", resource.getPath());
-
     }
 
 }

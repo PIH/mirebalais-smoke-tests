@@ -14,6 +14,7 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects.forms;
 
+import org.openmrs.module.mirebalais.smoke.helper.Waiter;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AbstractPageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -54,7 +55,7 @@ public class ConsultNoteForm extends AbstractPageObject {
 	}
 	
 	private String chooseOption(By placeCombo) {
-		waitForElementToDisplay(placeCombo, 5);
+    	Waiter.waitForElementToDisplay(placeCombo, 5, driver);
 		WebElement option = getRandomOptionExcludingFirst(placeCombo);
 		option.click();
 		return option.getText();

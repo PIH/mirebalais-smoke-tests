@@ -12,7 +12,6 @@ public class EmergencyCheckin extends AbstractPageObject {
         registration = new Registration(driver);
     }
 
-    
     public void checkinMaleUnindentifiedPatient() {
         driver.findElement(By.id("registerJdBtn")).click();
         registration.enterSexData();

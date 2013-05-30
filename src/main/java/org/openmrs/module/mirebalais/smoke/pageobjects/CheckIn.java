@@ -1,6 +1,7 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
+import org.openmrs.module.mirebalais.smoke.helper.Waiter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -35,12 +36,7 @@ public class CheckIn extends AbstractPageObject {
 		choosePaymentAmount(PAYMENT_50);
         clickYellowCheckMark();
 		
-		wait.until(new ExpectedCondition<Boolean>() {
-			@Override
-			public Boolean apply(WebDriver webDriver) {
-				return webDriver.findElement(By.id("okDialog")).isDisplayed();
-			}
-		});
+    	Waiter.waitForElementToDisplay(By.id("okDialog"), 5, driver);
 		driver.findElement(By.id("okDialog")).click();
 	}
 	

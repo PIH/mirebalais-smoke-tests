@@ -21,9 +21,6 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class AbstractPageObject {
 
@@ -136,13 +133,4 @@ public abstract class AbstractPageObject {
         hover.perform();
     }
     
-	public void waitForElementToDisplay(final By element, int seconds) {
-		Wait<WebDriver> wait = new WebDriverWait(driver, seconds);
-        wait.until(new ExpectedCondition<Boolean>() {
-            @Override
-            public Boolean apply(WebDriver webDriver) {
-                return driver.findElement(element).isDisplayed();
-            }
-        });
-	}
 }

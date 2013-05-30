@@ -1,5 +1,6 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
+import org.openmrs.module.mirebalais.smoke.helper.Waiter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -59,6 +60,15 @@ public class VitalsApp extends AbstractPageObject {
 		enterPatientIdentifier(identifier);
 		confirmPatient();
 		enterVitals();
+	}
+
+	public Boolean isSearchPatientDisplayed() {
+        try {
+        	Waiter.waitForElementToDisplay(By.className("scan-input"), 5, driver);
+        	return true;
+        } catch (Exception e) {
+        	return false;
+        }
 	}
 	
 }

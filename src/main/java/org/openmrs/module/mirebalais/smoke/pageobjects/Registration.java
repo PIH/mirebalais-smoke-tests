@@ -1,6 +1,7 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
 import org.openmrs.module.mirebalais.smoke.helper.NameGenerator;
+import org.openmrs.module.mirebalais.smoke.helper.Waiter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -63,12 +64,7 @@ public class Registration extends AbstractPageObject {
 		});
 		driver.findElement(By.id("confirmExistingPatientDiv")).click();
 		
-		wait.until(new ExpectedCondition<Boolean>() {
-			@Override
-			public Boolean apply(WebDriver webDriver) {
-				return webDriver.findElement(By.id("confirmExistingPatientModalDiv")).isDisplayed();
-			}
-		});
+		Waiter.waitForElementToDisplay(By.id("confirmExistingPatientModalDiv"), 5, driver);
 	}
 
 	private void clickOnSearchByNameButton() {
@@ -125,12 +121,7 @@ public class Registration extends AbstractPageObject {
 	}
 
     protected void enterPhoneData() {
-		wait.until(new ExpectedCondition<Boolean>() {
-			@Override
-			public Boolean apply(WebDriver webDriver) {
-				return webDriver.findElement(By.id("patientInputPhoneNumber")).isDisplayed();
-			}
-		});
+		Waiter.waitForElementToDisplay(By.id("patientInputPhoneNumber"), 5, driver);
 		driver.findElement(By.id("patientInputPhoneNumber")).sendKeys("11111111");
         clickNext();
     }
@@ -166,5 +157,4 @@ public class Registration extends AbstractPageObject {
     protected void chooseToPrintIdCard() {
         driver.findElement(By.id("printYes")).click();
     }
-	
 }
