@@ -4,11 +4,11 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.InPatientList;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Wait;
@@ -27,7 +27,6 @@ public class InPatientTest extends BasicMirebalaisSmokeTest {
 	}
 	
 	@Test
-	@Ignore
 	public void admitPatientTransferInsideHospitalAndFilterWard() throws Exception {
 		loginPage.logInAsAdmin();
 		
@@ -74,6 +73,10 @@ public class InPatientTest extends BasicMirebalaisSmokeTest {
 	}
 	
 	private int getPatientCount() {
-		return ipl.getPatientCount();
+		try {
+			return ipl.getPatientCount();
+		} catch (StaleElementReferenceException e) {
+			return Integer.MAX_VALUE;
+		}
 	}
 }

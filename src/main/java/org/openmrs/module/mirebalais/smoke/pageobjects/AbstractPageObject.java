@@ -21,6 +21,9 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class AbstractPageObject {
 
@@ -117,6 +120,11 @@ public abstract class AbstractPageObject {
     	List<WebElement> options = driver.findElements(elementIdentifier);
     	return options.get((int)(Math.random() * options.size()));
     }
+    
+    public WebElement getRandomOptionExcludingFirst(By elementIdentifier) {
+    	List<WebElement> options = driver.findElements(elementIdentifier);
+    	return options.get(1+(int)(Math.random() * options.size()-1));
+    }
    
     public void clickOn(By elementId) {
     	driver.findElement(elementId).click();
@@ -127,4 +135,14 @@ public abstract class AbstractPageObject {
         Actions hover = builder.moveToElement(driver.findElement(elementId));
         hover.perform();
     }
+    
+	public void waitForElementToDisplay(final By element, int seconds) {
+		Wait<WebDriver> wait = new WebDriverWait(driver, seconds);
+        wait.until(new ExpectedCondition<Boolean>() {
+            @Override
+            public Boolean apply(WebDriver webDriver) {
+                return driver.findElement(element).isDisplayed();
+            }
+        });
+	}
 }

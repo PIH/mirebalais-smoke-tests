@@ -34,7 +34,7 @@ public class ConsultNoteForm extends AbstractPageObject {
 	public void fillFormWithDischarge() throws Exception {
 		choosePrimaryDiagnosis();
 		chooseDisposition(DISCHARGE);
-		clickOn(By.cssSelector("#buttons .confirm"));
+		confirmData();
 	}
 	
 	public String fillFormWithAdmissionAndReturnPlace() throws Exception {
@@ -48,12 +48,16 @@ public class ConsultNoteForm extends AbstractPageObject {
 	private String fillFormAndReturnPlace(String disposition, By placeCombo) throws Exception  {
 		choosePrimaryDiagnosis();
 		chooseDisposition(disposition);
-		WebElement option = getRandomOption(placeCombo);
-		option.click();
-		String dischargePlace = option.getText();
-		clickOn(By.cssSelector("#buttons .confirm"));
-		System.out.println(dischargePlace);
+		String dischargePlace = chooseOption(placeCombo);
+		confirmData();
 		return dischargePlace;
+	}
+	
+	private String chooseOption(By placeCombo) {
+		waitForElementToDisplay(placeCombo, 5);
+		WebElement option = getRandomOptionExcludingFirst(placeCombo);
+		option.click();
+		return option.getText();
 	}
 	
 	private void choosePrimaryDiagnosis() {
@@ -63,6 +67,10 @@ public class ConsultNoteForm extends AbstractPageObject {
 	
 	private void chooseDisposition(String disposition) throws Exception {
 		clickOnOptionLookingForText(disposition, By.cssSelector("#dispositions option"));	
+	}
+	
+	private void confirmData() {
+		clickOn(By.cssSelector("#buttons .confirm"));
 	}
 
 }
