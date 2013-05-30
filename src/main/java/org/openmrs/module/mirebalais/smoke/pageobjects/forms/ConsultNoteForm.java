@@ -52,6 +52,7 @@ public class ConsultNoteForm extends AbstractPageObject {
 		option.click();
 		String dischargePlace = option.getText();
 		clickOn(By.cssSelector("#buttons .confirm"));
+		System.out.println(dischargePlace);
 		return dischargePlace;
 	}
 	

@@ -54,5 +54,11 @@ public class VitalsApp extends AbstractPageObject {
     private void hitEnterOnInchesField() {
         driver.findElement(By.id("height_inches")).sendKeys(Keys.RETURN);
     }
+
+	public void captureVitalsForPatient(String identifier) {
+		enterPatientIdentifier(identifier);
+		confirmPatient();
+		enterVitals();
+	}
 	
 }

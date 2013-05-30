@@ -2,15 +2,15 @@ package org.openmrs.module.mirebalais.smoke.helper;
 
 public class NameGenerator {
 
-	private static final String[] PATIENT_FIRST_NAMES = { "Alexandre",
-			"Achint", "Burke", "Cosmin", "Daniel", "Darius", "Ellen",
-			"Émerson", "Evan", "Fernando", "Glauber", "Louise", "Mário",
-			"Mark", "Natália", "Neil", "Nelice", "Rafal", "Renee", "Wyclif" };
+	private static final String[] PATIENT_FIRST_NAMES = { "Alexandre", "Achint", 
+			"Brittany", "Burke", "Cesar", "Cosmin", "Daniel", "Darius", "David", "Ellen",
+			"Émerson", "Evan", "Fernando", "Gabou", "Glauber", "Hamish", "Louise", "Mário",
+			"Mark", "Natália", "Neil", "Neissi", "Nelice", "Rafal", "Renee", "Wyclif" };
 	
-	private static final String[] PATIENT_LAST_NAMES = { "Barbosa", "Sethi",
-			"Mamlin", "Ioan", "Kayiwa", "Jazayeri", "Ball", "Hernandez",
-			"Waters", "Freire", "Ramos", "Sécordel", "Areias", "Goodrich",
-			"Arsand", "Craven", "Heck", "Korytkowski", "Orser", "Luyima" };
+	private static final String[] PATIENT_LAST_NAMES = { "Barbosa", "Sethi", "Eddy",
+			"Mamlin", "Vortmann", "Ioan", "Kayiwa", "Jazayeri", "Walton", "Ball", "Hernandez",
+			"Waters", "Freire", "Mandy", "Ramos", "Fraser", "Sécordel", "Areias", "Goodrich",
+			"Arsand", "Craven", "Lima", "Heck", "Korytkowski", "Orser", "Luyima" };
 	
 	private static final String[] USER_FIRST_NAMES = { "Ororo", "Wally",
 			"Clint", "Charles", "Clark", "Bruce", "Peter", "Diana", "Tony",
@@ -20,7 +20,6 @@ public class NameGenerator {
 			"Parker", "Banner", "Prince", "Stark", "Rogers", "Richards",
 			"Howlett", "Jordan", "Murdock", "Grayson", "Gray", "Gordon",
 			"Xavier", "Barton", "West", "Munroe" };
-
 	
 	public static String getPatientFirstName() {
 		return PATIENT_FIRST_NAMES[(int) (Math.random() * PATIENT_FIRST_NAMES.length)];

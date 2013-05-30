@@ -44,9 +44,7 @@ public class CaptureVitalsTest extends BasicMirebalaisSmokeTest {
 		assertThat(contentText.contains(testPatient.getIdentifier()), is(true));
 		
 		appDashboard.openCaptureVitalsApp();
-		vitals.enterPatientIdentifier(testPatient.getIdentifier());
-		vitals.confirmPatient();
-		vitals.enterVitals();
+		vitals.captureVitalsForPatient(testPatient.getIdentifier());
 
         Wait<WebDriver> wait = new WebDriverWait(driver, 5);
         wait.until(new ExpectedCondition<Boolean>() {
