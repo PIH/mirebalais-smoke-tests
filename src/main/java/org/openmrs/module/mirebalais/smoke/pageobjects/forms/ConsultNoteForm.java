@@ -24,8 +24,9 @@ public class ConsultNoteForm extends AbstractPageObject {
 
 	private static final String PRIMARY_DIAGNOSIS = "IGU";
 	
-	public static final String DISCHARGE = "Soti";
 	public static final String ADMISSION = "Admisyon";
+	public static final String DEATH = "Mouri";
+	public static final String DISCHARGE = "Soti";
 	public static final String TRANSFER = "Transfè anndan";
 	
 	public ConsultNoteForm(WebDriver driver) {
@@ -33,9 +34,11 @@ public class ConsultNoteForm extends AbstractPageObject {
 	}
 
 	public void fillFormWithDischarge() throws Exception {
-		choosePrimaryDiagnosis();
-		chooseDisposition(DISCHARGE);
-		confirmData();
+		fillFormWithBasicInfo(DISCHARGE);
+	}
+	
+	public void fillFormWithDeath() throws Exception {
+		fillFormWithBasicInfo(DEATH);
 	}
 	
 	public String fillFormWithAdmissionAndReturnPlace() throws Exception {
@@ -44,6 +47,12 @@ public class ConsultNoteForm extends AbstractPageObject {
 
 	public String fillFormWithTransferAndReturnPlace() throws Exception {
 		return fillFormAndReturnPlace(TRANSFER, By.cssSelector("#transferWithinHospital-field option"));
+	}
+
+	private void fillFormWithBasicInfo(String disposition) throws Exception {
+		choosePrimaryDiagnosis();
+		chooseDisposition(disposition);
+		confirmData();
 	}
 	
 	private String fillFormAndReturnPlace(String disposition, By placeCombo) throws Exception  {

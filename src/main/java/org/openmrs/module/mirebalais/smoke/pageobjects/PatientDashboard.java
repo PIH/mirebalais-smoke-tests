@@ -129,6 +129,11 @@ public class PatientDashboard extends AbstractPageObject {
 		return consultNoteForm.fillFormWithTransferAndReturnPlace();
 	}
 	
+	public void addConsultNoteWithDeath() throws Exception {
+		openForm(formList.get("Consult Note"));
+		consultNoteForm.fillFormWithDeath();
+	}
+	
 	public void addSurgicalNote() throws Exception {
 		openForm(formList.get("Surgical Note"));
 		surgicalPostOperativeNoteForm.fillBasicForm();
@@ -158,5 +163,9 @@ public class PatientDashboard extends AbstractPageObject {
 		formList = new HashMap<String, By>();
 		formList.put("Consult Note", By.cssSelector("#visit-details a:nth-child(2) .icon-stethoscope"));
 		formList.put("Surgical Note", By.cssSelector("#visit-details .icon-paste"));
+	}
+
+	public Boolean showStartVisitButton() {
+		return driver.findElement(By.cssSelector("#noVisitShowVisitCreationDialog")).isDisplayed();
 	}
 }
