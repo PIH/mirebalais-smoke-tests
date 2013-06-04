@@ -33,6 +33,7 @@ public class AppDashboard extends AbstractPageObject {
     public static final String START_CLINIC_VISIT_NEW = "mirebalais-checkin-app";
     public static final String MASTER_PATIENT_INDEX = "mirebalais-mpi-app";
     public static final String IN_PATIENT = "emr-inpatients-app";
+    public static final String MY_ACCOUNT = "emr-myAccount-app";
     
 
     public AppDashboard(WebDriver driver) {
@@ -43,6 +44,10 @@ public class AppDashboard extends AbstractPageObject {
         openApp(ACTIVE_VISITS);
 	}
 
+    public void openMyAccountApp() {
+        openApp(MY_ACCOUNT);
+	}
+    
     public void openInPatientApp() {
         openApp(IN_PATIENT);
 	}

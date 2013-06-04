@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.helper.NameGenerator;
 import org.openmrs.module.mirebalais.smoke.helper.Toast;
 import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
+import org.openmrs.module.mirebalais.smoke.pageobjects.MyAccountApp;
 import org.openmrs.module.mirebalais.smoke.pageobjects.UserAdmin;
 import org.openqa.selenium.By;
 
@@ -18,6 +19,7 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
 
     private UserAdmin userAdmin;
     private HeaderPage header;
+    private MyAccountApp myAccountApp;
     
 	private static final String DEFAULT_PASSWORD = "Teste123";
     
@@ -26,10 +28,11 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
 		initBasicPageObjects();
 		userAdmin = new UserAdmin(driver);
 		header = new HeaderPage(driver);
+		myAccountApp = new MyAccountApp(driver);
     }
 
     @Test
-    public void createUserWithClinicalRole() throws InterruptedException {
+    public void createUserWithClinicalRoleAndUserChangesOwnPassword() throws InterruptedException {
     	String username = createUser();
     	
 		loginPage.logInAsAdmin();
@@ -37,6 +40,11 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     	userAdmin.createClinicalAccount(NameGenerator.getUserFirstName(), NameGenerator.getUserLastName(), username, DEFAULT_PASSWORD);
     	
     	Toast.closeToast(driver);
+    	logOutAndLogInWithNewUser(username);
+    	
+    	appDashboard.openMyAccountApp();
+    	myAccountApp.openChangePassword();
+    	myAccountApp.changePassword(DEFAULT_PASSWORD, DEFAULT_PASSWORD);
     	logOutAndLogInWithNewUser(username);
     	
     	assertThat(appDashboard.isActiveVisitsAppPresented(), is(true));
@@ -52,7 +60,7 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
     	assertThat(appDashboard.isEditPatientAppPresented(), is(true));
     	
     	assertThat(appDashboard.isLegacyAppPresented(), is(false));
-	}
+    }
     
     @Test
     public void createUserWithRadiologyRole() throws InterruptedException {
