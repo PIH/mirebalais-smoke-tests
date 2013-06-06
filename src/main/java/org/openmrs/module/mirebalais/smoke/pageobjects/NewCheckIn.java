@@ -6,12 +6,15 @@ import org.openmrs.module.mirebalais.smoke.helper.Waiter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 public class NewCheckIn extends AbstractPageObject {
 	
 	private static final String CONFIRM_TEXT = "Konfime";
 	private static final String PAYMENT_EXEMPT = "Exempt";
 	private static final String PAYMENT_50 = "50";
+    private static final String PHARMACY_VISIT = "Famasi sèlman";
+    private static final String NON_CLINIC_VISIT = "Nan klinik";
 	
 	public NewCheckIn(WebDriver driver) {
 		super(driver);
@@ -28,9 +31,11 @@ public class NewCheckIn extends AbstractPageObject {
 	public void checkInPatientFillingTheFormTwice(String patientIdentifier) throws Exception {
 		findPatient(patientIdentifier);
 		confirmRightPatient();
-		clickOnPaymentOption(PAYMENT_50);
-		clickOnNoButton();
-		clickOnPaymentOption(PAYMENT_EXEMPT);
+        clickOnVisitTypeOption(PHARMACY_VISIT);
+        clickOnPaymentOption(PAYMENT_50);
+        clickOnNoButton();
+        clickOnVisitTypeOption(NON_CLINIC_VISIT);
+        clickOnPaymentOption(PAYMENT_EXEMPT);
 		confirmData();
 		confirmPopup();
 	}
@@ -45,7 +50,17 @@ public class NewCheckIn extends AbstractPageObject {
 	
 	private void clickOnPaymentOption(String payment) throws Exception{
 		clickOnOptionLookingForText(payment, By.cssSelector("#paymentAmount option"));
+        //click on Confirm left menu
+        WebElement element=driver.findElement(By.xpath("//*[@id=\"formBreadcrumb\"]/li[2]/span"));
+        new Actions(driver).moveToElement(element).click().perform();
 	}
+
+    private void clickOnVisitTypeOption(String visitType) throws Exception{
+        clickOnOptionLookingForText(visitType, By.cssSelector("#typeOfVisit option"));
+        //click on Payment left menu
+        WebElement element=driver.findElement(By.xpath("//*[@id=\"formBreadcrumb\"]/li[1]/ul/li[2]/span"));
+        new Actions(driver).moveToElement(element).click().perform();
+    }
 	
 	private void confirmData() {
 		clickOnConfirmationTab();
