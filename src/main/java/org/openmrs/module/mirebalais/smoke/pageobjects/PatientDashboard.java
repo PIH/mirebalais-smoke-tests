@@ -14,6 +14,7 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
+import org.openmrs.module.mirebalais.smoke.helper.Waiter;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.ConsultNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.SurgicalPostOperativeNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.XRayForm;
@@ -166,6 +167,12 @@ public class PatientDashboard extends AbstractPageObject {
 	}
 
 	public Boolean showStartVisitButton() {
-		return driver.findElement(By.cssSelector("#noVisitShowVisitCreationDialog")).isDisplayed();
+		try {
+        	Waiter.waitForElementToDisplay(By.cssSelector("#noVisitShowVisitCreationDialog"), 10, driver);
+        	return true;
+        } catch (Exception e) {
+        	e.printStackTrace();
+        	return false;
+        }
 	}
 }

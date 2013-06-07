@@ -64,9 +64,10 @@ public class VitalsApp extends AbstractPageObject {
 
 	public Boolean isSearchPatientDisplayed() {
         try {
-        	Waiter.waitForElementToDisplay(By.className("scan-input"), 5, driver);
+        	Waiter.waitForElementToDisplay(By.id("patient-search-field-search"), 10, driver);
         	return true;
         } catch (Exception e) {
+        	e.printStackTrace();
         	return false;
         }
 	}

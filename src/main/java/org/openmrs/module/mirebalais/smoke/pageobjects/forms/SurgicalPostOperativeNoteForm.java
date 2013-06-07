@@ -27,7 +27,7 @@ public class SurgicalPostOperativeNoteForm extends AbstractPageObject {
 	}
 
 	public void fillBasicForm() throws Exception {
-		clickOnRandomOption(By.xpath(REQUIRED_PROVIDER));
+		clickOnRandomOptionIgnoringFirst(By.xpath(REQUIRED_PROVIDER));
 		clickOnSubmit();
 	}
 

@@ -113,6 +113,10 @@ public abstract class AbstractPageObject {
     	getRandomOption(elementIdentifier).click();
     }
     
+    public void clickOnRandomOptionIgnoringFirst(By elementIdentifier) {
+    	getRandomOptionExcludingFirst(elementIdentifier).click();
+    }
+    
     public WebElement getRandomOption(By elementIdentifier) {
     	List<WebElement> options = driver.findElements(elementIdentifier);
     	return options.get((int)(Math.random() * options.size()));
