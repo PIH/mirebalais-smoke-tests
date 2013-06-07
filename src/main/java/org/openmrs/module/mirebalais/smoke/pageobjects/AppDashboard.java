@@ -14,6 +14,7 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
+import org.openmrs.module.mirebalais.smoke.helper.Waiter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -78,6 +79,7 @@ public class AppDashboard extends AbstractPageObject {
     
     public void openCaptureVitalsApp() {
         openApp(CAPTURE_VITALS);
+        Waiter.waitForElementToDisplay(By.id("patient-search-field-search"), 5, driver);
 	}
     
     public void openReportApp() {
