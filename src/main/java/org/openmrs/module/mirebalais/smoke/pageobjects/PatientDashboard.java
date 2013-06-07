@@ -76,7 +76,7 @@ public class PatientDashboard extends AbstractPageObject {
     }
     
     public boolean hasActiveVisit() {
-		return driver.findElement(By.id("visit-details")).getText().contains(ACTIVE_VISIT_MESSAGE);
+		return driver.findElement(By.cssSelector("#visit-details div")).getText().contains(ACTIVE_VISIT_MESSAGE);
 	}
 
 	public void deleteEncounter(String encounterName) throws Exception {
