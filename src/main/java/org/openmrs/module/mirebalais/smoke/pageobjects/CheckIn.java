@@ -35,9 +35,13 @@ public class CheckIn extends AbstractPageObject {
 		clickNext();
 		choosePaymentAmount(PAYMENT_50);
         clickYellowCheckMark();
-		
+
+        Waiter.waitForElementToDisplay(By.id("medicalRecordLocationBtn"), 5, driver);
+        driver.findElement(By.id("medicalRecordLocationBtn")).click();
+/*
     	Waiter.waitForElementToDisplay(By.id("okDialog"), 5, driver);
 		driver.findElement(By.id("okDialog")).click();
+*/
 	}
 	
 	public void enterReceiptNumber(String receiptNumber) {
