@@ -20,14 +20,14 @@ import org.openqa.selenium.WebDriver;
 
 public class SurgicalPostOperativeNoteForm extends AbstractPageObject {
 
-	private final static String REQUIRED_PROVIDER = "//*[@id='htmlform']/htmlform/fieldset[1]/p[2]/select";
+	private final static By REQUIRED_PROVIDER = By.xpath("//*[@id='htmlform']/htmlform/fieldset[1]/p[2]/select");
 	
 	public SurgicalPostOperativeNoteForm(WebDriver driver) {
 		super(driver);
 	}
 
 	public void fillBasicForm() throws Exception {
-		clickOnRandomOption(By.xpath(REQUIRED_PROVIDER));
+		clickOnRandomOption(REQUIRED_PROVIDER);
 		clickOnSubmit();
 	}
 

@@ -45,6 +45,8 @@ public class PatientDashboard extends AbstractPageObject {
 	
 	private HashMap<String, By> formList;
 	
+	
+	
 	public PatientDashboard(WebDriver driver) {
 		super(driver);
 		consultNoteForm = new ConsultNoteForm(driver);
@@ -54,7 +56,7 @@ public class PatientDashboard extends AbstractPageObject {
 	}
 
 	public void orderXRay(String study1, String study2) {
-		clickOn(By.className("icon-x-ray"));
+		openForm(formList.get("Order X-Ray"));
 		xRayForm.fillForm(study1, study2);
 	}
 
@@ -160,12 +162,6 @@ public class PatientDashboard extends AbstractPageObject {
 		return driver.findElement(By.className("icon-folder-open")).isDisplayed();
 	}
 
-	private void createFormsMap() {
-		formList = new HashMap<String, By>();
-		formList.put("Consult Note", By.cssSelector("#visit-details a:nth-child(2) .icon-stethoscope"));
-		formList.put("Surgical Note", By.cssSelector("#visit-details .icon-paste"));
-	}
-
 	public Boolean showStartVisitButton() {
 		try {
         	Waiter.waitForElementToDisplay(By.cssSelector("#noVisitShowVisitCreationDialog"), 10, driver);
@@ -175,4 +171,12 @@ public class PatientDashboard extends AbstractPageObject {
         	return false;
         }
 	}
+	
+	private void createFormsMap() {
+		formList = new HashMap<String, By>();
+		formList.put("Consult Note", By.cssSelector("#visit-details a:nth-child(2) .icon-stethoscope"));
+		formList.put("Surgical Note", By.cssSelector("#visit-details .icon-paste"));
+		formList.put("Order X-Ray", By.className("icon-x-ray"));
+	}
+	
 }

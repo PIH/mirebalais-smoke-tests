@@ -8,6 +8,11 @@ import org.openqa.selenium.WebDriver;
 
 public class VitalsApp extends AbstractPageObject {
 
+	private static final By CONFIRM_PATIENT_BUTTON = By.className("icon-arrow-right");
+	private static final By HEIGHT_INCHES_FIELD = By.id("height_inches");
+	private static final By SEARCH_PATIENT_FIELD = By.id("patient-search-field-search");
+	private static final By WEIGHT_INCHES_FIELD = By.id("weight_lbs");
+	
 	public VitalsApp(WebDriver driver) {
 		super(driver);
 	}
@@ -17,7 +22,7 @@ public class VitalsApp extends AbstractPageObject {
 	}
 
 	public void confirmPatient() {
-		driver.findElement(By.className("icon-arrow-right")).click();
+		clickOn(CONFIRM_PATIENT_BUTTON);
 	}
 
 	public void enterVitals() {
@@ -49,11 +54,11 @@ public class VitalsApp extends AbstractPageObject {
     }
 
     private void hitEnterOnLbsField() {
-        driver.findElement(By.id("weight_lbs")).sendKeys(Keys.RETURN);
+        setClearTextToField(WEIGHT_INCHES_FIELD, "");
     }
 
     private void hitEnterOnInchesField() {
-        driver.findElement(By.id("height_inches")).sendKeys(Keys.RETURN);
+        driver.findElement(HEIGHT_INCHES_FIELD).sendKeys(Keys.RETURN);
     }
 
 	public void captureVitalsForPatient(String identifier) {
@@ -61,10 +66,10 @@ public class VitalsApp extends AbstractPageObject {
 		confirmPatient();
 		enterVitals();
 	}
-
-	public Boolean isSearchPatientDisplayed() {
+	
+	public boolean isSearchPatientDisplayed() {
         try {
-        	Waiter.waitForElementToDisplay(By.id("patient-search-field-search"), 10, driver);
+        	Waiter.waitForElementToDisplay(SEARCH_PATIENT_FIELD, 10, driver);
         	return true;
         } catch (Exception e) {
         	e.printStackTrace();

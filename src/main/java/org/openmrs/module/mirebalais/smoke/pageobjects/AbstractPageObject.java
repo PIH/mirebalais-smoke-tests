@@ -58,6 +58,10 @@ public abstract class AbstractPageObject {
     	clickOn(By.id("checkmark-yellow"));
     }
     
+    public void setClearTextToField(By element, String text) {
+        setText(driver.findElement(element), text);
+    }
+    
     public void setClearTextToField(String textFieldId, String text) {
         setText(driver.findElement(By.id(textFieldId)), text);
     }
