@@ -16,6 +16,7 @@ package org.openmrs.module.mirebalais.smoke.pageobjects;
 
 import org.openmrs.module.mirebalais.smoke.helper.Waiter;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.ConsultNoteForm;
+import org.openmrs.module.mirebalais.smoke.pageobjects.forms.EmergencyDepartmentNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.SurgicalPostOperativeNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.XRayForm;
 import org.openqa.selenium.By;
@@ -40,16 +41,16 @@ public class PatientDashboard extends AbstractPageObject {
 	public static final String TRANSFER = "Transfè";
 	
 	private ConsultNoteForm consultNoteForm;
+	private EmergencyDepartmentNoteForm eDNoteForm;
 	private SurgicalPostOperativeNoteForm surgicalPostOperativeNoteForm;
 	private XRayForm xRayForm;
 	
 	private HashMap<String, By> formList;
 	
-	
-	
 	public PatientDashboard(WebDriver driver) {
 		super(driver);
 		consultNoteForm = new ConsultNoteForm(driver);
+		eDNoteForm = new EmergencyDepartmentNoteForm(driver);
 		surgicalPostOperativeNoteForm = new SurgicalPostOperativeNoteForm(driver);
 		xRayForm = new XRayForm(driver);
 		createFormsMap();
@@ -142,6 +143,11 @@ public class PatientDashboard extends AbstractPageObject {
 		surgicalPostOperativeNoteForm.fillBasicForm();
 	}
 	
+	public void addEmergencyDepartmentNote() throws Exception {
+		openForm(formList.get("ED Note"));
+		eDNoteForm.fillFormWithDischarge();
+	}
+	
 	public void openForm(By formIdentification) {
 		clickOn(formIdentification);
 	}
@@ -164,7 +170,7 @@ public class PatientDashboard extends AbstractPageObject {
 
 	public Boolean showStartVisitButton() {
 		try {
-        	Waiter.waitForElementToDisplay(By.cssSelector("#noVisitShowVisitCreationDialog"), 10, driver);
+        	Waiter.waitForElementToDisplay(By.cssSelector("#noVisitShowVisitCreationDialog"),10, driver);
         	return true;
         } catch (Exception e) {
         	e.printStackTrace();
@@ -177,6 +183,7 @@ public class PatientDashboard extends AbstractPageObject {
 		formList.put("Consult Note", By.cssSelector("#visit-details a:nth-child(2) .icon-stethoscope"));
 		formList.put("Surgical Note", By.cssSelector("#visit-details .icon-paste"));
 		formList.put("Order X-Ray", By.className("icon-x-ray"));
+		formList.put("ED Note", By.cssSelector("#visit-details a:nth-child(1) .icon-stethoscope"));
 	}
-	
+
 }

@@ -69,7 +69,7 @@ public class VitalsApp extends AbstractPageObject {
 	
 	public boolean isSearchPatientDisplayed() {
         try {
-        	Waiter.waitForElementToDisplay(SEARCH_PATIENT_FIELD, 10, driver);
+        	Waiter.waitForElementToDisplay(SEARCH_PATIENT_FIELD, 20, driver);
         	return true;
         } catch (Exception e) {
         	e.printStackTrace();

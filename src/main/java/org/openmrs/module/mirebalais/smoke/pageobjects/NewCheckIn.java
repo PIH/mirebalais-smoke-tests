@@ -82,7 +82,7 @@ public class NewCheckIn extends AbstractPageObject {
 	}
 	
 	private void confirmPopup() {
-		Waiter.waitForElementToDisplay(By.id("request-paper-record-dialog"), 10, driver);
+		Waiter.waitForElementToDisplay(By.id("request-paper-record-dialog"), 20, driver);
 		clickOn(By.cssSelector("#request-paper-record-dialog button"));
 	}
 

@@ -49,13 +49,13 @@ public class ConsultNoteForm extends AbstractPageObject {
 		return fillFormAndReturnPlace(TRANSFER, By.cssSelector("#transferWithinHospital-field option"));
 	}
 
-	private void fillFormWithBasicInfo(String disposition) throws Exception {
+	protected void fillFormWithBasicInfo(String disposition) throws Exception {
 		choosePrimaryDiagnosis();
 		chooseDisposition(disposition);
 		confirmData();
 	}
 	
-	private String fillFormAndReturnPlace(String disposition, By placeCombo) throws Exception  {
+	protected String fillFormAndReturnPlace(String disposition, By placeCombo) throws Exception  {
 		choosePrimaryDiagnosis();
 		chooseDisposition(disposition);
 		String dischargePlace = chooseOption(placeCombo);
@@ -63,23 +63,23 @@ public class ConsultNoteForm extends AbstractPageObject {
 		return dischargePlace;
 	}
 	
-	private String chooseOption(By placeCombo) {
-    	Waiter.waitForElementToDisplay(placeCombo, 5, driver);
+	protected String chooseOption(By placeCombo) {
+    	Waiter.waitForElementToDisplay(placeCombo, 10, driver);
 		WebElement option = getRandomOptionExcludingFirst(placeCombo);
 		option.click();
 		return option.getText();
 	}
 	
-	private void choosePrimaryDiagnosis() {
+	protected void choosePrimaryDiagnosis() {
 		setClearTextToField("diagnosis-search", PRIMARY_DIAGNOSIS);
 		driver.findElement(By.cssSelector("strong.matched-name")).click();
 	}
 	
-	private void chooseDisposition(String disposition) throws Exception {
+	protected void chooseDisposition(String disposition) throws Exception {
 		clickOnOptionLookingForText(disposition, By.cssSelector("#dispositions option"));	
 	}
 	
-	private void confirmData() {
+	protected void confirmData() {
 		clickOn(By.cssSelector("#buttons .confirm"));
 	}
 

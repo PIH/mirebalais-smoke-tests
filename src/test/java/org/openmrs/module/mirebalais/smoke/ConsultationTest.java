@@ -29,7 +29,7 @@ public class ConsultationTest extends BasicMirebalaisSmokeTest {
 		appDashboard.findPatientById(testPatient.getIdentifier());
 		patientDashboard.startVisit();
 		
-		Waiter.waitForElementToDisplay(By.cssSelector("div.status-container"), 5, driver);
+		Waiter.waitForElementToDisplay(By.cssSelector("div.status-container"), 10, driver);
 		assertThat(patientDashboard.hasActiveVisit(), is(true));
 		
 		patientDashboard.addConsultNoteWithDischarge();		
@@ -46,12 +46,29 @@ public class ConsultationTest extends BasicMirebalaisSmokeTest {
 		appDashboard.findPatientById(testPatient.getIdentifier());
 		patientDashboard.startVisit();
 		
-		Waiter.waitForElementToDisplay(By.cssSelector("div.status-container"), 5, driver);
+		Waiter.waitForElementToDisplay(By.cssSelector("div.status-container"), 10, driver);
 		assertThat(patientDashboard.hasActiveVisit(), is(true));
 		
 		patientDashboard.addConsultNoteWithDeath();		
 		assertThat(patientDashboard.hasActiveVisit(), is(false));
 		assertThat(patientDashboard.showStartVisitButton(), is(true));
+		Toast.closeToast(driver);
+		headerPage.logOut();
+	}
+	
+	@Test
+	public void addEDNote() throws Exception {
+		loginPage.logInAsAdmin();
+		createPatient();
+
+		appDashboard.findPatientById(testPatient.getIdentifier());
+		patientDashboard.startVisit();
+		
+		Waiter.waitForElementToDisplay(By.cssSelector("div.status-container"), 10, driver);
+		assertThat(patientDashboard.hasActiveVisit(), is(true));
+		
+		patientDashboard.addEmergencyDepartmentNote();	
+		assertThat(patientDashboard.countEncouters(PatientDashboard.CONSULTATION), is(1));
 		Toast.closeToast(driver);
 		headerPage.logOut();
 	}
