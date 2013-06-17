@@ -1,8 +1,5 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.helper.Toast;
@@ -10,6 +7,9 @@ import org.openmrs.module.mirebalais.smoke.helper.Waiter;
 import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 import org.openqa.selenium.By;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 public class ConsultationTest extends BasicMirebalaisSmokeTest {
 
@@ -51,7 +51,7 @@ public class ConsultationTest extends BasicMirebalaisSmokeTest {
 		
 		patientDashboard.addConsultNoteWithDeath();		
 		assertThat(patientDashboard.hasActiveVisit(), is(false));
-		assertThat(patientDashboard.showStartVisitButton(), is(true));
+		assertThat(patientDashboard.showStartVisitButton(), is(false));
 		Toast.closeToast(driver);
 		headerPage.logOut();
 	}
