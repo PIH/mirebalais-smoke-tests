@@ -76,7 +76,7 @@ public class ConsultNoteForm extends AbstractPageObject {
 	}
 	
 	protected void chooseDisposition(String disposition) throws Exception {
-		clickOnOptionLookingForText(disposition, By.cssSelector("#dispositions option"));	
+		clickOnOptionLookingForText(disposition, By.cssSelector("#disposition-field option"));
 	}
 	
 	protected void confirmData() {
