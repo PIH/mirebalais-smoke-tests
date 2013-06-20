@@ -29,7 +29,8 @@ public class Registration extends AbstractPageObject {
 
     public String registerSpecificGuyWithoutPrintingCard(String name) {
     	clickOnSearchByNameButton();
-		enterFirstAndLastName(name);
+        clickNext();
+        enterFirstAndLastName(name);
 		enterSexData();
 		enterDateOfBirthData();
 		enterAddressLandmarkData();
@@ -42,6 +43,7 @@ public class Registration extends AbstractPageObject {
 
 	private void registerPatient() {
 		clickOnSearchByNameButton();
+        clickNext();
 		enterFirstAndLastName();
 		enterSexData();
 		enterDateOfBirthData();
