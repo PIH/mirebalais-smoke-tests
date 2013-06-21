@@ -31,10 +31,10 @@ public class NewCheckIn extends AbstractPageObject {
 	public void checkInPatientFillingTheFormTwice(String patientIdentifier) throws Exception {
 		findPatient(patientIdentifier);
 		confirmRightPatient();
-        clickOnVisitTypeOption(PHARMACY_VISIT);
+        clickOn(By.cssSelector(".question-legend:nth-child(2)")); // skip date selection for now
         clickOnPaymentOption(PAYMENT_50);
         clickOnNoButton();
-        clickOnVisitTypeOption(NON_CLINIC_VISIT);
+        clickOn(By.cssSelector(".question-legend:nth-child(2)")); // skip date selection for now
         clickOnPaymentOption(PAYMENT_EXEMPT);
 		confirmData();
 		confirmPopup();

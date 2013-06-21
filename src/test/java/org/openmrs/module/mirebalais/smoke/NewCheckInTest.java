@@ -32,7 +32,7 @@ public class NewCheckInTest extends BasicMirebalaisSmokeTest {
 	}
     
 	@Test
-	public void startAClinicVisitAndAddingASurgicalNote() throws Exception {
+	public void createRetrospectiveCheckIn() throws Exception {
         loginPage.logInAsAdmin();
         createPatient();
         
@@ -40,9 +40,9 @@ public class NewCheckInTest extends BasicMirebalaisSmokeTest {
         newCheckIn.checkInPatientFillingTheFormTwice(testPatient.getIdentifier());
         
         assertThat(newCheckIn.isPatientSearchDisplayed(), is(true));
-        
+
         appDashboard.findPatientById(testPatient.getIdentifier());
-        patientDashboard.addSurgicalNote();
-	}
+        assertThat(patientDashboard.getVisits().size(), is(1));
+    }
 
 }

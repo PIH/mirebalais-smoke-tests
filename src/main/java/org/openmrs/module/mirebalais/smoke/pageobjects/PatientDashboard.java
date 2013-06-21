@@ -177,6 +177,10 @@ public class PatientDashboard extends AbstractPageObject {
         	return false;
         }
 	}
+
+    public List<WebElement> getVisits() {
+        return driver.findElements(By.cssSelector(".menu-item.viewVisitDetails"));
+    }
 	
 	private void createFormsMap() {
 		formList = new HashMap<String, By>();
