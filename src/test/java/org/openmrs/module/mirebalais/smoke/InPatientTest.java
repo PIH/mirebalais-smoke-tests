@@ -1,8 +1,5 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
@@ -13,6 +10,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 public class InPatientTest extends BasicMirebalaisSmokeTest {
 
@@ -63,7 +63,7 @@ public class InPatientTest extends BasicMirebalaisSmokeTest {
 	}
 
 	private void waitForTableToUpdate(final int oldSize) {
-		Wait<WebDriver> wait = new WebDriverWait(driver, 10);
+		Wait<WebDriver> wait = new WebDriverWait(driver, 20);
     	wait.until(new ExpectedCondition<Boolean>() {
 			@Override
 			public Boolean apply(WebDriver webDriver) {
