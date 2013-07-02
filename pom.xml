@@ -22,10 +22,10 @@
     </organization>
 
     <properties>
-       <webapp.url>http://bamboo.pih-emr.org:8080/mirebalais</webapp.url>
-       <database.url>jdbc:mysql://bamboo.pih-emr.org:3306/openmrs</database.url>
-        <database.username>openmrs_editor</database.username>
-        <database.password>dr0pper</database.password>
+       <webapp.url>http://localhost:8080/openmrs</webapp.url>
+       <database.url>jdbc:mysql://localhost:3306/openmrs</database.url>
+        <database.username>openmrs</database.username>
+        <database.password>openmrs</database.password>
     </properties>
 
     <scm>

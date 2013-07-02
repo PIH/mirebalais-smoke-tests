@@ -14,16 +14,19 @@ import org.openmrs.module.mirebalais.smoke.dataModel.BasicReportData;
 import org.openmrs.module.mirebalais.smoke.pageobjects.BasicReportPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.EmergencyCheckin;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
+import org.openmrs.module.mirebalais.smoke.pageobjects.ReportsHomePage;
 
 public class EmergencyCheckinTest extends BasicMirebalaisSmokeTest {
 
     private EmergencyCheckin emergencyCheckinPO;
+	private ReportsHomePage reportsHomePage;
 	private BasicReportPage basicReport;
     
     @Before
     public void setUp() {
     	initBasicPageObjects();
         emergencyCheckinPO = new EmergencyCheckin(driver);
+		reportsHomePage = new ReportsHomePage(driver);
         basicReport = new BasicReportPage(driver);
     }
 
@@ -36,6 +39,7 @@ public class EmergencyCheckinTest extends BasicMirebalaisSmokeTest {
     @Test
     public void checkinOnEmergencyShouldCountOnReports() {
     	appDashboard.openReportApp();
+		reportsHomePage.openBasicStatisticsReport();
     	BasicReportData brd1 = basicReport.getData();
     	
     	appDashboard.openStartHospitalVisitApp();
@@ -46,6 +50,7 @@ public class EmergencyCheckinTest extends BasicMirebalaisSmokeTest {
         assertThat(patientRegistrationDashboard.getName(), Matchers.stringContainsInOrder(Arrays.asList("UNKNOWN", "UNKNOWN")));
         
         appDashboard.openReportApp();
+		reportsHomePage.openBasicStatisticsReport();
         BasicReportData brd2 = basicReport.getData();
         
         assertThat(brd2.getOpenVisits(), Matchers.greaterThan(brd1.getOpenVisits()));
