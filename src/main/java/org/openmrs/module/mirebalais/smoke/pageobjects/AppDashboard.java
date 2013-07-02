@@ -93,6 +93,10 @@ public class AppDashboard extends AbstractPageObject {
     public void openMasterPatientIndexApp() {
     	openApp(MASTER_PATIENT_INDEX);
 	}
+
+    public void openCheckinApp() {
+        openApp("mirebalais-liveCheckin-app");
+    }
     
 	public boolean isMasterPatientIndexPresented() {
 		return isAppButtonPresent(MASTER_PATIENT_INDEX);
@@ -163,6 +167,4 @@ public class AppDashboard extends AbstractPageObject {
 		driver.get(properties.getWebAppUrl());
 		super.findPatientById(patientIdentifier, "patient-search-field-search");
 	}
-
-	
 }

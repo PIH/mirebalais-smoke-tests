@@ -1,5 +1,7 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
+import org.openmrs.module.mirebalais.smoke.helper.SmokeTestProperties;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;

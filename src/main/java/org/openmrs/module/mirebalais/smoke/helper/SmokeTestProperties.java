@@ -1,4 +1,4 @@
-package org.openmrs.module.mirebalais.smoke.pageobjects;
+package org.openmrs.module.mirebalais.smoke.helper;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -26,6 +26,10 @@ public class SmokeTestProperties {
 
     public String getDatabasePassword() {
         return properties.getProperty("database.password", "");
+    }
+
+    public String getDatabaseDriverClass() {
+        return "com.mysql.jdbc.Driver";
     }
 
     private Properties load() {
