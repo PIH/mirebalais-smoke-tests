@@ -134,7 +134,7 @@ public class AppDashboard extends AbstractPageObject {
 	}
 
 	public Boolean isStartClinicVisitAppPresented() {
-		return isAppButtonPresent(START_CLINIC_VISIT_NEW);
+		return isAppButtonPresent(START_CLINIC_VISIT);
 	}
 
 	public Boolean isEditPatientAppPresented() {
