@@ -2,6 +2,7 @@ package org.openmrs.module.mirebalais.smoke;
 
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.flows.CheckInPatientFlow;
 import org.openmrs.module.mirebalais.smoke.helper.SmokeTestDriver;
@@ -10,6 +11,7 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 import org.openqa.selenium.WebDriver;
 
+@Ignore
 public class GenerateDossierAtCheckinTest extends DbTest {
     private static WebDriver driver;
 
