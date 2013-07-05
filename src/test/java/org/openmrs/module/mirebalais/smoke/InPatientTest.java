@@ -63,7 +63,7 @@ public class InPatientTest extends BasicMirebalaisSmokeTest {
 	}
 
 	private void waitForTableToUpdate(final int oldSize) {
-		Wait<WebDriver> wait = new WebDriverWait(driver, 20);
+		Wait<WebDriver> wait = new WebDriverWait(driver, 60);
     	wait.until(new ExpectedCondition<Boolean>() {
 			@Override
 			public Boolean apply(WebDriver webDriver) {
