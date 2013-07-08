@@ -1,8 +1,5 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -10,6 +7,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ArchivesRoomApp extends AbstractPageObject {
 
@@ -47,6 +47,10 @@ public class ArchivesRoomApp extends AbstractPageObject {
 		driver.findElement(By.name("mark-as-returned-identifier")).sendKeys(dossieNumber);
 		driver.findElement(By.name("mark-as-returned-identifier")).sendKeys(Keys.RETURN);
 	}
+
+    public void goToPullTab() {
+        driver.findElement(By.id("tab-selector-pull")).click();
+    }
 
 	public String createRecord(String patientIdentifier, String patientName) throws Exception {
 		int size = getAssignedRequestsTableSize();

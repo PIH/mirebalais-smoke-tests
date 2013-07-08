@@ -19,7 +19,7 @@ public class SearchAndConfirmPatientFlow {
         confirm();
     }
 
-    public void enterPatientIdentifier(String patientID) {
+    private void enterPatientIdentifier(String patientID) {
         WebElement searchField = driver.findElement(By.id("patient-search-field-search"));
         searchField.sendKeys(patientID);
         searchField.sendKeys(Keys.RETURN);

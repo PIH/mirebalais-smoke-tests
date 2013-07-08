@@ -8,21 +8,27 @@ import org.openqa.selenium.WebDriver;
 public class CheckInPatientFlow {
     private WebDriver driver;
     private SearchAndConfirmPatientFlow searchAndConfirmPatientFlow;
+    private CheckinFormPage checkinFormPage;
 
     public CheckInPatientFlow(WebDriver driver) {
         this.driver = driver;
         searchAndConfirmPatientFlow = new SearchAndConfirmPatientFlow(driver);
+        checkinFormPage = new CheckinFormPage(driver);
     }
 
     public void checkInAndCreateLocalDossierFor(String patientId) {
-        searchAndConfirmPatientFlow.confirmPatient(patientId);
-        new CheckinFormPage(driver).enterInfo();
+        confirmPatient(patientId);
+        checkIn();
+    }
+
+    public void checkIn() {
+        checkinFormPage.enterInfo();
 
         Waiter.waitForElementToDisplay(By.className("confirm"), 5, driver);
         driver.findElement(By.className("confirm")).click();
     }
 
-    public void enterPatientIdentifier(String patientIdentifier) {
-        searchAndConfirmPatientFlow.enterPatientIdentifier(patientIdentifier);
+    public void confirmPatient(String patientId) {
+        searchAndConfirmPatientFlow.confirmPatient(patientId);
     }
 }

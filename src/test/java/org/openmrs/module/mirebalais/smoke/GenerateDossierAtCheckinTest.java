@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.flows.CheckInPatientFlow;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
+import org.openmrs.module.mirebalais.smoke.pageobjects.ArchivesRoomApp;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 
@@ -23,14 +24,24 @@ public class GenerateDossierAtCheckinTest extends DbTest {
     public void shouldCreateDossierLocallyAtCheckinWhenDossierIsMissing() throws Exception {
         new LoginPage(driver).logIn("admin", "Admin123", 10);
 
-        new AppDashboard(driver).openCheckinApp();
+        AppDashboard dashboard = new AppDashboard(driver);
+        dashboard.openCheckinApp();
+
+        PatientDashboard patientDashboard = new PatientDashboard(driver);
 
         CheckInPatientFlow checkInPatientFlow = new CheckInPatientFlow(driver);
         checkInPatientFlow.checkInAndCreateLocalDossierFor("TESTIDTEST");
-        checkInPatientFlow.enterPatientIdentifier("TESTIDTEST");
+        checkInPatientFlow.confirmPatient("TESTIDTEST");
 
-        PatientDashboard patientDashboard = new PatientDashboard(driver);
-        assertTrue(patientDashboard.getDossieNumber().matches("A\\d{6}"));
+        String dossieNumber = patientDashboard.getDossieNumber();
+        assertTrue(dossieNumber.matches("A\\d{6}"));
+
+        checkInPatientFlow.checkIn();
+
+        dashboard.openArchivesRoomApp();
+        ArchivesRoomApp archives = new ArchivesRoomApp(driver);
+        archives.goToPullTab();
+        assertTrue(archives.isPatientInList(dossieNumber, "pull_requests_table"));
     }
 
     @Override
