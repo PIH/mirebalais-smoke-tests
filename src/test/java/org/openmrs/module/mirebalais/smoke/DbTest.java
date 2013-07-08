@@ -1,44 +1,44 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import org.dbunit.DBTestCase;
+import org.dbunit.JdbcDatabaseTester;
+import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.database.QueryDataSet;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.operation.DatabaseOperation;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.openmrs.module.mirebalais.smoke.helper.SmokeTestProperties;
 
-import static org.dbunit.PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL;
-import static org.dbunit.PropertiesBasedJdbcDatabaseTester.DBUNIT_DRIVER_CLASS;
-import static org.dbunit.PropertiesBasedJdbcDatabaseTester.DBUNIT_PASSWORD;
-import static org.dbunit.PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME;
-import static org.dbunit.operation.DatabaseOperation.DELETE;
-import static org.dbunit.operation.DatabaseOperation.REFRESH;
+public abstract class DbTest extends BasicMirebalaisSmokeTest {
 
-public abstract class DbTest extends DBTestCase {
+    private static SmokeTestProperties properties = new SmokeTestProperties();
+    private static JdbcDatabaseTester tester;
 
-    private SmokeTestProperties properties = new SmokeTestProperties();
-
-    public DbTest() {
-        super();
-        System.setProperty(DBUNIT_DRIVER_CLASS, properties.getDatabaseDriverClass());
-        System.setProperty(DBUNIT_CONNECTION_URL, properties.getDatabaseUrl());
-        System.setProperty(DBUNIT_USERNAME, properties.getDatabaseUsername());
-        System.setProperty(DBUNIT_PASSWORD, properties.getDatabasePassword());
+    @BeforeClass
+    public static void setDatabaseConnection() throws ClassNotFoundException {
+        tester = new JdbcDatabaseTester(properties.getDatabaseDriverClass(), properties.getDatabaseUrl(),
+                properties.getDatabaseUsername(), properties.getDatabasePassword());
     }
 
-    protected abstract IDataSet getDataSet() throws Exception;
-
-    @Override
-    protected DatabaseOperation getSetUpOperation() throws Exception {
-        return REFRESH;
+    @AfterClass
+    public static void closeDatabaseConnection() throws Exception {
+        tester.closeConnection(tester.getConnection());
     }
 
-    @Override
-    protected DatabaseOperation getTearDownOperation() throws Exception {
-        return DELETE;
+    @Before
+    public void setUp() throws Exception {
+        try {
+            DatabaseOperation.REFRESH.execute(getConnection(), getDataSet());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("set up failed", e);
+        }
     }
 
-    @Override
-    protected void tearDown() throws Exception {
+    @After
+    public void tearDown() throws Exception {
         try {
             QueryDataSet createdData = new QueryDataSet(getConnection());
             createdData.addTable("obs", "select * from obs where encounter_id in (select encounter_id from encounter where patient_id=9999999) and obs_group_id is not null");
@@ -54,9 +54,17 @@ public abstract class DbTest extends DBTestCase {
 
             DatabaseOperation.DELETE.execute(getConnection(), createdData);
 
-            super.tearDown();
+            DatabaseOperation.DELETE.execute(getConnection(), getDataSet());
         } catch (Exception e) {
             e.printStackTrace();
+            throw new Exception("tear down failed", e);
         }
     }
+
+    protected IDatabaseConnection getConnection() throws Exception {
+        return tester.getConnection();
+    }
+
+    protected abstract IDataSet getDataSet() throws Exception;
+
 }

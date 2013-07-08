@@ -4,7 +4,6 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.SmokeTestDriver;
-import org.openmrs.module.mirebalais.smoke.helper.SmokeTestProperties;
 import org.openmrs.module.mirebalais.smoke.helper.Waiter;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
@@ -16,7 +15,6 @@ import org.openqa.selenium.WebDriver;
 
 public abstract class BasicMirebalaisSmokeTest {
 
-    protected SmokeTestProperties properties = new SmokeTestProperties();
     protected static LoginPage loginPage;
     protected AppDashboard appDashboard;
     protected Registration registration;
