@@ -4,11 +4,13 @@ public class Patient {
 
 	private String name;
 	private String identifier;
+    private Integer id;
 	
-	public Patient(String identifier, String name) {
+	public Patient(String identifier, String name, Integer id) {
 		this.name = name;
 		this.identifier = identifier;
-	}
+        this.id = id;
+    }
 
 	public String getName() {
 		return name;
@@ -18,4 +20,7 @@ public class Patient {
 		return identifier;
 	}
 
+    public Integer getId() {
+        return id;
+    }
 }
