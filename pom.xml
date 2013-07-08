@@ -21,13 +21,6 @@
         <url>http://pih.org</url>
     </organization>
 
-    <properties>
-        <webapp.url>http://bamboo.pih-emr.org:8080/mirebalais</webapp.url>
-        <database.url>jdbc:mysql://bamboo.pih-emr.org:3306/openmrs</database.url>
-        <database.username>openmrs_editor</database.username>
-        <database.password>dr0pper</database.password>
-    </properties>
-
     <scm>
         <connection>scm:git:git@github.com:PIH/mirebalais-smoke-tests.git</connection>
         <developerConnection>scm:git:git@github.com:PIH/mirebalais-smoke-tests.git</developerConnection>
