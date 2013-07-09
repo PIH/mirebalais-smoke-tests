@@ -1,48 +1,36 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-
 import org.junit.Before;
 import org.junit.Test;
-import org.openmrs.module.mirebalais.smoke.pageobjects.CheckIn;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.VitalsApp;
-import org.openqa.selenium.By;
 
-public class CaptureVitalsTest extends BasicMirebalaisSmokeTest {
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
-	private CheckIn checkIn;
-	private VitalsApp vitals;
-	
-	@Before
-    public void setUp() {
-		initBasicPageObjects();
-		checkIn = new CheckIn(driver);
-		vitals = new VitalsApp(driver);
-	}
-	
-	@Test
-	public void checkInAndCaptureVitalsThruVitalsApp() throws Exception {
-		loginPage.logInAsAdmin();
-		createPatient();
+public class CaptureVitalsTest extends DbTest {
 
-		appDashboard.openActiveVisitsApp();
-		assertFalse(driver.findElement(By.id("content")).getText().contains(testPatient.getIdentifier()));
+    private VitalsApp vitals;
 
-        appDashboard.openStartClinicVisitApp();
-		checkIn.checkInPatient(testPatient);
-		
-		appDashboard.openActiveVisitsApp();
-		String contentText = driver.findElement(By.id("content")).getText();
-		assertThat(contentText.contains(testPatient.getName()), is(true));
-		assertThat(contentText.contains(testPatient.getIdentifier()), is(true));
-		
-		appDashboard.openCaptureVitalsApp();
-		vitals.captureVitalsForPatient(testPatient.getIdentifier());
+    @Before
+    public void setUp() throws Exception {
+        super.setUp();
+
+        initBasicPageObjects();
+        vitals = new VitalsApp(driver);
+    }
+
+    @Test
+    public void checkInAndCaptureVitalsThruVitalsApp() throws Exception {
+        loginPage.logInAsAdmin();
+
+        appDashboard.findPatientById(testPatient.getIdentifier());
+        patientDashboard.startVisit();
+
+        appDashboard.openCaptureVitalsApp();
+        vitals.captureVitalsForPatient(testPatient.getIdentifier());
         assertThat(vitals.isSearchPatientDisplayed(), is(true));
-        
+
         appDashboard.findPatientById(testPatient.getIdentifier());
         assertThat(patientDashboard.countEncouters(PatientDashboard.VITALS), is(1));
     }
