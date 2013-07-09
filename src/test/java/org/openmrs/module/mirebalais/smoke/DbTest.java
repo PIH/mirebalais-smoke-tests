@@ -1,15 +1,23 @@
 package org.openmrs.module.mirebalais.smoke;
 
+import com.github.jknack.handlebars.Handlebars;
+import com.github.jknack.handlebars.Template;
+import org.apache.commons.io.IOUtils;
 import org.dbunit.JdbcDatabaseTester;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.database.QueryDataSet;
 import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.ITable;
+import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.SmokeTestProperties;
+
+import java.io.InputStreamReader;
 
 public abstract class DbTest extends BasicMirebalaisSmokeTest {
 
@@ -61,10 +69,19 @@ public abstract class DbTest extends BasicMirebalaisSmokeTest {
         }
     }
 
-    protected IDatabaseConnection getConnection() throws Exception {
+    private IDatabaseConnection getConnection() throws Exception {
         return tester.getConnection();
     }
 
-    protected abstract IDataSet getDataSet() throws Exception;
+    private IDataSet getDataSet() throws Exception {
+        ITable patient_identifier_type = getConnection().createQueryTable("identifier_source", "select * from patient_identifier_type where name = 'ZL EMR ID'");
+        Integer patient_identifier_type_id = (Integer) patient_identifier_type.getValue(0, "patient_identifier_type_id");
+
+        testPatient = new Patient("TESTIDTEST", "Crash Test Dummy", 9999999, patient_identifier_type_id);
+        Handlebars handlebars = new Handlebars();
+        Template template = handlebars.compile("datasets/patients_dataset.xml");
+
+        return new FlatXmlDataSetBuilder().build(new InputStreamReader(IOUtils.toInputStream(template.apply(testPatient))));
+    }
 
 }

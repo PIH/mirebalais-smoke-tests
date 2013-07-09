@@ -5,11 +5,13 @@ public class Patient {
 	private String name;
 	private String identifier;
     private Integer id;
-	
-	public Patient(String identifier, String name, Integer id) {
+    private Integer identifier_id;
+
+    public Patient(String identifier, String name, Integer id, Integer identifier_id) {
 		this.name = name;
 		this.identifier = identifier;
         this.id = id;
+        this.identifier_id = identifier_id;
     }
 
 	public String getName() {
@@ -22,5 +24,9 @@ public class Patient {
 
     public Integer getId() {
         return id;
+    }
+
+    public Integer getIdentifier_id() {
+        return identifier_id;
     }
 }
