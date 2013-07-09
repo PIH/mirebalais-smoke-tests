@@ -1,6 +1,5 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.ArchivesRoomApp;
@@ -28,7 +27,7 @@ public class ArchivesRoomFlowTest extends DbTest {
 		 
 		appDashboard.openArchivesRoomApp();
 
-        String dossierNumber = archivesRoomApp.createRecord(testPatient.getIdentifier(), testPatient.getName());
+        String dossierNumber = archivesRoomApp.createRecord(testPatient.getIdentifier());
         archivesRoomApp.sendDossier(dossierNumber);
         archivesRoomApp.returnRecord(dossierNumber);
 
@@ -37,11 +36,5 @@ public class ArchivesRoomFlowTest extends DbTest {
 		assertThat(patientDashboard.getDossierNumber(), is(dossierNumber));
 		assertThat(patientDashboard.canRequestRecord(), is(true));
 	}
-	
-	@After
-	public void cleanAllRequests() {
-		appDashboard.openArchivesRoomApp();
-		archivesRoomApp.clearRequestList();
-	}
-		
+
 }
