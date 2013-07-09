@@ -28,13 +28,13 @@ public class ArchivesRoomFlowTest extends DbTest {
 		 
 		appDashboard.openArchivesRoomApp();
 
-        String dossieNumber = archivesRoomApp.createRecord(testPatient.getIdentifier(), testPatient.getName());
-        archivesRoomApp.sendDossie(dossieNumber);
-        archivesRoomApp.returnRecord(dossieNumber);
+        String dossierNumber = archivesRoomApp.createRecord(testPatient.getIdentifier(), testPatient.getName());
+        archivesRoomApp.sendDossier(dossierNumber);
+        archivesRoomApp.returnRecord(dossierNumber);
 
         appDashboard.findPatientById(testPatient.getIdentifier());
 
-		assertThat(patientDashboard.getDossieNumber(), is(dossieNumber));
+		assertThat(patientDashboard.getDossierNumber(), is(dossierNumber));
 		assertThat(patientDashboard.canRequestRecord(), is(true));
 	}
 	

@@ -24,7 +24,7 @@ public class GenerateDossierAtCheckinTest extends DbTest {
         checkInPatientFlow.checkInAndCreateLocalDossierFor("TESTIDTEST");
         checkInPatientFlow.confirmPatient("TESTIDTEST");
 
-        String dossieNumber = patientDashboard.getDossieNumber();
+        String dossieNumber = patientDashboard.getDossierNumber();
         assertTrue(dossieNumber.matches("A\\d{6}"));
 
         checkInPatientFlow.checkIn();

@@ -158,7 +158,7 @@ public class PatientDashboard extends AbstractPageObject {
 		clickOn(By.cssSelector("#request-paper-record-dialog .confirm"));
 	}
 
-	public String getDossieNumber() {
+	public String getDossierNumber() {
 		List<WebElement> elements = driver.findElements(By.cssSelector(".identifiers span"));
 		return elements.get(1).getText();
 	}

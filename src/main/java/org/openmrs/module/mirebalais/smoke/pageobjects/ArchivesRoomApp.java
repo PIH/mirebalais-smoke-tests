@@ -37,7 +37,7 @@ public class ArchivesRoomApp extends AbstractPageObject {
 		throw new Exception(String.format("Patient %s not found", patientIdentifier));
 	}
 	
-	public void sendDossie(String dossieNumber) {
+	public void sendDossier(String dossieNumber) {
 		driver.findElement(By.name("mark-as-pulled-identifier")).sendKeys(dossieNumber);
 		driver.findElement(By.name("mark-as-pulled-identifier")).sendKeys(Keys.RETURN);
 	}
@@ -93,7 +93,7 @@ public class ArchivesRoomApp extends AbstractPageObject {
 	public void clearRequestList() {
 		List<String> dossierNumbers = filterDossierNumbers(driver.findElements(By.cssSelector("#assigned_create_requests_table span")));
 		for (String dossieNumber : dossierNumbers) {
-			sendDossie(dossieNumber);
+			sendDossier(dossieNumber);
 		}
 	}
 
