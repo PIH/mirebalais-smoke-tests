@@ -7,7 +7,8 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.ArchivesRoomApp;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 
-import static junit.framework.Assert.assertTrue;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 public class GenerateDossierAtCheckinTest extends DbTest {
 
@@ -21,18 +22,18 @@ public class GenerateDossierAtCheckinTest extends DbTest {
         PatientDashboard patientDashboard = new PatientDashboard(driver);
 
         CheckInPatientFlow checkInPatientFlow = new CheckInPatientFlow(driver);
-        checkInPatientFlow.checkInAndCreateLocalDossierFor("TESTIDTEST");
-        checkInPatientFlow.confirmPatient("TESTIDTEST");
+        checkInPatientFlow.checkInAndCreateLocalDossierFor(testPatient.getIdentifier());
+        checkInPatientFlow.confirmPatient(testPatient.getIdentifier());
 
-        String dossieNumber = patientDashboard.getDossierNumber();
-        assertTrue(dossieNumber.matches("A\\d{6}"));
+        assertThat(patientDashboard.getDossierNumber().matches("A\\d{6}"), is(true));
 
         checkInPatientFlow.checkIn();
 
         dashboard.openArchivesRoomApp();
         ArchivesRoomApp archives = new ArchivesRoomApp(driver);
         archives.goToPullTab();
-        assertTrue(archives.isPatientInList("TESTIDTEST", "pull_requests_table"));
+
+        assertThat(archives.isPatientInList(testPatient.getIdentifier(), "pull_requests_table"), is(true));
     }
 
 }
