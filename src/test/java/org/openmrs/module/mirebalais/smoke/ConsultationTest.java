@@ -1,77 +1,58 @@
 package org.openmrs.module.mirebalais.smoke;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
-import org.openmrs.module.mirebalais.smoke.helper.Toast;
-import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
+import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
-public class ConsultationTest extends BasicMirebalaisSmokeTest {
+public class ConsultationTest extends DbTest {
 
-	private HeaderPage headerPage;
-	
-	@Before
-    public void setUp() {
-		initBasicPageObjects();
-		headerPage = new HeaderPage(driver);
-	}
-	
-	@Test
-	public void addConsultationToAVisitWithoutCheckin() throws Exception {
-		loginPage.logInAsAdmin();
-		createPatient();
+    private WebDriverWait wait10seconds = new WebDriverWait(driver, 10);
 
-		appDashboard.findPatientById(testPatient.getIdentifier());
-		patientDashboard.startVisit();
+    @BeforeClass
+    public static void login() {
+        new LoginPage(driver).logInAsAdmin();
+    }
 
-        new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.status-container")));
-        assertThat(patientDashboard.hasActiveVisit(), is(true));
-		
-		patientDashboard.addConsultNoteWithDischarge();		
-		assertThat(patientDashboard.countEncouters(PatientDashboard.CONSULTATION), is(1));
-		Toast.closeToast(driver);
-		headerPage.logOut();
-	}
-	
-	@Test
-	public void addConsultationNoteWithDeathAsDispositionClosesVisit() throws Exception {
-		loginPage.logInAsAdmin();
-		createPatient();
+    @Before
+    public void setUp() throws Exception {
+        super.setUp();
+        initBasicPageObjects();
 
-		appDashboard.findPatientById(testPatient.getIdentifier());
-		patientDashboard.startVisit();
+        appDashboard.goToPatientPage(testPatient.getId());
+        patientDashboard.startVisit();
 
-        new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.status-container")));
-        assertThat(patientDashboard.hasActiveVisit(), is(true));
-		
-		patientDashboard.addConsultNoteWithDeath();		
-		assertThat(patientDashboard.hasActiveVisit(), is(false));
-		assertThat(patientDashboard.showStartVisitButton(), is(false));
-		Toast.closeToast(driver);
-		headerPage.logOut();
-	}
-	
-	@Test
-	public void addEDNote() throws Exception {
-		loginPage.logInAsAdmin();
-		createPatient();
+        wait10seconds.until(visibilityOfElementLocated(By.cssSelector("div.status-container")));
+    }
 
-		appDashboard.findPatientById(testPatient.getIdentifier());
-		patientDashboard.startVisit();
+    @Test
+    public void addConsultationToAVisitWithoutCheckin() throws Exception {
+        patientDashboard.addConsultNoteWithDischarge();
 
-        new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.status-container")));
-        assertThat(patientDashboard.hasActiveVisit(), is(true));
-		
-		patientDashboard.addEmergencyDepartmentNote();	
-		assertThat(patientDashboard.countEncouters(PatientDashboard.CONSULTATION), is(1));
-		Toast.closeToast(driver);
-		headerPage.logOut();
-	}
-	
+        assertThat(patientDashboard.countEncouters(PatientDashboard.CONSULTATION), is(1));
+    }
+
+
+    @Test
+    public void addConsultationNoteWithDeathAsDispositionClosesVisit() throws Exception {
+        patientDashboard.addConsultNoteWithDeath();
+
+        assertThat(patientDashboard.isDead(), is(true));
+        assertThat(patientDashboard.hasActiveVisit(), is(false));
+        assertThat(patientDashboard.startVisitButtonIsVisible(), is(false));
+    }
+
+    @Test
+    public void addEDNote() throws Exception {
+        patientDashboard.addEmergencyDepartmentNote();
+
+        assertThat(patientDashboard.countEncouters(PatientDashboard.CONSULTATION), is(1));
+    }
 }

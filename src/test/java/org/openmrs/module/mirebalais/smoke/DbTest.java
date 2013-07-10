@@ -6,6 +6,7 @@ import org.apache.commons.io.IOUtils;
 import org.dbunit.JdbcDatabaseTester;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.database.QueryDataSet;
+import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
@@ -17,12 +18,15 @@ import org.junit.BeforeClass;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.SmokeTestProperties;
 
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.BigInteger;
 
 public abstract class DbTest extends BasicMirebalaisSmokeTest {
 
     private static SmokeTestProperties properties = new SmokeTestProperties();
     private static JdbcDatabaseTester tester;
+    private IDataSet dataset;
 
     @BeforeClass
     public static void setDatabaseConnection() throws ClassNotFoundException {
@@ -38,7 +42,11 @@ public abstract class DbTest extends BasicMirebalaisSmokeTest {
     @Before
     public void setUp() throws Exception {
         try {
-            DatabaseOperation.REFRESH.execute(getConnection(), getDataSet());
+            testPatient = new Patient("Y00001", "Crash Test Dummy", getNextAutoIncrementFor("person"), getPatientIdentifierId(),
+                    getNextAutoIncrementFor("person_name"), getNextAutoIncrementFor("person_address"), getNextAutoIncrementFor("patient_identifier"));
+            dataset = createDataset();
+
+            DatabaseOperation.INSERT.execute(getConnection(), dataset);
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("set up failed", e);
@@ -49,20 +57,21 @@ public abstract class DbTest extends BasicMirebalaisSmokeTest {
     public void tearDown() throws Exception {
         try {
             QueryDataSet createdData = new QueryDataSet(getConnection());
-            createdData.addTable("obs", "select * from obs where encounter_id in (select encounter_id from encounter where patient_id=9999999) and obs_group_id is not null");
+            createdData.addTable("obs", "select * from obs where encounter_id in (select encounter_id from encounter where patient_id=" + testPatient.getId() + ") and obs_group_id is not null");
             DatabaseOperation.DELETE.execute(getConnection(), createdData);
 
             createdData = new QueryDataSet(getConnection());
-            createdData.addTable("patient_identifier", "select * from patient_identifier where patient_id=9999999");
-            createdData.addTable("emr_paper_record_request", "select * from emr_paper_record_request where patient_id=9999999");
-            createdData.addTable("visit", "select * from visit where patient_id=9999999");
-            createdData.addTable("encounter", "select * from encounter where patient_id=9999999");
-            createdData.addTable("obs", "select * from obs where encounter_id in (select encounter_id from encounter where patient_id=9999999)");
-            createdData.addTable("encounter_provider", "select * from encounter_provider where encounter_id in (select encounter_id from encounter where patient_id=9999999)");
+            createdData.addTable("name_phonetics", "select * from name_phonetics where person_name_id = " + testPatient.getPerson_name_id());
+            createdData.addTable("patient_identifier", "select * from patient_identifier where patient_id="+ testPatient.getId());
+            createdData.addTable("emr_paper_record_request", "select * from emr_paper_record_request where patient_id="+ testPatient.getId());
+            createdData.addTable("visit", "select * from visit where patient_id=" + testPatient.getId());
+            createdData.addTable("encounter", "select * from encounter where patient_id="+ testPatient.getId());
+            createdData.addTable("obs", "select * from obs where encounter_id in (select encounter_id from encounter where patient_id="+ testPatient.getId() + ")");
+            createdData.addTable("encounter_provider", "select * from encounter_provider where encounter_id in (select encounter_id from encounter where patient_id="+ testPatient.getId() + ")");
 
             DatabaseOperation.DELETE.execute(getConnection(), createdData);
 
-            DatabaseOperation.DELETE.execute(getConnection(), getDataSet());
+            DatabaseOperation.DELETE.execute(getConnection(), dataset);
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("tear down failed", e);
@@ -73,15 +82,22 @@ public abstract class DbTest extends BasicMirebalaisSmokeTest {
         return tester.getConnection();
     }
 
-    private IDataSet getDataSet() throws Exception {
-        ITable patient_identifier_type = getConnection().createQueryTable("identifier_source", "select * from patient_identifier_type where name = 'ZL EMR ID'");
-        Integer patient_identifier_type_id = (Integer) patient_identifier_type.getValue(0, "patient_identifier_type_id");
-
-        testPatient = new Patient("TESTIDTEST", "Crash Test Dummy", 9999999, patient_identifier_type_id);
+    private IDataSet createDataset() throws IOException, DataSetException {
         Handlebars handlebars = new Handlebars();
         Template template = handlebars.compile("datasets/patients_dataset.xml");
 
         return new FlatXmlDataSetBuilder().build(new InputStreamReader(IOUtils.toInputStream(template.apply(testPatient))));
     }
 
+    private Integer getPatientIdentifierId() throws Exception {
+        ITable patientIdentifierType = getConnection().createQueryTable("identifier_source",
+                "select * from patient_identifier_type where name = 'ZL EMR ID'");
+        return (Integer) patientIdentifierType.getValue(0, "patient_identifier_type_id");
+    }
+
+    private BigInteger getNextAutoIncrementFor(String table_name) throws Exception {
+        ITable autoIncrement = getConnection().createQueryTable(table_name,
+                "select Auto_increment from information_schema.tables where table_schema = DATABASE() AND table_name = '" + table_name + "'");
+        return (BigInteger) autoIncrement.getValue(0, "Auto_increment");
+    }
 }

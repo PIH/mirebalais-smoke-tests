@@ -17,7 +17,8 @@ package org.openmrs.module.mirebalais.smoke.pageobjects;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.math.BigInteger;
 
 public class AppDashboard extends AbstractPageObject {
 
@@ -167,4 +168,8 @@ public class AppDashboard extends AbstractPageObject {
 		driver.get(properties.getWebAppUrl());
 		super.findPatientById(patientIdentifier, "patient-search-field-search");
 	}
+
+    public void goToPatientPage(BigInteger patientId) {
+        driver.get(properties.getWebAppUrl() + "/coreapps/patientdashboard/patientDashboard.page?patientId=" + patientId);
+    }
 }

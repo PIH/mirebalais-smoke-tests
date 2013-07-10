@@ -19,10 +19,9 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.forms.EmergencyDepartment
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.SurgicalPostOperativeNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.XRayForm;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -169,15 +168,14 @@ public class PatientDashboard extends AbstractPageObject {
 		return driver.findElement(By.className("icon-folder-open")).isDisplayed();
 	}
 
-	public Boolean showStartVisitButton() {
-		try {
-            new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#noVisitShowVisitCreationDialog")));
+	public Boolean startVisitButtonIsVisible() {
+        try {
+            driver.findElement(By.id("noVisitShowVisitCreationDialog"));
             return true;
-        } catch (Exception e) {
-        	e.printStackTrace();
-        	return false;
+        } catch (NoSuchElementException e) {
+            return false;
         }
-	}
+    }
 
     public List<WebElement> getVisits() {
         return driver.findElements(By.cssSelector(".menu-item.viewVisitDetails"));
@@ -191,4 +189,12 @@ public class PatientDashboard extends AbstractPageObject {
 		formList.put("ED Note", By.cssSelector("#visit-details a:nth-child(4) .icon-stethoscope"));
 	}
 
+    public boolean isDead() {
+        try {
+            driver.findElement(By.className("death-message"));
+            return true;
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
 }
