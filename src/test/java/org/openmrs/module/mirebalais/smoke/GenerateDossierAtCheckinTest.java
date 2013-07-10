@@ -32,7 +32,7 @@ public class GenerateDossierAtCheckinTest extends DbTest {
         dashboard.openArchivesRoomApp();
         ArchivesRoomApp archives = new ArchivesRoomApp(driver);
         archives.goToPullTab();
-        assertTrue(archives.isPatientInList(dossieNumber, "pull_requests_table"));
+        assertTrue(archives.isPatientInList("TESTIDTEST", "pull_requests_table"));
     }
 
 }
