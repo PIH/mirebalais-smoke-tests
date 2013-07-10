@@ -1,11 +1,12 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
-import org.openmrs.module.mirebalais.smoke.helper.Waiter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ArchivesRoomApp extends AbstractPageObject {
 
@@ -44,7 +45,7 @@ public class ArchivesRoomApp extends AbstractPageObject {
 	public String createRecord(String patientIdentifier) throws Exception {
 		findPatientInTheList(patientIdentifier, "create_requests_table").click();
 		clickOnAssign();
-        Waiter.waitForElementToDisplay(By.cssSelector("#assigned_create_requests_table #" + patientIdentifier), 5, driver);
+        wait5seconds.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#assigned_create_requests_table #" + patientIdentifier)));
         return getDossieNumber(patientIdentifier);
 	}
 

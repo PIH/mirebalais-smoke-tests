@@ -14,7 +14,6 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
-import org.openmrs.module.mirebalais.smoke.helper.Waiter;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.ConsultNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.EmergencyDepartmentNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.SurgicalPostOperativeNoteForm;
@@ -22,6 +21,8 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.forms.XRayForm;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -170,8 +171,8 @@ public class PatientDashboard extends AbstractPageObject {
 
 	public Boolean showStartVisitButton() {
 		try {
-        	Waiter.waitForElementToDisplay(By.cssSelector("#noVisitShowVisitCreationDialog"),10, driver);
-        	return true;
+            new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#noVisitShowVisitCreationDialog")));
+            return true;
         } catch (Exception e) {
         	e.printStackTrace();
         	return false;

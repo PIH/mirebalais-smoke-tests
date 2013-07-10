@@ -4,7 +4,6 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.SmokeTestDriver;
-import org.openmrs.module.mirebalais.smoke.helper.Waiter;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
@@ -12,6 +11,8 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.PatientRegistrationDashbo
 import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class BasicMirebalaisSmokeTest {
 
@@ -51,9 +52,9 @@ public abstract class BasicMirebalaisSmokeTest {
 	protected void startVisit() throws Exception {
 		appDashboard.findPatientById(testPatient.getIdentifier());
 		patientDashboard.startVisit();
-		 
-		Waiter.waitForElementToDisplay(By.cssSelector("div.status-container"), 5, driver);
-	}
+
+        new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.status-container")));
+    }
 	
 
 }

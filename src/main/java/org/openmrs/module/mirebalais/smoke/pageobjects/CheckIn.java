@@ -1,20 +1,15 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
-import org.openmrs.module.mirebalais.smoke.helper.Waiter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class CheckIn extends AbstractPageObject {
 
-	private Wait<WebDriver> wait;
-	
-	public CheckIn(WebDriver driver) {
+    public CheckIn(WebDriver driver) {
 		super(driver);
-		wait = new WebDriverWait(driver,2);
 	}
 
 	
@@ -22,7 +17,7 @@ public class CheckIn extends AbstractPageObject {
 		driver.findElement(By.id("patientIdentifier")).sendKeys(testPatient.getIdentifier());
 		clickNext();
 		
-		wait.until(new ExpectedCondition<Boolean>() {
+		wait5seconds.until(new ExpectedCondition<Boolean>() {
 			@Override
 			public Boolean apply(WebDriver webDriver) {
 				return 	webDriver.findElement(By.id("okBtn")).isDisplayed() &&
@@ -36,12 +31,8 @@ public class CheckIn extends AbstractPageObject {
 		choosePaymentAmount(PAYMENT_50);
         clickYellowCheckMark();
 
-        Waiter.waitForElementToDisplay(By.id("medicalRecordLocationBtn"), 5, driver);
+        wait5seconds.until(ExpectedConditions.visibilityOfElementLocated(By.id("medicalRecordLocationBtn")));
         driver.findElement(By.id("medicalRecordLocationBtn")).click();
-/*
-    	Waiter.waitForElementToDisplay(By.id("okDialog"), 5, driver);
-		driver.findElement(By.id("okDialog")).click();
-*/
 	}
 	
 	public void enterReceiptNumber(String receiptNumber) {

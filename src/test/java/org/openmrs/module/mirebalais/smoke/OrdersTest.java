@@ -1,14 +1,15 @@
 package org.openmrs.module.mirebalais.smoke;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.openmrs.module.mirebalais.smoke.helper.Waiter;
-import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
-import org.openqa.selenium.By;
 
 public class OrdersTest extends BasicMirebalaisSmokeTest {
 
@@ -19,7 +20,7 @@ public class OrdersTest extends BasicMirebalaisSmokeTest {
 	public void setUp() {
     	initBasicPageObjects();
     }
-    
+
 	@Test
 	public void orderSingleXRay() throws Exception{
         loginPage.logInAsAdmin();
@@ -28,7 +29,7 @@ public class OrdersTest extends BasicMirebalaisSmokeTest {
         appDashboard.findPatientById(testPatient.getIdentifier());
         patientDashboard.startVisit();
 
-        Waiter.waitForElementToDisplay(By.cssSelector("div.status-container"), 5, driver);
+        new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.status-container")));
         assertTrue(patientDashboard.hasActiveVisit());
 		patientDashboard.orderXRay(STUDY_1, STUDY_2);
 		

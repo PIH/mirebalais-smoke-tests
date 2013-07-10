@@ -1,10 +1,11 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
-import org.openmrs.module.mirebalais.smoke.helper.Waiter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class VitalsApp extends AbstractPageObject {
 
@@ -69,8 +70,8 @@ public class VitalsApp extends AbstractPageObject {
 	
 	public boolean isSearchPatientDisplayed() {
         try {
-        	Waiter.waitForElementToDisplay(SEARCH_PATIENT_FIELD, 20, driver);
-        	return true;
+            new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(SEARCH_PATIENT_FIELD));
+            return true;
         } catch (Exception e) {
         	e.printStackTrace();
         	return false;

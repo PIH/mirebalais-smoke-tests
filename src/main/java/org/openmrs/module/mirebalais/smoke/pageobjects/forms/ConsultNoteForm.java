@@ -14,11 +14,12 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects.forms;
 
-import org.openmrs.module.mirebalais.smoke.helper.Waiter;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AbstractPageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ConsultNoteForm extends AbstractPageObject {
 
@@ -64,8 +65,8 @@ public class ConsultNoteForm extends AbstractPageObject {
 	}
 	
 	protected String chooseOption(By placeCombo) {
-    	Waiter.waitForElementToDisplay(placeCombo, 10, driver);
-		WebElement option = getRandomOptionExcludingFirst(placeCombo);
+        new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(placeCombo));
+        WebElement option = getRandomOptionExcludingFirst(placeCombo);
 		option.click();
 		return option.getText();
 	}

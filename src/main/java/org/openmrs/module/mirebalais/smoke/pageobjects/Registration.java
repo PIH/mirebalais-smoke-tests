@@ -1,10 +1,10 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
 import org.openmrs.module.mirebalais.smoke.helper.NameGenerator;
-import org.openmrs.module.mirebalais.smoke.helper.Waiter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -14,7 +14,7 @@ public class Registration extends AbstractPageObject {
 	
 	public Registration(WebDriver driver) {
         super(driver);
-        wait = new WebDriverWait(driver, 5);
+        wait = wait5seconds;
     }
 	
 	public void goThruRegistrationProcessWithoutPrintingCard() {
@@ -65,9 +65,9 @@ public class Registration extends AbstractPageObject {
 			}
 		});
 		driver.findElement(By.id("confirmExistingPatientDiv")).click();
-		
-		Waiter.waitForElementToDisplay(By.id("confirmExistingPatientModalDiv"), 5, driver);
-	}
+
+        wait5seconds.until(ExpectedConditions.visibilityOfElementLocated(By.id("confirmExistingPatientModalDiv")));
+    }
 
 	private void clickOnSearchByNameButton() {
 		driver.findElement(By.id("searchByNameBtn")).click();
@@ -123,8 +123,8 @@ public class Registration extends AbstractPageObject {
 	}
 
     protected void enterPhoneData() {
-		Waiter.waitForElementToDisplay(By.id("patientInputPhoneNumber"), 5, driver);
-		driver.findElement(By.id("patientInputPhoneNumber")).sendKeys("11111111");
+        wait5seconds.until(ExpectedConditions.visibilityOfElementLocated(By.id("patientInputPhoneNumber")));
+        driver.findElement(By.id("patientInputPhoneNumber")).sendKeys("11111111");
         clickNext();
     }
 

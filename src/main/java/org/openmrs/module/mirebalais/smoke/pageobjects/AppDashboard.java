@@ -14,9 +14,10 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
-import org.openmrs.module.mirebalais.smoke.helper.Waiter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class AppDashboard extends AbstractPageObject {
 
@@ -78,8 +79,8 @@ public class AppDashboard extends AbstractPageObject {
     
     public void openCaptureVitalsApp() {
         openApp(CAPTURE_VITALS);
-        Waiter.waitForElementToDisplay(By.id("patient-search-field-search"), 5, driver);
-	}
+        wait5seconds.until(ExpectedConditions.visibilityOfElementLocated(By.id("patient-search-field-search")));
+    }
     
     public void openReportApp() {
     	 openApp(REPORTS);

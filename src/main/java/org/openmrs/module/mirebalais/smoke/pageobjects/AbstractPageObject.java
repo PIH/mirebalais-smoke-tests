@@ -20,6 +20,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
@@ -28,12 +29,14 @@ public abstract class AbstractPageObject {
     protected SmokeTestProperties properties = new SmokeTestProperties();
 
     protected WebDriver driver;
+    protected WebDriverWait wait5seconds;
     private String baseServerUrl;
     private LoginPage loginPO;
 
     public AbstractPageObject(WebDriver driver) {
         this.driver = driver;
         this.loginPO = new LoginPage(driver);
+        this.wait5seconds = new WebDriverWait(driver, 5);
         setBaseServerUrl();
     }
 

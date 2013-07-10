@@ -1,9 +1,10 @@
 package org.openmrs.module.mirebalais.smoke.flows;
 
-import org.openmrs.module.mirebalais.smoke.helper.Waiter;
 import org.openmrs.module.mirebalais.smoke.pageobjects.CheckinFormPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CheckInPatientFlow {
     private WebDriver driver;
@@ -24,7 +25,7 @@ public class CheckInPatientFlow {
     public void checkIn() {
         checkinFormPage.enterInfo();
 
-        Waiter.waitForElementToDisplay(By.className("confirm"), 5, driver);
+        new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(By.className("confirm")));
         driver.findElement(By.className("confirm")).click();
     }
 

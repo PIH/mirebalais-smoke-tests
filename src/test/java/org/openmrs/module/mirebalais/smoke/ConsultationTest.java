@@ -3,10 +3,11 @@ package org.openmrs.module.mirebalais.smoke;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.helper.Toast;
-import org.openmrs.module.mirebalais.smoke.helper.Waiter;
 import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -28,9 +29,9 @@ public class ConsultationTest extends BasicMirebalaisSmokeTest {
 
 		appDashboard.findPatientById(testPatient.getIdentifier());
 		patientDashboard.startVisit();
-		
-		Waiter.waitForElementToDisplay(By.cssSelector("div.status-container"), 10, driver);
-		assertThat(patientDashboard.hasActiveVisit(), is(true));
+
+        new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.status-container")));
+        assertThat(patientDashboard.hasActiveVisit(), is(true));
 		
 		patientDashboard.addConsultNoteWithDischarge();		
 		assertThat(patientDashboard.countEncouters(PatientDashboard.CONSULTATION), is(1));
@@ -45,9 +46,9 @@ public class ConsultationTest extends BasicMirebalaisSmokeTest {
 
 		appDashboard.findPatientById(testPatient.getIdentifier());
 		patientDashboard.startVisit();
-		
-		Waiter.waitForElementToDisplay(By.cssSelector("div.status-container"), 10, driver);
-		assertThat(patientDashboard.hasActiveVisit(), is(true));
+
+        new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.status-container")));
+        assertThat(patientDashboard.hasActiveVisit(), is(true));
 		
 		patientDashboard.addConsultNoteWithDeath();		
 		assertThat(patientDashboard.hasActiveVisit(), is(false));
@@ -63,9 +64,9 @@ public class ConsultationTest extends BasicMirebalaisSmokeTest {
 
 		appDashboard.findPatientById(testPatient.getIdentifier());
 		patientDashboard.startVisit();
-		
-		Waiter.waitForElementToDisplay(By.cssSelector("div.status-container"), 10, driver);
-		assertThat(patientDashboard.hasActiveVisit(), is(true));
+
+        new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.status-container")));
+        assertThat(patientDashboard.hasActiveVisit(), is(true));
 		
 		patientDashboard.addEmergencyDepartmentNote();	
 		assertThat(patientDashboard.countEncouters(PatientDashboard.CONSULTATION), is(1));
