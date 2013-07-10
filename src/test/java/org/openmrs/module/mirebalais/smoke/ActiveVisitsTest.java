@@ -14,52 +14,35 @@
 
 package org.openmrs.module.mirebalais.smoke;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import org.junit.Before;
 import org.junit.Test;
-import org.openmrs.module.mirebalais.smoke.pageobjects.CheckIn;
-import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 import org.openqa.selenium.By;
 
-public class ActiveVisitsTest extends BasicMirebalaisSmokeTest{
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
+import static org.junit.matchers.JUnitMatchers.containsString;
 
-	private CheckIn checkIn;
-	
-	@Before
-    public void setUp() {
+public class ActiveVisitsTest extends DbTest {
+    @Before
+    public void setUp() throws Exception {
+        super.setUp();
+
 		initBasicPageObjects();
-		checkIn = new CheckIn(driver);
-	}
+    }
 	
 	@Test
-	public void checkInPatientDeletingEncounterMustKeepActiveVisit() throws Exception {
+	public void shouldShowActiveVisitAfterStartVisit() throws Exception {
 		loginPage.logInAsAdmin();
-		createPatient();
 
 		appDashboard.openActiveVisitsApp();
 		assertFalse(driver.findElement(By.id("content")).getText().contains(testPatient.getIdentifier()));
 
-        appDashboard.openStartClinicVisitApp();
-		checkIn.checkInPatient(testPatient);
-		
-		appDashboard.findPatientById(testPatient.getIdentifier());
-		assertTrue(patientDashboard.hasActiveVisit());
-		
-		try {
-			patientDashboard.deleteEncounter(PatientDashboard.CHECKIN);
-		} catch (Exception e) {
-			fail();
-		}
-		
-		appDashboard.findPatientById(testPatient.getIdentifier());
-		
-		assertThat(patientDashboard.countEncouters(PatientDashboard.CHECKIN), is(0));
-		assertTrue(patientDashboard.hasActiveVisit());
-	}
+        appDashboard.findPatientById(testPatient.getIdentifier());
+        patientDashboard.startVisit();
 
+        appDashboard.openActiveVisitsApp();
+        String contentText = driver.findElement(By.id("content")).getText();
+        assertThat(contentText, containsString(testPatient.getName()));
+        assertThat(contentText, containsString(testPatient.getIdentifier()));
+	}
 }
