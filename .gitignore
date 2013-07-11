@@ -6,3 +6,4 @@ chromedriver.log
 .project
 .settings
 .DS_Store
+libpeerconnection.log
