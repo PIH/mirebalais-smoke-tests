@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.InPatientList;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
+import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -13,6 +14,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class InPatientTest extends BasicMirebalaisSmokeTest {
 
@@ -31,7 +33,10 @@ public class InPatientTest extends BasicMirebalaisSmokeTest {
 		loginPage.logInAsAdmin();
 		
 		createPatient();
-		startVisit();
+        appDashboard.findPatientById(testPatient.getIdentifier());
+        patientDashboard.startVisit();
+
+        new WebDriverWait(driver, 5).until(visibilityOfElementLocated(By.className("status-container")));
 		
 		String admissionPlace = patientDashboard.addConsultNoteWithAdmission();		
 		assertThat(patientDashboard.countEncouters(PatientDashboard.CONSULTATION), is(1));
