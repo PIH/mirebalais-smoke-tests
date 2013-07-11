@@ -22,8 +22,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
 public abstract class DbTest extends BasicMirebalaisSmokeTest {
 
@@ -111,16 +109,16 @@ public abstract class DbTest extends BasicMirebalaisSmokeTest {
         return patientIdentifierValue;
     }
 
-    private void lockPatientIdentifier() throws SQLException {
+    private void lockPatientIdentifier() throws Exception {
         setDateUsedOfPatientIdentifierTo("sysdate()");
     }
 
-    private void unlockPatientIdentifier() throws SQLException {
+    private void unlockPatientIdentifier() throws Exception {
         setDateUsedOfPatientIdentifierTo("null");
     }
 
-    private void setDateUsedOfPatientIdentifierTo(String date) throws SQLException {
-        Connection connection = DriverManager.getConnection(properties.getDatabaseUrl(), properties.getDatabaseUsername(), properties.getDatabasePassword());
+    private void setDateUsedOfPatientIdentifierTo(String date) throws Exception {
+        Connection connection = getConnection().getConnection();
         connection.createStatement().executeUpdate("update idgen_pooled_identifier set date_used = " + date + " where identifier = '" + patientIdentifierValue + "'");
     }
 

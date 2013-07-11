@@ -46,12 +46,12 @@ public class EmergencyCheckinTest extends DbTest {
     	appDashboard.openStartHospitalVisitApp();
         emergencyCheckinPO.checkinMaleUnindentifiedPatient();
 
-        populateTestPatientForTearDown();
-
         assertThat(patientRegistrationDashboard.getIdentifier(), notNullValue());
         assertThat(patientRegistrationDashboard.getGender(), is("M"));
         assertThat(patientRegistrationDashboard.getName(), stringContainsInOrder(Arrays.asList("UNKNOWN", "UNKNOWN")));
-        
+
+        populateTestPatientForTearDown();
+
         appDashboard.openReportApp();
 		reportsHomePage.openBasicStatisticsReport();
         BasicReportData brd2 = basicReport.getData();
