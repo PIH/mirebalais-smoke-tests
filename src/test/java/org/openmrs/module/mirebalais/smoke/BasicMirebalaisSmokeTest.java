@@ -9,10 +9,7 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientRegistrationDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class BasicMirebalaisSmokeTest {
 
@@ -48,13 +45,6 @@ public abstract class BasicMirebalaisSmokeTest {
 		registration.goThruRegistrationProcessWithoutPrintingCard(); 
 		testPatient = new Patient(patientRegistrationDashboard.getIdentifier(), patientRegistrationDashboard.getName(), null, null, null, null, null);
 	}
-	
-	protected void startVisit() throws Exception {
-		appDashboard.findPatientById(testPatient.getIdentifier());
-		patientDashboard.startVisit();
 
-        new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.status-container")));
-    }
-	
 
 }

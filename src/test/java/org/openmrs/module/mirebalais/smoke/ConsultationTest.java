@@ -24,6 +24,7 @@ public class ConsultationTest extends DbTest {
     @Before
     public void setUp() throws Exception {
         super.setUp();
+
         initBasicPageObjects();
 
         appDashboard.goToPatientPage(testPatient.getId());

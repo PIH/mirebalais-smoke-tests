@@ -37,7 +37,7 @@ public class ActiveVisitsTest extends DbTest {
 		appDashboard.openActiveVisitsApp();
 		assertFalse(driver.findElement(By.id("content")).getText().contains(testPatient.getIdentifier()));
 
-        appDashboard.findPatientById(testPatient.getIdentifier());
+        appDashboard.goToPatientPage(testPatient.getId());
         patientDashboard.startVisit();
 
         appDashboard.openActiveVisitsApp();

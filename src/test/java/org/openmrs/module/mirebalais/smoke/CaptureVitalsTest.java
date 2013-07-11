@@ -24,14 +24,14 @@ public class CaptureVitalsTest extends DbTest {
     public void checkInAndCaptureVitalsThruVitalsApp() throws Exception {
         loginPage.logInAsAdmin();
 
-        appDashboard.findPatientById(testPatient.getIdentifier());
+        appDashboard.goToPatientPage(testPatient.getId());
         patientDashboard.startVisit();
 
         appDashboard.openCaptureVitalsApp();
         vitals.captureVitalsForPatient(testPatient.getIdentifier());
         assertThat(vitals.isSearchPatientDisplayed(), is(true));
 
-        appDashboard.findPatientById(testPatient.getIdentifier());
+        appDashboard.goToPatientPage(testPatient.getId());
         assertThat(patientDashboard.countEncouters(PatientDashboard.VITALS), is(1));
     }
 

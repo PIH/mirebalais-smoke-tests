@@ -69,6 +69,7 @@ public abstract class DbTest extends BasicMirebalaisSmokeTest {
 
             createdData = new QueryDataSet(getConnection());
             createdData.addTable("name_phonetics", "select * from name_phonetics where person_name_id = " + testPatient.getPerson_name_id());
+            createdData.addTable("person_attribute", "select * from person_attribute where person_id = " + testPatient.getId());
             createdData.addTable("patient_identifier", "select * from patient_identifier where patient_id=" + testPatient.getId());
             createdData.addTable("emr_paper_record_request", "select * from emr_paper_record_request where patient_id=" + testPatient.getId());
             createdData.addTable("visit", "select * from visit where patient_id=" + testPatient.getId());
@@ -78,6 +79,9 @@ public abstract class DbTest extends BasicMirebalaisSmokeTest {
 
             DatabaseOperation.DELETE.execute(getConnection(), createdData);
 
+            if (dataset == null) {
+                dataset = createDataset();
+            }
             DatabaseOperation.DELETE.execute(getConnection(), dataset);
 
             unlockPatientIdentifier();
@@ -87,7 +91,7 @@ public abstract class DbTest extends BasicMirebalaisSmokeTest {
         }
     }
 
-    private IDatabaseConnection getConnection() throws Exception {
+    protected IDatabaseConnection getConnection() throws Exception {
         return tester.getConnection();
     }
 

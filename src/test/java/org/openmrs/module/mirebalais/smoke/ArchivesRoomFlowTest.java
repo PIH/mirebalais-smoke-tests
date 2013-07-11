@@ -22,7 +22,7 @@ public class ArchivesRoomFlowTest extends DbTest {
 	public void requestRecord() throws Exception {
 		loginPage.logInAsAdmin();
 
-		appDashboard.findPatientById(testPatient.getIdentifier());
+		appDashboard.goToPatientPage(testPatient.getId());
 		patientDashboard.requestRecord();
 		 
 		appDashboard.openArchivesRoomApp();
@@ -31,7 +31,7 @@ public class ArchivesRoomFlowTest extends DbTest {
         archivesRoomApp.sendDossier(dossierNumber);
         archivesRoomApp.returnRecord(dossierNumber);
 
-        appDashboard.findPatientById(testPatient.getIdentifier());
+        appDashboard.goToPatientPage(testPatient.getId());
 
 		assertThat(patientDashboard.getDossierNumber(), is(dossierNumber));
 		assertThat(patientDashboard.canRequestRecord(), is(true));
