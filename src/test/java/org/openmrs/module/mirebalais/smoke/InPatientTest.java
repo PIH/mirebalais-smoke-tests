@@ -2,89 +2,59 @@ package org.openmrs.module.mirebalais.smoke;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.InPatientList;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
-import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class InPatientTest extends BasicMirebalaisSmokeTest {
-	
-	private HeaderPage headerPage;
-	
-	private InPatientList ipl;
+public class InPatientTest extends DbTest {
+
+    private InPatientList inPatientList;
 	
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
+        super.setUp();
 		initBasicPageObjects();
-		headerPage = new HeaderPage(driver);
-		ipl = new InPatientList(driver);
-	}
+		inPatientList = new InPatientList(driver);
+    }
 	
 	@Test
 	public void admitPatientTransferInsideHospitalAndFilterWard() throws Exception {
-		loginPage.logInAsAdmin();
-		
-		createPatient();
-		appDashboard.findPatientById(testPatient.getIdentifier());
+		login();
+
+		appDashboard.goToPatientPage(testPatient.getId());
 		patientDashboard.startVisit();
-		
-		new WebDriverWait(driver, 5).until(visibilityOfElementLocated(By.className("status-container")));
-		
-		String admissionPlace = patientDashboard.addConsultNoteWithAdmission();
+
+        String admissionPlace = patientDashboard.addConsultNoteWithAdmission();
+
 		assertThat(patientDashboard.countEncouters(PatientDashboard.CONSULTATION), is(1));
 		assertThat(patientDashboard.countEncouters(PatientDashboard.ADMISSION), is(1));
-		
-		assurePlaces(admissionPlace, admissionPlace);
-		
-		appDashboard.findPatientById(testPatient.getIdentifier());
-		
+		assertFirstAdmittedAndCurrentWardAre(admissionPlace, admissionPlace);
+
+		appDashboard.goToPatientPage(testPatient.getId());
+
 		String transferPlace = patientDashboard.addConsultNoteWithTransfer();
+
 		assertThat(patientDashboard.countEncouters(PatientDashboard.CONSULTATION), is(2));
 		assertThat(patientDashboard.countEncouters(PatientDashboard.TRANSFER), is(1));
-		
-		assurePlaces(admissionPlace, transferPlace);
-		
-		int oldSize = getPatientCount();
-		ipl.filterBy(transferPlace);
-		waitForTableToUpdate(oldSize);
-		assertThat(ipl.isListFilteredBy(transferPlace), is(true));
-		
-		headerPage.logOut();
+		assertFirstAdmittedAndCurrentWardAre(admissionPlace, transferPlace);
+
+		inPatientList.filterBy(transferPlace);
+
+        assertThat(inPatientList.isListFilteredBy(transferPlace), is(true));
 	}
-	
-	private void assurePlaces(String firstAdmitted, String currentWard) throws Exception {
+
+    private void assertFirstAdmittedAndCurrentWardAre(String firstAdmitted, String currentWard) throws Exception {
 		appDashboard.openInPatientApp();
 		
-		assertThat(ipl.getCurrentWard(testPatient.getIdentifier()), is(currentWard));
-		assertThat(ipl.getFirstAdmitted(testPatient.getIdentifier()), is(firstAdmitted));
-	}
-	
-	private void waitForTableToUpdate(final int oldSize) {
-		Wait<WebDriver> wait = new WebDriverWait(driver, 60);
-		wait.until(new ExpectedCondition<Boolean>() {
-			
-			@Override
-			public Boolean apply(WebDriver webDriver) {
-				return (getPatientCount() < oldSize);
-			}
-		});
-	}
-	
-	private int getPatientCount() {
-		try {
-			return ipl.getPatientCount();
-		}
-		catch (StaleElementReferenceException e) {
-			return Integer.MAX_VALUE;
-		}
+		assertThat(inPatientList.getCurrentWard(testPatient.getIdentifier()), is(currentWard));
+		assertThat(inPatientList.getFirstAdmitted(testPatient.getIdentifier()), is(firstAdmitted));
 	}
 }

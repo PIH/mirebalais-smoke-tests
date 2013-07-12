@@ -7,6 +7,10 @@ import org.openmrs.module.mirebalais.smoke.dataModel.Visit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.stalenessOf;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class InPatientList extends AbstractPageObject {
 	
@@ -54,10 +58,16 @@ public class InPatientList extends AbstractPageObject {
 	}
 
 	public void filterBy(String ward) throws Exception {
-		clickOnOptionLookingForText(ward, INPATIENTS_LOCATION_OPTION);
-	}
-	
-	private Visit getVisit(String patientIdentifier) throws Exception {
+        By byInpatientCountClass = By.className("inpatient-count");
+        WebElement inpatientCount = driver.findElement(byInpatientCountClass);
+
+        clickOnOptionLookingForText(ward, INPATIENTS_LOCATION_OPTION);
+        wait5seconds.until(stalenessOf(inpatientCount));
+
+        wait5seconds.until(visibilityOfElementLocated(byInpatientCountClass));
+    }
+
+    private Visit getVisit(String patientIdentifier) throws Exception {
 		List<Visit> visits = this.getVisits();
 		for (Visit visit : visits) {
 			if (visit.getPatientId().contains(patientIdentifier)) {

@@ -13,10 +13,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ConsultationTest extends DbTest {
-	
-	private WebDriverWait wait10seconds = new WebDriverWait(driver, 10);
-	
-	@BeforeClass
+
+    @BeforeClass
 	public static void prepare() {
 		new LoginPage(driver).logInAsAdmin();
 	}
@@ -29,8 +27,6 @@ public class ConsultationTest extends DbTest {
 		
 		appDashboard.goToPatientPage(testPatient.getId());
 		patientDashboard.startVisit();
-		
-		wait10seconds.until(visibilityOfElementLocated(By.cssSelector("div.status-container")));
 	}
 	
 	@Test

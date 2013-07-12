@@ -24,29 +24,25 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.StringTokenizer;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class PatientDashboard extends AbstractPageObject {
 
-	public static final String CHECKIN = "Tcheke"; 
+	public static final String CHECKIN = "Tcheke";
 	public static final String CONSULTATION = "Consultation";
 	public static final String VITALS = "Siy Vito";
 	public static final String RADIOLOGY = "Preskripsyon Radyoloji";
-	
 	public static final String ACTIVE_VISIT_MESSAGE = "Vizit aktiv";
 	public static final String ADMISSION = "Admisyon";
 	public static final String TRANSFER = "Transfè";
-	
 	private ConsultNoteForm consultNoteForm;
 	private EmergencyDepartmentNoteForm eDNoteForm;
 	private SurgicalPostOperativeNoteForm surgicalPostOperativeNoteForm;
 	private XRayForm xRayForm;
-	
 	private HashMap<String, By> formList;
-	
+
 	public PatientDashboard(WebDriver driver) {
 		super(driver);
 		consultNoteForm = new ConsultNoteForm(driver);
@@ -61,24 +57,10 @@ public class PatientDashboard extends AbstractPageObject {
 		xRayForm.fillForm(study1, study2);
 	}
 
-	public boolean hasOrder(String orderDetails) {
-		return driver.findElement(By.id("content")).getText().contains(orderDetails);
-	}
-
-	public Set<String> getIdentifiers() {
-		String temp = driver.findElement(By.className("identifiers")).getText().trim();
-		StringTokenizer st = new StringTokenizer(temp.substring(3), ",");
-		Set<String> result = new HashSet<String>();
-		while(st.hasMoreTokens()) {
-			result.add(st.nextToken());
-		}
-		return result;
-	}
-
-	public boolean verifyIfSuccessfulMessageIsDisplayed(){
+    public boolean verifyIfSuccessfulMessageIsDisplayed(){
         return (driver.findElement(By.className("icon-ok")) != null);
     }
-    
+
     public boolean hasActiveVisit() {
 		return driver.findElement(By.id("visit-details")).getText().contains(ACTIVE_VISIT_MESSAGE);
 	}
@@ -90,12 +72,12 @@ public class PatientDashboard extends AbstractPageObject {
 	        if (encounter.getAttribute("data-encounter-id").equals(encounterId))
 	        	encounter.click();
 	    }
-		
+
 		clickOn(By.xpath("//*[@id='delete-encounter-dialog']/div[2]/button[1]"));
 	}
-	
+
 	public String findEncounterId(String encounterName) throws Exception {
-		try {		
+		try {
 			return getOptionBasedOnText(encounterName, By.cssSelector("span.encounter-name")).getAttribute("data-encounter-id");
 		} catch (Exception e) {
 			throw new Exception("No encounter of this type found.");
@@ -116,13 +98,14 @@ public class PatientDashboard extends AbstractPageObject {
 		hoverOn(By.cssSelector(".actions"));
 		clickOn(By.cssSelector("i.icon-check-in"));
 		clickOn(By.cssSelector("#quick-visit-creation-dialog .confirm"));
-	}
-	
+        wait5seconds.until(visibilityOfElementLocated(By.cssSelector(".visit-actions.active-visit")));
+    }
+
 	public void addConsultNoteWithDischarge() throws Exception {
 		openForm(formList.get("Consult Note"));
 		consultNoteForm.fillFormWithDischarge();
 	}
-	
+
 	public String addConsultNoteWithAdmission() throws Exception {
 		openForm(formList.get("Consult Note"));
 		return consultNoteForm.fillFormWithAdmissionAndReturnPlace();
@@ -132,22 +115,17 @@ public class PatientDashboard extends AbstractPageObject {
 		openForm(formList.get("Consult Note"));
 		return consultNoteForm.fillFormWithTransferAndReturnPlace();
 	}
-	
+
 	public void addConsultNoteWithDeath() throws Exception {
 		openForm(formList.get("Consult Note"));
 		consultNoteForm.fillFormWithDeath();
 	}
-	
-	public void addSurgicalNote() throws Exception {
-		openForm(formList.get("Surgical Note"));
-		surgicalPostOperativeNoteForm.fillBasicForm();
-	}
-	
-	public void addEmergencyDepartmentNote() throws Exception {
+
+    public void addEmergencyDepartmentNote() throws Exception {
 		openForm(formList.get("ED Note"));
 		eDNoteForm.fillFormWithDischarge();
 	}
-	
+
 	public void openForm(By formIdentification) {
 		clickOn(formIdentification);
 	}
@@ -180,14 +158,6 @@ public class PatientDashboard extends AbstractPageObject {
     public List<WebElement> getVisits() {
         return driver.findElements(By.cssSelector(".menu-item.viewVisitDetails"));
     }
-	
-	private void createFormsMap() {
-		formList = new HashMap<String, By>();
-		formList.put("Consult Note", By.cssSelector("#visit-details a:nth-child(3) .icon-stethoscope"));
-		formList.put("Surgical Note", By.cssSelector("#visit-details .icon-paste"));
-		formList.put("Order X-Ray", By.className("icon-x-ray"));
-		formList.put("ED Note", By.cssSelector("#visit-details a:nth-child(4) .icon-stethoscope"));
-	}
 
     public boolean isDead() {
         try {
@@ -197,4 +167,12 @@ public class PatientDashboard extends AbstractPageObject {
             return false;
         }
     }
+
+    private void createFormsMap() {
+		formList = new HashMap<String, By>();
+		formList.put("Consult Note", By.cssSelector("#visit-details a:nth-child(3) .icon-stethoscope"));
+		formList.put("Surgical Note", By.cssSelector("#visit-details .icon-paste"));
+		formList.put("Order X-Ray", By.className("icon-x-ray"));
+		formList.put("ED Note", By.cssSelector("#visit-details a:nth-child(4) .icon-stethoscope"));
+	}
 }

@@ -17,8 +17,11 @@ package org.openmrs.module.mirebalais.smoke.pageobjects;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.math.BigInteger;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class AppDashboard extends AbstractPageObject {
 
@@ -36,7 +39,7 @@ public class AppDashboard extends AbstractPageObject {
     public static final String MASTER_PATIENT_INDEX = "mirebalais-mpi-app";
     public static final String IN_PATIENT = "emr-inpatients-app";
     public static final String MY_ACCOUNT = "emr-myAccount-app";
-    
+
 
     public AppDashboard(WebDriver driver) {
         super(driver);
@@ -49,11 +52,11 @@ public class AppDashboard extends AbstractPageObject {
     public void openMyAccountApp() {
         openApp(MY_ACCOUNT);
 	}
-    
+
     public void openInPatientApp() {
         openApp(IN_PATIENT);
 	}
-    
+
 	public void openArchivesRoomApp() {
         openApp(ARCHIVES_ROOM);
 	}
@@ -77,16 +80,16 @@ public class AppDashboard extends AbstractPageObject {
     public void openSysAdminApp() {
         openApp(SYSTEM_ADMINISTRATION);
 	}
-    
+
     public void openCaptureVitalsApp() {
         openApp(CAPTURE_VITALS);
         wait5seconds.until(ExpectedConditions.visibilityOfElementLocated(By.id("patient-search-field-search")));
     }
-    
+
     public void openReportApp() {
     	 openApp(REPORTS);
 	}
-    
+
     public void startClinicVisit() {
 		openApp(START_CLINIC_VISIT);
 	}
@@ -98,11 +101,11 @@ public class AppDashboard extends AbstractPageObject {
     public void openCheckinApp() {
         openApp("mirebalais-liveCheckin-app");
     }
-    
+
 	public boolean isMasterPatientIndexPresented() {
 		return isAppButtonPresent(MASTER_PATIENT_INDEX);
 	}
-	
+
 	public boolean isPatientRegistrationAppPresented() {
 		return isAppButtonPresent(PATIENT_REGISTRATION);
 	}
@@ -110,15 +113,15 @@ public class AppDashboard extends AbstractPageObject {
     public boolean isArchivesRoomAppPresented() {
         return isAppButtonPresent(ARCHIVES_ROOM);
     }
-	
+
 	public boolean isSystemAdministrationAppPresented() {
         return isAppButtonPresent(SYSTEM_ADMINISTRATION);
     }
-	
+
 	public boolean isFindAPatientAppPresented() {
 		return isAppButtonPresent(FIND_PATIENT);
 	}
-	
+
 	public boolean isActiveVisitsAppPresented() {
 		return isAppButtonPresent(ACTIVE_VISITS);
 	}
@@ -126,11 +129,11 @@ public class AppDashboard extends AbstractPageObject {
 	public boolean isCaptureVitalsAppPresented() {
 		return isAppButtonPresent(CAPTURE_VITALS);
 	}
-	
+
 	public boolean isReportsAppPresented() {
 		return isAppButtonPresent(REPORTS);
 	}
-	
+
 	public Boolean isStartHospitalVisitAppPresented() {
 		return isAppButtonPresent(START_HOSPITAL_VISIT);
 	}
@@ -142,7 +145,7 @@ public class AppDashboard extends AbstractPageObject {
 	public Boolean isEditPatientAppPresented() {
 		return isAppButtonPresent(EDIT_PATIENT);
 	}
-	
+
 	public Boolean isLegacyAppPresented() {
 		return isAppButtonPresent(LEGACY);
 	}
