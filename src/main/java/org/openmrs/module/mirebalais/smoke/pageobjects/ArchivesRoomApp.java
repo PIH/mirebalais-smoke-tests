@@ -8,6 +8,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
+
 public class ArchivesRoomApp extends AbstractPageObject {
 
 	public ArchivesRoomApp(WebDriver driver) {
@@ -24,10 +26,11 @@ public class ArchivesRoomApp extends AbstractPageObject {
 	}
 	
 	public WebElement findPatientInTheList(String patientIdentifier, String list) {
-		return driver.findElement(By.id(list)).findElement(By.id(patientIdentifier));
-	}
-	
-	public void sendDossier(String dossieNumber) {
+        wait5seconds.until(visibilityOfElementLocated(By.cssSelector("#" + list + " #" + patientIdentifier)));
+        return driver.findElement(By.id(list)).findElement(By.id(patientIdentifier));
+    }
+
+    public void sendDossier(String dossieNumber) {
 		driver.findElement(By.name("mark-as-pulled-identifier")).sendKeys(dossieNumber);
 		driver.findElement(By.name("mark-as-pulled-identifier")).sendKeys(Keys.RETURN);
 	}
@@ -45,7 +48,7 @@ public class ArchivesRoomApp extends AbstractPageObject {
 	public String createRecord(String patientIdentifier) throws Exception {
 		findPatientInTheList(patientIdentifier, "create_requests_table").click();
 		clickOnAssign();
-        wait5seconds.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#assigned_create_requests_table #" + patientIdentifier)));
+        wait5seconds.until(visibilityOfElementLocated(By.cssSelector("#assigned_create_requests_table #" + patientIdentifier)));
         return getDossieNumber(patientIdentifier);
 	}
 

@@ -33,8 +33,6 @@ public class GenerateDossierAtCheckinTest extends DbTest {
 		ArchivesRoomApp archives = new ArchivesRoomApp(driver);
 		archives.goToPullTab();
 		
-		// need to add a wait here
 		assertThat(archives.isPatientInList(testPatient.getIdentifier(), "pull_requests_table"), is(true));
 	}
-	
 }

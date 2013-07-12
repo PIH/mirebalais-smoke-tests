@@ -8,13 +8,15 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
+import static java.util.concurrent.TimeUnit.*;
+
 public class SmokeTestDriver {
     private final WebDriver driver;
 
     public SmokeTestDriver() {
         setupChromeDriver();
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(3000, TimeUnit.MILLISECONDS);
+        driver.manage().timeouts().implicitlyWait(3, SECONDS);
         driver.get(new SmokeTestProperties().getWebAppUrl());
     }
 
