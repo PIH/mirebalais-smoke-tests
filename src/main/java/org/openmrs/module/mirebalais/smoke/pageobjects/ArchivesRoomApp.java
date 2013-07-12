@@ -12,7 +12,9 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
 
 public class ArchivesRoomApp extends AbstractPageObject {
 
-	public ArchivesRoomApp(WebDriver driver) {
+    private WebDriverWait wait10Seconds = new WebDriverWait(driver, 10);
+
+    public ArchivesRoomApp(WebDriver driver) {
 		super(driver);
 	}
 	
@@ -26,7 +28,7 @@ public class ArchivesRoomApp extends AbstractPageObject {
 	}
 	
 	public WebElement findPatientInTheList(String patientIdentifier, String list) {
-        wait5seconds.until(visibilityOfElementLocated(By.cssSelector("#" + list + " #" + patientIdentifier)));
+        wait10Seconds.until(visibilityOfElementLocated(By.cssSelector("#" + list + " #" + patientIdentifier)));
         return driver.findElement(By.id(list)).findElement(By.id(patientIdentifier));
     }
 
