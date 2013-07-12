@@ -34,7 +34,7 @@ public class EmergencyCheckinTest extends DbTest {
 		reportsHomePage = new ReportsHomePage(driver);
 		basicReport = new BasicReportPage(driver);
 		
-		testPatient = new Patient(null, null, null, null, null, null, null);
+		testPatient = new Patient(null, null, null, null, null, null, null, null);
 	}
 	
 	@Test
@@ -70,7 +70,7 @@ public class EmergencyCheckinTest extends DbTest {
 		    "select * from person_name where person_id = " + patientId);
 		Object personNameId = personName.getValue(0, "person_name_id");
 		
-		testPatient = new Patient("123", null, new BigInteger(patientId), -1, new BigInteger(personNameId.toString()),
+		testPatient = new Patient("123", null, new BigInteger(patientId), null, -1, new BigInteger(personNameId.toString()),
 		        new BigInteger("-1"), new BigInteger("-1"));
 	}
 }

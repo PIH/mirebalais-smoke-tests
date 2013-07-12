@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.sql.Connection;
+import java.util.UUID;
 
 import org.apache.commons.io.IOUtils;
 import org.dbunit.JdbcDatabaseTester;
@@ -49,7 +50,7 @@ public abstract class DbTest extends BasicMirebalaisSmokeTest {
 	public void setUp() throws Exception {
 		try {
 			testPatient = new Patient(getNextValidPatientIdentifier(), "Crash Test Dummy",
-			        getNextAutoIncrementFor("person"), getPatientIdentifierId(), getNextAutoIncrementFor("person_name"),
+			        getNextAutoIncrementFor("person"), UUID.randomUUID().toString(), getPatientIdentifierId(), getNextAutoIncrementFor("person_name"),
 			        getNextAutoIncrementFor("person_address"), getNextAutoIncrementFor("patient_identifier"));
 			
 			lockPatientIdentifier();

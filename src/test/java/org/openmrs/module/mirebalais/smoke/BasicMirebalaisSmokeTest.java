@@ -49,7 +49,7 @@ public abstract class BasicMirebalaisSmokeTest {
 		appDashboard.openPatientRegistrationApp();
 		registration.goThruRegistrationProcessWithoutPrintingCard();
 		testPatient = new Patient(patientRegistrationDashboard.getIdentifier(), patientRegistrationDashboard.getName(),
-		        null, null, null, null, null);
+		        null, null, null, null, null, null);
 	}
 	
 	protected void login() {
