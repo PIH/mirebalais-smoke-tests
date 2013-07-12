@@ -17,7 +17,7 @@ public class ConsultationTest extends DbTest {
     private WebDriverWait wait10seconds = new WebDriverWait(driver, 10);
 
     @BeforeClass
-    public static void login() {
+    public static void prepare() {
         new LoginPage(driver).logInAsAdmin();
     }
 

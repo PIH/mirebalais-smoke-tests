@@ -15,6 +15,11 @@ package org.openmrs.module.mirebalais.smoke.pageobjects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
 
 public class HeaderPage extends AbstractPageObject {
 
@@ -25,22 +30,29 @@ public class HeaderPage extends AbstractPageObject {
 	public void logOut() {
 		driver.findElement(By.className("logout")).click();
 	}
-	
-	public String getLocation() {
-		return driver.findElement(By.cssSelector("li.change-location span")).getText();
+
+	public By location() {
+		return By.cssSelector("li.change-location span");
 	}
-	
-	public void changeLocation(String location) throws Exception {
+
+	public void changeLocationTo(WebElement location) throws Exception {
 		clickOnLocationMenu();
-    	chooseLocation(location);
-	}
-	
-	private void clickOnLocationMenu() {
+        select(location);
+    }
+
+    private void select(WebElement location) {
+        location.click();
+    }
+
+    private void clickOnLocationMenu() {
 		driver.findElement(By.className("icon-map-marker")).click();
 	}
-	
-	private void chooseLocation(String location) throws Exception {
-		clickOnOptionLookingForText(location, By.cssSelector("ul.select li"));
-	}
-	
+
+    public WebElement fourthLocation() {
+        return driver.findElements(By.cssSelector("ul.select li")).get(3);
+    }
+
+    public String fourthLocationText() {
+        return fourthLocation().getAttribute("textContent");
+    }
 }
