@@ -8,13 +8,13 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
-
 public class Registration extends AbstractPageObject {
 
+	private Wait<WebDriver> wait;
+	
 	public Registration(WebDriver driver) {
         super(driver);
+        wait = wait5seconds;
     }
 	
 	public void goThruRegistrationProcessWithoutPrintingCard() {
@@ -25,7 +25,6 @@ public class Registration extends AbstractPageObject {
 	public void goThruRegistrationProcessPrintingCard() {
 		registerPatient();
         chooseToPrintIdCard();
-        wait5seconds.until(visibilityOfElementLocated(By.id("scanPatientIdentifier")));
     }
 
     public String registerSpecificGuyWithoutPrintingCard(String name) {
@@ -53,8 +52,24 @@ public class Registration extends AbstractPageObject {
 		enterPhoneData();
 		confirmData();
 	}
+	
+	public void openSimilarityWindow(String name) {
+		clickOnSearchByNameButton();
+		enterFirstAndLastName(name);
+		
+		wait.until(new ExpectedCondition<Boolean>() {
+			@Override
+			public Boolean apply(WebDriver webDriver) {
+				return 	webDriver.findElement(By.id("confirmExistingPatientDiv")).isDisplayed() &&
+						! (webDriver.findElement(By.id("confirmExistingPatientDiv")).getText().contains("searching"));
+			}
+		});
+		driver.findElement(By.id("confirmExistingPatientDiv")).click();
 
-    private void clickOnSearchByNameButton() {
+        wait5seconds.until(ExpectedConditions.visibilityOfElementLocated(By.id("confirmExistingPatientModalDiv")));
+    }
+
+	private void clickOnSearchByNameButton() {
 		driver.findElement(By.id("searchByNameBtn")).click();
 	}
 
@@ -62,10 +77,26 @@ public class Registration extends AbstractPageObject {
 		enterFirstAndLastName(NameGenerator.getPatientName());
 	}
 
+    public void finishesRegistration() {
+		driver.findElement(By.id("cancelBtn")).click();
+		enterSexData();
+		enterDateOfBirthData();
+		enterAddressLandmarkData();
+		enterPatientLocality();
+		enterPhoneData();
+		confirmData();
+        chooseNotToPrintIdCard();
+        clickYellowCheckMark();
+    }
+
     protected void enterPatientLocality() {
         driver.findElement(By.id("possibleLocalityField")).sendKeys("Mirebalais");
-        wait5seconds.until(invisibilityOfElementLocated(By.id("loadingGraph")));
-
+        wait.until(new ExpectedCondition<Boolean>() {
+            @Override
+			public Boolean apply(WebDriver webDriver) {
+                return !webDriver.findElement(By.id("loadingGraph")).isDisplayed();
+            }
+        });
         driver.findElement(By.cssSelector("tr.addressFieldRow.evenRow > td")).click();
         clickNext();
 
@@ -78,11 +109,11 @@ public class Registration extends AbstractPageObject {
     }
     
     protected void enterDateOfBirthData() {
-    	Integer day = 1 + (int)(Math.random() * 28);
-    	Integer year = 1930 + (int)(Math.random() * 71);
-        driver.findElement(By.id("day")).sendKeys(day.toString());
+    	int day = 1 + (int)(Math.random() * 28);
+    	int year = 1930 + (int)(Math.random() * 71);
+        driver.findElement(By.id("day")).sendKeys(new Integer(day).toString());
         driver.findElement(By.id("ui-active-menuitem")).click();
-        driver.findElement(By.id("year")).sendKeys(year.toString());
+        driver.findElement(By.id("year")).sendKeys(new Integer(year).toString());
         clickNext();
     }
 
