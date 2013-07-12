@@ -49,13 +49,6 @@ public abstract class BasicMirebalaisSmokeTest {
 		registration.goThruRegistrationProcessWithoutPrintingCard(); 
 		testPatient = new Patient(patientRegistrationDashboard.getIdentifier(), patientRegistrationDashboard.getName(), null, null, null, null, null);
 	}
-	
-	protected void startVisit() throws Exception {
-		appDashboard.findPatientById(testPatient.getIdentifier());
-		patientDashboard.startVisit();
-
-        new WebDriverWait(driver, 5).until(visibilityOfElementLocated(By.cssSelector("div.status-container")));
-    }
 
     protected void login() {
         new LoginPage(driver).logInAsAdmin();
