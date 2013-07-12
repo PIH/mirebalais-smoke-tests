@@ -8,8 +8,8 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.textToBePresentI
 
 public class HeaderTest extends BasicMirebalaisSmokeTest {
 	
-	private WebDriverWait waitASecond = new WebDriverWait(driver, 1);
-	
+	private WebDriverWait wait5Second = new WebDriverWait(driver, 5);
+
 	@Test
 	public void shouldChangeLocation() throws Exception {
 		login();
@@ -18,6 +18,6 @@ public class HeaderTest extends BasicMirebalaisSmokeTest {
 		
 		headerPage.changeLocationTo(headerPage.fourthLocation());
 		
-		waitASecond.until(textToBePresentInElement(headerPage.location(), headerPage.fourthLocationText()));
+		wait5Second.until(textToBePresentInElement(headerPage.location(), headerPage.fourthLocationText()));
 	}
 }
