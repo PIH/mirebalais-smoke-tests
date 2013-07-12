@@ -14,6 +14,11 @@
 
 package org.openmrs.module.mirebalais.smoke;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.NewCheckIn;
@@ -21,43 +26,40 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
-
 public class NewCheckInTest extends DbTest {
+	
 	private NewCheckIn newCheckIn;
-    private WebDriverWait wait5Seconds = new WebDriverWait(driver, 5);
-
-    @Before
+	
+	private WebDriverWait wait5Seconds = new WebDriverWait(driver, 5);
+	
+	@Before
 	public void setUp() throws Exception {
-        super.setUp();
-
+		super.setUp();
+		
 		initBasicPageObjects();
 		newCheckIn = new NewCheckIn(driver);
 	}
-    
+	
 	@Test
 	public void createRetrospectiveCheckInAndRemoveIt() throws Exception {
-        loginPage.logInAsAdmin();
-
-        appDashboard.startClinicVisit();
-        newCheckIn.checkInPatientFillingTheFormTwice(testPatient.getIdentifier());
-        
-        assertThat(newCheckIn.isPatientSearchDisplayed(), is(true));
-
-        appDashboard.findPatientById(testPatient.getIdentifier());
-        assertThat(patientDashboard.getVisits().size(), is(1));
-        assertTrue(patientDashboard.hasActiveVisit());
-        assertThat(patientDashboard.countEncouters(PatientDashboard.CHECKIN), is(1));
-
-        patientDashboard.deleteEncounter(PatientDashboard.CHECKIN);
-
-        wait5Seconds.until(invisibilityOfElementLocated(By.id("delete-encounter-dialog")));
-
-        assertThat(patientDashboard.countEncouters(PatientDashboard.CHECKIN), is(0));
-        assertTrue(patientDashboard.hasActiveVisit());
-    }
-
+		loginPage.logInAsAdmin();
+		
+		appDashboard.startClinicVisit();
+		newCheckIn.checkInPatientFillingTheFormTwice(testPatient.getIdentifier());
+		
+		assertThat(newCheckIn.isPatientSearchDisplayed(), is(true));
+		
+		appDashboard.findPatientById(testPatient.getIdentifier());
+		assertThat(patientDashboard.getVisits().size(), is(1));
+		assertTrue(patientDashboard.hasActiveVisit());
+		assertThat(patientDashboard.countEncouters(PatientDashboard.CHECKIN), is(1));
+		
+		patientDashboard.deleteEncounter(PatientDashboard.CHECKIN);
+		
+		wait5Seconds.until(invisibilityOfElementLocated(By.id("delete-encounter-dialog")));
+		
+		assertThat(patientDashboard.countEncouters(PatientDashboard.CHECKIN), is(0));
+		assertTrue(patientDashboard.hasActiveVisit());
+	}
+	
 }

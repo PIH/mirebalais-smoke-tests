@@ -10,32 +10,32 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class PullRequestScenarioTest extends BasicMirebalaisSmokeTest {
-
+	
 	private CheckIn checkIn;
 	
 	@Before
-    public void setUp() {
+	public void setUp() {
 		initBasicPageObjects();
 		checkIn = new CheckIn(driver);
 	}
-
+	
 	@BeforeClass
-    public static void setUpEnvironment() {
-    	loginPage = new LoginPage(driver);
-    	loginPage.logInAsAdmin();
-    }
-
+	public static void setUpEnvironment() {
+		loginPage = new LoginPage(driver);
+		loginPage.logInAsAdmin();
+	}
+	
 	@Test
 	public void createsARecord() throws InterruptedException {
 		createPatient();
-
-        appDashboard.openStartClinicVisitApp();
+		
+		appDashboard.openStartClinicVisitApp();
 		checkIn.checkInPatient(testPatient);
 		appDashboard.openArchivesRoomApp();
-
-        WebDriverWait wait = new WebDriverWait(driver, 1000);
-        wait.until(ExpectedConditions.textToBePresentInElement(By.id("create_requests_table"), testPatient.getName()));
-        wait.until(ExpectedConditions.textToBePresentInElement(By.id("create_requests_table"), testPatient.getIdentifier()));
+		
+		WebDriverWait wait = new WebDriverWait(driver, 1000);
+		wait.until(ExpectedConditions.textToBePresentInElement(By.id("create_requests_table"), testPatient.getName()));
+		wait.until(ExpectedConditions.textToBePresentInElement(By.id("create_requests_table"), testPatient.getIdentifier()));
 	}
-
+	
 }

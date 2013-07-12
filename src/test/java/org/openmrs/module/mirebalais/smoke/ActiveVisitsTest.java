@@ -14,35 +14,36 @@
 
 package org.openmrs.module.mirebalais.smoke;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.openqa.selenium.By;
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.matchers.JUnitMatchers.containsString;
 
-public class ActiveVisitsTest extends DbTest {
-    @Before
-    public void setUp() throws Exception {
-        super.setUp();
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.By;
 
+public class ActiveVisitsTest extends DbTest {
+	
+	@Before
+	public void setUp() throws Exception {
+		super.setUp();
+		
 		initBasicPageObjects();
-    }
+	}
 	
 	@Test
 	public void shouldShowActiveVisitAfterStartVisit() throws Exception {
 		loginPage.logInAsAdmin();
-
+		
 		appDashboard.openActiveVisitsApp();
 		assertFalse(driver.findElement(By.id("content")).getText().contains(testPatient.getIdentifier()));
-
-        appDashboard.goToPatientPage(testPatient.getId());
-        patientDashboard.startVisit();
-
-        appDashboard.openActiveVisitsApp();
-        String contentText = driver.findElement(By.id("content")).getText();
-        assertThat(contentText, containsString(testPatient.getName()));
-        assertThat(contentText, containsString(testPatient.getIdentifier()));
+		
+		appDashboard.goToPatientPage(testPatient.getId());
+		patientDashboard.startVisit();
+		
+		appDashboard.openActiveVisitsApp();
+		String contentText = driver.findElement(By.id("content")).getText();
+		assertThat(contentText, containsString(testPatient.getName()));
+		assertThat(contentText, containsString(testPatient.getIdentifier()));
 	}
 }

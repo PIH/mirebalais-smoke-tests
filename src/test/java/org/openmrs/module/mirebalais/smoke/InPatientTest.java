@@ -1,5 +1,9 @@
 package org.openmrs.module.mirebalais.smoke;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
@@ -12,20 +16,17 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
-
 public class InPatientTest extends BasicMirebalaisSmokeTest {
-
+	
 	private HeaderPage headerPage;
+	
 	private InPatientList ipl;
 	
 	@Before
-    public void setUp() {
+	public void setUp() {
 		initBasicPageObjects();
 		headerPage = new HeaderPage(driver);
-		ipl  = new InPatientList(driver);
+		ipl = new InPatientList(driver);
 	}
 	
 	@Test
@@ -33,12 +34,12 @@ public class InPatientTest extends BasicMirebalaisSmokeTest {
 		loginPage.logInAsAdmin();
 		
 		createPatient();
-        appDashboard.findPatientById(testPatient.getIdentifier());
-        patientDashboard.startVisit();
-
-        new WebDriverWait(driver, 5).until(visibilityOfElementLocated(By.className("status-container")));
+		appDashboard.findPatientById(testPatient.getIdentifier());
+		patientDashboard.startVisit();
 		
-		String admissionPlace = patientDashboard.addConsultNoteWithAdmission();		
+		new WebDriverWait(driver, 5).until(visibilityOfElementLocated(By.className("status-container")));
+		
+		String admissionPlace = patientDashboard.addConsultNoteWithAdmission();
 		assertThat(patientDashboard.countEncouters(PatientDashboard.CONSULTATION), is(1));
 		assertThat(patientDashboard.countEncouters(PatientDashboard.ADMISSION), is(1));
 		
@@ -46,7 +47,7 @@ public class InPatientTest extends BasicMirebalaisSmokeTest {
 		
 		appDashboard.findPatientById(testPatient.getIdentifier());
 		
-		String transferPlace = patientDashboard.addConsultNoteWithTransfer();		
+		String transferPlace = patientDashboard.addConsultNoteWithTransfer();
 		assertThat(patientDashboard.countEncouters(PatientDashboard.CONSULTATION), is(2));
 		assertThat(patientDashboard.countEncouters(PatientDashboard.TRANSFER), is(1));
 		
@@ -66,10 +67,11 @@ public class InPatientTest extends BasicMirebalaisSmokeTest {
 		assertThat(ipl.getCurrentWard(testPatient.getIdentifier()), is(currentWard));
 		assertThat(ipl.getFirstAdmitted(testPatient.getIdentifier()), is(firstAdmitted));
 	}
-
+	
 	private void waitForTableToUpdate(final int oldSize) {
 		Wait<WebDriver> wait = new WebDriverWait(driver, 60);
-    	wait.until(new ExpectedCondition<Boolean>() {
+		wait.until(new ExpectedCondition<Boolean>() {
+			
 			@Override
 			public Boolean apply(WebDriver webDriver) {
 				return (getPatientCount() < oldSize);
@@ -80,7 +82,8 @@ public class InPatientTest extends BasicMirebalaisSmokeTest {
 	private int getPatientCount() {
 		try {
 			return ipl.getPatientCount();
-		} catch (StaleElementReferenceException e) {
+		}
+		catch (StaleElementReferenceException e) {
 			return Integer.MAX_VALUE;
 		}
 	}
