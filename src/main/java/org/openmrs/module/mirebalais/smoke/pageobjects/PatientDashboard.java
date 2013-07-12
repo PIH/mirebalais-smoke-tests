@@ -16,7 +16,6 @@ package org.openmrs.module.mirebalais.smoke.pageobjects;
 
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.ConsultNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.EmergencyDepartmentNoteForm;
-import org.openmrs.module.mirebalais.smoke.pageobjects.forms.SurgicalPostOperativeNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.XRayForm;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -26,6 +25,7 @@ import org.openqa.selenium.WebElement;
 import java.util.HashMap;
 import java.util.List;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class PatientDashboard extends AbstractPageObject {
@@ -39,16 +39,20 @@ public class PatientDashboard extends AbstractPageObject {
 	public static final String TRANSFER = "Transfè";
 	private ConsultNoteForm consultNoteForm;
 	private EmergencyDepartmentNoteForm eDNoteForm;
-	private SurgicalPostOperativeNoteForm surgicalPostOperativeNoteForm;
-	private XRayForm xRayForm;
+    private XRayForm xRayForm;
 	private HashMap<String, By> formList;
 
-	public PatientDashboard(WebDriver driver) {
+    private By deleteEncounter = By.cssSelector("i.deleteEncounterId");
+    private By confirmDeleteEncounter = By.cssSelector("#delete-encounter-dialog .confirm");
+    private By actions = By.cssSelector(".actions");
+    private By checkIn = By.cssSelector("i.icon-check-in");
+    private By confirmStartVisit = By.cssSelector("#quick-visit-creation-dialog .confirm");
+
+    public PatientDashboard(WebDriver driver) {
 		super(driver);
 		consultNoteForm = new ConsultNoteForm(driver);
 		eDNoteForm = new EmergencyDepartmentNoteForm(driver);
-		surgicalPostOperativeNoteForm = new SurgicalPostOperativeNoteForm(driver);
-		xRayForm = new XRayForm(driver);
+        xRayForm = new XRayForm(driver);
 		createFormsMap();
 	}
 
@@ -65,26 +69,14 @@ public class PatientDashboard extends AbstractPageObject {
 		return driver.findElement(By.id("visit-details")).getText().contains(ACTIVE_VISIT_MESSAGE);
 	}
 
-	public void deleteEncounter(String encounterName) throws Exception {
-		String encounterId = findEncounterId(encounterName);
-		List<WebElement> encounters = driver.findElements(By.cssSelector("i.deleteEncounterId"));
-		for (WebElement encounter : encounters) {
-	        if (encounter.getAttribute("data-encounter-id").equals(encounterId))
-	        	encounter.click();
-	    }
+	public void deleteFirstEncounter() {
+        clickOn(deleteEncounter);
+        clickOn(confirmDeleteEncounter);
 
-		clickOn(By.xpath("//*[@id='delete-encounter-dialog']/div[2]/button[1]"));
+        wait5seconds.until(invisibilityOfElementLocated(By.id("delete-encounter-dialog")));
 	}
 
-	public String findEncounterId(String encounterName) throws Exception {
-		try {
-			return getOptionBasedOnText(encounterName, By.cssSelector("span.encounter-name")).getAttribute("data-encounter-id");
-		} catch (Exception e) {
-			throw new Exception("No encounter of this type found.");
-		}
-	}
-
-	public Integer countEncouters(String encounterName) {
+    public Integer countEncoutersOfType(String encounterName) {
 		int count = 0;
 		List<WebElement> encounters = driver.findElements(By.cssSelector("span.encounter-name"));
 		for (WebElement encounter : encounters) {
@@ -95,9 +87,10 @@ public class PatientDashboard extends AbstractPageObject {
 	}
 
 	public void startVisit() {
-		hoverOn(By.cssSelector(".actions"));
-		clickOn(By.cssSelector("i.icon-check-in"));
-		clickOn(By.cssSelector("#quick-visit-creation-dialog .confirm"));
+        hoverOn(actions);
+        clickOn(checkIn);
+        clickOn(confirmStartVisit);
+
         wait5seconds.until(visibilityOfElementLocated(By.cssSelector(".visit-actions.active-visit")));
     }
 

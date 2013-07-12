@@ -5,14 +5,8 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.InPatientList;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class InPatientTest extends DbTest {
 
@@ -34,16 +28,16 @@ public class InPatientTest extends DbTest {
 
         String admissionPlace = patientDashboard.addConsultNoteWithAdmission();
 
-		assertThat(patientDashboard.countEncouters(PatientDashboard.CONSULTATION), is(1));
-		assertThat(patientDashboard.countEncouters(PatientDashboard.ADMISSION), is(1));
+		assertThat(patientDashboard.countEncoutersOfType(PatientDashboard.CONSULTATION), is(1));
+		assertThat(patientDashboard.countEncoutersOfType(PatientDashboard.ADMISSION), is(1));
 		assertFirstAdmittedAndCurrentWardAre(admissionPlace, admissionPlace);
 
 		appDashboard.goToPatientPage(testPatient.getId());
 
 		String transferPlace = patientDashboard.addConsultNoteWithTransfer();
 
-		assertThat(patientDashboard.countEncouters(PatientDashboard.CONSULTATION), is(2));
-		assertThat(patientDashboard.countEncouters(PatientDashboard.TRANSFER), is(1));
+		assertThat(patientDashboard.countEncoutersOfType(PatientDashboard.CONSULTATION), is(2));
+		assertThat(patientDashboard.countEncoutersOfType(PatientDashboard.TRANSFER), is(1));
 		assertFirstAdmittedAndCurrentWardAre(admissionPlace, transferPlace);
 
 		inPatientList.filterBy(transferPlace);

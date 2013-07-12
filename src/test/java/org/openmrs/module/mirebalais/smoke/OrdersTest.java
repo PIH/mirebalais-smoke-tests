@@ -35,6 +35,6 @@ public class OrdersTest extends BasicMirebalaisSmokeTest {
 		assertTrue(patientDashboard.hasActiveVisit());
 		patientDashboard.orderXRay(STUDY_1, STUDY_2);
 		
-		assertThat(patientDashboard.countEncouters(PatientDashboard.RADIOLOGY), not(0));
+		assertThat(patientDashboard.countEncoutersOfType(PatientDashboard.RADIOLOGY), not(0));
 	}
 }
