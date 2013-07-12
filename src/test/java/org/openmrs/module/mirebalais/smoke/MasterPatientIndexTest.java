@@ -21,7 +21,7 @@ public class MasterPatientIndexTest extends BasicMirebalaisSmokeTest {
 	
 	@Test
 	public void searchForAPatientOnLacollineServer() {
-		loginPage.logInAsAdmin();
+		login();
 		
 		appDashboard.openMasterPatientIndexApp();
 		lacollineIntegrationFlow.searchByName(DEFAULT_NAME);
