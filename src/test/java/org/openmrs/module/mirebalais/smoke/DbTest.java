@@ -1,11 +1,7 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.math.BigInteger;
-import java.sql.Connection;
-import java.util.UUID;
-
+import com.github.jknack.handlebars.Handlebars;
+import com.github.jknack.handlebars.Template;
 import org.apache.commons.io.IOUtils;
 import org.dbunit.JdbcDatabaseTester;
 import org.dbunit.database.IDatabaseConnection;
@@ -22,8 +18,11 @@ import org.junit.BeforeClass;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.SmokeTestProperties;
 
-import com.github.jknack.handlebars.Handlebars;
-import com.github.jknack.handlebars.Template;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.math.BigInteger;
+import java.sql.Connection;
+import java.util.UUID;
 
 public abstract class DbTest extends BasicMirebalaisSmokeTest {
 	
@@ -50,8 +49,9 @@ public abstract class DbTest extends BasicMirebalaisSmokeTest {
 	public void setUp() throws Exception {
 		try {
 			testPatient = new Patient(getNextValidPatientIdentifier(), "Crash Test Dummy",
-			        getNextAutoIncrementFor("person"), UUID.randomUUID().toString(), getPatientIdentifierId(), getNextAutoIncrementFor("person_name"),
-			        getNextAutoIncrementFor("person_address"), getNextAutoIncrementFor("patient_identifier"));
+			        getNextAutoIncrementFor("person"), UUID.randomUUID().toString(), getPatientIdentifierId(),
+			        getNextAutoIncrementFor("person_name"), getNextAutoIncrementFor("person_address"),
+			        getNextAutoIncrementFor("patient_identifier"));
 			
 			lockPatientIdentifier();
 			
@@ -85,6 +85,14 @@ public abstract class DbTest extends BasicMirebalaisSmokeTest {
 			        + testPatient.getId());
 			createdData.addTable("visit", "select * from visit where patient_id=" + testPatient.getId());
 			createdData.addTable("encounter", "select * from encounter where patient_id=" + testPatient.getId());
+			createdData.addTable("orders", "select * from orders where patient_id=" + testPatient.getId());
+			createdData.addTable(
+			    "test_order",
+			    "select * from test_order where order_id in (select order_id from orders where patient_id="
+			            + testPatient.getId() + ")");
+			createdData.addTable("emr_radiology_order",
+			    "select * from emr_radiology_order where order_id in (select order_id from orders where patient_id="
+			            + testPatient.getId() + ")");
 			createdData.addTable("obs",
 			    "select * from obs where encounter_id in (select encounter_id from encounter where patient_id="
 			            + testPatient.getId() + ")");

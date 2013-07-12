@@ -58,6 +58,7 @@ public class PatientDashboard extends AbstractPageObject {
 
 	public void orderXRay(String study1, String study2) {
 		openForm(formList.get("Order X-Ray"));
+
 		xRayForm.fillForm(study1, study2);
 	}
 
