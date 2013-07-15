@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.openqa.selenium.Keys.ARROW_DOWN;
 import static org.openqa.selenium.Keys.RETURN;
@@ -20,7 +21,8 @@ public class CheckinFormPage extends AbstractPageObject {
 
         WebElement confirmButton = driver.findElement(By.id("confirmationQuestion")).findElement(By.className("confirm"));
         confirmButton.click();
-        wait5seconds.until(stalenessOf(confirmButton));
+        
+        new WebDriverWait(driver, 10).until(stalenessOf(confirmButton));
     }
 
     private void selectFirstOptionFor(String spanId) {

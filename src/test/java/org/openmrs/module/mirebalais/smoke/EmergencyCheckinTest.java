@@ -9,11 +9,11 @@ import static org.junit.Assert.assertThat;
 import java.math.BigInteger;
 import java.util.Arrays;
 
-import org.dbunit.dataset.ITable;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.BasicReportData;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
+import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.BasicReportPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.EmergencyCheckin;
 import org.openmrs.module.mirebalais.smoke.pageobjects.ReportsHomePage;
@@ -63,14 +63,7 @@ public class EmergencyCheckinTest extends DbTest {
 	}
 	
 	private void populateTestPatientForTearDown() throws Exception {
-		JavascriptExecutor executor = (JavascriptExecutor) driver;
-		String patientId = (String) executor.executeScript("return patientId");
-		
-		ITable personName = getConnection().createQueryTable("person_name",
-		    "select * from person_name where person_id = " + patientId);
-		Object personNameId = personName.getValue(0, "person_name_id");
-		
-		testPatient = new Patient("123", null, new BigInteger(patientId), null, -1, new BigInteger(personNameId.toString()),
-		        new BigInteger("-1"), new BigInteger("-1"));
+        String patientId = (String) ((JavascriptExecutor) driver).executeScript("return patientId");
+        PatientDatabaseHandler.addTestPatientForDelete(new BigInteger(patientId));
 	}
 }
