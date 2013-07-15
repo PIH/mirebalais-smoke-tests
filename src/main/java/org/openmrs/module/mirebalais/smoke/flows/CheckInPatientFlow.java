@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
+
 public class CheckInPatientFlow {
     private WebDriver driver;
     private SearchAndConfirmPatientFlow searchAndConfirmPatientFlow;
@@ -25,7 +27,7 @@ public class CheckInPatientFlow {
     public void checkIn() {
         checkinFormPage.enterInfo();
 
-        new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(By.className("confirm")));
+        new WebDriverWait(driver, 5).until(visibilityOfElementLocated(By.className("confirm")));
         driver.findElement(By.className("confirm")).click();
     }
 

@@ -3,9 +3,11 @@ package org.openmrs.module.mirebalais.smoke.pageobjects;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import static org.openqa.selenium.Keys.ARROW_DOWN;
 import static org.openqa.selenium.Keys.RETURN;
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 public class CheckinFormPage extends AbstractPageObject {
     public CheckinFormPage(WebDriver driver) {
@@ -16,7 +18,9 @@ public class CheckinFormPage extends AbstractPageObject {
         selectFirstOptionFor("typeOfVisit");
         selectFirstOptionFor("paymentAmount");
 
-        driver.findElement(By.id("confirmationQuestion")).findElement(By.className("confirm")).click();
+        WebElement confirmButton = driver.findElement(By.id("confirmationQuestion")).findElement(By.className("confirm"));
+        confirmButton.click();
+        wait5seconds.until(stalenessOf(confirmButton));
     }
 
     private void selectFirstOptionFor(String spanId) {
