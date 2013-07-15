@@ -2,6 +2,8 @@ package org.openmrs.module.mirebalais.smoke;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
+import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -13,15 +15,12 @@ public class OrdersTest extends DbTest {
 	
 	private static final String STUDY_2 = "Humérus - Gauche, 2 vues (Radiographie)";
 	
-	@Before
-	public void setUp() throws Exception {
-		super.setUp();
-		initBasicPageObjects();
-	}
-	
 	@Test
 	public void orderSingleXRay() throws Exception {
-		login();
+        Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
+		initBasicPageObjects();
+
+        login();
 		
 		appDashboard.goToPatientPage(testPatient.getId());
 		patientDashboard.startVisit();

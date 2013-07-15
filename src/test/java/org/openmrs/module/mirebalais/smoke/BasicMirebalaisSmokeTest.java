@@ -47,8 +47,6 @@ public abstract class BasicMirebalaisSmokeTest {
 	
 	protected PatientDashboard patientDashboard;
 	
-	protected Patient testPatient;
-	
 	@BeforeClass
 	public static void startWebDriver() {
 		driver = new SmokeTestDriver().getDriver();
@@ -66,15 +64,8 @@ public abstract class BasicMirebalaisSmokeTest {
 		patientDashboard = new PatientDashboard(driver);
 		appDashboard = new AppDashboard(driver);
 	}
-	
-	protected void createPatient() {
-		appDashboard.openPatientRegistrationApp();
-		registration.goThruRegistrationProcessWithoutPrintingCard();
-		testPatient = new Patient(patientRegistrationDashboard.getIdentifier(), patientRegistrationDashboard.getName(),
-		        null, null, null, null, null, null);
-	}
-	
-	protected void login() {
+
+    protected void login() {
 		new LoginPage(driver).logInAsAdmin();
 	}
 }

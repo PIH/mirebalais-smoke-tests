@@ -21,25 +21,14 @@ import org.openqa.selenium.JavascriptExecutor;
 
 public class EmergencyCheckinTest extends DbTest {
 	
-	private EmergencyCheckin emergencyCheckinPO;
-	
-	private ReportsHomePage reportsHomePage;
-	
-	private BasicReportPage basicReport;
-	
-	@Before
-	public void setUp() throws Exception {
-		initBasicPageObjects();
-		emergencyCheckinPO = new EmergencyCheckin(driver);
-		reportsHomePage = new ReportsHomePage(driver);
-		basicReport = new BasicReportPage(driver);
-		
-		testPatient = new Patient(null, null, null, null, null, null, null, null);
-	}
-	
 	@Test
 	public void checkinOnEmergencyShouldCountOnReports() throws Exception {
-		loginPage.logInAsAdmin();
+		initBasicPageObjects();
+        EmergencyCheckin emergencyCheckinPO = new EmergencyCheckin(driver);
+        ReportsHomePage reportsHomePage = new ReportsHomePage(driver);
+        BasicReportPage basicReport = new BasicReportPage(driver);
+
+        login();
 		
 		appDashboard.openReportApp();
 		reportsHomePage.openBasicStatisticsReport();

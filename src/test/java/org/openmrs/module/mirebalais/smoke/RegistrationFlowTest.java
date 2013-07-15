@@ -21,15 +21,12 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 public class RegistrationFlowTest extends DbTest {
 	
 	private final static String SCAN_MESSAGE = "Tanpri skane kat idantifikasyon kontinye...";
-	
-	@Before
-	public void setUp() {
-		initBasicPageObjects();
-	}
-	
+
 	@Test
 	public void registerPatientdPrintingCard() throws Exception {
-		login();
+		initBasicPageObjects();
+
+        login();
 		
 		appDashboard.openPatientRegistrationApp();
 		registration.goThruRegistrationProcessPrintingCard();

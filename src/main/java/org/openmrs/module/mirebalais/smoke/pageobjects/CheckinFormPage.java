@@ -21,7 +21,7 @@ public class CheckinFormPage extends AbstractPageObject {
 
         WebElement confirmButton = driver.findElement(By.id("confirmationQuestion")).findElement(By.className("confirm"));
         confirmButton.click();
-        
+
         new WebDriverWait(driver, 10).until(stalenessOf(confirmButton));
     }
 

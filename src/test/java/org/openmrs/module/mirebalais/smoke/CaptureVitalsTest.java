@@ -5,24 +5,20 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
+import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.VitalsApp;
 
 public class CaptureVitalsTest extends DbTest {
-	
-	private VitalsApp vitals;
-	
-	@Before
-	public void setUp() throws Exception {
-		super.setUp();
-		
-		initBasicPageObjects();
-		vitals = new VitalsApp(driver);
-	}
-	
+
 	@Test
 	public void checkInAndCaptureVitalsThruVitalsApp() throws Exception {
-		loginPage.logInAsAdmin();
+        Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
+        initBasicPageObjects();
+        VitalsApp vitals = new VitalsApp(driver);
+
+		login();
 		
 		appDashboard.goToPatientPage(testPatient.getId());
 		patientDashboard.startVisit();

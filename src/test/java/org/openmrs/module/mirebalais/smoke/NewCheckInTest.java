@@ -16,6 +16,8 @@ package org.openmrs.module.mirebalais.smoke;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
+import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.NewCheckIn;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -25,18 +27,12 @@ import static org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard.C
 
 public class NewCheckInTest extends DbTest {
 	
-	private NewCheckIn newCheckIn;
-	
-	@Before
-	public void setUp() throws Exception {
-		super.setUp();
-		
-		initBasicPageObjects();
-		newCheckIn = new NewCheckIn(driver);
-	}
-	
 	@Test
 	public void createRetrospectiveCheckInAndRemoveIt() throws Exception {
+        Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
+        initBasicPageObjects();
+        NewCheckIn newCheckIn = new NewCheckIn(driver);
+
 		login();
 		
 		appDashboard.startClinicVisit();

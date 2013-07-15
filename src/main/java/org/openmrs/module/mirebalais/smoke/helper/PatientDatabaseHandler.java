@@ -66,19 +66,24 @@ public class PatientDatabaseHandler {
 	}
 	
 	public static Patient insertNewTestPatient() throws Exception {
-		Patient patient = new Patient(getNextValidPatientIdentifier(), "Crash Test Dummy",
-		        getNextAutoIncrementFor("person"), UUID.randomUUID().toString(), getPatientIdentifierId(),
-		        getNextAutoIncrementFor("person_name"), getNextAutoIncrementFor("person_address"),
-		        getNextAutoIncrementFor("patient_identifier"));
-		
-		lockPatientIdentifier(patient.getIdentifier());
-		
-		IDataSet dataset = createDataset(patient);
-		datasets.put(patient, dataset);
-		
-		INSERT.execute(connection, dataset);
-		return patient;
-	}
+        try {
+            Patient patient = new Patient(getNextValidPatientIdentifier(), "Crash Test Dummy",
+                    getNextAutoIncrementFor("person"), UUID.randomUUID().toString(), getPatientIdentifierId(),
+                    getNextAutoIncrementFor("person_name"), getNextAutoIncrementFor("person_address"),
+                    getNextAutoIncrementFor("patient_identifier"));
+
+            lockPatientIdentifier(patient.getIdentifier());
+
+            IDataSet dataset = createDataset(patient);
+            datasets.put(patient, dataset);
+
+            INSERT.execute(connection, dataset);
+            return patient;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("unable to create patient in database", e);
+        }
+    }
 	
 	public static void deleteAllTestPatients() throws Exception {
 		for (Patient patient : datasets.keySet()) {

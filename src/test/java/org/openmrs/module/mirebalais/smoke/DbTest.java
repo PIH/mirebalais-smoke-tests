@@ -27,17 +27,6 @@ import java.util.UUID;
 
 public abstract class DbTest extends BasicMirebalaisSmokeTest {
 	
-	@Before
-	public void setUp() throws Exception {
-        try {
-            testPatient = PatientDatabaseHandler.insertNewTestPatient();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			throw new Exception("set up failed", e);
-		}
-	}
-	
 	@After
 	public void tearDown() throws Exception {
 		try {
@@ -47,10 +36,4 @@ public abstract class DbTest extends BasicMirebalaisSmokeTest {
 			throw new Exception("tear down failed", e);
 		}
 	}
-
-	
-
-	
-
-
 }

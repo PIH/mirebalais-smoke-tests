@@ -4,7 +4,9 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
+import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.flows.CheckInPatientFlow;
+import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.ArchivesRoomApp;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
@@ -14,6 +16,8 @@ public class GenerateDossierAtCheckinTest extends DbTest {
 	
 	@Test
 	public void shouldCreateDossierLocallyAtCheckinWhenDossierIsMissing() throws Exception {
+		Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
+		
 		new LoginPage(driver).logIn("admin", "Admin123", 10);
 		
 		AppDashboard dashboard = new AppDashboard(driver);

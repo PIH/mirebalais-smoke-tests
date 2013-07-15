@@ -6,6 +6,8 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
+import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 
@@ -18,9 +20,8 @@ public class ConsultationTest extends DbTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		super.setUp();
-		
-		initBasicPageObjects();
+        Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
+        initBasicPageObjects();
 		
 		appDashboard.goToPatientPage(testPatient.getId());
 		patientDashboard.startVisit();

@@ -5,23 +5,19 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
+import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.ArchivesRoomApp;
 
 public class ArchivesRoomFlowTest extends DbTest {
 	
-	private ArchivesRoomApp archivesRoomApp;
-	
-	@Before
-	public void setUp() throws Exception {
-		super.setUp();
-		
-		initBasicPageObjects();
-		archivesRoomApp = new ArchivesRoomApp(driver);
-	}
-	
 	@Test
 	public void requestRecord() throws Exception {
-		loginPage.logInAsAdmin();
+        Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
+        initBasicPageObjects();
+        ArchivesRoomApp archivesRoomApp = new ArchivesRoomApp(driver);
+
+		login();
 		
 		appDashboard.goToPatientPage(testPatient.getId());
 		patientDashboard.requestRecord();

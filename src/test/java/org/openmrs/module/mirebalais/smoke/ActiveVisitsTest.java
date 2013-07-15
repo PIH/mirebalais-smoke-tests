@@ -20,20 +20,18 @@ import static org.junit.matchers.JUnitMatchers.containsString;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
+import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openqa.selenium.By;
 
 public class ActiveVisitsTest extends DbTest {
 	
-	@Before
-	public void setUp() throws Exception {
-		super.setUp();
-		
-		initBasicPageObjects();
-	}
-	
 	@Test
 	public void shouldShowActiveVisitAfterStartVisit() throws Exception {
-		loginPage.logInAsAdmin();
+        Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
+        initBasicPageObjects();
+
+		login();
 		
 		appDashboard.openActiveVisitsApp();
 		assertFalse(driver.findElement(By.id("content")).getText().contains(testPatient.getIdentifier()));
