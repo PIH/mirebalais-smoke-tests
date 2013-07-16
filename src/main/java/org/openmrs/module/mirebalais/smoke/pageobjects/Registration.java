@@ -21,33 +21,14 @@ public class Registration extends AbstractPageObject {
 	public Registration(WebDriver driver) {
         super(driver);
     }
-	
-	public void goThruRegistrationProcessWithoutPrintingCard() {
-		registerPatient();
-        chooseNotToPrintIdCard();
-    }
-	
-	public void goThruRegistrationProcessPrintingCard() {
+
+    public void goThruRegistrationProcessPrintingCard() {
 		registerPatient();
         chooseToPrintIdCard();
         wait5seconds.until(visibilityOfElementLocated(By.id("scanPatientIdentifier")));
     }
 
-    public String registerSpecificGuyWithoutPrintingCard(String name) {
-    	clickOnSearchByNameButton();
-        clickNext();
-        enterFirstAndLastName(name);
-		enterSexData();
-		enterDateOfBirthData();
-		enterAddressLandmarkData();
-		enterPatientLocality();
-		enterPhoneData();
-		confirmData();
-        chooseNotToPrintIdCard();
-        return driver.findElement(By.id("patientPreferredId")).getText();
-    }
-
-	private void registerPatient() {
+    private void registerPatient() {
 		clickOnSearchByNameButton();
         clickNext();
 		enterFirstAndLastName();
@@ -128,10 +109,6 @@ public class Registration extends AbstractPageObject {
         enterLastName(name.substring(spaceIndex).trim());
         enterFirstName(name.substring(0, spaceIndex).trim());
 	}
-
-    protected void chooseNotToPrintIdCard() {
-        driver.findElement(By.id("printNo")).click();
-    }
 
     protected void chooseToPrintIdCard() {
         driver.findElement(By.id("printYes")).click();

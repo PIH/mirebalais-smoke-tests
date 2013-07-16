@@ -28,7 +28,6 @@ public class AppDashboard extends AbstractPageObject {
 	public static final String ACTIVE_VISITS = "emr-activeVisits-app";
     public static final String ARCHIVES_ROOM = "emr-archivesRoom-app";
     public static final String EDIT_PATIENT = "patientRegistration-lookup-app";
-    public static final String FIND_PATIENT = "emr-findPatient-app";
     public static final String PATIENT_REGISTRATION = "patientRegistration-registration-app";
     public static final String START_HOSPITAL_VISIT = "patientRegistration-emergencyCheckin-app";
     public static final String START_CLINIC_VISIT = "mirebalais-liveCheckin-app";
@@ -69,14 +68,6 @@ public class AppDashboard extends AbstractPageObject {
         openApp(START_HOSPITAL_VISIT);
     }
 
-    public void openStartClinicVisitApp() {
-        gotoPage("/mirebalais/patientRegistration/appRouter.page?task=primaryCareReception");
-    }
-
-    public void editPatientApp() {
-        openApp(EDIT_PATIENT);
-    }
-
     public void openSysAdminApp() {
         openApp(SYSTEM_ADMINISTRATION);
 	}
@@ -102,11 +93,7 @@ public class AppDashboard extends AbstractPageObject {
         openApp("mirebalais-liveCheckin-app");
     }
 
-	public boolean isMasterPatientIndexPresented() {
-		return isAppButtonPresent(MASTER_PATIENT_INDEX);
-	}
-
-	public boolean isPatientRegistrationAppPresented() {
+    public boolean isPatientRegistrationAppPresented() {
 		return isAppButtonPresent(PATIENT_REGISTRATION);
 	}
 
@@ -118,11 +105,7 @@ public class AppDashboard extends AbstractPageObject {
         return isAppButtonPresent(SYSTEM_ADMINISTRATION);
     }
 
-	public boolean isFindAPatientAppPresented() {
-		return isAppButtonPresent(FIND_PATIENT);
-	}
-
-	public boolean isActiveVisitsAppPresented() {
+    public boolean isActiveVisitsAppPresented() {
 		return isAppButtonPresent(ACTIVE_VISITS);
 	}
 
@@ -150,6 +133,10 @@ public class AppDashboard extends AbstractPageObject {
 		return isAppButtonPresent(LEGACY);
 	}
 
+    public void goToPatientPage(BigInteger patientId) {
+        driver.get(properties.getWebAppUrl() + "/coreapps/patientdashboard/patientDashboard.page?patientId=" + patientId);
+    }
+
 	private void clickAppButton(String appId) {
         driver.findElement(By.id(appId)).click();
 	}
@@ -165,14 +152,5 @@ public class AppDashboard extends AbstractPageObject {
     private void openApp(String appIdentifier) {
         driver.get(properties.getWebAppUrl());
         clickAppButton(appIdentifier);
-    }
-
-	public void findPatientById(String patientIdentifier) throws Exception{
-		driver.get(properties.getWebAppUrl());
-		super.findPatientById(patientIdentifier, "patient-search-field-search");
-	}
-
-    public void goToPatientPage(BigInteger patientId) {
-        driver.get(properties.getWebAppUrl() + "/coreapps/patientdashboard/patientDashboard.page?patientId=" + patientId);
     }
 }

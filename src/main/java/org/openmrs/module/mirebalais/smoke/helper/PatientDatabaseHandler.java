@@ -50,7 +50,7 @@ public class PatientDatabaseHandler {
 			DatabaseConfig config = connection.getConfig();
 			config.setProperty(PROPERTY_DATATYPE_FACTORY, new MySqlDataTypeFactory());
 			config.setProperty(PROPERTY_METADATA_HANDLER, new MySqlMetadataHandler());
-
+			
 			initializePatientTablesToDelete();
 		}
 		catch (Exception e) {
@@ -60,33 +60,41 @@ public class PatientDatabaseHandler {
 	
 	public static void addTestPatientForDelete(BigInteger patientId) throws IOException, DataSetException, SQLException {
 		Patient patient = new Patient("123", null, patientId, null, -1, getTableId("person_name", patientId), getTableId(
-		    "person_address", patientId), new BigInteger("-1"));
+		    "person_address", patientId), new BigInteger("-1"), new BigInteger("-1"), -1);
 		
 		datasets.put(patient, createDataset(patient));
 	}
 	
 	public static Patient insertNewTestPatient() throws Exception {
-        try {
-            Patient patient = new Patient(getNextValidPatientIdentifier(), "Crash Test Dummy",
-                    getNextAutoIncrementFor("person"), UUID.randomUUID().toString(), getPatientIdentifierId(),
-                    getNextAutoIncrementFor("person_name"), getNextAutoIncrementFor("person_address"),
-                    getNextAutoIncrementFor("patient_identifier"));
-
-            IDataSet dataset = createDataset(patient);
-            datasets.put(patient, dataset);
-
-            INSERT.execute(connection, dataset);
-            return patient;
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new Exception("unable to create patient in database", e);
-        }
-    }
+		try {
+			Patient patient = new Patient(getNextValidPatientIdentifier(), "Crash Test Dummy",
+			        getNextAutoIncrementFor("person"), UUID.randomUUID().toString(), getPatientIdentifierId(),
+			        getNextAutoIncrementFor("person_name"), getNextAutoIncrementFor("person_address"),
+			        getNextAutoIncrementFor("patient_identifier"), getNextAutoIncrementFor("encounter"),
+			        getEncounterTypeId());
+			
+			IDataSet dataset = createDataset(patient);
+			datasets.put(patient, dataset);
+			
+			INSERT.execute(connection, dataset);
+			return patient;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("unable to create patient in database", e);
+		}
+	}
 	
 	public static void deleteAllTestPatients() throws Exception {
 		for (Patient patient : datasets.keySet()) {
 			deleteTestPatient(patient);
 		}
+	}
+	
+	private static Integer getEncounterTypeId() throws SQLException, DataSetException {
+		ITable patientRegistrationEncounterType = connection.createQueryTable("encounter_type",
+		    "select * from encounter_type where name = 'Patient Registration'");
+		return (Integer) patientRegistrationEncounterType.getValue(0, "encounter_type_id");
 	}
 	
 	private static BigInteger getTableId(String table, BigInteger patientId) throws DataSetException, SQLException {
@@ -118,6 +126,8 @@ public class PatientDatabaseHandler {
 		patientTablesToDelete.add(firstToDelete);
 		
 		Map<String, String> secondToDelete = new LinkedHashMap<String, String>();
+		secondToDelete.put("person_merge_log", "select * from person_merge_log where winner_person_id = %d");
+		secondToDelete.put("person_merge_log", "select * from person_merge_log where loser_person_id = %d");
 		secondToDelete
 		        .put("name_phonetics",
 		            "select * from name_phonetics where person_name_id in (select person_name_id from person_name where person_id = %d)");
@@ -149,16 +159,16 @@ public class PatientDatabaseHandler {
 	private static String getNextValidPatientIdentifier() throws Exception {
 		ITable patientIdentifier = connection.createQueryTable("idgen_pooled_identifier",
 		    "select * from idgen_pooled_identifier where date_used is null limit 1");
-
-        String identifier = (String) patientIdentifier.getValue(0, "identifier");
-        lockPatientIdentifier(identifier);
-        return identifier;
+		
+		String identifier = (String) patientIdentifier.getValue(0, "identifier");
+		lockPatientIdentifier(identifier);
+		return identifier;
 	}
-
+	
 	private static void lockPatientIdentifier(String identifier) throws Exception {
 		setDateUsedOfPatientIdentifierTo(identifier, "sysdate()");
 	}
-
+	
 	private static void unlockPatientIdentifier(String identifier) throws Exception {
 		setDateUsedOfPatientIdentifierTo(identifier, "null");
 	}

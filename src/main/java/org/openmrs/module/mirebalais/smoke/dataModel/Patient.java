@@ -12,9 +12,11 @@ public class Patient {
     private BigInteger person_name_id;
     private BigInteger person_address_id;
     private BigInteger patient_identifier_id;
+    private BigInteger encounterId;
+    private Integer encounterTypeId;
 
     public Patient(String identifier, String name, BigInteger id, String uuid, Integer identifier_id,
-                   BigInteger person_name_id, BigInteger person_address_id, BigInteger patient_identifier_id) {
+                   BigInteger person_name_id, BigInteger person_address_id, BigInteger patient_identifier_id, BigInteger encounterId, Integer encounterTypeId) {
 		this.name = name;
 		this.identifier = identifier;
         this.id = id;
@@ -23,6 +25,8 @@ public class Patient {
         this.person_name_id = person_name_id;
         this.person_address_id = person_address_id;
         this.patient_identifier_id = patient_identifier_id;
+        this.encounterId = encounterId;
+        this.encounterTypeId = encounterTypeId;
     }
 
 	public String getName() {
@@ -55,5 +59,13 @@ public class Patient {
 
     public String getUuid() {
         return uuid;
+    }
+
+    public BigInteger getEncounter_id() {
+        return encounterId;
+    }
+
+    public Integer getEncounter_type_id() {
+        return encounterTypeId;
     }
 }

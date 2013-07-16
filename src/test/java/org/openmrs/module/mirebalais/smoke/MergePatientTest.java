@@ -1,47 +1,30 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import org.junit.Before;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
+import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
+import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.MergeFlow;
 import org.openmrs.module.mirebalais.smoke.pageobjects.SysAdminPage;
 
-import static org.junit.Assert.assertTrue;
-
-public class MergePatientTest extends BasicMirebalaisSmokeTest {
-	
-	private SysAdminPage sysAdminPage;
-	
-	private MergeFlow mergeFlow;
-	
-	private String patientNameOne = "Bruce Wayne";
-	
-	private String patientNameTwo = "Clark Kent";
-	
-	private String patientIdOne = "";
-	
-	private String patientIdTwo = "";
-	
-	@Before
-	public void setUp() {
-		initBasicPageObjects();
-		sysAdminPage = new SysAdminPage(driver);
-		mergeFlow = new MergeFlow(driver);
-		
-		loginPage.logInAsAdmin();
-		
-		appDashboard.openPatientRegistrationApp();
-		patientIdOne = registration.registerSpecificGuyWithoutPrintingCard(patientNameOne);
-		
-		appDashboard.openPatientRegistrationApp();
-		patientIdTwo = registration.registerSpecificGuyWithoutPrintingCard(patientNameTwo);
-	}
+public class MergePatientTest extends DbTest {
 	
 	@Test
-	public void mergePatientsByName() {
+	public void mergePatientsByName() throws Exception {
+		initBasicPageObjects();
+		SysAdminPage sysAdminPage = new SysAdminPage(driver);
+		MergeFlow mergeFlow = new MergeFlow(driver);
+		
+		login();
+		
+		Patient firstPatient = PatientDatabaseHandler.insertNewTestPatient();
+		Patient secondPatient = PatientDatabaseHandler.insertNewTestPatient();
+		
 		appDashboard.openSysAdminApp();
 		sysAdminPage.openManagePatientRecords();
 		
-		mergeFlow.setPatientsToMerge(patientIdOne, patientIdTwo);
+		mergeFlow.setPatientsToMerge(firstPatient.getIdentifier(), secondPatient.getIdentifier());
 		
 		assertTrue(patientDashboard.verifyIfSuccessfulMessageIsDisplayed());
 	}
