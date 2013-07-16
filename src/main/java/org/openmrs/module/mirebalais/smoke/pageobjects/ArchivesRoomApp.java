@@ -5,14 +5,13 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class ArchivesRoomApp extends AbstractPageObject {
 
-    private WebDriverWait wait10Seconds = new WebDriverWait(driver, 10);
+    private WebDriverWait wait30Seconds = new WebDriverWait(driver, 30);
 
     public ArchivesRoomApp(WebDriver driver) {
 		super(driver);
@@ -28,7 +27,7 @@ public class ArchivesRoomApp extends AbstractPageObject {
 	}
 	
 	public WebElement findPatientInTheList(String patientIdentifier, String list) {
-        wait10Seconds.until(visibilityOfElementLocated(By.cssSelector("#" + list + " #" + patientIdentifier)));
+        wait30Seconds.until(visibilityOfElementLocated(By.cssSelector("#" + list + " #" + patientIdentifier)));
         return driver.findElement(By.id(list)).findElement(By.id(patientIdentifier));
     }
 
