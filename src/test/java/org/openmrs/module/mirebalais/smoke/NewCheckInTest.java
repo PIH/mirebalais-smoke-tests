@@ -14,7 +14,6 @@
 
 package org.openmrs.module.mirebalais.smoke;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
@@ -43,11 +42,11 @@ public class NewCheckInTest extends DbTest {
 		appDashboard.goToPatientPage(testPatient.getId());
 		assertThat(patientDashboard.getVisits().size(), is(1));
 		assertTrue(patientDashboard.hasActiveVisit());
-		assertThat(patientDashboard.countEncoutersOfType(CHECKIN), is(1));
+		assertThat(patientDashboard.countEncountersOfType(CHECKIN), is(1));
 		
 		patientDashboard.deleteFirstEncounter();
 		
-		assertThat(patientDashboard.countEncoutersOfType(CHECKIN), is(0));
+		assertThat(patientDashboard.countEncountersOfType(CHECKIN), is(0));
 		assertTrue(patientDashboard.hasActiveVisit());
 	}
 	

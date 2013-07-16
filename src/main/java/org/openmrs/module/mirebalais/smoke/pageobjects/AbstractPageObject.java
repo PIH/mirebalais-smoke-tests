@@ -120,21 +120,12 @@ public abstract class AbstractPageObject {
     public void clickOnRandomOption(By elementIdentifier) {
     	getRandomOption(elementIdentifier).click();
     }
-    
-    public void clickOnRandomOptionIgnoringFirst(By elementIdentifier) {
-    	getRandomOptionExcludingFirst(elementIdentifier).click();
-    }
-    
+
     public WebElement getRandomOption(By elementIdentifier) {
     	List<WebElement> options = driver.findElements(elementIdentifier);
     	return options.get((int)(Math.random() * options.size()));
     }
-    
-    public WebElement getRandomOptionExcludingFirst(By elementIdentifier) {
-    	List<WebElement> options = driver.findElements(elementIdentifier);
-    	return options.get(1+(int)(Math.random() * options.size()-1));
-    }
-   
+
     public void clickOn(By elementId) {
     	driver.findElement(elementId).click();
 	}

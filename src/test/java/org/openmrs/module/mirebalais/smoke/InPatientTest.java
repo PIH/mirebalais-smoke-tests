@@ -12,12 +12,13 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 public class InPatientTest extends DbTest {
 	
 	private InPatientList inPatientList;
-
+	
 	@Test
 	public void admitPatientTransferInsideHospitalAndFilterWard() throws Exception {
 		Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
+		Patient testPatient2 = PatientDatabaseHandler.insertNewTestPatient();
 		initBasicPageObjects();
-
+		
 		inPatientList = new InPatientList(driver);
 		
 		login();
@@ -25,23 +26,28 @@ public class InPatientTest extends DbTest {
 		appDashboard.goToPatientPage(testPatient.getId());
 		patientDashboard.startVisit();
 		
-		String admissionPlace = patientDashboard.addConsultNoteWithAdmission();
+		String admissionPlace = patientDashboard.addConsultNoteWithAdmissionToLocation(3);
 		
-		assertThat(patientDashboard.countEncoutersOfType(PatientDashboard.CONSULTATION), is(1));
-		assertThat(patientDashboard.countEncoutersOfType(PatientDashboard.ADMISSION), is(1));
+		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION), is(1));
+		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.ADMISSION), is(1));
 		assertFirstAdmittedAndCurrentWardAre(testPatient.getIdentifier(), admissionPlace, admissionPlace);
 		
 		appDashboard.goToPatientPage(testPatient.getId());
 		
-		String transferPlace = patientDashboard.addConsultNoteWithTransfer();
+		String transferPlace = patientDashboard.addConsultNoteWithTransferToLocation(4);
 		
-		assertThat(patientDashboard.countEncoutersOfType(PatientDashboard.CONSULTATION), is(2));
-		assertThat(patientDashboard.countEncoutersOfType(PatientDashboard.TRANSFER), is(1));
+		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION), is(2));
+		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.TRANSFER), is(1));
 		assertFirstAdmittedAndCurrentWardAre(testPatient.getIdentifier(), admissionPlace, transferPlace);
 		
+		appDashboard.goToPatientPage(testPatient2.getId());
+		patientDashboard.startVisit();
+		patientDashboard.addConsultNoteWithAdmissionToLocation(3);
+		
+		appDashboard.openInPatientApp();
 		inPatientList.filterBy(transferPlace);
 		
-		assertThat(inPatientList.isListFilteredBy(transferPlace), is(true));
+		inPatientList.waitUntilInpatientListIsFilteredBy(transferPlace);
 	}
 	
 	private void assertFirstAdmittedAndCurrentWardAre(String identifier, String firstAdmitted, String currentWard)

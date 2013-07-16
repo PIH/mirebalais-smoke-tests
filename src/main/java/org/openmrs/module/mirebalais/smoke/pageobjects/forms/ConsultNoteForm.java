@@ -18,19 +18,22 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.AbstractPageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class ConsultNoteForm extends AbstractPageObject {
 
 	private static final String PRIMARY_DIAGNOSIS = "IGU";
 	
-	public static final String ADMISSION = "Admisyon";
-	public static final String DEATH = "Mouri";
-	public static final String DISCHARGE = "Soti";
-	public static final String TRANSFER = "Transfè anndan";
-	
-	public ConsultNoteForm(WebDriver driver) {
+	public static final String ADMISSION = "admitToHospital";
+	public static final String DEATH = "markPatientDead";
+	public static final String DISCHARGE = "discharge";
+	public static final String TRANSFER = "transferWithinHospital";
+
+    private By locationsForTransferWithinHospital = By.cssSelector("#transferWithinHospital-field option");
+    private By locationsForAdmission = By.cssSelector("#admitToHospital-field option");
+
+    public ConsultNoteForm(WebDriver driver) {
 		super(driver);
 	}
 
@@ -42,12 +45,12 @@ public class ConsultNoteForm extends AbstractPageObject {
 		fillFormWithBasicInfo(DEATH);
 	}
 	
-	public String fillFormWithAdmissionAndReturnPlace() throws Exception {
-		return fillFormAndReturnPlace(ADMISSION, By.cssSelector("#admitToHospital-field option"));
+	public String fillFormWithAdmissionAndReturnLocation(int locationNumbered) throws Exception {
+        return fillFormAndReturnPlace(ADMISSION, locationsForAdmission, locationNumbered);
 	}
 
-	public String fillFormWithTransferAndReturnPlace() throws Exception {
-		return fillFormAndReturnPlace(TRANSFER, By.cssSelector("#transferWithinHospital-field option"));
+	public String fillFormWithTransferAndReturnLocation(int locationNumbered) throws Exception {
+        return fillFormAndReturnPlace(TRANSFER, locationsForTransferWithinHospital, locationNumbered);
 	}
 
 	protected void fillFormWithBasicInfo(String disposition) throws Exception {
@@ -56,19 +59,21 @@ public class ConsultNoteForm extends AbstractPageObject {
 		confirmData();
 	}
 	
-	protected String fillFormAndReturnPlace(String disposition, By placeCombo) throws Exception  {
+	protected String fillFormAndReturnPlace(String disposition, By dropdownOptionsLocator, int locationNumber) throws Exception  {
 		choosePrimaryDiagnosis();
 		chooseDisposition(disposition);
-		String dischargePlace = chooseOption(placeCombo);
-		confirmData();
-		return dischargePlace;
+        wait5seconds.until(visibilityOfElementLocated(dropdownOptionsLocator));
+        WebElement location = driver.findElements(dropdownOptionsLocator).get(locationNumber);
+        String locationText = location.getText();
+        location.click();
+        confirmData();
+        return locationText;
 	}
 	
-	protected String chooseOption(By placeCombo) {
-        new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfElementLocated(placeCombo));
-        WebElement option = getRandomOptionExcludingFirst(placeCombo);
-		option.click();
-		return option.getText();
+	protected String chooseOption(By placeCombo, WebElement location) {
+        wait5seconds.until(visibilityOfElementLocated(placeCombo));
+        location.click();
+		return location.getText();
 	}
 	
 	protected void choosePrimaryDiagnosis() {
@@ -77,7 +82,7 @@ public class ConsultNoteForm extends AbstractPageObject {
 	}
 	
 	protected void chooseDisposition(String disposition) throws Exception {
-		clickOnOptionLookingForText(disposition, By.cssSelector("#disposition-field option"));
+        driver.findElement(By.cssSelector("#disposition-field option[value=" + disposition + "]")).click();
 	}
 	
 	protected void confirmData() {

@@ -16,6 +16,9 @@ package org.openmrs.module.mirebalais.smoke.pageobjects.forms;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 public class EmergencyDepartmentNoteForm extends ConsultNoteForm {
 
@@ -32,6 +35,7 @@ public class EmergencyDepartmentNoteForm extends ConsultNoteForm {
 
 	private void fillTraumaData() {
 		clickOn(By.id("traumaQuestion-0-field"));
-		chooseOption(By.cssSelector("#traumaTypes-field option"));
+        List<WebElement> options = driver.findElements(By.cssSelector("#traumaTypes-field option"));
+        chooseOption(By.cssSelector("#traumaTypes-field option"), options.get(1 + (int) (Math.random() * options.size() - 1)));
 	}
 }

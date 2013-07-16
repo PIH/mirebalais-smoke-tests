@@ -1,6 +1,5 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
@@ -27,6 +26,6 @@ public class OrdersTest extends DbTest {
 		
 		patientDashboard.orderXRay(STUDY_1, STUDY_2);
 		
-		assertThat(patientDashboard.countEncoutersOfType(RADIOLOGY), is(1));
+		assertThat(patientDashboard.countEncountersOfType(RADIOLOGY), is(1));
 	}
 }

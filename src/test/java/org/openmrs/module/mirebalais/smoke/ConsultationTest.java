@@ -12,16 +12,16 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 
 public class ConsultationTest extends DbTest {
-
-    @BeforeClass
+	
+	@BeforeClass
 	public static void prepare() {
 		new LoginPage(driver).logInAsAdmin();
 	}
 	
 	@Before
 	public void setUp() throws Exception {
-        Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
-        initBasicPageObjects();
+		Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
+		initBasicPageObjects();
 		
 		appDashboard.goToPatientPage(testPatient.getId());
 		patientDashboard.startVisit();
@@ -31,7 +31,7 @@ public class ConsultationTest extends DbTest {
 	public void addConsultationToAVisitWithoutCheckin() throws Exception {
 		patientDashboard.addConsultNoteWithDischarge();
 		
-		assertThat(patientDashboard.countEncoutersOfType(PatientDashboard.CONSULTATION), is(1));
+		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION), is(1));
 	}
 	
 	@Test
@@ -47,6 +47,6 @@ public class ConsultationTest extends DbTest {
 	public void addEDNote() throws Exception {
 		patientDashboard.addEmergencyDepartmentNote();
 		
-		assertThat(patientDashboard.countEncoutersOfType(PatientDashboard.CONSULTATION), is(1));
+		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION), is(1));
 	}
 }

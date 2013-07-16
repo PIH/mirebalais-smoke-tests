@@ -77,7 +77,7 @@ public class PatientDashboard extends AbstractPageObject {
         wait5seconds.until(invisibilityOfElementLocated(By.id("delete-encounter-dialog")));
 	}
 
-    public Integer countEncoutersOfType(String encounterName) {
+    public Integer countEncountersOfType(String encounterName) {
 		int count = 0;
 		List<WebElement> encounters = driver.findElements(By.cssSelector("span.encounter-name"));
 		for (WebElement encounter : encounters) {
@@ -100,14 +100,14 @@ public class PatientDashboard extends AbstractPageObject {
 		consultNoteForm.fillFormWithDischarge();
 	}
 
-	public String addConsultNoteWithAdmission() throws Exception {
+	public String addConsultNoteWithAdmissionToLocation(int numbered) throws Exception {
 		openForm(formList.get("Consult Note"));
-		return consultNoteForm.fillFormWithAdmissionAndReturnPlace();
+		return consultNoteForm.fillFormWithAdmissionAndReturnLocation(numbered);
 	}
 
-	public String addConsultNoteWithTransfer() throws Exception {
+	public String addConsultNoteWithTransferToLocation(int numbered) throws Exception {
 		openForm(formList.get("Consult Note"));
-		return consultNoteForm.fillFormWithTransferAndReturnPlace();
+		return consultNoteForm.fillFormWithTransferAndReturnLocation(numbered);
 	}
 
 	public void addConsultNoteWithDeath() throws Exception {

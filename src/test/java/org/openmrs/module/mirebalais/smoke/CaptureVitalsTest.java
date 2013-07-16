@@ -3,7 +3,6 @@ package org.openmrs.module.mirebalais.smoke;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
@@ -28,7 +27,7 @@ public class CaptureVitalsTest extends DbTest {
 		assertThat(vitals.isSearchPatientDisplayed(), is(true));
 		
 		appDashboard.goToPatientPage(testPatient.getId());
-		assertThat(patientDashboard.countEncoutersOfType(PatientDashboard.VITALS), is(1));
+		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.VITALS), is(1));
 	}
 	
 }
