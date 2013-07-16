@@ -50,7 +50,7 @@ public class PatientDatabaseHandler {
 			DatabaseConfig config = connection.getConfig();
 			config.setProperty(PROPERTY_DATATYPE_FACTORY, new MySqlDataTypeFactory());
 			config.setProperty(PROPERTY_METADATA_HANDLER, new MySqlMetadataHandler());
-			
+
 			initializePatientTablesToDelete();
 		}
 		catch (Exception e) {
@@ -71,8 +71,6 @@ public class PatientDatabaseHandler {
                     getNextAutoIncrementFor("person"), UUID.randomUUID().toString(), getPatientIdentifierId(),
                     getNextAutoIncrementFor("person_name"), getNextAutoIncrementFor("person_address"),
                     getNextAutoIncrementFor("patient_identifier"));
-
-            lockPatientIdentifier(patient.getIdentifier());
 
             IDataSet dataset = createDataset(patient);
             datasets.put(patient, dataset);
@@ -151,14 +149,16 @@ public class PatientDatabaseHandler {
 	private static String getNextValidPatientIdentifier() throws Exception {
 		ITable patientIdentifier = connection.createQueryTable("idgen_pooled_identifier",
 		    "select * from idgen_pooled_identifier where date_used is null limit 1");
-		
-		return (String) patientIdentifier.getValue(0, "identifier");
+
+        String identifier = (String) patientIdentifier.getValue(0, "identifier");
+        lockPatientIdentifier(identifier);
+        return identifier;
 	}
-	
+
 	private static void lockPatientIdentifier(String identifier) throws Exception {
 		setDateUsedOfPatientIdentifierTo(identifier, "sysdate()");
 	}
-	
+
 	private static void unlockPatientIdentifier(String identifier) throws Exception {
 		setDateUsedOfPatientIdentifierTo(identifier, "null");
 	}
