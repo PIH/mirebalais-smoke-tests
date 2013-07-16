@@ -7,3 +7,4 @@ chromedriver.log
 .settings
 .DS_Store
 libpeerconnection.log
+screenshots/
