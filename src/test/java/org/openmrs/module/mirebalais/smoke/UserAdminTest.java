@@ -1,21 +1,27 @@
 package org.openmrs.module.mirebalais.smoke;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+
+import java.sql.SQLException;
+
+import org.dbunit.dataset.DataSetException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.helper.NameGenerator;
+import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.helper.Toast;
 import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.MyAccountApp;
 import org.openmrs.module.mirebalais.smoke.pageobjects.UserAdmin;
 import org.openqa.selenium.By;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-
-public class UserAdminTest extends BasicMirebalaisSmokeTest {
+public class UserAdminTest extends DbTest {
+	
+	private static final String DEFAULT_PASSWORD = "Teste123";
 	
 	private UserAdmin userAdmin;
 	
@@ -23,25 +29,26 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
 	
 	private MyAccountApp myAccountApp;
 	
-	private static final String DEFAULT_PASSWORD = "Teste123";
+	private String username;
 	
 	@Before
-	public void setUp() {
+	public void setUp() throws SQLException, DataSetException {
 		initBasicPageObjects();
 		userAdmin = new UserAdmin(driver);
 		header = new HeaderPage(driver);
 		myAccountApp = new MyAccountApp(driver);
+		
+		username = createUser();
+		
+		login();
+		appDashboard.openSysAdminApp();
 	}
 	
 	@Test
-	public void createUserWithClinicalRoleAndUserChangesOwnPassword() throws InterruptedException {
-		String username = createUser();
-		
-		loginPage.logInAsAdmin();
-		appDashboard.openSysAdminApp();
+	public void createUserWithClinicalRoleAndUserChangesOwnPassword() throws Exception {
 		userAdmin.createClinicalAccount(NameGenerator.getUserFirstName(), NameGenerator.getUserLastName(), username,
 		    DEFAULT_PASSWORD);
-		
+
 		Toast.closeToast(driver);
 		logOutAndLogInWithNewUser(username);
 		
@@ -66,14 +73,10 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
 	}
 	
 	@Test
-	public void createUserWithRadiologyRole() throws InterruptedException {
-		String username = createUser();
-		
-		loginPage.logInAsAdmin();
-		appDashboard.openSysAdminApp();
+	public void createUserWithRadiologyRole() throws Exception {
 		userAdmin.createRadiologyAccount(NameGenerator.getUserFirstName(), NameGenerator.getUserLastName(), username,
 		    DEFAULT_PASSWORD);
-		
+
 		Toast.closeToast(driver);
 		logOutAndLogInWithNewUser(username);
 		
@@ -93,14 +96,10 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
 	}
 	
 	@Test
-	public void createUserWithDataArchivesRole() throws InterruptedException {
-		String username = createUser();
-		
-		loginPage.logInAsAdmin();
-		appDashboard.openSysAdminApp();
+	public void createUserWithDataArchivesRole() throws Exception {
 		userAdmin.createDataArchivesAccount(NameGenerator.getUserFirstName(), NameGenerator.getUserLastName(), username,
 		    DEFAULT_PASSWORD);
-		
+
 		Toast.closeToast(driver);
 		logOutAndLogInWithNewUser(username);
 		
@@ -120,20 +119,10 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
 	}
 	
 	@Test
-	public void createUserWithSysAdminRoleWithEnglishAsDesiredLanguage() throws InterruptedException {
-		String username = createUser();
-		
-		loginPage.logInAsAdmin();
-		
-		assertTrue(appDashboard.isActiveVisitsAppPresented());
-		assertTrue(appDashboard.isSystemAdministrationAppPresented());
-		assertTrue(appDashboard.isPatientRegistrationAppPresented());
-		assertTrue(appDashboard.isArchivesRoomAppPresented());
-		
-		appDashboard.openSysAdminApp();
+	public void createUserWithSysAdminRoleWithEnglishAsDesiredLanguage() throws Exception {
 		userAdmin.createSysAdminAccount(NameGenerator.getUserFirstName(), NameGenerator.getUserLastName(), username,
-		    DEFAULT_PASSWORD, "English");
-		
+		    DEFAULT_PASSWORD, "en");
+
 		Toast.closeToast(driver);
 		logOutAndLogInWithNewUser(username);
 		
@@ -163,10 +152,6 @@ public class UserAdminTest extends BasicMirebalaisSmokeTest {
 		header.logOut();
 	}
 	
-	/* TODO: atualizar para:
-	 * 1) apagar o usuário criado
-	 * 2) ter os usuários com papeis diferentes pré-determinados e só garantir que está mostrando os corretos
-	 */
 	private String createUser() {
 		return new String("user" + System.currentTimeMillis());
 	}

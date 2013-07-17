@@ -14,7 +14,11 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
-import org.openmrs.module.mirebalais.smoke.helper.Toast;
+import java.sql.SQLException;
+import java.util.List;
+
+import org.dbunit.dataset.DataSetException;
+import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -22,90 +26,66 @@ import org.openqa.selenium.support.ui.Select;
 
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 
-import java.util.List;
-
 public class UserAdmin extends AbstractPageObject {
 	
-	private SysAdminPage adminPage;
-	
 	private static final String CLINICAL_ROLE = "clinical";
-	private static final String DATA_ARCHIVES = "dataArchives";
-	private static final String RADIOLOGY = "radiology";
-	private static final String SYS_ADMIN= "sysAdmin";
 	
-	private String[] PROVIDER_TYPES = { "Teknisyen Laboratwa", "Enfimyè (RN)", "Administratè Jeneral", 
-			"Teknisyen Radyoloji", "Famasis", "Anestezist"};
+	private static final String DATA_ARCHIVES_ROLE = "dataArchives";
 	
-	public UserAdmin(WebDriver driver) {
+	private static final String RADIOLOGY_ROLE = "radiology";
+	
+	private static final String SYS_ADMIN_ROLE = "sysAdmin";
+    private final String CREOLE = "ht";
+
+    private SysAdminPage adminPage;
+	
+	private String[] PROVIDER_TYPES = { "Teknisyen Laboratwa", "Enfimyè (RN)", "Administratè Jeneral",
+	        "Teknisyen Radyoloji", "Famasis", "Anestezist" };
+
+    public UserAdmin(WebDriver driver) {
 		super(driver);
 		adminPage = new SysAdminPage(driver);
 	}
-
-	public boolean isAccountCreatedSuccessfully() {
-		WebElement element = driver.findElement(By.className("toast-item"));
-        boolean isCreatedSuccesfully = element.getText().contains("Saved account successfully");
-        Toast.closeToast(driver);
-
-        return isCreatedSuccesfully;
+	
+	public void createClinicalAccount(String firstName, String lastName, String username, String password) throws Exception {
+		createA(CLINICAL_ROLE, firstName, lastName, username, password, CREOLE);
 	}
 	
+	public void createRadiologyAccount(String firstName, String lastName, String username, String password) throws Exception {
+		createA(RADIOLOGY_ROLE, firstName, lastName, username, password, CREOLE);
+	}
 	
-	public void createProvider(String firstName, String lastName) {
-		fillBasicInfo(firstName, lastName);
+	public void createDataArchivesAccount(String firstName, String lastName, String username, String password) throws Exception {
+		createA(DATA_ARCHIVES_ROLE, firstName, lastName, username, password, CREOLE);
+	}
+	
+	public void createSysAdminAccount(String firstName, String lastName, String username, String password, String language) throws Exception {
+		createA(SYS_ADMIN_ROLE, firstName, lastName, username, password, language);
+	}
+	
+	private void createA(String role, String firstName, String lastName, String username, String password, String language) throws Exception {
+		createAccount(firstName, lastName, username, password);
+		getRightRole(role).click();
 		chooseProviderType();
+		chooseLanguage(language);
 		clickOnSave();
+        PatientDatabaseHandler.addUserForDelete(username);
 	}
 	
 	private void chooseProviderType() {
 		Select select = new Select(driver.findElement(By.name("providerRole")));
 		select.selectByVisibleText(drawProviderType());
 	}
-
+	
 	private String drawProviderType() {
-		return PROVIDER_TYPES[(int)(Math.random() * PROVIDER_TYPES.length)];
-	}
-
-	public void createClinicalAccount(String firstName, String lastName, String username, String password) {
-		createAccount(firstName, lastName, username, password);
-		chooseClinicalRole();
-        chooseProviderType();
-	    clickOnSave();
-	}
-	
-	public void createRadiologyAccount(String firstName, String lastName, String username, String password) {
-		createAccount(firstName, lastName, username, password);
-		chooseRadiologyRole();
-        chooseProviderType();
-	    clickOnSave();
-	}
-
-	public void createDataArchivesAccount(String firstName, String lastName, String username, String password) {
-		createAccount(firstName, lastName, username, password);
-		chooseDataArchivesRole();
-        chooseProviderType();
-	    clickOnSave();
-	}
-	
-	public void createSysAdminAccount(String firstName, String lastName, String username, String password) {
-		createAccount(firstName, lastName, username, password);
-		chooseSysAdminRole();
-        chooseProviderType();
-	    clickOnSave();
-	}
-	
-	public void createSysAdminAccount(String firstName, String lastName, String username, String password, String language) {
-		createAccount(firstName, lastName, username, password);
-		chooseSysAdminRole();
-		chooseLanguage(language);
-        chooseProviderType();
-	    clickOnSave();
+		return PROVIDER_TYPES[(int) (Math.random() * PROVIDER_TYPES.length)];
 	}
 	
 	private void chooseLanguage(String language) {
 		Select select = new Select(driver.findElement(By.name("defaultLocale")));
-		select.selectByVisibleText(language);
-	}
-
+        select.selectByValue(language);
+    }
+	
 	private void createAccount(String firstName, String lastName, String username, String password) {
 		fillBasicInfo(firstName, lastName);
 		fillUserAccountDetails(username, password);
@@ -123,61 +103,27 @@ public class UserAdmin extends AbstractPageObject {
 		driver.findElement(By.name("username")).sendKeys(username);
 		driver.findElement(By.name("password")).sendKeys(password);
 		driver.findElement(By.name("confirmPassword")).sendKeys(password);
-
+		
 		WebElement select = driver.findElement(By.name("privilegeLevel"));
-	    List<WebElement> options = select.findElements(By.tagName("option"));
-	    for (WebElement option : options) {
-	        if("Konplè".equals(option.getText()))
-	            option.click();
-	    }
+		List<WebElement> options = select.findElements(By.tagName("option"));
+		for (WebElement option : options) {
+			if ("Konplè".equals(option.getText()))
+				option.click();
+		}
 	}
-
+	
 	private void clickOnSave() {
 		driver.findElement(By.id("save-button")).click();
 	}
-	
-	private void chooseClinicalRole() {
-		getRightRole(CLINICAL_ROLE).click();
-	}
-	
-	private void chooseDataArchivesRole() {
-		getRightRole(DATA_ARCHIVES).click();
-	}
-	
-	private void chooseRadiologyRole() {
-		getRightRole(RADIOLOGY).click();
-	}
-	
-	private void chooseSysAdminRole() {
-		getRightRole(SYS_ADMIN).click();
-	}
 
-	public void unlockUser(String username) {
-		adminPage.openManageAccounts();
-		this.getRightUserElement(username).click();
-		driver.findElement(By.id("unlock-button")).click();
-	}
-	
-	private WebElement getRightRole(String role) {
+    private WebElement getRightRole(String role) {
 		List<WebElement> options = driver.findElements(By.name("capabilities"));
 		for (WebElement element : options) {
-			if(element.getAttribute("value").contains(role)) {
-	            return element;
-	        }
+			if (element.getAttribute("value").contains(role)) {
+				return element;
+			}
 		}
 		throw new ElementNotFoundException(role, role, role);
 	}
-	
-	private WebElement getRightUserElement(String username) {
-		List<WebElement> options = driver.findElements(By.tagName("a"));
-		for (int i = options.size(); i > 0; i = i-1) {
-			WebElement option = options.get(i-1);
-	        if(option.getText().contains(username)) {
-	            return option;
-	        }
-		}
-		throw new ElementNotFoundException(username, username, username);
-	}
-
 	
 }

@@ -18,6 +18,7 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.AbstractPageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
@@ -81,11 +82,12 @@ public class ConsultNoteForm extends AbstractPageObject {
 		driver.findElement(By.cssSelector("strong.matched-name")).click();
 	}
 	
-	protected void chooseDisposition(String disposition) throws Exception {
-        driver.findElement(By.cssSelector("#disposition-field option[value=" + disposition + "]")).click();
-	}
-	
-	protected void confirmData() {
+	protected void chooseDisposition(String dispositionValue) throws Exception {
+        Select dispositions = new Select(driver.findElement(By.id("disposition-field")));
+        dispositions.selectByValue(dispositionValue);
+    }
+
+    protected void confirmData() {
 		clickOn(By.cssSelector("#buttons .confirm"));
 	}
 
