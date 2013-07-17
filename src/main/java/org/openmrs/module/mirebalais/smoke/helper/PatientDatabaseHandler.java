@@ -123,10 +123,10 @@ public class PatientDatabaseHandler {
 		        .put(
 		            "obs",
 		            "select * from obs where encounter_id in (select encounter_id from encounter where patient_id = %d) and obs_group_id is not null");
+		firstToDelete.put("person_merge_log", "select * from person_merge_log where winner_person_id = %d");
 		patientTablesToDelete.add(firstToDelete);
 		
 		Map<String, String> secondToDelete = new LinkedHashMap<String, String>();
-		secondToDelete.put("person_merge_log", "select * from person_merge_log where winner_person_id = %d");
 		secondToDelete.put("person_merge_log", "select * from person_merge_log where loser_person_id = %d");
 		secondToDelete
 		        .put("name_phonetics",
