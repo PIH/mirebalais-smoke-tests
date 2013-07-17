@@ -46,7 +46,6 @@ public class VitalsApp extends AbstractPageObject {
 	private void hitEnterOnBMI() {
 		JavascriptExecutor jse = (JavascriptExecutor)driver;
 		jse.executeScript("document.getElementById('hidden-calculated-bmi').setAttribute('type', 'text');");
-		driver.findElement(By.id("hidden-calculated-bmi")).clear();
 		driver.findElement(By.id("hidden-calculated-bmi")).sendKeys(Keys.RETURN);
 	}
 
