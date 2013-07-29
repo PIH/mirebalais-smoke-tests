@@ -17,6 +17,7 @@ package org.openmrs.module.mirebalais.smoke.pageobjects.forms;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AbstractPageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
 
 public class XRayForm extends AbstractPageObject {
 
@@ -24,8 +25,12 @@ public class XRayForm extends AbstractPageObject {
 		super(driver);
 	}
 
-	public void fillForm(String study1, String study2) {
-		driver.findElement(By.name("clinicalHistory")).sendKeys("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eu neque ut mi auctor pulvinar. Mauris in orci non sem consequat posuere.");
+	public void fillForm(String study1, String study2) throws Exception {
+
+        chooseProvider("Super User");
+        chooseLocation("Ijans");
+
+        driver.findElement(By.name("clinicalHistory")).sendKeys("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eu neque ut mi auctor pulvinar. Mauris in orci non sem consequat posuere.");
 		setClearTextToField("study-search", study1);
 		clickOn(By.linkText(study1));
 		
@@ -34,4 +39,16 @@ public class XRayForm extends AbstractPageObject {
 
 		clickOn(By.id("next"));
 	}
+
+    protected void chooseProvider(String providerName) throws Exception {
+        Select providers = new Select(driver.findElement(By.id("requestedBy-field")));
+        providers.selectByVisibleText(providerName);
+    }
+
+    protected void chooseLocation(String locationName) throws Exception {
+        Select locations = new Select(driver.findElement(By.id("requestedFrom-field")));
+        locations.selectByVisibleText(locationName);
+    }
+
+
 }

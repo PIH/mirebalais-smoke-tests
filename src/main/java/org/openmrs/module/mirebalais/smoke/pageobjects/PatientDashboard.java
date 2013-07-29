@@ -56,7 +56,7 @@ public class PatientDashboard extends AbstractPageObject {
 		createFormsMap();
 	}
 
-	public void orderXRay(String study1, String study2) {
+	public void orderXRay(String study1, String study2) throws Exception {
 		openForm(formList.get("Order X-Ray"));
 
 		xRayForm.fillForm(study1, study2);
