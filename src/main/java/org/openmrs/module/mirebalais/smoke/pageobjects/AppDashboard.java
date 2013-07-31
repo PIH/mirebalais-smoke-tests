@@ -17,15 +17,12 @@ package org.openmrs.module.mirebalais.smoke.pageobjects;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.math.BigInteger;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
-
 public class AppDashboard extends AbstractPageObject {
 
-	public static final String ACTIVE_VISITS = "emr-activeVisits-app";
+	public static final String ACTIVE_VISITS = "org-openmrs-module-coreapps-activeVisitsHomepageLink-app";
     public static final String ARCHIVES_ROOM = "emr-archivesRoom-app";
     public static final String EDIT_PATIENT = "patientRegistration-lookup-app";
     public static final String PATIENT_REGISTRATION = "patientRegistration-registration-app";
