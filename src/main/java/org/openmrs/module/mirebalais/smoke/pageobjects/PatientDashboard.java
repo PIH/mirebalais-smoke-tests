@@ -95,34 +95,49 @@ public class PatientDashboard extends AbstractPageObject {
         wait5seconds.until(visibilityOfElementLocated(By.cssSelector(".visit-actions.active-visit")));
     }
 
-	public void addConsultNoteWithDischarge() throws Exception {
+	public void addConsultNoteWithDischarge(String primaryDiagnosis) throws Exception {
 		openForm(formList.get("Consult Note"));
-		consultNoteForm.fillFormWithDischarge();
+		consultNoteForm.fillFormWithDischarge(primaryDiagnosis);
 	}
 
-	public String addConsultNoteWithAdmissionToLocation(int numbered) throws Exception {
+	public String addConsultNoteWithAdmissionToLocation(String primaryDiagnosis,int numbered) throws Exception {
 		openForm(formList.get("Consult Note"));
-		return consultNoteForm.fillFormWithAdmissionAndReturnLocation(numbered);
+		return consultNoteForm.fillFormWithAdmissionAndReturnLocation(primaryDiagnosis, numbered);
 	}
 
-	public String addConsultNoteWithTransferToLocation(int numbered) throws Exception {
+	public String addConsultNoteWithTransferToLocation(String primaryDiagnosis, int numbered) throws Exception {
 		openForm(formList.get("Consult Note"));
-		return consultNoteForm.fillFormWithTransferAndReturnLocation(numbered);
+		return consultNoteForm.fillFormWithTransferAndReturnLocation(primaryDiagnosis, numbered);
 	}
 
-	public void addConsultNoteWithDeath() throws Exception {
+	public void addConsultNoteWithDeath(String primaryDiagnosis) throws Exception {
 		openForm(formList.get("Consult Note"));
-		consultNoteForm.fillFormWithDeath();
+		consultNoteForm.fillFormWithDeath(primaryDiagnosis);
 	}
 
-    public void addEmergencyDepartmentNote() throws Exception {
+    public void editExistingConsultNote(String primaryDiagnosis) throws Exception {
+        openForm(By.cssSelector(".consult-encounter-template .editEncounter"));
+        consultNoteForm.editPrimaryDiagnosis(primaryDiagnosis);
+    }
+
+    public void addEmergencyDepartmentNote(String primaryDiagnosis) throws Exception {
 		openForm(formList.get("ED Note"));
-		eDNoteForm.fillFormWithDischarge();
+		eDNoteForm.fillFormWithDischarge(primaryDiagnosis);
 	}
+
+    public void editExistingEDNote(String primaryDiagnosis) throws Exception {
+        openForm(By.cssSelector(".consult-encounter-template .editEncounter"));
+        eDNoteForm.editPrimaryDiagnosis(primaryDiagnosis);
+    }
 
 	public void openForm(By formIdentification) {
 		clickOn(formIdentification);
 	}
+
+    public void viewConsultationDetails() {
+        clickOn(By.cssSelector(".consult-encounter-template .show-details"));
+    }
+
 
 	public void requestRecord() {
 		hoverOn(By.cssSelector(".actions"));
@@ -147,6 +162,10 @@ public class PatientDashboard extends AbstractPageObject {
         } catch (NoSuchElementException e) {
             return false;
         }
+    }
+
+    public Boolean containsText(String text) {
+        return driver.getPageSource().contains(text);
     }
 
     public List<WebElement> getVisits() {

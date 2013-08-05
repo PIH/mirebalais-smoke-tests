@@ -24,8 +24,6 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
 
 public class ConsultNoteForm extends AbstractPageObject {
 
-	private static final String PRIMARY_DIAGNOSIS = "IGU";
-	
 	public static final String ADMISSION = "admitToHospital";
 	public static final String DEATH = "markPatientDead";
 	public static final String DISCHARGE = "discharge";
@@ -38,30 +36,36 @@ public class ConsultNoteForm extends AbstractPageObject {
 		super(driver);
 	}
 
-	public void fillFormWithDischarge() throws Exception {
-		fillFormWithBasicInfo(DISCHARGE);
+	public void fillFormWithDischarge(String primaryDiagnosis) throws Exception {
+		fillFormWithBasicInfo(primaryDiagnosis, DISCHARGE);
 	}
 	
-	public void fillFormWithDeath() throws Exception {
-		fillFormWithBasicInfo(DEATH);
+	public void fillFormWithDeath(String primaryDiagnosis) throws Exception {
+		fillFormWithBasicInfo(primaryDiagnosis, DEATH);
 	}
 	
-	public String fillFormWithAdmissionAndReturnLocation(int locationNumbered) throws Exception {
-        return fillFormAndReturnPlace(ADMISSION, locationsForAdmission, locationNumbered);
+	public String fillFormWithAdmissionAndReturnLocation(String primaryDiagnosis, int locationNumbered) throws Exception {
+        return fillFormAndReturnPlace(primaryDiagnosis, ADMISSION, locationsForAdmission, locationNumbered);
 	}
 
-	public String fillFormWithTransferAndReturnLocation(int locationNumbered) throws Exception {
-        return fillFormAndReturnPlace(TRANSFER, locationsForTransferWithinHospital, locationNumbered);
+	public String fillFormWithTransferAndReturnLocation(String primaryDiagnosis, int locationNumbered) throws Exception {
+        return fillFormAndReturnPlace(primaryDiagnosis, TRANSFER, locationsForTransferWithinHospital, locationNumbered);
 	}
 
-	protected void fillFormWithBasicInfo(String disposition) throws Exception {
-		choosePrimaryDiagnosis();
+    public void editPrimaryDiagnosis(String primaryDiagnosis) throws Exception {
+        removePrimaryDiagnosis();
+        choosePrimaryDiagnosis(primaryDiagnosis);
+        confirmData();
+    }
+
+	protected void fillFormWithBasicInfo(String primaryDiagnosis, String disposition) throws Exception {
+		choosePrimaryDiagnosis(primaryDiagnosis);
 		chooseDisposition(disposition);
 		confirmData();
 	}
 	
-	protected String fillFormAndReturnPlace(String disposition, By dropdownOptionsLocator, int locationNumber) throws Exception  {
-		choosePrimaryDiagnosis();
+	protected String fillFormAndReturnPlace(String primaryDiagnosis, String disposition, By dropdownOptionsLocator, int locationNumber) throws Exception  {
+		choosePrimaryDiagnosis(primaryDiagnosis);
 		chooseDisposition(disposition);
         wait5seconds.until(visibilityOfElementLocated(dropdownOptionsLocator));
         WebElement location = driver.findElements(dropdownOptionsLocator).get(locationNumber);
@@ -76,15 +80,19 @@ public class ConsultNoteForm extends AbstractPageObject {
         location.click();
 		return location.getText();
 	}
-	
-	protected void choosePrimaryDiagnosis() {
-		setClearTextToField("diagnosis-search", PRIMARY_DIAGNOSIS);
+
+	protected void choosePrimaryDiagnosis(String primaryDiagnosis) {
+		setClearTextToField("diagnosis-search", primaryDiagnosis);
 		driver.findElement(By.cssSelector("strong.matched-name")).click();
 	}
 	
 	protected void chooseDisposition(String dispositionValue) throws Exception {
         Select dispositions = new Select(driver.findElement(By.id("disposition-field")));
         dispositions.selectByValue(dispositionValue);
+    }
+
+    protected void removePrimaryDiagnosis() {
+        clickOn(By.cssSelector("#display-encounter-diagnoses-container .delete-item"));
     }
 
     protected void confirmData() {

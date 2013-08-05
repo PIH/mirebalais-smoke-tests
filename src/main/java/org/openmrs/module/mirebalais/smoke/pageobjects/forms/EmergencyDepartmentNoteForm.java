@@ -26,8 +26,8 @@ public class EmergencyDepartmentNoteForm extends ConsultNoteForm {
 		super(driver);
 	}
 
-	protected void fillFormWithBasicInfo(String disposition) throws Exception {
-		choosePrimaryDiagnosis();
+	protected void fillFormWithBasicInfo(String primaryDiagnosis, String disposition) throws Exception {
+		choosePrimaryDiagnosis(primaryDiagnosis);
 		chooseDisposition(disposition);
 		fillTraumaData();
 		confirmData();
