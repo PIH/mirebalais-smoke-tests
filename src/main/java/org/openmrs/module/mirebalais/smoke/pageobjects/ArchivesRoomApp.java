@@ -27,8 +27,8 @@ public class ArchivesRoomApp extends AbstractPageObject {
 	}
 	
 	public WebElement findPatientInTheList(String patientIdentifier, String list) {
-        wait30Seconds.until(visibilityOfElementLocated(By.cssSelector("#" + list + " #" + patientIdentifier)));
-        return driver.findElement(By.id(list)).findElement(By.id(patientIdentifier));
+        wait30Seconds.until(visibilityOfElementLocated(By.cssSelector("#" + list + " ." + patientIdentifier)));
+        return driver.findElement(By.id(list)).findElement(By.className(patientIdentifier));
     }
 
     public void sendDossier(String dossieNumber) {
@@ -49,15 +49,15 @@ public class ArchivesRoomApp extends AbstractPageObject {
 	public String createRecord(String patientIdentifier) throws Exception {
 		findPatientInTheList(patientIdentifier, "create_requests_table").click();
 		clickOnAssign();
-        wait5seconds.until(visibilityOfElementLocated(By.cssSelector("#assigned_create_requests_table #" + patientIdentifier)));
-        return getDossieNumber(patientIdentifier);
+        wait5seconds.until(visibilityOfElementLocated(By.cssSelector("#assigned_create_requests_table ." + patientIdentifier)));
+        return getDossierNumber(patientIdentifier);
 	}
 
     private void clickOnAssign() {
 		driver.findElement(By.id("assign-to-create-button")).click();
 	}
 
-	private String getDossieNumber(String patientIdentifier) throws Exception {
-        return driver.findElement(By.id(patientIdentifier)).findElement(By.cssSelector("td:nth-child(2)")).getText();
+	private String getDossierNumber(String patientIdentifier) throws Exception {
+        return driver.findElement(By.className(patientIdentifier)).findElement(By.cssSelector("td:nth-child(2)")).getText();
 	}
 }
