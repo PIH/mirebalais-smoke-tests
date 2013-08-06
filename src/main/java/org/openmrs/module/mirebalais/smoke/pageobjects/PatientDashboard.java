@@ -183,9 +183,9 @@ public class PatientDashboard extends AbstractPageObject {
 
     private void createFormsMap() {
 		formList = new HashMap<String, By>();
-		formList.put("Consult Note", By.cssSelector("#visit-details a:nth-child(3) .icon-stethoscope"));
+		formList.put("Consult Note", By.cssSelector("#visit-details a:nth-child(2) .icon-stethoscope"));
 		formList.put("Surgical Note", By.cssSelector("#visit-details .icon-paste"));
 		formList.put("Order X-Ray", By.className("icon-x-ray"));
-		formList.put("ED Note", By.cssSelector("#visit-details a:nth-child(4) .icon-stethoscope"));
+		formList.put("ED Note", By.cssSelector("#visit-details a:nth-child(3) .icon-stethoscope"));
 	}
 }

@@ -18,7 +18,7 @@ public class ConsultationTest extends DbTest {
 
 	@BeforeClass
 	public static void prepare() {
-		new LoginPage(driver).logInAsAdmin();
+		new LoginPage(driver).logInAsDoctor();
 	}
 	
 	@Before

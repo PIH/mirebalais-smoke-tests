@@ -25,4 +25,8 @@ public class LoginPage {
 	public void logInAsAdmin() {
 		this.logIn("admin", "Admin123");
 	}
+
+    public void logInAsDoctor() {
+        this.logIn("doctor", "Doctor123");
+    }
 }
