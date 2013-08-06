@@ -7,7 +7,6 @@ import org.junit.Rule;
 import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
-import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.SmokeTestDriver;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
@@ -68,4 +67,8 @@ public abstract class BasicMirebalaisSmokeTest {
     protected void login() {
 		new LoginPage(driver).logInAsAdmin();
 	}
+
+    protected void loginAsDoctor() {
+        new LoginPage(driver).logInAsDoctor();
+    }
 }

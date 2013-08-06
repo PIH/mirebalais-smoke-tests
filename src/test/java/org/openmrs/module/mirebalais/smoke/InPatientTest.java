@@ -23,7 +23,7 @@ public class InPatientTest extends DbTest {
 		
 		inPatientList = new InPatientList(driver);
 		
-		login();
+		loginAsDoctor();
 		
 		appDashboard.goToPatientPage(testPatient.getId());
 		patientDashboard.startVisit();
