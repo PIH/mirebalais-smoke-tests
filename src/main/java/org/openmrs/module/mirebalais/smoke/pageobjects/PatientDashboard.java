@@ -31,7 +31,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
 public class PatientDashboard extends AbstractPageObject {
 
 	public static final String CHECKIN = "Tcheke";
-	public static final String CONSULTATION = "Consultation";
+	public static final String CONSULTATION = "Konsiltasyon";
 	public static final String VITALS = "Siy Vito";
 	public static final String RADIOLOGY = "Preskripsyon Radyoloji";
 	public static final String ACTIVE_VISIT_MESSAGE = "Vizit aktiv";
