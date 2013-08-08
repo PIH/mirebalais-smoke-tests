@@ -14,6 +14,12 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
+
+import java.util.HashMap;
+import java.util.List;
+
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.ConsultNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.EmergencyDepartmentNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.XRayForm;
@@ -21,12 +27,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
-import java.util.HashMap;
-import java.util.List;
-
-import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class PatientDashboard extends AbstractPageObject {
 
@@ -47,6 +47,9 @@ public class PatientDashboard extends AbstractPageObject {
     private By actions = By.cssSelector(".actions");
     private By checkIn = By.cssSelector("i.icon-check-in");
     private By confirmStartVisit = By.cssSelector("#quick-visit-creation-dialog .confirm");
+    private By firstPencilIcon = By.cssSelector("#encountersList span i:nth-child(1)");
+    private By providerDropDown = By.cssSelector("#provider select");
+    private By locationDropDown = By.cssSelector("#location select");
 
     public PatientDashboard(WebDriver driver) {
 		super(driver);
@@ -181,11 +184,50 @@ public class PatientDashboard extends AbstractPageObject {
         }
     }
 
+    public String providerForFirstEncounter() {
+        return driver.findElement(By.className("encounter-details")).findElement(By.className("provider")).getText();
+    }
+
+    public String locationForFirstEncounter() {
+        return driver.findElement(By.className("encounter-details")).findElement(By.className("location")).getText();
+    }
+
+    public ProviderAndLocation editFirstEncounter(int providerOption, int locationOption) {
+        driver.findElement(firstPencilIcon).click();
+        wait5seconds.until(visibilityOfElementLocated(providerDropDown));
+
+        WebElement provider = driver.findElement(providerDropDown).findElements(By.tagName("option")).get(providerOption);
+        provider.click();
+
+        WebElement location = driver.findElement(locationDropDown).findElements(By.tagName("option")).get(locationOption);
+        location.click();
+
+        return new ProviderAndLocation(provider.getText(), location.getText());
+    }
+
     private void createFormsMap() {
 		formList = new HashMap<String, By>();
 		formList.put("Consult Note", By.cssSelector("#visit-details a:nth-child(2) .icon-stethoscope"));
 		formList.put("Surgical Note", By.cssSelector("#visit-details .icon-paste"));
 		formList.put("Order X-Ray", By.className("icon-x-ray"));
 		formList.put("ED Note", By.cssSelector("#visit-details a:nth-child(3) .icon-stethoscope"));
+	}
+	
+	public class ProviderAndLocation {
+		private final String provider;
+		private final String location;
+		
+		ProviderAndLocation(String provider, String location) {
+			this.provider = provider;
+			this.location = location;
+		}
+		
+		public String getProvider() {
+			return provider;
+		}
+		
+		public String getLocation() {
+			return location;
+		}
 	}
 }
