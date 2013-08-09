@@ -34,7 +34,8 @@ public class UserDatabaseHandler extends BaseDatabaseHandler {
 
         try {
             user = new User(getNextAutoIncrementFor("person"), UUID.randomUUID().toString(),
-                    getNextAutoIncrementFor("person_name"), getNextAutoIncrementFor("users"), "smokeTestDoctor", "clinical");
+                    getNextAutoIncrementFor("person_name"), getNextAutoIncrementFor("users"), "smokeTestDoctor", "clinical",
+                    getNextAutoIncrementFor("provider"), UUID.randomUUID().toString());
 
             IDataSet dataset = createDataset(user);
             datasets.put(user, dataset);
