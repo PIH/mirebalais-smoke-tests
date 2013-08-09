@@ -11,74 +11,76 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 
 public class EditAdmissionTransferAndDischargeTest extends DbTest {
-
-    private final String anemia  = "D64.9";
-    private final String malaria = "B54";
-    private final String rubella = "B06.9";
-
-    @BeforeClass
+	
+	private final String anemia = "D64.9";
+	
+	private final String malaria = "B54";
+	
+	private final String rubella = "B06.9";
+	
+	@BeforeClass
 	public static void prepare() {
 		new LoginPage(driver).logInAsDoctor();
 	}
-
+	
 	@Test
 	public void shouldChangeProviderAndLocationForAdmission() throws Exception {
 		Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
 		initBasicPageObjects();
-
+		
 		appDashboard.goToPatientPage(testPatient.getId());
 		patientDashboard.startVisit();
-
+		
 		patientDashboard.addConsultNoteWithAdmissionToLocation(malaria, 3);
 		String provider = patientDashboard.providerForFirstEncounter();
 		String location = patientDashboard.locationForFirstEncounter();
-
+		
 		PatientDashboard.ProviderAndLocation providerAndLocation = patientDashboard.editFirstEncounter(3, 4);
-
+		
 		assertThat(providerAndLocation.getProvider(), not(provider));
 		assertThat(providerAndLocation.getLocation(), not(location));
-
+		
 	}
-
-    @Test
-     public void shouldChangeProviderAndLocationForTransferWithinHospital() throws Exception {
-        Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
-        initBasicPageObjects();
-
-        appDashboard.goToPatientPage(testPatient.getId());
-        patientDashboard.startVisit();
-
-        patientDashboard.addConsultNoteWithAdmissionToLocation(malaria, 3);
-        patientDashboard.addConsultNoteWithTransferToLocation(rubella, 3);
-
-        String provider = patientDashboard.providerForFirstEncounter();
-        String location = patientDashboard.locationForFirstEncounter();
-
-        PatientDashboard.ProviderAndLocation providerAndLocation = patientDashboard.editFirstEncounter(3, 4);
-
-        assertThat(providerAndLocation.getProvider(), not(provider));
-        assertThat(providerAndLocation.getLocation(), not(location));
-
-    }
-
-    @Test
-    public void shouldChangeProviderAndLocationForDischargeHospital() throws Exception {
-        Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
-        initBasicPageObjects();
-
-        appDashboard.goToPatientPage(testPatient.getId());
-        patientDashboard.startVisit();
-
-        patientDashboard.addConsultNoteWithAdmissionToLocation(malaria, 3);
-        patientDashboard.addConsultNoteWithDischarge(anemia);
-
-        String provider = patientDashboard.providerForFirstEncounter();
-        String location = patientDashboard.locationForFirstEncounter();
-
-        PatientDashboard.ProviderAndLocation providerAndLocation = patientDashboard.editFirstEncounter(3, 4);
-
-        assertThat(providerAndLocation.getProvider(), not(provider));
-        assertThat(providerAndLocation.getLocation(), not(location));
-
-    }
+	
+	@Test
+	public void shouldChangeProviderAndLocationForTransferWithinHospital() throws Exception {
+		Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
+		initBasicPageObjects();
+		
+		appDashboard.goToPatientPage(testPatient.getId());
+		patientDashboard.startVisit();
+		
+		patientDashboard.addConsultNoteWithAdmissionToLocation(malaria, 3);
+		patientDashboard.addConsultNoteWithTransferToLocation(rubella, 3);
+		
+		String provider = patientDashboard.providerForFirstEncounter();
+		String location = patientDashboard.locationForFirstEncounter();
+		
+		PatientDashboard.ProviderAndLocation providerAndLocation = patientDashboard.editFirstEncounter(3, 4);
+		
+		assertThat(providerAndLocation.getProvider(), not(provider));
+		assertThat(providerAndLocation.getLocation(), not(location));
+		
+	}
+	
+	@Test
+	public void shouldChangeProviderAndLocationForDischargeHospital() throws Exception {
+		Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
+		initBasicPageObjects();
+		
+		appDashboard.goToPatientPage(testPatient.getId());
+		patientDashboard.startVisit();
+		
+		patientDashboard.addConsultNoteWithAdmissionToLocation(malaria, 3);
+		patientDashboard.addConsultNoteWithDischarge(anemia);
+		
+		String provider = patientDashboard.providerForFirstEncounter();
+		String location = patientDashboard.locationForFirstEncounter();
+		
+		PatientDashboard.ProviderAndLocation providerAndLocation = patientDashboard.editFirstEncounter(3, 4);
+		
+		assertThat(providerAndLocation.getProvider(), not(provider));
+		assertThat(providerAndLocation.getLocation(), not(location));
+		
+	}
 }
