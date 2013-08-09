@@ -44,7 +44,7 @@ public class User {
         return uuid;
     }
 
-    public String getProviderUuid() {
+    public String getProvider_uuid() {
         return providerUuid;
     }
 
