@@ -29,183 +29,201 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class PatientDashboard extends AbstractPageObject {
-
+	
 	public static final String CHECKIN = "Tcheke";
+	
 	public static final String CONSULTATION = "Konsiltasyon";
+	
 	public static final String VITALS = "Siy Vito";
+	
 	public static final String RADIOLOGY = "Preskripsyon Radyoloji";
+	
 	public static final String ACTIVE_VISIT_MESSAGE = "Vizit aktiv";
+	
 	public static final String ADMISSION = "Admisyon";
+	
 	public static final String TRANSFER = "Transfè";
+	
 	private ConsultNoteForm consultNoteForm;
+	
 	private EmergencyDepartmentNoteForm eDNoteForm;
-    private XRayForm xRayForm;
+	
+	private XRayForm xRayForm;
+	
 	private HashMap<String, By> formList;
-
-    private By deleteEncounter = By.cssSelector("i.deleteEncounterId");
-    private By confirmDeleteEncounter = By.cssSelector("#delete-encounter-dialog .confirm");
-    private By actions = By.cssSelector(".actions");
-    private By checkIn = By.cssSelector("i.icon-check-in");
-    private By confirmStartVisit = By.cssSelector("#quick-visit-creation-dialog .confirm");
-    private By firstPencilIcon = By.cssSelector("#encountersList span i:nth-child(1)");
-    private By providerDropDown = By.cssSelector("#provider select");
-    private By locationDropDown = By.cssSelector("#location select");
-
-    public PatientDashboard(WebDriver driver) {
+	
+	private By deleteEncounter = By.cssSelector("i.deleteEncounterId");
+	
+	private By confirmDeleteEncounter = By.cssSelector("#delete-encounter-dialog .confirm");
+	
+	private By actions = By.cssSelector(".actions");
+	
+	private By checkIn = By.cssSelector("i.icon-check-in");
+	
+	private By confirmStartVisit = By.cssSelector("#quick-visit-creation-dialog .confirm");
+	
+	private By firstPencilIcon = By.cssSelector("#encountersList span i:nth-child(1)");
+	
+	private By providerDropDown = By.cssSelector("#provider select");
+	
+	private By locationDropDown = By.cssSelector("#location select");
+	
+	public PatientDashboard(WebDriver driver) {
 		super(driver);
 		consultNoteForm = new ConsultNoteForm(driver);
 		eDNoteForm = new EmergencyDepartmentNoteForm(driver);
-        xRayForm = new XRayForm(driver);
+		xRayForm = new XRayForm(driver);
 		createFormsMap();
 	}
-
+	
 	public void orderXRay(String study1, String study2) throws Exception {
 		openForm(formList.get("Order X-Ray"));
-
+		
 		xRayForm.fillForm(study1, study2);
 	}
-
-    public boolean verifyIfSuccessfulMessageIsDisplayed(){
-        return (driver.findElement(By.className("icon-ok")) != null);
-    }
-
-    public boolean hasActiveVisit() {
+	
+	public boolean verifyIfSuccessfulMessageIsDisplayed() {
+		return (driver.findElement(By.className("icon-ok")) != null);
+	}
+	
+	public boolean hasActiveVisit() {
 		return driver.findElement(By.id("visit-details")).getText().contains(ACTIVE_VISIT_MESSAGE);
 	}
-
+	
 	public void deleteFirstEncounter() {
-        clickOn(deleteEncounter);
-        clickOn(confirmDeleteEncounter);
-
-        wait5seconds.until(invisibilityOfElementLocated(By.id("delete-encounter-dialog")));
+		clickOn(deleteEncounter);
+		clickOn(confirmDeleteEncounter);
+		
+		wait5seconds.until(invisibilityOfElementLocated(By.id("delete-encounter-dialog")));
 	}
-
-    public Integer countEncountersOfType(String encounterName) {
+	
+	public Integer countEncountersOfType(String encounterName) {
 		int count = 0;
 		List<WebElement> encounters = driver.findElements(By.cssSelector("span.encounter-name"));
 		for (WebElement encounter : encounters) {
-	        if (encounter.getText().equals(encounterName))
-	        	count++;
-	    }
+			if (encounter.getText().equals(encounterName))
+				count++;
+		}
 		return count;
 	}
-
+	
 	public void startVisit() {
-        hoverOn(actions);
-        clickOn(checkIn);
-        clickOn(confirmStartVisit);
-
-        wait5seconds.until(visibilityOfElementLocated(By.cssSelector(".visit-actions.active-visit")));
-    }
-
+		hoverOn(actions);
+		clickOn(checkIn);
+		clickOn(confirmStartVisit);
+		
+		wait5seconds.until(visibilityOfElementLocated(By.cssSelector(".visit-actions.active-visit")));
+	}
+	
 	public void addConsultNoteWithDischarge(String primaryDiagnosis) throws Exception {
 		openForm(formList.get("Consult Note"));
 		consultNoteForm.fillFormWithDischarge(primaryDiagnosis);
 	}
-
-	public String addConsultNoteWithAdmissionToLocation(String primaryDiagnosis,int numbered) throws Exception {
+	
+	public String addConsultNoteWithAdmissionToLocation(String primaryDiagnosis, int numbered) throws Exception {
 		openForm(formList.get("Consult Note"));
 		return consultNoteForm.fillFormWithAdmissionAndReturnLocation(primaryDiagnosis, numbered);
 	}
-
+	
 	public String addConsultNoteWithTransferToLocation(String primaryDiagnosis, int numbered) throws Exception {
 		openForm(formList.get("Consult Note"));
 		return consultNoteForm.fillFormWithTransferAndReturnLocation(primaryDiagnosis, numbered);
 	}
-
+	
 	public void addConsultNoteWithDeath(String primaryDiagnosis) throws Exception {
 		openForm(formList.get("Consult Note"));
 		consultNoteForm.fillFormWithDeath(primaryDiagnosis);
 	}
-
-    public void editExistingConsultNote(String primaryDiagnosis) throws Exception {
-        openForm(By.cssSelector(".consult-encounter-template .editEncounter"));
-        consultNoteForm.editPrimaryDiagnosis(primaryDiagnosis);
-    }
-
-    public void addEmergencyDepartmentNote(String primaryDiagnosis) throws Exception {
+	
+	public void editExistingConsultNote(String primaryDiagnosis) throws Exception {
+		openForm(By.cssSelector(".consult-encounter-template .editEncounter"));
+		consultNoteForm.editPrimaryDiagnosis(primaryDiagnosis);
+	}
+	
+	public void addEmergencyDepartmentNote(String primaryDiagnosis) throws Exception {
 		openForm(formList.get("ED Note"));
 		eDNoteForm.fillFormWithDischarge(primaryDiagnosis);
 	}
-
-    public void editExistingEDNote(String primaryDiagnosis) throws Exception {
-        openForm(By.cssSelector(".consult-encounter-template .editEncounter"));
-        eDNoteForm.editPrimaryDiagnosis(primaryDiagnosis);
-    }
-
+	
+	public void editExistingEDNote(String primaryDiagnosis) throws Exception {
+		openForm(By.cssSelector(".consult-encounter-template .editEncounter"));
+		eDNoteForm.editPrimaryDiagnosis(primaryDiagnosis);
+	}
+	
 	public void openForm(By formIdentification) {
 		clickOn(formIdentification);
 	}
-
-    public void viewConsultationDetails() {
-        clickOn(By.cssSelector(".consult-encounter-template .show-details"));
-    }
-
-
+	
+	public void viewConsultationDetails() {
+		clickOn(By.cssSelector(".consult-encounter-template .show-details"));
+	}
+	
 	public void requestRecord() {
 		hoverOn(By.cssSelector(".actions"));
 		clickOn(By.cssSelector("i.icon-folder-open"));
 		clickOn(By.cssSelector("#request-paper-record-dialog .confirm"));
 	}
-
+	
 	public String getDossierNumber() {
 		List<WebElement> elements = driver.findElements(By.cssSelector(".identifiers span"));
 		return elements.get(1).getText();
 	}
-
+	
 	public boolean canRequestRecord() {
 		hoverOn(By.cssSelector(".actions"));
 		return driver.findElement(By.className("icon-folder-open")).isDisplayed();
 	}
-
+	
 	public Boolean startVisitButtonIsVisible() {
-        try {
-            driver.findElement(By.id("noVisitShowVisitCreationDialog"));
-            return true;
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-    }
-
-    public Boolean containsText(String text) {
-        return driver.getPageSource().contains(text);
-    }
-
-    public List<WebElement> getVisits() {
-        return driver.findElements(By.cssSelector(".menu-item.viewVisitDetails"));
-    }
-
-    public boolean isDead() {
-        try {
-            driver.findElement(By.className("death-message"));
-            return true;
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-    }
-
-    public String providerForFirstEncounter() {
-        return driver.findElement(By.className("encounter-details")).findElement(By.className("provider")).getText();
-    }
-
-    public String locationForFirstEncounter() {
-        return driver.findElement(By.className("encounter-details")).findElement(By.className("location")).getText();
-    }
-
-    public ProviderAndLocation editFirstEncounter(int providerOption, int locationOption) {
-        driver.findElement(firstPencilIcon).click();
-        wait5seconds.until(visibilityOfElementLocated(providerDropDown));
-
-        WebElement provider = driver.findElement(providerDropDown).findElements(By.tagName("option")).get(providerOption);
-        provider.click();
-
-        WebElement location = driver.findElement(locationDropDown).findElements(By.tagName("option")).get(locationOption);
-        location.click();
-
-        return new ProviderAndLocation(provider.getText(), location.getText());
-    }
-
-    private void createFormsMap() {
+		try {
+			driver.findElement(By.id("noVisitShowVisitCreationDialog"));
+			return true;
+		}
+		catch (NoSuchElementException e) {
+			return false;
+		}
+	}
+	
+	public Boolean containsText(String text) {
+		return driver.getPageSource().contains(text);
+	}
+	
+	public List<WebElement> getVisits() {
+		return driver.findElements(By.cssSelector(".menu-item.viewVisitDetails"));
+	}
+	
+	public boolean isDead() {
+		try {
+			driver.findElement(By.className("death-message"));
+			return true;
+		}
+		catch (NoSuchElementException e) {
+			return false;
+		}
+	}
+	
+	public String providerForFirstEncounter() {
+		return driver.findElement(By.className("encounter-details")).findElement(By.className("provider")).getText();
+	}
+	
+	public String locationForFirstEncounter() {
+		return driver.findElement(By.className("encounter-details")).findElement(By.className("location")).getText();
+	}
+	
+	public ProviderAndLocation editFirstEncounter(int providerOption, int locationOption) {
+		driver.findElement(firstPencilIcon).click();
+		wait5seconds.until(visibilityOfElementLocated(providerDropDown));
+		
+		WebElement provider = driver.findElement(providerDropDown).findElements(By.tagName("option")).get(providerOption);
+		provider.click();
+		
+		WebElement location = driver.findElement(locationDropDown).findElements(By.tagName("option")).get(locationOption);
+		location.click();
+		
+		return new ProviderAndLocation(provider.getText(), location.getText());
+	}
+	
+	private void createFormsMap() {
 		formList = new HashMap<String, By>();
 		formList.put("Consult Note", By.cssSelector("#visit-details a:nth-child(2) .icon-stethoscope"));
 		formList.put("Surgical Note", By.cssSelector("#visit-details .icon-paste"));
@@ -214,7 +232,9 @@ public class PatientDashboard extends AbstractPageObject {
 	}
 	
 	public class ProviderAndLocation {
+		
 		private final String provider;
+		
 		private final String location;
 		
 		ProviderAndLocation(String provider, String location) {
