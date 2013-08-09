@@ -1,10 +1,14 @@
 package org.openmrs.module.mirebalais.smoke.helper;
 
-import static java.sql.DriverManager.getConnection;
-import static org.dbunit.database.DatabaseConfig.PROPERTY_DATATYPE_FACTORY;
-import static org.dbunit.database.DatabaseConfig.PROPERTY_METADATA_HANDLER;
-import static org.dbunit.operation.DatabaseOperation.DELETE;
-import static org.dbunit.operation.DatabaseOperation.INSERT;
+import com.github.jknack.handlebars.Handlebars;
+import com.github.jknack.handlebars.Template;
+import org.apache.commons.io.IOUtils;
+import org.dbunit.database.QueryDataSet;
+import org.dbunit.dataset.DataSetException;
+import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.ITable;
+import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
+import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -17,50 +21,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.apache.commons.io.IOUtils;
-import org.dbunit.DatabaseUnitException;
-import org.dbunit.database.DatabaseConfig;
-import org.dbunit.database.DatabaseConnection;
-import org.dbunit.database.QueryDataSet;
-import org.dbunit.dataset.DataSetException;
-import org.dbunit.dataset.IDataSet;
-import org.dbunit.dataset.ITable;
-import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
-import org.dbunit.ext.mysql.MySqlDataTypeFactory;
-import org.dbunit.ext.mysql.MySqlMetadataHandler;
-import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
+import static org.dbunit.operation.DatabaseOperation.DELETE;
+import static org.dbunit.operation.DatabaseOperation.INSERT;
 
-import com.github.jknack.handlebars.Handlebars;
-import com.github.jknack.handlebars.Template;
+public class PatientDatabaseHandler extends BaseDatabaseHandler {
 
-public class PatientDatabaseHandler {
-	
+    protected static Map<Patient, IDataSet> datasets = new HashMap<Patient, IDataSet>();
+
 	private static List<Map<String, String>> patientTablesToDelete = new LinkedList<Map<String, String>>();
-	
-	private static Map<Patient, IDataSet> datasets = new HashMap<Patient, IDataSet>();
-	
-	private static DatabaseConnection connection;
-	
-	private static QueryDataSet userDataToDelete;
-	static {
-		try {
-			SmokeTestProperties properties = new SmokeTestProperties();
-			
-			Class.forName(properties.getDatabaseDriverClass());
-			connection = new DatabaseConnection(getConnection(properties.getDatabaseUrl(), properties.getDatabaseUsername(),
-			    properties.getDatabasePassword()));
-			
-			DatabaseConfig config = connection.getConfig();
-			config.setProperty(PROPERTY_DATATYPE_FACTORY, new MySqlDataTypeFactory());
-			config.setProperty(PROPERTY_METADATA_HANDLER, new MySqlMetadataHandler());
-			
-			initializePatientTablesToDelete();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
+
+    static {
+        try {
+            initializePatientTablesToDelete();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 	public static void addTestPatientForDelete(BigInteger patientId) throws IOException, DataSetException, SQLException {
 		Patient patient = new Patient("123", null, patientId, null, -1, getTableId("person_name", patientId), getTableId(
 		    "person_address", patientId), new BigInteger("-1"), new BigInteger("-1"), -1);
@@ -87,35 +65,11 @@ public class PatientDatabaseHandler {
 			throw new Exception("unable to create patient in database", e);
 		}
 	}
-	
+
 	public static void deleteAllTestPatients() throws Exception {
 		for (Patient patient : datasets.keySet()) {
 			deleteTestPatient(patient);
 		}
-	}
-	
-	public static void addUserForDelete(String username) throws SQLException, DataSetException {
-		ITable userQuery = connection.createQueryTable("users", "select * from users where username = '" + username + "'");
-		
-		Integer userId = (Integer) userQuery.getValue(0, "user_id");
-		Integer personId = (Integer) userQuery.getValue(0, "person_id");
-		
-		userDataToDelete = new QueryDataSet(connection);
-		userDataToDelete.addTable("person", "select * from person where person_id = " + personId);
-		userDataToDelete.addTable("provider", "select * from provider where person_id = " + personId);
-		userDataToDelete.addTable("person_name", "select * from person_name where person_id = " + personId);
-		userDataToDelete.addTable("name_phonetics",
-		    "select * from name_phonetics where person_name_id in (select person_name_id from person_name where person_id = "
-		            + personId + ")");
-		userDataToDelete.addTable("users", "select * from users where user_id = " + userId);
-		userDataToDelete.addTable("user_role", "select * from user_role where user_id = " + userId);
-		userDataToDelete.addTable("user_property", "select * from user_property where user_id = " + userId);
-	}
-	
-	public static void deleteTestUser() throws DatabaseUnitException, SQLException {
-		if (userDataToDelete != null) {
-		    DELETE.execute(connection, userDataToDelete);
-        }
 	}
 	
 	private static Integer getEncounterTypeId() throws SQLException, DataSetException {
@@ -205,14 +159,7 @@ public class PatientDatabaseHandler {
 		    "select * from patient_identifier_type where name = 'ZL EMR ID'");
 		return (Integer) patientIdentifierType.getValue(0, "patient_identifier_type_id");
 	}
-	
-	private static BigInteger getNextAutoIncrementFor(String table_name) throws Exception {
-		ITable autoIncrement = connection.createQueryTable(table_name,
-		    "select Auto_increment from information_schema.tables where table_schema = DATABASE() AND table_name = '"
-		            + table_name + "'");
-		return (BigInteger) autoIncrement.getValue(0, "Auto_increment");
-	}
-	
+
 	private static void setDateUsedOfPatientIdentifierTo(String identifier, String date) throws Exception {
 		connection
 		        .getConnection()

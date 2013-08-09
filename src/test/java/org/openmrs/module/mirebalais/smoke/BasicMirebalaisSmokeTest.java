@@ -69,6 +69,6 @@ public abstract class BasicMirebalaisSmokeTest {
 	}
 
     protected void loginAsDoctor() {
-        new LoginPage(driver).logInAsDoctor();
+        new LoginPage(driver).logInAsClinicalUser();
     }
 }

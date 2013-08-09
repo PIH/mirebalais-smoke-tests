@@ -1,14 +1,15 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.assertThat;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
+import org.openmrs.module.mirebalais.smoke.helper.UserDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
+
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertThat;
 
 public class EditAdmissionTransferAndDischargeTest extends DbTest {
 	
@@ -19,8 +20,9 @@ public class EditAdmissionTransferAndDischargeTest extends DbTest {
 	private final String rubella = "B06.9";
 	
 	@BeforeClass
-	public static void prepare() {
-		new LoginPage(driver).logInAsDoctor();
+	public static void prepare() throws Exception {
+        UserDatabaseHandler.insertNewClinicalUser();
+		new LoginPage(driver).logInAsClinicalUser();
 	}
 	
 	@Test

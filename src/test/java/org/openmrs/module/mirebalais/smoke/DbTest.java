@@ -2,6 +2,7 @@ package org.openmrs.module.mirebalais.smoke;
 
 import org.junit.After;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
+import org.openmrs.module.mirebalais.smoke.helper.UserDatabaseHandler;
 
 public abstract class DbTest extends BasicMirebalaisSmokeTest {
 	
@@ -9,7 +10,7 @@ public abstract class DbTest extends BasicMirebalaisSmokeTest {
 	public void deleteData() throws Exception {
 		try {
 			PatientDatabaseHandler.deleteAllTestPatients();
-			PatientDatabaseHandler.deleteTestUser();
+            UserDatabaseHandler.deleteAllTestUsers();
 		}
 		catch (Exception e) {
 			e.printStackTrace();

@@ -5,6 +5,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
+import org.openmrs.module.mirebalais.smoke.helper.UserDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 
@@ -17,8 +18,9 @@ public class ConsultationTest extends DbTest {
     private static final String EDITED_PRIMARY_DIAGNOSIS = "Asthme";
 
 	@BeforeClass
-	public static void prepare() {
-		new LoginPage(driver).logInAsDoctor();
+	public static void prepare() throws Exception {
+        UserDatabaseHandler.insertNewClinicalUser();
+		new LoginPage(driver).logInAsClinicalUser();
 	}
 	
 	@Before

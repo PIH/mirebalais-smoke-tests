@@ -14,17 +14,14 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
-import java.sql.SQLException;
-import java.util.List;
-
-import org.dbunit.dataset.DataSetException;
-import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
+import com.gargoylesoftware.htmlunit.ElementNotFoundException;
+import org.openmrs.module.mirebalais.smoke.helper.UserDatabaseHandler;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-import com.gargoylesoftware.htmlunit.ElementNotFoundException;
+import java.util.List;
 
 public class UserAdmin extends AbstractPageObject {
 	
@@ -69,7 +66,7 @@ public class UserAdmin extends AbstractPageObject {
 		chooseProviderType();
 		chooseLanguage(language);
 		clickOnSave();
-        PatientDatabaseHandler.addUserForDelete(username);
+        UserDatabaseHandler.addUserForDelete(username);
 	}
 	
 	private void chooseProviderType() {
