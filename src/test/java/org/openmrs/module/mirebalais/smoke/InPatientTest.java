@@ -3,7 +3,9 @@ package org.openmrs.module.mirebalais.smoke;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
+import org.openmrs.module.mirebalais.smoke.helper.UserDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.InPatientList;
+import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -22,8 +24,9 @@ public class InPatientTest extends DbTest {
 		initBasicPageObjects();
 		
 		inPatientList = new InPatientList(driver);
-		
-		loginAsDoctor();
+
+        UserDatabaseHandler.insertNewClinicalUser();
+        new LoginPage(driver).logInAsClinicalUser();
 		
 		appDashboard.goToPatientPage(testPatient.getId());
 		patientDashboard.startVisit();
