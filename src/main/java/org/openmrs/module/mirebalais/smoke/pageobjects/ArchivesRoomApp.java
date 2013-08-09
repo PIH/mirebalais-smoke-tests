@@ -12,6 +12,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
 public class ArchivesRoomApp extends AbstractPageObject {
 
     private WebDriverWait wait30Seconds = new WebDriverWait(driver, 30);
+    private By pullRequestTabs = By.id("tab-selector-pull");
 
     public ArchivesRoomApp(WebDriver driver) {
 		super(driver);
@@ -43,7 +44,8 @@ public class ArchivesRoomApp extends AbstractPageObject {
 	}
 
     public void goToPullTab() {
-        driver.findElement(By.id("tab-selector-pull")).click();
+        wait5seconds.until(visibilityOfElementLocated(pullRequestTabs));
+        driver.findElement(pullRequestTabs).click();
     }
 
 	public String createRecord(String patientIdentifier) throws Exception {
