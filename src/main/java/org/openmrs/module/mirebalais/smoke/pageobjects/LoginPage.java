@@ -1,5 +1,6 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
+import org.openmrs.module.mirebalais.smoke.helper.UserDatabaseHandler;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -27,6 +28,6 @@ public class LoginPage {
 	}
 
     public void logInAsClinicalUser() {
-        this.logIn("smokeTestDoctor", "Admin123");
+        this.logIn(UserDatabaseHandler.getClinicalUser().getUsername(), "Admin123");
     }
 }

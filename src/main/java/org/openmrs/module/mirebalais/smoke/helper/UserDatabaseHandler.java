@@ -13,6 +13,7 @@ import org.openmrs.module.mirebalais.smoke.dataModel.User;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.BigInteger;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,13 +29,18 @@ public class UserDatabaseHandler extends BaseDatabaseHandler {
 
     private static QueryDataSet userDataToDelete;
 
+    private static User clinicalUser;
+
     public static User insertNewClinicalUser() throws Exception {
 
         User user;
 
         try {
+
+            BigInteger userId = getNextAutoIncrementFor("users");
+
             user = new User(getNextAutoIncrementFor("person"), UUID.randomUUID().toString(),
-                    getNextAutoIncrementFor("person_name"), getNextAutoIncrementFor("users"), "smokeTestDoctor", "clinical",
+                    getNextAutoIncrementFor("person_name"), userId, "smokeTestDoctor" + userId, "clinical",
                     getNextAutoIncrementFor("provider"), UUID.randomUUID().toString());
 
             IDataSet dataset = createDataset(user);
@@ -48,7 +54,12 @@ public class UserDatabaseHandler extends BaseDatabaseHandler {
         }
 
         addUserForDelete(user.getUsername());
+        clinicalUser = user;
         return user;
+    }
+
+    public static User getClinicalUser() {
+        return clinicalUser;
     }
 
     public static void deleteAllTestUsers() throws DatabaseUnitException, SQLException {
