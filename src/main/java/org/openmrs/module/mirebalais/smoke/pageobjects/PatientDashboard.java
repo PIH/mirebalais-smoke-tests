@@ -232,7 +232,7 @@ public class PatientDashboard extends AbstractPageObject {
 		
 		return new ProviderAndLocation(provider.getText(), location.getText());
 	}
-	
+
 	private void createFormsMap() {
 		formList = new HashMap<String, By>();
 		formList.put("Consult Note", By.cssSelector("#visit-details a:nth-child(2) .icon-stethoscope"));

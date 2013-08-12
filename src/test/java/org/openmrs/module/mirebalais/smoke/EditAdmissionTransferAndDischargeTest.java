@@ -21,17 +21,13 @@ public class EditAdmissionTransferAndDischargeTest extends DbTest {
 	
 	@BeforeClass
 	public static void prepare() throws Exception {
-        UserDatabaseHandler.insertNewClinicalUser();
+		UserDatabaseHandler.insertNewClinicalUser();
 		new LoginPage(driver).logInAsClinicalUser();
 	}
 	
 	@Test
 	public void shouldChangeProviderAndLocationForAdmission() throws Exception {
-		Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
-		initBasicPageObjects();
-		
-		appDashboard.goToPatientPage(testPatient.getId());
-		patientDashboard.startVisit();
+		startPatientVisit();
 		
 		patientDashboard.addConsultNoteWithAdmissionToLocation(malaria, 3);
 		String provider = patientDashboard.providerForFirstEncounter();
@@ -46,11 +42,7 @@ public class EditAdmissionTransferAndDischargeTest extends DbTest {
 	
 	@Test
 	public void shouldChangeProviderAndLocationForTransferWithinHospital() throws Exception {
-		Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
-		initBasicPageObjects();
-		
-		appDashboard.goToPatientPage(testPatient.getId());
-		patientDashboard.startVisit();
+		startPatientVisit();
 		
 		patientDashboard.addConsultNoteWithAdmissionToLocation(malaria, 3);
 		patientDashboard.addConsultNoteWithTransferToLocation(rubella, 3);
@@ -67,11 +59,7 @@ public class EditAdmissionTransferAndDischargeTest extends DbTest {
 	
 	@Test
 	public void shouldChangeProviderAndLocationForDischargeHospital() throws Exception {
-		Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
-		initBasicPageObjects();
-		
-		appDashboard.goToPatientPage(testPatient.getId());
-		patientDashboard.startVisit();
+		startPatientVisit();
 		
 		patientDashboard.addConsultNoteWithAdmissionToLocation(malaria, 3);
 		patientDashboard.addConsultNoteWithDischarge(anemia);
@@ -84,5 +72,13 @@ public class EditAdmissionTransferAndDischargeTest extends DbTest {
 		assertThat(providerAndLocation.getProvider(), not(provider));
 		assertThat(providerAndLocation.getLocation(), not(location));
 		
+	}
+	
+	private void startPatientVisit() throws Exception {
+		Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
+		initBasicPageObjects();
+		
+		appDashboard.goToPatientPage(testPatient.getId());
+		patientDashboard.startVisit();
 	}
 }
