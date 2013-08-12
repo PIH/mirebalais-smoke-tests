@@ -14,12 +14,6 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
-
-import java.util.HashMap;
-import java.util.List;
-
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.ConsultNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.EmergencyDepartmentNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.XRayForm;
@@ -27,6 +21,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
+import java.util.HashMap;
+import java.util.List;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class PatientDashboard extends AbstractPageObject {
 	
@@ -59,6 +59,8 @@ public class PatientDashboard extends AbstractPageObject {
 	private By actions = By.cssSelector(".actions");
 	
 	private By checkIn = By.cssSelector("i.icon-check-in");
+
+    private By addPastVisit = By.cssSelector("i.icon-plus");
 	
 	private By confirmStartVisit = By.cssSelector("#quick-visit-creation-dialog .confirm");
 	
@@ -114,6 +116,14 @@ public class PatientDashboard extends AbstractPageObject {
 		
 		wait5seconds.until(visibilityOfElementLocated(By.cssSelector(".visit-actions.active-visit")));
 	}
+
+    public void addPastVisit() {
+        hoverOn(actions);
+        clickOn(checkIn);
+        clickOn(confirmStartVisit);
+
+        wait5seconds.until(visibilityOfElementLocated(By.cssSelector(".visit-actions.active-visit")));
+    }
 	
 	public void addConsultNoteWithDischarge(String primaryDiagnosis) throws Exception {
 		openForm(formList.get("Consult Note"));
