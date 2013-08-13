@@ -59,8 +59,6 @@ public class PatientDashboard extends AbstractPageObject {
 	private By actions = By.cssSelector(".actions");
 	
 	private By checkIn = By.cssSelector("i.icon-check-in");
-
-    private By addPastVisit = By.cssSelector("i.icon-plus");
 	
 	private By confirmStartVisit = By.cssSelector("#quick-visit-creation-dialog .confirm");
 	
@@ -79,8 +77,7 @@ public class PatientDashboard extends AbstractPageObject {
 	}
 	
 	public void orderXRay(String study1, String study2) throws Exception {
-		openForm(formList.get("Order X-Ray"));
-		
+        openForm(formList.get("Order X-Ray"));
 		xRayForm.fillForm(study1, study2);
 	}
 	
@@ -232,12 +229,12 @@ public class PatientDashboard extends AbstractPageObject {
 		
 		return new ProviderAndLocation(provider.getText(), location.getText());
 	}
-
+	
 	private void createFormsMap() {
 		formList = new HashMap<String, By>();
 		formList.put("Consult Note", By.cssSelector("#visit-details a:nth-child(2) .icon-stethoscope"));
 		formList.put("Surgical Note", By.cssSelector("#visit-details .icon-paste"));
-		formList.put("Order X-Ray", By.className("icon-x-ray"));
+		formList.put("Order X-Ray", By.id("org.openmrs.module.radiologyapp.orderXray"));
 		formList.put("ED Note", By.cssSelector("#visit-details a:nth-child(3) .icon-stethoscope"));
 	}
 	

@@ -1,15 +1,16 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard.RADIOLOGY;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class OrdersTest extends DbTest {
 	
@@ -22,7 +23,9 @@ public class OrdersTest extends DbTest {
     private static final String END_DATE = "02-08-2013";
     private static final String END_DATE_FIELD = "2013-08-02 00:00:00";
 
-	@Test
+    private By confirmButton = By.cssSelector("#retrospective-visit-creation-dialog .confirm");
+
+    @Test
 	public void orderSingleXRay() throws Exception {
         Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
 		initBasicPageObjects();
@@ -37,7 +40,6 @@ public class OrdersTest extends DbTest {
 		assertThat(patientDashboard.countEncountersOfType(RADIOLOGY), is(1));
 	}
 
-    @Ignore
     @Test
     public void orderRetroSingleXRay() throws Exception {
         Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
@@ -56,7 +58,8 @@ public class OrdersTest extends DbTest {
         jse.executeScript("document.getElementById('retrospectiveVisitStopDate-display').value='" + END_DATE + "';");
         jse.executeScript("document.getElementById('retrospectiveVisitStopDate-field').value='" + END_DATE_FIELD + "';");
 
-        driver.findElement(By.cssSelector("#retrospective-visit-creation-dialog .confirm")).click();
+        new WebDriverWait(driver, 5).until(visibilityOfElementLocated(confirmButton));
+        driver.findElement(confirmButton).click();
         patientDashboard.orderXRay(STUDY_1, STUDY_2);
 
         assertThat(patientDashboard.countEncountersOfType(RADIOLOGY), is(1));
