@@ -58,7 +58,7 @@ public class OrdersTest extends DbTest {
         jse.executeScript("document.getElementById('retrospectiveVisitStopDate-display').value='" + END_DATE + "';");
         jse.executeScript("document.getElementById('retrospectiveVisitStopDate-field').value='" + END_DATE_FIELD + "';");
 
-        new WebDriverWait(driver, 5).until(visibilityOfElementLocated(confirmButton));
+        new WebDriverWait(driver, 20).until(visibilityOfElementLocated(confirmButton));
         driver.findElement(confirmButton).click();
         patientDashboard.orderXRay(STUDY_1, STUDY_2);
 
