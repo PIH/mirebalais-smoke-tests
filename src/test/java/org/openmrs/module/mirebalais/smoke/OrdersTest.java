@@ -1,5 +1,6 @@
 package org.openmrs.module.mirebalais.smoke;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
@@ -40,6 +41,7 @@ public class OrdersTest extends DbTest {
 		assertThat(patientDashboard.countEncountersOfType(RADIOLOGY), is(1));
 	}
 
+    @Ignore
     @Test
     public void orderRetroSingleXRay() throws Exception {
         Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
