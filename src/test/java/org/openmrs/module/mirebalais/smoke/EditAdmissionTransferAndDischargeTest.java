@@ -6,7 +6,7 @@ import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.helper.UserDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
-import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
+import org.openmrs.module.mirebalais.smoke.pageobjects.forms.EditEncounterForm;
 
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
@@ -30,13 +30,11 @@ public class EditAdmissionTransferAndDischargeTest extends DbTest {
 		startPatientVisit();
 		
 		patientDashboard.addConsultNoteWithAdmissionToLocation(malaria, 3);
-		String provider = patientDashboard.providerForFirstEncounter();
-		String location = patientDashboard.locationForFirstEncounter();
 		
-		PatientDashboard.ProviderAndLocation providerAndLocation = patientDashboard.editFirstEncounter(3, 4);
+		String previousProvider = patientDashboard.providerForFirstEncounter();
+		String previousLocation = patientDashboard.locationForFirstEncounter();
 		
-		assertThat(providerAndLocation.getProvider(), not(provider));
-		assertThat(providerAndLocation.getLocation(), not(location));
+		changeProviderAndLocationAndAssertThatTheyAreDifferentFrom(previousProvider, previousLocation);
 		
 	}
 	
@@ -47,13 +45,10 @@ public class EditAdmissionTransferAndDischargeTest extends DbTest {
 		patientDashboard.addConsultNoteWithAdmissionToLocation(malaria, 3);
 		patientDashboard.addConsultNoteWithTransferToLocation(rubella, 3);
 		
-		String provider = patientDashboard.providerForFirstEncounter();
-		String location = patientDashboard.locationForFirstEncounter();
+		String previousProvider = patientDashboard.providerForFirstEncounter();
+		String previousLocation = patientDashboard.locationForFirstEncounter();
 		
-		PatientDashboard.ProviderAndLocation providerAndLocation = patientDashboard.editFirstEncounter(3, 4);
-		
-		assertThat(providerAndLocation.getProvider(), not(provider));
-		assertThat(providerAndLocation.getLocation(), not(location));
+		changeProviderAndLocationAndAssertThatTheyAreDifferentFrom(previousProvider, previousLocation);
 		
 	}
 	
@@ -64,14 +59,22 @@ public class EditAdmissionTransferAndDischargeTest extends DbTest {
 		patientDashboard.addConsultNoteWithAdmissionToLocation(malaria, 3);
 		patientDashboard.addConsultNoteWithDischarge(anemia);
 		
-		String provider = patientDashboard.providerForFirstEncounter();
-		String location = patientDashboard.locationForFirstEncounter();
+		String previousProvider = patientDashboard.providerForFirstEncounter();
+		String previousLocation = patientDashboard.locationForFirstEncounter();
 		
-		PatientDashboard.ProviderAndLocation providerAndLocation = patientDashboard.editFirstEncounter(3, 4);
+		changeProviderAndLocationAndAssertThatTheyAreDifferentFrom(previousProvider, previousLocation);
 		
-		assertThat(providerAndLocation.getProvider(), not(provider));
-		assertThat(providerAndLocation.getLocation(), not(location));
+	}
+	
+	private void changeProviderAndLocationAndAssertThatTheyAreDifferentFrom(String previousProvider, String previousLocation) {
+		EditEncounterForm.SelectedProviderAndLocation selected = patientDashboard
+		        .editFirstEncounter(3, 4);
 		
+		String currentProvider = selected.provider();
+		String currentLocation = selected.location();
+		
+		assertThat(currentProvider, not(previousProvider));
+		assertThat(currentLocation, not(previousLocation));
 	}
 	
 	private void startPatientVisit() throws Exception {

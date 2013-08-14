@@ -14,19 +14,20 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
+
+import java.util.HashMap;
+import java.util.List;
+
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.ConsultNoteForm;
+import org.openmrs.module.mirebalais.smoke.pageobjects.forms.EditEncounterForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.EmergencyDepartmentNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.XRayForm;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
-import java.util.HashMap;
-import java.util.List;
-
-import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class PatientDashboard extends AbstractPageObject {
 	
@@ -64,10 +65,6 @@ public class PatientDashboard extends AbstractPageObject {
 	
 	private By firstPencilIcon = By.cssSelector("#encountersList span i:nth-child(1)");
 	
-	private By providerDropDown = By.cssSelector("#provider select");
-	
-	private By locationDropDown = By.cssSelector("#location select");
-	
 	public PatientDashboard(WebDriver driver) {
 		super(driver);
 		consultNoteForm = new ConsultNoteForm(driver);
@@ -77,7 +74,7 @@ public class PatientDashboard extends AbstractPageObject {
 	}
 	
 	public void orderXRay(String study1, String study2) throws Exception {
-        openForm(formList.get("Order X-Ray"));
+		openForm(formList.get("Order X-Ray"));
 		xRayForm.fillForm(study1, study2);
 	}
 	
@@ -113,14 +110,6 @@ public class PatientDashboard extends AbstractPageObject {
 		
 		wait5seconds.until(visibilityOfElementLocated(By.cssSelector(".visit-actions.active-visit")));
 	}
-
-    public void addPastVisit() {
-        hoverOn(actions);
-        clickOn(checkIn);
-        clickOn(confirmStartVisit);
-
-        wait5seconds.until(visibilityOfElementLocated(By.cssSelector(".visit-actions.active-visit")));
-    }
 	
 	public void addConsultNoteWithDischarge(String primaryDiagnosis) throws Exception {
 		openForm(formList.get("Consult Note"));
@@ -217,17 +206,18 @@ public class PatientDashboard extends AbstractPageObject {
 		return driver.findElement(By.className("encounter-details")).findElement(By.className("location")).getText();
 	}
 	
-	public ProviderAndLocation editFirstEncounter(int providerOption, int locationOption) {
+	public EditEncounterForm.SelectedProviderAndLocation editFirstEncounter(int providerOption, int locationOption) {
+		EditEncounterForm editEncounterForm = editEncounter();
+		
+		editEncounterForm.selectProvider(providerOption);
+		editEncounterForm.selectLocation(locationOption);
+		
+		return editEncounterForm.selectedProviderAndLocation();
+	}
+	
+	private EditEncounterForm editEncounter() {
 		driver.findElement(firstPencilIcon).click();
-		wait5seconds.until(visibilityOfElementLocated(providerDropDown));
-		
-		WebElement provider = driver.findElement(providerDropDown).findElements(By.tagName("option")).get(providerOption);
-		provider.click();
-		
-		WebElement location = driver.findElement(locationDropDown).findElements(By.tagName("option")).get(locationOption);
-		location.click();
-		
-		return new ProviderAndLocation(provider.getText(), location.getText());
+		return new EditEncounterForm(driver);
 	}
 	
 	private void createFormsMap() {
@@ -236,25 +226,5 @@ public class PatientDashboard extends AbstractPageObject {
 		formList.put("Surgical Note", By.cssSelector("#visit-details .icon-paste"));
 		formList.put("Order X-Ray", By.id("org.openmrs.module.radiologyapp.orderXray"));
 		formList.put("ED Note", By.cssSelector("#visit-details a:nth-child(3) .icon-stethoscope"));
-	}
-	
-	public class ProviderAndLocation {
-		
-		private final String provider;
-		
-		private final String location;
-		
-		ProviderAndLocation(String provider, String location) {
-			this.provider = provider;
-			this.location = location;
-		}
-		
-		public String getProvider() {
-			return provider;
-		}
-		
-		public String getLocation() {
-			return location;
-		}
 	}
 }
