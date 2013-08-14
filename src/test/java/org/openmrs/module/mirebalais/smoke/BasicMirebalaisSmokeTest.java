@@ -9,6 +9,7 @@ import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 import org.openmrs.module.mirebalais.smoke.helper.SmokeTestDriver;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
+import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientRegistrationDashboard;
@@ -35,6 +36,8 @@ public abstract class BasicMirebalaisSmokeTest {
     };
 
     protected static LoginPage loginPage;
+
+    protected static HeaderPage header;
 	
 	protected static WebDriver driver;
 	
@@ -58,6 +61,7 @@ public abstract class BasicMirebalaisSmokeTest {
 	
 	protected void initBasicPageObjects() {
 		loginPage = new LoginPage(driver);
+        header = new HeaderPage(driver);
 		registration = new Registration(driver);
 		patientRegistrationDashboard = new PatientRegistrationDashboard(driver);
 		patientDashboard = new PatientDashboard(driver);
@@ -67,4 +71,8 @@ public abstract class BasicMirebalaisSmokeTest {
     protected void login() {
 		new LoginPage(driver).logInAsAdmin();
 	}
+
+    protected void logout() {
+        new HeaderPage(driver).logOut();
+    }
 }

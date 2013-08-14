@@ -1,17 +1,17 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import org.junit.Ignore;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
+import org.openmrs.module.mirebalais.smoke.helper.Toast;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard.RADIOLOGY;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class OrdersTest extends DbTest {
 	
@@ -26,30 +26,31 @@ public class OrdersTest extends DbTest {
 
     private By confirmButton = By.cssSelector("#retrospective-visit-creation-dialog .confirm");
 
+    @Before
+    public void setUp() throws Exception {
+        Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
+        initBasicPageObjects();
+        login();
+        appDashboard.goToPatientPage(testPatient.getId());
+    }
+    @After
+    public void tearDown() {
+        Toast.closeToast(driver);
+        logout();
+    }
+
     @Test
 	public void orderSingleXRay() throws Exception {
-        Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
-		initBasicPageObjects();
 
-        login();
-		
-		appDashboard.goToPatientPage(testPatient.getId());
 		patientDashboard.startVisit();
-		
 		patientDashboard.orderXRay(STUDY_1, STUDY_2);
 		
 		assertThat(patientDashboard.countEncountersOfType(RADIOLOGY), is(1));
 	}
 
-    @Ignore
     @Test
     public void orderRetroSingleXRay() throws Exception {
-        Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
-        initBasicPageObjects();
 
-        login();
-
-        appDashboard.goToPatientPage(testPatient.getId());
         JavascriptExecutor jse = (JavascriptExecutor)driver;
         jse.executeScript("visit.showRetrospectiveVisitCreationDialog();");
         jse.executeScript("document.getElementById('retrospectiveVisitStartDate-display').removeAttribute('readonly', 0);");
@@ -60,7 +61,6 @@ public class OrdersTest extends DbTest {
         jse.executeScript("document.getElementById('retrospectiveVisitStopDate-display').value='" + END_DATE + "';");
         jse.executeScript("document.getElementById('retrospectiveVisitStopDate-field').value='" + END_DATE_FIELD + "';");
 
-        new WebDriverWait(driver, 20).until(visibilityOfElementLocated(confirmButton));
         driver.findElement(confirmButton).click();
         patientDashboard.orderXRay(STUDY_1, STUDY_2);
 
