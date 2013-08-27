@@ -37,8 +37,6 @@ public abstract class AbstractPageObject {
     public AbstractPageObject(WebDriver driver) {
         this.driver = driver;
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(5, TimeUnit.SECONDS);
-        driver.manage().timeouts().setScriptTimeout(5, TimeUnit.SECONDS);
 
         this.loginPO = new LoginPage(driver);
         this.wait5seconds = new WebDriverWait(driver, 5);
