@@ -156,7 +156,7 @@ public class PatientDashboard extends AbstractPageObject {
 	
 	public void requestRecord() {
 		hoverOn(By.cssSelector(".actions"));
-		clickOn(By.cssSelector("i.icon-folder-open"));
+		clickOn(By.cssSelector(".actions i.icon-folder-open"));
 		clickOn(By.cssSelector("#request-paper-record-dialog .confirm"));
 	}
 	
@@ -167,7 +167,7 @@ public class PatientDashboard extends AbstractPageObject {
 	
 	public boolean canRequestRecord() {
 		hoverOn(By.cssSelector(".actions"));
-		return driver.findElement(By.className("icon-folder-open")).isDisplayed();
+		return driver.findElement(By.cssSelector(".actions i.icon-folder-open")).isDisplayed();
 	}
 	
 	public Boolean startVisitButtonIsVisible() {
