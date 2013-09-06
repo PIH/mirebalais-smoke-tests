@@ -36,7 +36,6 @@ public class AppDashboard extends AbstractPageObject {
     public static final String IN_PATIENT = "emr-inpatients-app";
     public static final String MY_ACCOUNT = "emr-myAccount-app";
 
-
     public AppDashboard(WebDriver driver) {
         super(driver);
     }

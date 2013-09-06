@@ -30,7 +30,7 @@ public abstract class AbstractPageObject {
     protected SmokeTestProperties properties = new SmokeTestProperties();
 
     protected WebDriver driver;
-    protected WebDriverWait wait5seconds;
+    public WebDriverWait wait5seconds;
     private String baseServerUrl;
     private LoginPage loginPO;
 

@@ -20,6 +20,7 @@ import org.openqa.selenium.WebDriver;
 public class ReportsHomePage extends AbstractPageObject {
 
 	public static final String BASIC_STATISTICS_REPORT = "mirebalaisreports-basicStatisticsReport-link";
+    public static final String NONCODED_DIAGNOSES_REPORT = "mirebalaisreports-nonCodedDiagnosesReport-link";
 
     public ReportsHomePage(WebDriver driver) {
         super(driver);
@@ -28,6 +29,10 @@ public class ReportsHomePage extends AbstractPageObject {
     public void openBasicStatisticsReport() {
         clickLink(BASIC_STATISTICS_REPORT);
 	}
+
+    public void openNonCodedDiagnosesReport() {
+        clickLink(NONCODED_DIAGNOSES_REPORT);
+    }
 
 	private void clickLink(String id) {
         driver.findElement(By.id(id)).click();
