@@ -14,12 +14,6 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
-
-import java.util.HashMap;
-import java.util.List;
-
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.ConsultNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.EditEncounterForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.EmergencyDepartmentNoteForm;
@@ -28,6 +22,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
+import java.util.HashMap;
+import java.util.List;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class PatientDashboard extends AbstractPageObject {
 	
@@ -59,7 +59,7 @@ public class PatientDashboard extends AbstractPageObject {
 	
 	private By actions = By.cssSelector(".actions");
 	
-	private By checkIn = By.cssSelector("i.icon-check-in");
+	private By checkIn = By.cssSelector("a i.icon-check-in");
 	
 	private By confirmStartVisit = By.cssSelector("#quick-visit-creation-dialog .confirm");
 	
