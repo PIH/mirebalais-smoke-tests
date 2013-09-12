@@ -16,6 +16,7 @@ package org.openmrs.module.mirebalais.smoke.pageobjects.forms;
 
 import org.openmrs.module.mirebalais.smoke.pageobjects.AbstractPageObject;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -38,11 +39,18 @@ public class ConsultNoteForm extends AbstractPageObject {
 	}
 
 	public void fillFormWithDischarge(String primaryDiagnosis) throws Exception {
-		fillFormWithBasicInfo(primaryDiagnosis, DISCHARGE);
+        choosePrimaryDiagnosis(primaryDiagnosis);
+        chooseDisposition(DISCHARGE);
+        confirmData();
 	}
 	
 	public void fillFormWithDeath(String primaryDiagnosis) throws Exception {
-		fillFormWithBasicInfo(primaryDiagnosis, DEATH);
+        choosePrimaryDiagnosis(primaryDiagnosis);
+        chooseDisposition(DEATH);
+        WebElement dateField = driver.findElement(By.cssSelector("#dateOfDeath input"));
+        dateField.click();
+        dateField.sendKeys(Keys.RETURN);
+        confirmData();
 	}
 	
 	public String fillFormWithAdmissionAndReturnLocation(String primaryDiagnosis, int locationNumbered) throws Exception {
@@ -59,12 +67,6 @@ public class ConsultNoteForm extends AbstractPageObject {
         confirmData();
     }
 
-	protected void fillFormWithBasicInfo(String primaryDiagnosis, String disposition) throws Exception {
-		choosePrimaryDiagnosis(primaryDiagnosis);
-		chooseDisposition(disposition);
-		confirmData();
-	}
-	
 	protected String fillFormAndReturnPlace(String primaryDiagnosis, String disposition, By dropdownOptionsLocator, int locationNumber) throws Exception  {
 		choosePrimaryDiagnosis(primaryDiagnosis);
 		chooseDisposition(disposition);
