@@ -34,8 +34,8 @@ public class EmergencyDepartmentNoteForm extends ConsultNoteForm {
 	}
 
 	private void fillTraumaData() {
-		clickOn(By.id("traumaQuestion-0-field"));
-        List<WebElement> options = driver.findElements(By.cssSelector("#traumaTypes-field option"));
-        chooseOption(By.cssSelector("#traumaTypes-field option"), options.get(1 + (int) (Math.random() * options.size() - 1)));
+		clickOn(By.cssSelector("#trauma input:nth-child(1)"));
+        List<WebElement> options = driver.findElements(By.cssSelector("#traumaType option"));
+        chooseOption(By.cssSelector("#traumaType option"), options.get(1 + (int) (Math.random() * options.size() - 1)));
 	}
 }
