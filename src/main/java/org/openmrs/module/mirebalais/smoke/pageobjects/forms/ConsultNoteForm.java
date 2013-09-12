@@ -38,13 +38,11 @@ public class ConsultNoteForm extends AbstractPageObject {
 		super(driver);
 	}
 
-	public void fillFormWithDischarge(String primaryDiagnosis) throws Exception {
-        choosePrimaryDiagnosis(primaryDiagnosis);
-        chooseDisposition(DISCHARGE);
-        confirmData();
-	}
-	
-	public void fillFormWithDeath(String primaryDiagnosis) throws Exception {
+    public void fillFormWithDischarge(String primaryDiagnosis) throws Exception {
+        fillFormWithBasicInfo(primaryDiagnosis, DISCHARGE);
+    }
+
+    public void fillFormWithDeath(String primaryDiagnosis) throws Exception {
         choosePrimaryDiagnosis(primaryDiagnosis);
         chooseDisposition(DEATH);
         WebElement dateField = driver.findElement(By.cssSelector("#dateOfDeath input"));
@@ -67,7 +65,13 @@ public class ConsultNoteForm extends AbstractPageObject {
         confirmData();
     }
 
-	protected String fillFormAndReturnPlace(String primaryDiagnosis, String disposition, By dropdownOptionsLocator, int locationNumber) throws Exception  {
+    protected void fillFormWithBasicInfo(String primaryDiagnosis, String disposition) throws Exception {
+        choosePrimaryDiagnosis(primaryDiagnosis);
+        chooseDisposition(disposition);
+        confirmData();
+    }
+
+    protected String fillFormAndReturnPlace(String primaryDiagnosis, String disposition, By dropdownOptionsLocator, int locationNumber) throws Exception  {
 		choosePrimaryDiagnosis(primaryDiagnosis);
 		chooseDisposition(disposition);
         wait5seconds.until(visibilityOfElementLocated(dropdownOptionsLocator));
