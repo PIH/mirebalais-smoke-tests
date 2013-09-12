@@ -24,10 +24,11 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
 
 public class ConsultNoteForm extends AbstractPageObject {
 
-	public static final String ADMISSION = "admitToHospital";
-	public static final String DEATH = "markPatientDead";
-	public static final String DISCHARGE = "discharge";
-	public static final String TRANSFER = "transferWithinHospital";
+    // TODO key on something other than text
+	public static final String ADMISSION = "Admisyon";
+	public static final String DEATH = "Mouri";
+	public static final String DISCHARGE = "Egzeyat";
+	public static final String TRANSFER = "Transfè anndan lopital la";
 
     private By locationsForTransferWithinHospital = By.cssSelector("#transferWithinHospital-field option");
     private By locationsForAdmission = By.cssSelector("#admitToHospital-field option");
@@ -86,9 +87,9 @@ public class ConsultNoteForm extends AbstractPageObject {
 		driver.findElement(By.cssSelector("strong.matched-name")).click();
 	}
 	
-	protected void chooseDisposition(String dispositionValue) throws Exception {
-        Select dispositions = new Select(driver.findElement(By.id("disposition-field")));
-        dispositions.selectByValue(dispositionValue);
+	protected void chooseDisposition(String dispositionText) throws Exception {
+        Select dispositions = new Select(driver.findElement(By.cssSelector("span[id^='disposition'] select:nth-of-type(1)")));  // find the first select that is child of the span whose id starts with "disposition"
+        dispositions.selectByVisibleText(dispositionText);
     }
 
     protected void removePrimaryDiagnosis() {
