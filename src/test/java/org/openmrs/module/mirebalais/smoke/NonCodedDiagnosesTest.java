@@ -1,18 +1,22 @@
-package org.openmrs.module.mirebalais.smoke.helper;
+package org.openmrs.module.mirebalais.smoke;
 
 import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.openmrs.module.mirebalais.smoke.DbTest;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
+import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
+import org.openmrs.module.mirebalais.smoke.helper.UserDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.NonCodedDiagnosesList;
+import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.ReportsHomePage;
 import org.openqa.selenium.By;
 
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
 
 public class NonCodedDiagnosesTest extends DbTest {
@@ -46,6 +50,9 @@ public class NonCodedDiagnosesTest extends DbTest {
         ReportsHomePage reportsHomePage = new ReportsHomePage(driver);
         // enter a non-coded diagnosis
         patientDashboard.addConsultNoteWithDischarge(NON_CODED_DIAGNOSIS);
+
+        // make sure the consult note has finished submitting before opening reports page
+        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION), is(1));
 
         // verify the non-coded diagnosis is displayed in the reports page
         appDashboard.openReportApp();
