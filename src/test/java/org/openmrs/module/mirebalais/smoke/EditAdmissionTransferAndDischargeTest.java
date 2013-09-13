@@ -4,7 +4,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
-import org.openmrs.module.mirebalais.smoke.helper.UserDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.EditEncounterForm;
 
@@ -21,15 +20,14 @@ public class EditAdmissionTransferAndDischargeTest extends DbTest {
 	
 	@BeforeClass
 	public static void prepare() throws Exception {
-		UserDatabaseHandler.insertNewClinicalUser();
-		new LoginPage(driver).logInAsClinicalUser();
+		new LoginPage(driver).logInAsAdmin();
 	}
 	
 	@Test
 	public void shouldChangeProviderAndLocationForAdmission() throws Exception {
 		startPatientVisit();
 		
-		patientDashboard.addConsultNoteWithAdmissionToLocation(malaria, 3);
+		patientDashboard.addRetroConsultNoteWithAdmissionToLocation(malaria, 3);
 		
 		String previousProvider = patientDashboard.providerForFirstEncounter();
 		String previousLocation = patientDashboard.locationForFirstEncounter();
@@ -42,8 +40,8 @@ public class EditAdmissionTransferAndDischargeTest extends DbTest {
 	public void shouldChangeProviderAndLocationForTransferWithinHospital() throws Exception {
 		startPatientVisit();
 		
-		patientDashboard.addConsultNoteWithAdmissionToLocation(malaria, 3);
-		patientDashboard.addConsultNoteWithTransferToLocation(rubella, 3);
+		patientDashboard.addRetroConsultNoteWithAdmissionToLocation(malaria, 3);
+		patientDashboard.addRetroConsultNoteWithTransferToLocation(rubella, 3);
 		
 		String previousProvider = patientDashboard.providerForFirstEncounter();
 		String previousLocation = patientDashboard.locationForFirstEncounter();
@@ -56,8 +54,8 @@ public class EditAdmissionTransferAndDischargeTest extends DbTest {
 	public void shouldChangeProviderAndLocationForDischargeHospital() throws Exception {
 		startPatientVisit();
 		
-		patientDashboard.addConsultNoteWithAdmissionToLocation(malaria, 3);
-		patientDashboard.addConsultNoteWithDischarge(anemia);
+		patientDashboard.addRetroConsultNoteWithAdmissionToLocation(malaria, 3);
+		patientDashboard.addRetroConsultNoteWithDischarge(anemia);
 		
 		String previousProvider = patientDashboard.providerForFirstEncounter();
 		String previousLocation = patientDashboard.locationForFirstEncounter();

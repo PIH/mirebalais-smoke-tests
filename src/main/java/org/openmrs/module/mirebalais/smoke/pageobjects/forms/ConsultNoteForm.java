@@ -31,8 +31,8 @@ public class ConsultNoteForm extends AbstractPageObject {
 	public static final String DISCHARGE = "Egzeyat";
 	public static final String TRANSFER = "Transfè anndan lopital la";
 
-    private By locationsForTransferWithinHospital = By.cssSelector("#transferWithinHospital-field option");
-    private By locationsForAdmission = By.cssSelector("#admitToHospital-field option");
+    private By locationsForTransferWithinHospital = By.cssSelector("#transferInternalLocation option");
+    private By locationsForAdmission = By.cssSelector("#admissionLocation option");
 
     public ConsultNoteForm(WebDriver driver) {
 		super(driver);
