@@ -23,7 +23,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public abstract class AbstractPageObject {
 
@@ -36,7 +35,6 @@ public abstract class AbstractPageObject {
 
     public AbstractPageObject(WebDriver driver) {
         this.driver = driver;
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
         this.loginPO = new LoginPage(driver);
         this.wait5seconds = new WebDriverWait(driver, 5);

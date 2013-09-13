@@ -23,7 +23,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.HashMap;
 import java.util.List;
@@ -168,7 +167,6 @@ public class PatientDashboard extends AbstractPageObject {
 	}
 	
 	public void openForm(By formIdentification) {
-        wait5seconds.until(ExpectedConditions.visibilityOfElementLocated(formIdentification));
 		clickOn(formIdentification);
 	}
 	
