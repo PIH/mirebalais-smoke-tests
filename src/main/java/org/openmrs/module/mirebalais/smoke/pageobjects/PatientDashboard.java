@@ -242,9 +242,9 @@ public class PatientDashboard extends AbstractPageObject {
 	
 	private void createFormsMap() {
 		formList = new HashMap<String, By>();
-		formList.put("Consult Note", By.cssSelector("#visit-details .icon-stethoscope:nth-of-type(1)"));
-		formList.put("Surgical Note", By.cssSelector("#visit-details .icon-paste"));
+		formList.put("Consult Note", By.id("mirebalais.consult"));
+		formList.put("Surgical Note", By.id("mirebalais.surgicalOperativeNote"));
 		formList.put("Order X-Ray", By.id("org.openmrs.module.radiologyapp.orderXray"));
-		formList.put("ED Note", By.cssSelector("#visit-details .icon-stethoscope:nth-of-type(2)"));
+		formList.put("ED Note", By.id("mirebalais.edConsult"));
 	}
 }
