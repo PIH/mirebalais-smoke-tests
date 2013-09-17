@@ -22,36 +22,35 @@ public class InPatientTest extends DbTest {
 		Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
 		Patient testPatient2 = PatientDatabaseHandler.insertNewTestPatient();
 		initBasicPageObjects();
-		
+
 		inPatientList = new InPatientList(driver);
 
-        UserDatabaseHandler.insertNewClinicalUser();
-        new LoginPage(driver).logInAsClinicalUser();
-		
+        logInAsClinicalUser();
+
 		appDashboard.goToPatientPage(testPatient.getId());
 		patientDashboard.startVisit();
-		
+
 		String admissionPlace = patientDashboard.addConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS, 3);
-		
+
 		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION), is(1));
 		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.ADMISSION), is(1));
 		assertFirstAdmittedAndCurrentWardAre(testPatient.getIdentifier(), admissionPlace, admissionPlace);
-		
+
 		appDashboard.goToPatientPage(testPatient.getId());
-		
+
 		String transferPlace = patientDashboard.addConsultNoteWithTransferToLocation(PRIMARY_DIAGNOSIS, 4);
-		
+
 		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION), is(2));
 		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.TRANSFER), is(1));
 		assertFirstAdmittedAndCurrentWardAre(testPatient.getIdentifier(), admissionPlace, transferPlace);
-		
+
 		appDashboard.goToPatientPage(testPatient2.getId());
 		patientDashboard.startVisit();
 		patientDashboard.addConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS, 3);
 		
 		appDashboard.openInPatientApp();
 		inPatientList.filterBy(transferPlace);
-		
+
 		inPatientList.waitUntilInpatientListIsFilteredBy(transferPlace);
 	}
 	

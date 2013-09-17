@@ -19,9 +19,8 @@ public class ConsultationTest extends DbTest {
 
 	@BeforeClass
 	public static void prepare() throws Exception {
-        UserDatabaseHandler.insertNewClinicalUser();
-		new LoginPage(driver).logInAsClinicalUser();
-	}
+        logInAsClinicalUser();
+    }
 	
 	@Before
 	public void setUp() throws Exception {

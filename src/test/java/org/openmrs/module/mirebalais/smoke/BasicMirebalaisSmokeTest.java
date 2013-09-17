@@ -75,4 +75,8 @@ public abstract class BasicMirebalaisSmokeTest {
     protected void logout() {
         new HeaderPage(driver).logOut();
     }
+
+    protected static void logInAsClinicalUser() throws Exception {
+        new LoginPage(driver).logInAsClinicalUser();
+    }
 }

@@ -1,5 +1,6 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
+import org.openmrs.module.mirebalais.smoke.dataModel.User;
 import org.openmrs.module.mirebalais.smoke.helper.UserDatabaseHandler;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -27,7 +28,8 @@ public class LoginPage {
 		this.logIn("admin", "Admin123");
 	}
 
-    public void logInAsClinicalUser() {
-        this.logIn(UserDatabaseHandler.getClinicalUser().getUsername(), "Admin123");
+    public void logInAsClinicalUser() throws Exception {
+        User clinical = UserDatabaseHandler.insertNewClinicalUser();
+        this.logIn(clinical.getUsername(), "Admin123");
     }
 }

@@ -29,8 +29,6 @@ public class UserDatabaseHandler extends BaseDatabaseHandler {
 
     private static QueryDataSet userDataToDelete;
 
-    private static User clinicalUser;
-
     public static User insertNewClinicalUser() throws Exception {
 
         User user;
@@ -54,12 +52,7 @@ public class UserDatabaseHandler extends BaseDatabaseHandler {
         }
 
         addUserForDelete(user.getUsername());
-        clinicalUser = user;
         return user;
-    }
-
-    public static User getClinicalUser() {
-        return clinicalUser;
     }
 
     public static void deleteAllTestUsers() throws DatabaseUnitException, SQLException {
