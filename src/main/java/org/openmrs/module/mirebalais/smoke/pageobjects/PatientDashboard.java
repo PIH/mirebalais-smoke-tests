@@ -14,7 +14,14 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
+
+import java.util.HashMap;
+import java.util.List;
+
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.ConsultNoteForm;
+import org.openmrs.module.mirebalais.smoke.pageobjects.forms.DispenseMedicationForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.EditEncounterForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.EmergencyDepartmentNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.RetroConsultNoteForm;
@@ -23,12 +30,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
-import java.util.HashMap;
-import java.util.List;
-
-import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 
 public class PatientDashboard extends AbstractPageObject {
 	
@@ -49,8 +51,8 @@ public class PatientDashboard extends AbstractPageObject {
 	private ConsultNoteForm consultNoteForm;
 	
 	private EmergencyDepartmentNoteForm eDNoteForm;
-
-    private RetroConsultNoteForm retroConsultNoteForm;
+	
+	private RetroConsultNoteForm retroConsultNoteForm;
 	
 	private XRayForm xRayForm;
 	
@@ -68,11 +70,18 @@ public class PatientDashboard extends AbstractPageObject {
 	
 	private By firstPencilIcon = By.cssSelector("#encountersList span i:nth-child(1)");
 	
+	private By dispenseMedicationButton = By.id("mirebalais.dispensing");
+	
+	private By firstEncounterDetails = By.className("details-action");
+	
+	private ExpectedCondition<WebElement> detailsAjaxCallReturns = visibilityOfElementLocated(By
+	        .cssSelector(".encounter-summary-container p"));
+	
 	public PatientDashboard(WebDriver driver) {
 		super(driver);
 		consultNoteForm = new ConsultNoteForm(driver);
 		eDNoteForm = new EmergencyDepartmentNoteForm(driver);
-        retroConsultNoteForm = new RetroConsultNoteForm(driver);
+		retroConsultNoteForm = new RetroConsultNoteForm(driver);
 		xRayForm = new XRayForm(driver);
 		createFormsMap();
 	}
@@ -139,24 +148,23 @@ public class PatientDashboard extends AbstractPageObject {
 		openForm(By.cssSelector(".consult-encounter-template .editEncounter"));
 		consultNoteForm.editPrimaryDiagnosis(primaryDiagnosis);
 	}
-
-    public void addRetroConsultNoteWithDischarge(String primaryDiagnosis) throws Exception {
-        openForm(formList.get("Consult Note"));
-        retroConsultNoteForm.fillFormWithDischarge(primaryDiagnosis);
-    }
-
-    public String addRetroConsultNoteWithAdmissionToLocation(String primaryDiagnosis, int numbered) throws Exception {
-        openForm(formList.get("Consult Note"));
-        return retroConsultNoteForm.fillFormWithAdmissionAndReturnLocation(primaryDiagnosis, numbered);
-    }
-
-    public String addRetroConsultNoteWithTransferToLocation(String primaryDiagnosis, int numbered) throws Exception {
-        openForm(formList.get("Consult Note"));
-        return retroConsultNoteForm.fillFormWithTransferAndReturnLocation(primaryDiagnosis, numbered);
-    }
-
-
-    public void addEmergencyDepartmentNote(String primaryDiagnosis) throws Exception {
+	
+	public void addRetroConsultNoteWithDischarge(String primaryDiagnosis) throws Exception {
+		openForm(formList.get("Consult Note"));
+		retroConsultNoteForm.fillFormWithDischarge(primaryDiagnosis);
+	}
+	
+	public String addRetroConsultNoteWithAdmissionToLocation(String primaryDiagnosis, int numbered) throws Exception {
+		openForm(formList.get("Consult Note"));
+		return retroConsultNoteForm.fillFormWithAdmissionAndReturnLocation(primaryDiagnosis, numbered);
+	}
+	
+	public String addRetroConsultNoteWithTransferToLocation(String primaryDiagnosis, int numbered) throws Exception {
+		openForm(formList.get("Consult Note"));
+		return retroConsultNoteForm.fillFormWithTransferAndReturnLocation(primaryDiagnosis, numbered);
+	}
+	
+	public void addEmergencyDepartmentNote(String primaryDiagnosis) throws Exception {
 		openForm(formList.get("ED Note"));
 		eDNoteForm.fillFormWithDischarge(primaryDiagnosis);
 	}
@@ -233,6 +241,26 @@ public class PatientDashboard extends AbstractPageObject {
 		editEncounterForm.selectLocation(locationOption);
 		
 		return editEncounterForm.selectedProviderAndLocation();
+	}
+	
+	public boolean canDispenseMedication() {
+		try {
+			driver.findElement(dispenseMedicationButton);
+			return true;
+		}
+		catch (NoSuchElementException e) {
+			return false;
+		}
+	}
+	
+	public DispenseMedicationForm goToDispenseMedicationForm() {
+		driver.findElement(dispenseMedicationButton).click();
+		return new DispenseMedicationForm(driver);
+	}
+	
+	public void clickFirstEncounterDetails() {
+		driver.findElement(firstEncounterDetails).click();
+		wait5seconds.until(detailsAjaxCallReturns);
 	}
 	
 	private EditEncounterForm editEncounter() {
