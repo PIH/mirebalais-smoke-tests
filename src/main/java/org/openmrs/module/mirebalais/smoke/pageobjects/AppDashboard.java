@@ -22,7 +22,7 @@ import java.math.BigInteger;
 
 public class AppDashboard extends AbstractPageObject {
 
-	public static final String ACTIVE_VISITS = "org-openmrs-module-coreapps-activeVisitsHomepageLink-app";
+	public static final String ACTIVE_VISITS = "org-openmrs-module-mirebalais-activeVisitsHomepageLink-app";
     public static final String ARCHIVES_ROOM = "paperrecord-archivesRoom-app";
     public static final String EDIT_PATIENT = "patientRegistration-lookup-app";
     public static final String PATIENT_REGISTRATION = "patientRegistration-registration-app";
