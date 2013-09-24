@@ -10,7 +10,8 @@ import java.util.List;
 
 public class NonCodedDiagnosesList extends AbstractPageObject {
 
-    private static final By NON_CODED_DIAGNOSES_TABLE_DATA = By.cssSelector("#non-coded-diagnoses td");
+    private static final By NON_CODED_DIAGNOSES_TABLE_DATA = By.cssSelector(".non-coded-diagnoses-td");
+    private static final By CODE_DIAGNOSIS_LINK = By.cssSelector(".codeDiagnosis");
 
     public NonCodedDiagnosesList(WebDriver driver) {
         super(driver);
@@ -19,7 +20,7 @@ public class NonCodedDiagnosesList extends AbstractPageObject {
     public List<String> getNonCodedDiagnoses() {
         List<String> nonCodedDiagnoses = new ArrayList<String>();
         List<WebElement> tds = driver.findElements(NON_CODED_DIAGNOSES_TABLE_DATA);
-        for (int i = 0; i < tds.size(); i +=5){
+        for (int i = 0; i < tds.size(); i +=1){
             nonCodedDiagnoses.add((String)tds.get(i).getText());
         }
         return nonCodedDiagnoses;
@@ -27,10 +28,11 @@ public class NonCodedDiagnosesList extends AbstractPageObject {
 
     public void openCodeDiagnosisDialog(String nonCodedDiagnosis){
         List<WebElement> tds = driver.findElements(NON_CODED_DIAGNOSES_TABLE_DATA);
-        for (int i = 0; i < tds.size(); i +=5){
-            String item = (String)tds.get(i).getText();
+        for (int i = 0; i < tds.size(); i +=1){
+            WebElement webElement = tds.get(i);
+            String item = (String)webElement.getText();
             if(StringUtils.equals(item, nonCodedDiagnosis)){
-                WebElement codeDiagnosisLink = tds.get(i+4);
+                WebElement codeDiagnosisLink = webElement.findElement(By.xpath("..")).findElement(CODE_DIAGNOSIS_LINK);
                 if (codeDiagnosisLink != null){
                     codeDiagnosisLink.click();
                     return;
