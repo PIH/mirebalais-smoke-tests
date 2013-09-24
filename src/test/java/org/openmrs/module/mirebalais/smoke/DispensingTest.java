@@ -43,7 +43,7 @@ public class DispensingTest extends DbTest {
 		assertThat("Medication dose is right.", patientDashboard.containsText("5.0"), is(true));
 		assertThat("Medication dose unit is right.", patientDashboard.containsText("mg"), is(true));
 		assertThat("Medication duration is right.", patientDashboard.containsText("7.0"), is(true));
-		assertThat("Medication duration unit is right.", patientDashboard.containsText("ANNÉES"), is(true));
+		assertThat("Medication duration unit is right.", patientDashboard.containsText("Années"), is(true));
 		assertThat("Medication amount is right.", patientDashboard.containsText("20.0"), is(true));
 		
 	}
