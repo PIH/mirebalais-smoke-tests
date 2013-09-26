@@ -75,7 +75,7 @@ public class PatientDashboard extends AbstractPageObject {
 	private By firstEncounterDetails = By.className("details-action");
 	
 	private ExpectedCondition<WebElement> detailsAjaxCallReturns = visibilityOfElementLocated(By
-	        .cssSelector(".encounter-summary-container p"));
+	        .cssSelector(".encounter-summary-container .dispensing-form"));
 	
 	public PatientDashboard(WebDriver driver) {
 		super(driver);

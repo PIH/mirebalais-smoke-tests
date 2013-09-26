@@ -37,14 +37,14 @@ public class DispensingTest extends DbTest {
 		patientDashboard.clickFirstEncounterDetails();
 		
 		assertThat("Medication was dispensed.", patientDashboard.countEncountersOfType("Medication dispensed"), is(1));
-		assertThat("Medication name is right.", patientDashboard.containsText("Paracetamol (500mg tablet) (PARACÉTAMOL)"),
+		assertThat("Medication name is right.", patientDashboard.containsText("Paracetamol (500mg tablet)"),
 		    is(true));
 		assertThat("Medication frequency is right.", patientDashboard.containsText("twice per day"), is(true));
-		assertThat("Medication dose is right.", patientDashboard.containsText("5.0"), is(true));
+		assertThat("Medication dose is right.", patientDashboard.containsText("5"), is(true));
 		assertThat("Medication dose unit is right.", patientDashboard.containsText("mg"), is(true));
-		assertThat("Medication duration is right.", patientDashboard.containsText("7.0"), is(true));
-		assertThat("Medication duration unit is right.", patientDashboard.containsText("Années"), is(true));
-		assertThat("Medication amount is right.", patientDashboard.containsText("20.0"), is(true));
+		assertThat("Medication duration is right.", patientDashboard.containsText("7"), is(true));
+		assertThat("Medication duration unit is right.", patientDashboard.containsText("Ane"), is(true));
+		assertThat("Medication amount is right.", patientDashboard.containsText("20"), is(true));
 		
 	}
 	
