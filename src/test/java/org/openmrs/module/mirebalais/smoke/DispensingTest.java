@@ -35,17 +35,19 @@ public class DispensingTest extends DbTest {
 		dispensingForm.fillFirstMedication(paracetamol, "twice per day", "5", "mg", "7", DAYS, "20");
 		dispensingForm.submit();
 		patientDashboard.clickFirstEncounterDetails();
-		
-		assertThat("Medication was dispensed.", patientDashboard.countEncountersOfType("Medication dispensed"), is(1));
-		assertThat("Medication name is right.", patientDashboard.containsText("Paracetamol (500mg tablet)"),
-		    is(true));
-		assertThat("Medication frequency is right.", patientDashboard.containsText("twice per day"), is(true));
-		assertThat("Medication dose is right.", patientDashboard.containsText("5"), is(true));
-		assertThat("Medication dose unit is right.", patientDashboard.containsText("mg"), is(true));
-		assertThat("Medication duration is right.", patientDashboard.containsText("7"), is(true));
-		assertThat("Medication duration unit is right.", patientDashboard.containsText("Ane"), is(true));
-		assertThat("Medication amount is right.", patientDashboard.containsText("20"), is(true));
-		
-	}
+
+        assertThat("Medication was dispensed.", patientDashboard.countEncountersOfType("Medication dispensed"), is(1));
+
+        PatientDashboard.MedicationDispensed medicationDispensed = patientDashboard.firstMedication();
+
+        assertThat("Medication name is right.", medicationDispensed.getName(), is(("Paracetamol (500mg tablet)")));
+        assertThat("Medication frequency is right.", medicationDispensed.getFrequency(), is("twice per day"));
+        assertThat("Medication dose is right.", medicationDispensed.getDose(), is("5"));
+        assertThat("Medication dose unit is right.", medicationDispensed.getDoseUnit(), is("mg"));
+        assertThat("Medication duration is right.", medicationDispensed.getDuration(), is("7"));
+        assertThat("Medication duration unit is right.", medicationDispensed.getDurationUnit(), is("Ane"));
+        assertThat("Medication amount is right.", medicationDispensed.getAmount(), is("20"));
+
+    }
 	
 }

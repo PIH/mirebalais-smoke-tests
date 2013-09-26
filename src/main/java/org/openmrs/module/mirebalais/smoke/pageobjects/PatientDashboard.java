@@ -48,6 +48,10 @@ public class PatientDashboard extends AbstractPageObject {
 	
 	public static final String TRANSFER = "Transfè";
 	
+	private final By dispensingForm = By.cssSelector(".encounter-summary-container .dispensing-form");
+	
+	private final By medications = By.className("medication");
+	
 	private ConsultNoteForm consultNoteForm;
 	
 	private EmergencyDepartmentNoteForm eDNoteForm;
@@ -74,8 +78,7 @@ public class PatientDashboard extends AbstractPageObject {
 	
 	private By firstEncounterDetails = By.className("details-action");
 	
-	private ExpectedCondition<WebElement> detailsAjaxCallReturns = visibilityOfElementLocated(By
-	        .cssSelector(".encounter-summary-container .dispensing-form"));
+	private ExpectedCondition<WebElement> detailsAjaxCallReturns = visibilityOfElementLocated(dispensingForm);
 	
 	public PatientDashboard(WebDriver driver) {
 		super(driver);
@@ -274,5 +277,79 @@ public class PatientDashboard extends AbstractPageObject {
 		formList.put("Surgical Note", By.id("mirebalais.surgicalOperativeNote"));
 		formList.put("Order X-Ray", By.id("org.openmrs.module.radiologyapp.orderXray"));
 		formList.put("ED Note", By.id("mirebalais.edConsult"));
+	}
+	
+	public MedicationDispensed firstMedication() {
+		WebElement first = driver.findElement(dispensingForm).findElements(medications).get(0);
+		return new MedicationDispensed(first, 1);
+	}
+	
+	public class MedicationDispensed {
+		
+		private WebElement medication;
+		
+		private int order;
+		
+		public MedicationDispensed(WebElement medication, int order) {
+			this.medication = medication;
+			this.order = order;
+		}
+		
+		public String getName() {
+			return medication.findElement(name()).getText();
+		}
+		
+		public String getFrequency() {
+			return medication.findElement(frequency()).getText();
+		}
+		
+		public String getDose() {
+			return medication.findElement(dose()).getText();
+		}
+		
+		public String getDoseUnit() {
+			return medication.findElement(doseUnit()).getText();
+		}
+		
+		public String getDuration() {
+			return medication.findElement(duration()).getText();
+		}
+		
+		public String getDurationUnit() {
+			return medication.findElement(durationUnit()).getText();
+		}
+		
+		public String getAmount() {
+			return medication.findElement(amount()).getText();
+		}
+		
+		private By name() {
+			return By.cssSelector("#name" + order);
+		}
+		
+		private By frequency() {
+			return By.cssSelector("#frequency" + order);
+		}
+		
+		private By dose() {
+			return By.cssSelector("#dose" + order);
+		}
+		
+		private By doseUnit() {
+			return By.cssSelector("#doseUnit" + order);
+		}
+		
+		private By duration() {
+			return By.cssSelector("#duration" + order);
+		}
+		
+		private By durationUnit() {
+			return By.cssSelector("#durationUnit" + order);
+		}
+		
+		private By amount() {
+			return By.cssSelector("#amount" + order);
+		}
+		
 	}
 }
