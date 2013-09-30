@@ -65,7 +65,7 @@ public class NewCheckIn extends AbstractPageObject {
 	
 	private void confirmData() {
 		clickOnConfirmationTab();
-		clickOn(By.cssSelector("#confirmationQuestion input.confirm"));
+		clickOn(By.cssSelector("#confirmationQuestion .confirm"));
 	}
 	
 	private void clickOnNoButton() {
