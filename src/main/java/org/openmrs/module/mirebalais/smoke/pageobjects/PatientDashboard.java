@@ -114,7 +114,7 @@ public class PatientDashboard extends AbstractPageObject {
 	public Integer countEncountersOfType(String encounterName) {
 
         try {
-            wait5seconds.until(presenceOfElementLocated(By.id("span.encounter-name")));
+            wait5seconds.until(presenceOfElementLocated(By.cssSelector("span.encounter-name")));
         }
         catch (TimeoutException e) {
             return 0;
