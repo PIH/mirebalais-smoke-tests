@@ -22,7 +22,7 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.forms.RetroConsultNoteFor
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.XRayForm;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.NotFoundException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -114,9 +114,9 @@ public class PatientDashboard extends AbstractPageObject {
 	public Integer countEncountersOfType(String encounterName) {
 
         try {
-            wait5seconds.until(presenceOfElementLocated(By.id("span.encounter.name")));
+            wait5seconds.until(presenceOfElementLocated(By.id("span.encounter-name")));
         }
-        catch (NotFoundException e) {
+        catch (TimeoutException e) {
             return 0;
         }
 
