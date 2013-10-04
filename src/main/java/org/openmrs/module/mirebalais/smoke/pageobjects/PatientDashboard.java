@@ -76,7 +76,7 @@ public class PatientDashboard extends AbstractPageObject {
 	
 	private By firstPencilIcon = By.cssSelector("#encountersList span i:nth-child(1)");
 	
-	private By dispenseMedicationButton = By.id("mirebalais.dispensing");
+	private By dispenseMedicationButton = By.id("dispensing.dashboardAction");
 	
 	private By firstEncounterDetails = By.className("details-action");
 	
