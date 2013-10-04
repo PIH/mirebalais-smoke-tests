@@ -15,7 +15,7 @@ public class SmokeTestDriver {
     public SmokeTestDriver() {
         setupChromeDriver();
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(10, SECONDS);
+        driver.manage().timeouts().implicitlyWait(15, SECONDS);
         driver.get(new SmokeTestProperties().getWebAppUrl());
     }
 
