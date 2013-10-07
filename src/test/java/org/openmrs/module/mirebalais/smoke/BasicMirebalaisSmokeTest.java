@@ -1,8 +1,5 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import java.io.File;
-import java.io.IOException;
-
 import org.apache.commons.io.FileUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -20,6 +17,9 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+
+import java.io.File;
+import java.io.IOException;
 
 public abstract class BasicMirebalaisSmokeTest {
 	
@@ -64,10 +64,15 @@ public abstract class BasicMirebalaisSmokeTest {
 		new LoginPage(driver).logInAsClinicalUser();
 	}
 	
-	static void logInAsPharmacistUser() throws Exception {
+	protected static void logInAsPharmacistUser() throws Exception {
 		new LoginPage(driver).logInAsPharmacistUser();
 	}
-	
+
+    protected static void logInAsAdmin() throws Exception {
+        new LoginPage(driver).logInAsAdmin();
+    }
+
+
 	protected void initBasicPageObjects() {
 		loginPage = new LoginPage(driver);
 		header = new HeaderPage(driver);

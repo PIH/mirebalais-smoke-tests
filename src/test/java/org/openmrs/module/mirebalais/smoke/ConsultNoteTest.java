@@ -5,14 +5,12 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
-import org.openmrs.module.mirebalais.smoke.helper.UserDatabaseHandler;
-import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class ConsultationTest extends DbTest {
+public class ConsultNoteTest extends DbTest {
 
     private static final String PRIMARY_DIAGNOSIS = "IGU";
     private static final String EDITED_PRIMARY_DIAGNOSIS = "Asthme";
@@ -80,5 +78,6 @@ public class ConsultationTest extends DbTest {
         assertThat(patientDashboard.containsText(EDITED_PRIMARY_DIAGNOSIS), is(true));
         assertThat(patientDashboard.containsText(PRIMARY_DIAGNOSIS), is(false));
     }
+
 
 }

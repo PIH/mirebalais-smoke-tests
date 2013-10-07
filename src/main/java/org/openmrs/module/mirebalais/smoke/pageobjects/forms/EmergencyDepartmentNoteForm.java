@@ -20,6 +20,9 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+
 public class EmergencyDepartmentNoteForm extends ConsultNoteForm {
 
 	public EmergencyDepartmentNoteForm(WebDriver driver) {
@@ -27,9 +30,17 @@ public class EmergencyDepartmentNoteForm extends ConsultNoteForm {
 	}
 
 	protected void fillFormWithBasicInfo(String primaryDiagnosis, String disposition) throws Exception {
-		choosePrimaryDiagnosis(primaryDiagnosis);
+        assertThat(subbmitButtonIsEnabled(),is(false));
+
+        choosePrimaryDiagnosis(primaryDiagnosis);
+        assertThat(subbmitButtonIsEnabled(),is(false));
+
 		chooseDisposition(disposition);
-		fillTraumaData();
+        assertThat(subbmitButtonIsEnabled(),is(false));
+
+        fillTraumaData();
+        assertThat(subbmitButtonIsEnabled(),is(true));
+
 		confirmData();
 	}
 

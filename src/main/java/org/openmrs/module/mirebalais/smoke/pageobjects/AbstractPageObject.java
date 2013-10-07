@@ -75,7 +75,11 @@ public abstract class AbstractPageObject {
     public void setClearTextToFieldThruSpan(String spanId, String text) {
     	setText(findTextFieldInsideSpan(spanId), text);
 	}
-    
+
+    public void hitTabKey(By elementId) {
+        driver.findElement(elementId).sendKeys(Keys.TAB);
+    }
+
     private void setText(WebElement element, String text) {
     	element.clear();
 		element.sendKeys(text);

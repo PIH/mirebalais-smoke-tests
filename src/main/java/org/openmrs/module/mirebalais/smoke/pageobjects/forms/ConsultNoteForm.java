@@ -21,6 +21,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class ConsultNoteForm extends AbstractPageObject {
@@ -66,8 +69,16 @@ public class ConsultNoteForm extends AbstractPageObject {
     }
 
     protected void fillFormWithBasicInfo(String primaryDiagnosis, String disposition) throws Exception {
+
+        assertThat(subbmitButtonIsEnabled(),is(false));
+
         choosePrimaryDiagnosis(primaryDiagnosis);
+        assertThat(subbmitButtonIsEnabled(),is(false));
+
         chooseDisposition(disposition);
+        // for real-time consult note, submit button should not be enabled until diagnosis and disposition have been selected
+        assertThat(subbmitButtonIsEnabled(),is(true));
+
         confirmData();
     }
 
@@ -106,4 +117,7 @@ public class ConsultNoteForm extends AbstractPageObject {
 		clickOn(By.cssSelector("#buttons .confirm"));
 	}
 
+    protected boolean subbmitButtonIsEnabled() {
+        return !driver.findElement(By.cssSelector("#buttons .confirm")).getAttribute("class").contains("disabled");
+    }
 }

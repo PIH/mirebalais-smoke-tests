@@ -71,9 +71,17 @@ public class PatientDashboard extends AbstractPageObject {
 	private By actions = By.cssSelector(".actions");
 	
 	private By checkIn = By.cssSelector("a i.icon-check-in");
+
+    private By addRetroVisit = By.cssSelector("a i.icon-plus");
+
+    private By retroStartDate = By.cssSelector("#retrospectiveVisitStartDate-display");
+
+    private By retroStopDate = By.cssSelector("#retrospectiveVisitStopDate-display");
 	
 	private By confirmStartVisit = By.cssSelector("#quick-visit-creation-dialog .confirm");
-	
+
+    private By confirmRetroVisit = By.cssSelector("#retrospective-visit-creation-dialog .confirm");
+
 	private By firstPencilIcon = By.cssSelector("#encountersList span i:nth-child(1)");
 	
 	private By dispenseMedicationButton = By.id("dispensing.dashboardAction");
@@ -136,7 +144,15 @@ public class PatientDashboard extends AbstractPageObject {
 		
 		wait5seconds.until(visibilityOfElementLocated(By.cssSelector(".visit-actions.active-visit")));
 	}
-	
+
+    public void addRetroVisit() {
+        hoverOn(actions);
+        clickOn(addRetroVisit);
+        hitTabKey(retroStartDate);
+        hitTabKey(retroStopDate);
+        clickOn(confirmRetroVisit);
+    }
+
 	public void addConsultNoteWithDischarge(String primaryDiagnosis) throws Exception {
 		openForm(formList.get("Consult Note"));
 		consultNoteForm.fillFormWithDischarge(primaryDiagnosis);
@@ -228,7 +244,19 @@ public class PatientDashboard extends AbstractPageObject {
 	public List<WebElement> getVisits() {
 		return driver.findElements(By.cssSelector(".menu-item.viewVisitDetails"));
 	}
-	
+
+    public Integer countVisits() {
+
+        try {
+            wait5seconds.until(presenceOfElementLocated(By.cssSelector(".menu-item.viewVisitDetails")));
+        }
+        catch (TimeoutException e) {
+            return 0;
+        }
+
+        return getVisits().size();
+    }
+
 	public boolean isDead() {
 		try {
 			driver.findElement(By.className("death-message"));

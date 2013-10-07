@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class RetroConsultNoteForm extends ConsultNoteForm {
@@ -19,9 +21,18 @@ public class RetroConsultNoteForm extends ConsultNoteForm {
     }
 
     protected void fillFormWithBasicInfo(String primaryDiagnosis, String disposition) throws Exception {
-        chooseProvider();
-        chooseLocation();
+
+        assertThat(subbmitButtonIsEnabled(),is(false));
+
         choosePrimaryDiagnosis(primaryDiagnosis);
+        assertThat(subbmitButtonIsEnabled(),is(false));
+
+        chooseProvider();
+        assertThat(subbmitButtonIsEnabled(),is(false));
+
+        chooseLocation();
+        assertThat(subbmitButtonIsEnabled(),is(true));   // note that disposition is not mandatory for retro note, so submit should be enabled at this point
+
         chooseDisposition(disposition);
         confirmData();
     }
