@@ -1,9 +1,6 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.openmrs.module.mirebalais.smoke.pageobjects.selects.DurationUnit.DAYS;
-
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
@@ -11,11 +8,17 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.DispenseMedicationForm;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.openmrs.module.mirebalais.smoke.pageobjects.selects.DurationUnit.DAYS;
+
+@Ignore
 public class DispensingTest extends DbTest {
 	
 	private String paracetamol = "Paracetamol (500mg tablet)";
 	
 	@Test
+    @Ignore
 	public void pharmacistCanDispenseMedicationForAnExistingActiveVisit() throws Exception {
 		AppDashboard appDashboard = new AppDashboard(driver);
 		PatientDashboard patientDashboard = new PatientDashboard(driver);
