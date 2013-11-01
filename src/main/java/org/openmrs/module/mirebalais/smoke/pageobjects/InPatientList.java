@@ -1,18 +1,14 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.stalenessOf;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nullable;
-
+import com.google.common.base.Predicate;
 import org.openmrs.module.mirebalais.smoke.dataModel.Visit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import com.google.common.base.Predicate;
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InPatientList extends AbstractPageObject {
 	
@@ -47,7 +43,7 @@ public class InPatientList extends AbstractPageObject {
 	}
 	
 	public void waitUntilInpatientListIsFilteredBy(final String ward) {
-		wait5seconds.until(stalenessOf(driver.findElement(By.className("inpatient-count"))));
+		//wait5seconds.until(stalenessOf(driver.findElement(By.className("inpatient-count"))));
 		wait5seconds.until(new Predicate<WebDriver>() {
 
 			@Override
