@@ -7,15 +7,15 @@ public class SmokeTestProperties {
     }
 
     public String getDatabaseUrl() {
-        return envOrDefault("DATABASE_URL", "jdbc:mysql://localhost:3306/bamboo66");
+        return envOrDefault("DATABASE_URL", "jdbc:mysql://localhost:3306/openmrs");
     }
 
     public String getDatabaseUsername() {
-        return envOrDefault("DATABASE_USERNAME", "root");
+        return envOrDefault("DATABASE_USERNAME", "openmrs");
     }
 
     public String getDatabasePassword() {
-        return envOrDefault("DATABASE_PASSWORD", "sa05ntk");
+        return envOrDefault("DATABASE_PASSWORD", "openmrs");
     }
 
     public String getDatabaseDriverClass() {
