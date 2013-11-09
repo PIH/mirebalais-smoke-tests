@@ -1,23 +1,22 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-
-import java.sql.SQLException;
-
 import org.dbunit.dataset.DataSetException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.helper.NameGenerator;
-import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.helper.Toast;
 import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.MyAccountApp;
 import org.openmrs.module.mirebalais.smoke.pageobjects.UserAdmin;
 import org.openqa.selenium.By;
+
+import java.sql.SQLException;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class UserAdminTest extends DbTest {
 	
@@ -58,6 +57,8 @@ public class UserAdminTest extends DbTest {
 		logOutAndLogInWithNewUser(username);
 		
 		assertThat(appDashboard.isActiveVisitsAppPresented(), is(true));
+
+        turnOffImplicitWaits(); // once we've found one element, assume that all are present
 		assertThat(appDashboard.isCaptureVitalsAppPresented(), is(true));
 		
 		assertThat(appDashboard.isSystemAdministrationAppPresented(), is(false));
@@ -70,6 +71,7 @@ public class UserAdminTest extends DbTest {
 		assertThat(appDashboard.isEditPatientAppPresented(), is(true));
 		
 		assertThat(appDashboard.isLegacyAppPresented(), is(false));
+        turnOnImplicitWait();
 	}
 	
 	@Test
@@ -81,6 +83,8 @@ public class UserAdminTest extends DbTest {
 		logOutAndLogInWithNewUser(username);
 		
 		assertThat(appDashboard.isActiveVisitsAppPresented(), is(true));
+
+        turnOffImplicitWaits(); // once we've found one element, assume that all are present
 		assertThat(appDashboard.isCaptureVitalsAppPresented(), is(false));
 		
 		assertThat(appDashboard.isSystemAdministrationAppPresented(), is(false));
@@ -93,6 +97,7 @@ public class UserAdminTest extends DbTest {
 		assertThat(appDashboard.isEditPatientAppPresented(), is(true));
 		
 		assertThat(appDashboard.isLegacyAppPresented(), is(false));
+        turnOnImplicitWait();
 	}
 	
 	@Test
@@ -104,6 +109,8 @@ public class UserAdminTest extends DbTest {
 		logOutAndLogInWithNewUser(username);
 		
 		assertThat(appDashboard.isActiveVisitsAppPresented(), is(true));
+
+        turnOffImplicitWaits(); // once we've found one element, assume that all are present
 		assertThat(appDashboard.isCaptureVitalsAppPresented(), is(false));
 		
 		assertThat(appDashboard.isSystemAdministrationAppPresented(), is(false));
@@ -116,6 +123,7 @@ public class UserAdminTest extends DbTest {
 		assertThat(appDashboard.isEditPatientAppPresented(), is(true));
 		
 		assertThat(appDashboard.isLegacyAppPresented(), is(false));
+        turnOnImplicitWait();
 	}
 	
 	@Test
@@ -127,6 +135,8 @@ public class UserAdminTest extends DbTest {
 		logOutAndLogInWithNewUser(username);
 		
 		assertThat(appDashboard.isActiveVisitsAppPresented(), is(true));
+
+        turnOffImplicitWaits();
 		assertThat(appDashboard.isCaptureVitalsAppPresented(), is(true));
 		
 		assertThat(appDashboard.isSystemAdministrationAppPresented(), is(true));
@@ -139,6 +149,7 @@ public class UserAdminTest extends DbTest {
 		assertThat(appDashboard.isEditPatientAppPresented(), is(true));
 		
 		assertThat(appDashboard.isLegacyAppPresented(), is(false));
+        turnOnImplicitWait();
 		
 		appDashboard.openSysAdminApp();
 		String text = driver.findElement(By.className("task")).getText();
