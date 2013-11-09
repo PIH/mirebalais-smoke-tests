@@ -3,21 +3,17 @@ package org.openmrs.module.mirebalais.smoke;
 import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.NonCodedDiagnosesList;
-import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.ReportsHomePage;
 import org.openqa.selenium.By;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
 import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class NonCodedDiagnosesTest extends DbTest {
@@ -65,6 +61,7 @@ public class NonCodedDiagnosesTest extends DbTest {
     }
 
     @Test
+    @Ignore
     public void shouldShowNonCodedDiagnosesPageUsingConsultNote() throws Exception {
         createConsultNote();
         appDashboard.openReportApp();
@@ -76,7 +73,8 @@ public class NonCodedDiagnosesTest extends DbTest {
     }
 
     @Test
-        public void shouldShowNonCodedDiagnosesPageUsingEdNote() throws Exception {
+    @Ignore
+    public void shouldShowNonCodedDiagnosesPageUsingEdNote() throws Exception {
         createEDNote();
         appDashboard.openReportApp();
         reportsHomePage.openNonCodedDiagnosesReport();
@@ -87,6 +85,7 @@ public class NonCodedDiagnosesTest extends DbTest {
     }
 
     @Test
+    @Ignore
     public void shouldNotShowNonCodedDiagnosisAfterReplaceforExistingCodesForConsultNote() throws Exception {
         createConsultNote();
         appDashboard.openReportApp();
@@ -103,6 +102,7 @@ public class NonCodedDiagnosesTest extends DbTest {
     }
 
     @Test
+    @Ignore
     public void shouldNotShowNonCodedDiagnosisAfterReplaceforExistingCodesforEDNote() throws Exception {
         createEDNote();
         appDashboard.openReportApp();
