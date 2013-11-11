@@ -3,7 +3,6 @@ package org.openmrs.module.mirebalais.smoke;
 import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
@@ -61,11 +60,10 @@ public class NonCodedDiagnosesTest extends DbTest {
     }
 
     @Test
-    @Ignore
     public void shouldShowNonCodedDiagnosesPageUsingConsultNote() throws Exception {
         createConsultNote();
         appDashboard.openReportApp();
-        reportsHomePage.openNonCodedDiagnosesReport();
+        reportsHomePage.openNonCodedDiagnosesReport(NON_CODED_DIAGNOSIS);
         NonCodedDiagnosesList nonCodedDiagnosesList = new NonCodedDiagnosesList(driver);
         List<String> nonCodedDiagnoses = nonCodedDiagnosesList.getNonCodedDiagnoses();
 
@@ -73,11 +71,10 @@ public class NonCodedDiagnosesTest extends DbTest {
     }
 
     @Test
-    @Ignore
     public void shouldShowNonCodedDiagnosesPageUsingEdNote() throws Exception {
         createEDNote();
         appDashboard.openReportApp();
-        reportsHomePage.openNonCodedDiagnosesReport();
+        reportsHomePage.openNonCodedDiagnosesReport(NON_CODED_DIAGNOSIS);
         NonCodedDiagnosesList nonCodedDiagnosesList = new NonCodedDiagnosesList(driver);
         List<String> nonCodedDiagnoses = nonCodedDiagnosesList.getNonCodedDiagnoses();
 
@@ -85,11 +82,10 @@ public class NonCodedDiagnosesTest extends DbTest {
     }
 
     @Test
-    @Ignore
     public void shouldNotShowNonCodedDiagnosisAfterReplaceforExistingCodesForConsultNote() throws Exception {
         createConsultNote();
         appDashboard.openReportApp();
-        reportsHomePage.openNonCodedDiagnosesReport();
+        reportsHomePage.openNonCodedDiagnosesReport(NON_CODED_DIAGNOSIS);
         NonCodedDiagnosesList nonCodedDiagnosesList = new NonCodedDiagnosesList(driver);
         nonCodedDiagnosesList.openCodeDiagnosisDialog(NON_CODED_DIAGNOSIS);
         nonCodedDiagnosesList.setClearTextToField("diagnosis-search", CODED_DIAGNOSIS);
@@ -102,11 +98,10 @@ public class NonCodedDiagnosesTest extends DbTest {
     }
 
     @Test
-    @Ignore
     public void shouldNotShowNonCodedDiagnosisAfterReplaceforExistingCodesforEDNote() throws Exception {
         createEDNote();
         appDashboard.openReportApp();
-        reportsHomePage.openNonCodedDiagnosesReport();
+        reportsHomePage.openNonCodedDiagnosesReport(NON_CODED_DIAGNOSIS);
         NonCodedDiagnosesList nonCodedDiagnosesList = new NonCodedDiagnosesList(driver);
         nonCodedDiagnosesList.openCodeDiagnosisDialog(NON_CODED_DIAGNOSIS);
         nonCodedDiagnosesList.setClearTextToField("diagnosis-search", CODED_DIAGNOSIS);

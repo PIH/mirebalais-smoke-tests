@@ -30,8 +30,10 @@ public class ReportsHomePage extends AbstractPageObject {
         clickLink(BASIC_STATISTICS_REPORT);
 	}
 
-    public void openNonCodedDiagnosesReport() {
+    public void openNonCodedDiagnosesReport(String diagnosis) {
         clickLink(NONCODED_DIAGNOSES_REPORT);
+        setClearTextToField("nonCodedField-display", diagnosis);
+        clickOn(By.cssSelector("#submit"));
     }
 
 	private void clickLink(String id) {
