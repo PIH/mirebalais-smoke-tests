@@ -23,9 +23,9 @@ public class InPatientList extends AbstractPageObject {
 	public List<Visit> getVisits() {
 		List<Visit> visits = new ArrayList<Visit>();
 		List<WebElement> tds = driver.findElements(ACTIVE_VISIT_TABLE_DATAL);
-		for (int i = 0; i < tds.size(); i += 4) {
-			visits.add(new Visit(tds.get(i).getText(), tds.get(i + 1).getText(), cleanDispositionPlace(tds.get(i + 2)
-			        .getText()), cleanDispositionPlace(tds.get(i + 3).getText())));
+		for (int i = 0; i < tds.size(); i += 5) {
+			visits.add(new Visit(tds.get(i).getText(), tds.get(i + 1).getText(), tds.get(i + 2).getText(), cleanDispositionPlace(tds.get(i + 3)
+			        .getText()), cleanDispositionPlace(tds.get(i + 4).getText())));
 		}
 		return visits;
 	}
