@@ -121,19 +121,19 @@ public class PatientDashboard extends AbstractPageObject {
 	
 	public Integer countEncountersOfType(String encounterName) {
 
-        try {
-            wait5seconds.until(presenceOfElementLocated(By.cssSelector("span.encounter-name")));
-        }
-        catch (TimeoutException e) {
-            return 0;
-        }
+        wait5seconds.until(presenceOfElementLocated(By.id("encountersList")));
 
 		int count = 0;
-		List<WebElement> encounters = driver.findElements(By.cssSelector("span.encounter-name"));
-		for (WebElement encounter : encounters) {
-			if (encounter.getText().equals(encounterName))
-				count++;
-		}
+
+        List<WebElement> encounters = driver.findElements(By.cssSelector("span.encounter-name"));
+
+        if (!encounters.isEmpty()) {
+            for (WebElement encounter : encounters) {
+                if (encounter.getText().equals(encounterName))
+                    count++;
+            }
+        }
+
 		return count;
 	}
 	
