@@ -16,7 +16,7 @@ public class CheckinFormPage extends AbstractPageObject {
 
 	public void enterInfo() {
         selectFirstOptionFor("typeOfVisit");
-        selectFirstOptionFor("paymentAmount");
+        selectSecondOptionFor("paymentAmount");
 
         WebElement confirmButton = driver.findElement(By.id("confirmationQuestion")).findElement(By.className("confirm"));
         confirmButton.click();
@@ -36,6 +36,10 @@ public class CheckinFormPage extends AbstractPageObject {
 
     private void selectFirstOptionFor(String spanId) {
         findSelectInsideSpan(spanId).sendKeys(ARROW_DOWN, RETURN);
+    }
+
+    private void selectSecondOptionFor(String spanId) {
+        findSelectInsideSpan(spanId).sendKeys(ARROW_DOWN, ARROW_DOWN, RETURN);
     }
 
     private WebElement findSelectInsideSpan(String spanId) {
