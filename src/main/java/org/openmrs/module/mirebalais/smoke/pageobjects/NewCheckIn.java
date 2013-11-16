@@ -3,40 +3,30 @@ package org.openmrs.module.mirebalais.smoke.pageobjects;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
+import static org.openqa.selenium.Keys.ARROW_DOWN;
+import static org.openqa.selenium.Keys.RETURN;
+
 public class NewCheckIn extends AbstractPageObject {
 	
 	private static final String CONFIRM_TEXT = "Konfime";
-	private static final String PAYMENT_EXEMPT = "Exempt";
-	private static final String PAYMENT_50 = "50";
-    private static final String PHARMACY_VISIT = "Famasi sèlman";
-    private static final String NON_CLINIC_VISIT = "Nan klinik";
 	
 	public NewCheckIn(WebDriver driver) {
 		super(driver);
-	}
-	
-	public void checkInPatient(String patientIdentifier) throws Exception {
-		findPatient(patientIdentifier);
-		confirmRightPatient();
-		clickOnPaymentOption(PAYMENT_50);
-		confirmData();
-		confirmPopup();
 	}
 
 	public void checkInPatientFillingTheFormTwice(String patientIdentifier) throws Exception {
 		findPatient(patientIdentifier);
 		confirmRightPatient();
-        clickOnVisitTypeOption(PHARMACY_VISIT);
-        clickOnPaymentOption(PAYMENT_50);
+        selectFirstOptionFor("typeOfVisit");
+        selectSecondOptionFor("paymentAmount");
         clickOnNoButton();
-        clickOnVisitTypeOption(NON_CLINIC_VISIT);
-        clickOnPaymentOption(PAYMENT_EXEMPT);
+        selectSecondOptionFor("typeOfVisit");
+        selectThirdOptionFor("paymentAmount");
 		confirmData();
 		confirmPopup();
 	}
@@ -48,21 +38,7 @@ public class NewCheckIn extends AbstractPageObject {
 	private void confirmRightPatient() {
 		clickOn(By.className("icon-arrow-right"));
 	}
-	
-	private void clickOnPaymentOption(String payment) throws Exception{
-		clickOnOptionLookingForText(payment, By.cssSelector("#paymentAmount option"));
-        //click on Confirm left menu
-        WebElement element=driver.findElement(By.xpath("//*[@id=\"formBreadcrumb\"]/li[2]/span"));
-        new Actions(driver).moveToElement(element).click().perform();
-	}
 
-    private void clickOnVisitTypeOption(String visitType) throws Exception{
-        clickOnOptionLookingForText(visitType, By.cssSelector("#typeOfVisit option"));
-        //click on Payment left menu
-        WebElement element=driver.findElement(By.xpath("//*[@id=\"formBreadcrumb\"]/li[1]/ul/li[2]/span"));
-        new Actions(driver).moveToElement(element).click().perform();
-    }
-	
 	private void confirmData() {
 		clickOnConfirmationTab();
 		clickOn(By.cssSelector("#confirmationQuestion .confirm"));
@@ -91,6 +67,22 @@ public class NewCheckIn extends AbstractPageObject {
         new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(By.id("request-paper-record-dialog")));
         clickOn(By.cssSelector("#request-paper-record-dialog button"));
 	}
+
+    private void selectFirstOptionFor(String spanId) {
+        findSelectInsideSpan(spanId).sendKeys(ARROW_DOWN, RETURN);
+    }
+
+    private void selectSecondOptionFor(String spanId) {
+        findSelectInsideSpan(spanId).sendKeys(ARROW_DOWN, ARROW_DOWN, RETURN);
+    }
+
+    private void selectThirdOptionFor(String spanId) {
+        findSelectInsideSpan(spanId).sendKeys(ARROW_DOWN, ARROW_DOWN, ARROW_DOWN, RETURN);
+    }
+
+    private WebElement findSelectInsideSpan(String spanId) {
+        return driver.findElement(By.id(spanId)).findElement(By.tagName("select"));
+    }
 
 	public boolean isPatientSearchDisplayed() {
 		return driver.findElement(By.id("patient-search-field-search")).isDisplayed();
