@@ -30,9 +30,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import java.util.HashMap;
 import java.util.List;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
-import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 public class PatientDashboard extends AbstractPageObject {
 	
@@ -85,10 +83,14 @@ public class PatientDashboard extends AbstractPageObject {
 	private By firstPencilIcon = By.cssSelector("#encountersList span i:nth-child(1)");
 	
 	private By dispenseMedicationButton = By.id("dispensing.dashboardAction");
+
+    private By encounterList = By.id("encountersList");
 	
 	private By firstEncounterDetails = By.className("details-action");
 	
 	private ExpectedCondition<WebElement> detailsAjaxCallReturns = visibilityOfElementLocated(dispensingForm);
+
+    private ExpectedCondition<WebElement> encounterListView = visibilityOfElementLocated(encounterList);
 	
 	public PatientDashboard(WebDriver driver) {
 		super(driver);
@@ -300,7 +302,9 @@ public class PatientDashboard extends AbstractPageObject {
 	}
 	
 	public void clickFirstEncounterDetails() {
-		driver.findElement(firstEncounterDetails).click();
+        wait5seconds.until(encounterListView);
+        WebElement encounterDetails = driver.findElement(firstEncounterDetails);
+		encounterDetails.click();
 		wait5seconds.until(detailsAjaxCallReturns);
 	}
 	
@@ -327,8 +331,16 @@ public class PatientDashboard extends AbstractPageObject {
 		private WebElement medication;
 		
 		private int order;
-		
-		public MedicationDispensed(WebElement medication, int order) {
+
+        public String getTypeOfPrescription(){
+            return medication.findElement(typeOfPrescription()).getText();
+        }
+
+        public String getDischargeLocation(){
+            return medication.findElement(dischargeLocation()).getText();
+        }
+
+        public MedicationDispensed(WebElement medication, int order) {
 			this.medication = medication;
 			this.order = order;
 		}
@@ -360,13 +372,21 @@ public class PatientDashboard extends AbstractPageObject {
 		public String getAmount() {
 			return medication.findElement(amount()).getText();
 		}
+
+        private By typeOfPrescription() {
+            return By.cssSelector("[id='Timing of hospital prescription']");
+        }
+
+        private By dischargeLocation() {
+            return By.cssSelector("[id='Discharge location']");
+        }
 		
 		private By name() {
 			return By.cssSelector("#name" + order);
 		}
 		
 		private By frequency() {
-			return By.cssSelector("#frequency" + order);
+			return By.cssSelector("#frequencyCoded" + order);
 		}
 		
 		private By dose() {
