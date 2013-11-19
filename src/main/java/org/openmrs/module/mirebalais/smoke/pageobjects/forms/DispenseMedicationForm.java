@@ -14,20 +14,23 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects.forms;
 
-import static org.openqa.selenium.By.cssSelector;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
-
 import org.openmrs.module.mirebalais.smoke.pageobjects.AbstractPageObject;
+import org.openmrs.module.mirebalais.smoke.pageobjects.selects.DischargeLocation;
+import org.openmrs.module.mirebalais.smoke.pageobjects.selects.DrugFrequency;
 import org.openmrs.module.mirebalais.smoke.pageobjects.selects.DurationUnit;
+import org.openmrs.module.mirebalais.smoke.pageobjects.selects.TypeOfPrescrition;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
+import static org.openqa.selenium.By.cssSelector;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
+
 public class DispenseMedicationForm extends AbstractPageObject {
 	
-	private By frequencyTextInput = cssSelector("#frequency1 input[type=text]");
+	private By frequencyDropDown = cssSelector("#frequencyCoded1 select");
 	
 	private By doseTextInput = cssSelector("#dose1 input[type=text]");
 	
@@ -42,19 +45,23 @@ public class DispenseMedicationForm extends AbstractPageObject {
 	private By medicationNameAutocompleteInput = cssSelector("#name1 input.ui-autocomplete-input");
 	
 	private By firstAutocompleteResult = By.className("ui-menu-item");
-	
+
+    private By typeOfPrescriptionDropDown = cssSelector("span[id='Timing of hospital prescription'] select");
+
+    private By dischargeLocationDropDown = cssSelector("span[id='Discharge location'] select");
+
 	private ExpectedCondition<WebElement> firstResultIsDisplayed = visibilityOfElementLocated(firstAutocompleteResult);
 	
 	public DispenseMedicationForm(WebDriver driver) {
 		super(driver);
 	}
 	
-	public void fillFirstMedication(String name, String frequency, String dose, String doseUnit, String duration,
+	public void fillFirstMedication(String name, DrugFrequency frequency, String dose, String doseUnit, String duration,
 	        DurationUnit durationUnit, String amount) throws InterruptedException {
 		
 		autocompleteMedicationWith(name);
 		
-		driver.findElement(frequencyTextInput).sendKeys(frequency);
+		driver.findElement(frequencyDropDown).findElements(By.tagName("option")).get(frequency.getIndex()).click();
 		driver.findElement(doseTextInput).sendKeys(dose);
 		driver.findElement(doseUnitTextInput).sendKeys(doseUnit);
 		driver.findElement(durationTextInput).sendKeys(duration);
@@ -74,5 +81,9 @@ public class DispenseMedicationForm extends AbstractPageObject {
 		autocomplete.sendKeys(Keys.DOWN);
 		autocomplete.sendKeys(Keys.ENTER);
 	}
-	
+
+    public void fillDispensingInformation(TypeOfPrescrition typeOfPrescrition, DischargeLocation dischargeLocation) {
+        driver.findElement(typeOfPrescriptionDropDown).findElements(By.tagName("option")).get(typeOfPrescrition.getIndex()).click();
+        driver.findElement(dischargeLocationDropDown).findElements(By.tagName("option")).get(dischargeLocation.getIndex()).click();
+    }
 }
