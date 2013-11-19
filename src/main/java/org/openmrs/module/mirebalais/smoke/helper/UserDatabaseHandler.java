@@ -1,16 +1,7 @@
 package org.openmrs.module.mirebalais.smoke.helper;
 
-import static org.dbunit.operation.DatabaseOperation.DELETE;
-import static org.dbunit.operation.DatabaseOperation.INSERT;
-
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.math.BigInteger;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-
+import com.github.jknack.handlebars.Handlebars;
+import com.github.jknack.handlebars.Template;
 import org.apache.commons.io.IOUtils;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.QueryDataSet;
@@ -20,8 +11,16 @@ import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.openmrs.module.mirebalais.smoke.dataModel.User;
 
-import com.github.jknack.handlebars.Handlebars;
-import com.github.jknack.handlebars.Template;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.math.BigInteger;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
+import static org.dbunit.operation.DatabaseOperation.DELETE;
+import static org.dbunit.operation.DatabaseOperation.INSERT;
 
 public class UserDatabaseHandler extends BaseDatabaseHandler {
 	
@@ -30,24 +29,25 @@ public class UserDatabaseHandler extends BaseDatabaseHandler {
 	private static QueryDataSet userDataToDelete;
 	
 	public static User insertNewClinicalUser() throws Exception {
-		return createUserWithApplicationRole("clinical");
+		return createUserWithApplicationAndProviderRole("clinical", "Clinical Doctor");
 	}
 	
 	public static User insertNewPharmacistUser() throws Exception {
-		return createUserWithApplicationRole("pharmacist");
+		return createUserWithApplicationAndProviderRole("pharmacist", "Pharmacist");
 	}
 	
-	private static User createUserWithApplicationRole(String role) throws Exception {
+	private static User createUserWithApplicationAndProviderRole(String role, String providerRole) throws Exception {
 		User user;
 		
 		try {
 			
 			BigInteger userId = getNextAutoIncrementFor("users");
 			String username = "smoke-test-" + role + "-" + userId;
+            Integer providerRoleId = getProviderRoleId(providerRole);
 			
 			user = new User(getNextAutoIncrementFor("person"), UUID.randomUUID().toString(),
 			        getNextAutoIncrementFor("person_name"), userId, username, role, getNextAutoIncrementFor("provider"),
-			        UUID.randomUUID().toString());
+			        UUID.randomUUID().toString(), providerRoleId);
 			
 			IDataSet dataset = createDataset(user);
 			datasets.put(user, dataset);
@@ -93,4 +93,10 @@ public class UserDatabaseHandler extends BaseDatabaseHandler {
 		
 		return new FlatXmlDataSetBuilder().build(new InputStreamReader(IOUtils.toInputStream(template.apply(user))));
 	}
+
+    private static Integer getProviderRoleId(String providerRoleName) throws SQLException, DataSetException {
+        ITable providerRole = connection.createQueryTable("providermanagement_provider_role",
+                "select * from providermanagement_provider_role where name = '" + providerRoleName + "'");
+        return  (Integer) providerRole.getValue(0, "provider_role_id");
+    }
 }
