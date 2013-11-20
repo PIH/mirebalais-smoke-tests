@@ -26,6 +26,7 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.HashMap;
 import java.util.List;
@@ -302,10 +303,11 @@ public class PatientDashboard extends AbstractPageObject {
 	}
 	
 	public void clickFirstEncounterDetails() {
-        wait5seconds.until(encounterListView);
+        WebDriverWait wait30seconds = new WebDriverWait(driver, 30);
+        wait30seconds.until(encounterListView);
         WebElement encounterDetails = driver.findElement(firstEncounterDetails);
 		encounterDetails.click();
-		wait5seconds.until(detailsAjaxCallReturns);
+		wait30seconds.until(detailsAjaxCallReturns);
 	}
 	
 	private EditEncounterForm editEncounter() {
@@ -323,28 +325,32 @@ public class PatientDashboard extends AbstractPageObject {
 	
 	public MedicationDispensed firstMedication() {
 		WebElement first = driver.findElement(dispensingForm).findElements(medications).get(0);
-		return new MedicationDispensed(first, 1);
+        WebElement dispensingInformation = driver.findElement(dispensingForm);
+		return new MedicationDispensed(dispensingInformation, first, 1);
 	}
 	
 	public class MedicationDispensed {
-		
-		private WebElement medication;
-		
+
+        private WebElement dispensingInformation;
+
+        private WebElement medication;
+
 		private int order;
 
+        public MedicationDispensed(WebElement dispensingInformation, WebElement medication, int order) {
+			this.dispensingInformation = dispensingInformation;
+            this.medication = medication;
+			this.order = order;
+		}
+
         public String getTypeOfPrescription(){
-            return medication.findElement(typeOfPrescription()).getText();
+            return dispensingInformation.findElement(typeOfPrescription()).getText();
         }
 
         public String getDischargeLocation(){
-            return medication.findElement(dischargeLocation()).getText();
+            return dispensingInformation.findElement(dischargeLocation()).getText();
         }
 
-        public MedicationDispensed(WebElement medication, int order) {
-			this.medication = medication;
-			this.order = order;
-		}
-		
 		public String getName() {
 			return medication.findElement(name()).getText();
 		}
