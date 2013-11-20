@@ -15,13 +15,12 @@ import static org.openmrs.module.mirebalais.smoke.pageobjects.selects.DrugFreque
 import static org.openmrs.module.mirebalais.smoke.pageobjects.selects.DurationUnit.DAYS;
 import static org.openmrs.module.mirebalais.smoke.pageobjects.selects.TypeOfPrescrition.DISCHARGE;
 
-@Ignore
+
 public class DispensingTest extends DbTest {
 	
 	private String paracetamol = "Paracetamol, 500mg, tablet";
 	
 	@Test
-    @Ignore
 	public void pharmacistCanDispenseMedicationForAnExistingActiveVisit() throws Exception {
 		AppDashboard appDashboard = new AppDashboard(driver);
 		PatientDashboard patientDashboard = new PatientDashboard(driver);
