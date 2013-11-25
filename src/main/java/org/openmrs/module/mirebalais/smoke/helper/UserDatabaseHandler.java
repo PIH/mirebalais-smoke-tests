@@ -35,6 +35,10 @@ public class UserDatabaseHandler extends BaseDatabaseHandler {
 	public static User insertNewPharmacistUser() throws Exception {
 		return createUserWithApplicationAndProviderRole("pharmacist", "Pharmacist");
 	}
+
+    public static User insertNewArchivistUser() throws Exception {
+        return createUserWithApplicationAndProviderRole("dataArchives", "Archivist/Clerk");
+    }
 	
 	private static User createUserWithApplicationAndProviderRole(String role, String providerRole) throws Exception {
 		User user;
