@@ -112,6 +112,7 @@ public class PatientDashboard extends AbstractPageObject {
 	}
 	
 	public boolean hasActiveVisit() {
+        wait5seconds.until(presenceOfElementLocated(By.id("visit-details")));
 		return driver.findElement(By.id("visit-details")).getText().contains(ACTIVE_VISIT_MESSAGE);
 	}
 	
