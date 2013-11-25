@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
 
 import static org.openqa.selenium.Keys.ARROW_DOWN;
+import static org.openqa.selenium.Keys.ENTER;
 import static org.openqa.selenium.Keys.RETURN;
 
 public class NewCheckIn extends AbstractPageObject {
@@ -30,6 +31,16 @@ public class NewCheckIn extends AbstractPageObject {
 		confirmData();
 		confirmPopup();
 	}
+
+    public void checkInpatientFillingWithScheduledAppointment(String patientIdentifier) throws Exception {
+        findPatient(patientIdentifier);
+        confirmRightPatient();
+        selectSheduledAppointment("typeOfVisit");
+        selectSecondOptionFor("service");
+        selectAppointmentDate("apptDate");
+        confirmDataForScheduleAppointment();
+        confirmPopup();
+    }
 	
 	private void findPatient(String patientIdentifier) throws Exception {
 		super.findPatientById(patientIdentifier, "patient-search-field-search");
@@ -43,6 +54,10 @@ public class NewCheckIn extends AbstractPageObject {
 		clickOnConfirmationTab();
 		clickOn(By.cssSelector("#confirmationQuestion .confirm"));
 	}
+
+    private void confirmDataForScheduleAppointment() {
+        clickOn(By.cssSelector("#confirmationQuestion .confirm"));
+    }
 	
 	private void clickOnNoButton() {
 		clickOnConfirmationTab();
@@ -80,12 +95,27 @@ public class NewCheckIn extends AbstractPageObject {
         findSelectInsideSpan(spanId).sendKeys(ARROW_DOWN, ARROW_DOWN, ARROW_DOWN, RETURN);
     }
 
+    private void selectAppointmentDate(String spandId){
+      WebElement dataField =  findInputInsideSpan(spandId);
+      dataField.click();
+      dataField.sendKeys(RETURN, RETURN);
+    }
+
+
     private WebElement findSelectInsideSpan(String spanId) {
         return driver.findElement(By.id(spanId)).findElement(By.tagName("select"));
+    }
+
+    private WebElement findInputInsideSpan(String spanId) {
+        return driver.findElement(By.cssSelector("#" + spanId + " input"));
+
     }
 
 	public boolean isPatientSearchDisplayed() {
 		return driver.findElement(By.id("patient-search-field-search")).isDisplayed();
 	}
+    private void selectSheduledAppointment(String spanId) {
+        findSelectInsideSpan(spanId).sendKeys(ARROW_DOWN,ARROW_DOWN,ARROW_DOWN,ARROW_DOWN,ARROW_DOWN,ARROW_DOWN,RETURN);
+    }
 	
 }	
