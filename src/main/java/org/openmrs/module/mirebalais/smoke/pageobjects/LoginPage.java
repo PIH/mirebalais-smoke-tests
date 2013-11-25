@@ -34,7 +34,13 @@ public class LoginPage {
 	}
 	
 	public void logInAsPharmacistUser() throws Exception {
-		User clinical = UserDatabaseHandler.insertNewPharmacistUser();
-		this.logIn(clinical.getUsername(), "Admin123");
+		User pharmacist = UserDatabaseHandler.insertNewPharmacistUser();
+		this.logIn(pharmacist.getUsername(), "Admin123");
 	}
+
+    public void logInAsArchivistUser() throws Exception{
+        User archivist = UserDatabaseHandler.insertNewArchivistUser();
+        this.logIn(archivist.getUsername(), "Admin123");
+    }
+
 }
