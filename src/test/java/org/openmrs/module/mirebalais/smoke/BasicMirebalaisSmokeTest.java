@@ -74,6 +74,10 @@ public abstract class BasicMirebalaisSmokeTest {
         new LoginPage(driver).logInAsAdmin();
     }
 
+    protected static void logInAsArchivist() throws Exception{
+        new LoginPage(driver).logInAsArchivistUser();
+    }
+
 
 	protected void initBasicPageObjects() {
 		loginPage = new LoginPage(driver);
