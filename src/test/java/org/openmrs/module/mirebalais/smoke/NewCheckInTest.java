@@ -20,6 +20,7 @@ import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.NewCheckIn;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard.CHECKIN;
@@ -49,5 +50,24 @@ public class NewCheckInTest extends DbTest {
 		assertThat(patientDashboard.countEncountersOfType(CHECKIN), is(0));
 		assertTrue(patientDashboard.hasActiveVisit());
 	}
-	
+    @Test
+    public void createRetrospectiveCheckInWithScheduleAppointment() throws Exception {
+        Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
+        initBasicPageObjects();
+        NewCheckIn newCheckIn = new NewCheckIn(driver);
+
+        logInAsArchivist();
+
+        appDashboard.startClinicVisit();
+        newCheckIn.checkInpatientFillingWithScheduledAppointment(testPatient.getIdentifier());
+
+        assertThat(newCheckIn.isPatientSearchDisplayed(), is(true));
+
+        appDashboard.goToPatientPage(testPatient.getId());
+        assertThat(patientDashboard.getVisits().size(), is(1));
+        assertTrue(patientDashboard.hasActiveVisit());
+        assertThat(patientDashboard.countEncountersOfType(CHECKIN), is(1));
+
+    }
+
 }
