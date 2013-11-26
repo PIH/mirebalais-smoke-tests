@@ -86,6 +86,7 @@ public class UserDatabaseHandler extends BaseDatabaseHandler {
 		userDataToDelete.addTable("name_phonetics",
 		    "select * from name_phonetics where person_name_id in (select person_name_id from person_name where person_id = "
 		            + personId + ")");
+        userDataToDelete.addTable("idgen_log_entry","select * from idgen_log_entry where generated_by = " + userId );
 		userDataToDelete.addTable("users", "select * from users where user_id = " + userId);
 		userDataToDelete.addTable("user_role", "select * from user_role where user_id = " + userId);
 		userDataToDelete.addTable("user_property", "select * from user_property where user_id = " + userId);
