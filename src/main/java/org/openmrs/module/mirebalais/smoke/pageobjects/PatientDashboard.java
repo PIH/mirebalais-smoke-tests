@@ -52,6 +52,8 @@ public class PatientDashboard extends AbstractPageObject {
 	private final By dispensingForm = By.cssSelector(".encounter-summary-container .dispensing-form");
 	
 	private final By medications = By.className("medication");
+
+    private final By encounterDetails = By.cssSelector(".encounter-summary-container");
 	
 	private ConsultNoteForm consultNoteForm;
 	
@@ -89,7 +91,7 @@ public class PatientDashboard extends AbstractPageObject {
 	
 	private By firstEncounterDetails = By.className("details-action");
 	
-	private ExpectedCondition<WebElement> detailsAjaxCallReturns = visibilityOfElementLocated(dispensingForm);
+	private ExpectedCondition<WebElement> detailsAjaxCallReturns = visibilityOfElementLocated(encounterDetails);
 
     private ExpectedCondition<WebElement> encounterListView = visibilityOfElementLocated(encounterList);
 	
@@ -323,13 +325,13 @@ public class PatientDashboard extends AbstractPageObject {
 		formList.put("Order X-Ray", By.id("org.openmrs.module.radiologyapp.orderXray"));
 		formList.put("ED Note", By.id("mirebalais.edConsult"));
 	}
-	
+
 	public MedicationDispensed firstMedication() {
 		WebElement first = driver.findElement(dispensingForm).findElements(medications).get(0);
         WebElement dispensingInformation = driver.findElement(dispensingForm);
 		return new MedicationDispensed(dispensingInformation, first, 1);
 	}
-	
+
 	public class MedicationDispensed {
 
         private WebElement dispensingInformation;
@@ -417,4 +419,28 @@ public class PatientDashboard extends AbstractPageObject {
 		}
 		
 	}
+
+    public Checkin firstEncounterCheckIn() {
+        WebElement firstCheckIn = driver.findElements(encounterDetails).get(0);
+        return new Checkin(firstCheckIn);
+    }
+
+    public class Checkin {
+
+        private WebElement checkInInformation;
+
+
+        public Checkin(WebElement checkInInformation){
+            this.checkInInformation = checkInInformation;
+        }
+
+        public String getCheckInInformation(){
+            return checkInInformation.getText();
+        }
+
+        private By checkInformation() {
+            return By.cssSelector("p span");
+        }
+
+    }
 }
