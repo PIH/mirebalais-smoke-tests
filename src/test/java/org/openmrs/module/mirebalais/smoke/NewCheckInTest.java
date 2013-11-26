@@ -22,7 +22,6 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 
 import static org.hamcrest.CoreMatchers.anything;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard.CHECKIN;
@@ -58,7 +57,7 @@ public class NewCheckInTest extends DbTest {
         initBasicPageObjects();
         NewCheckIn newCheckIn = new NewCheckIn(driver);
 
-        logInAsArchivist();
+        login();
 
         appDashboard.startClinicVisit();
         newCheckIn.checkInpatientFillingWithScheduledAppointment(testPatient.getIdentifier());
