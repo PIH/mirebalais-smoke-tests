@@ -18,7 +18,9 @@ import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.NewCheckIn;
+import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 
+import static org.hamcrest.CoreMatchers.anything;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
@@ -64,10 +66,15 @@ public class NewCheckInTest extends DbTest {
         assertThat(newCheckIn.isPatientSearchDisplayed(), is(true));
 
         appDashboard.goToPatientPage(testPatient.getId());
+
         assertThat(patientDashboard.getVisits().size(), is(1));
         assertTrue(patientDashboard.hasActiveVisit());
         assertThat(patientDashboard.countEncountersOfType(CHECKIN), is(1));
 
+        patientDashboard.clickFirstEncounterDetails();
+
+        PatientDashboard.Checkin scheduleAppointment = patientDashboard.firstEncounterCheckIn();
+        assertThat(scheduleAppointment.getCheckInInformation(), anything("Pran yon randevou"));
     }
 
 }
