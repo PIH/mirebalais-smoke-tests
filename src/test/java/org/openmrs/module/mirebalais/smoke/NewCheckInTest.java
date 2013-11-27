@@ -14,6 +14,8 @@
 
 package org.openmrs.module.mirebalais.smoke;
 
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
@@ -27,18 +29,27 @@ import static org.junit.Assert.assertTrue;
 import static org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard.CHECKIN;
 
 public class NewCheckInTest extends DbTest {
+
+    public NewCheckIn newCheckIn;
+    public Patient testPatient;
+
+    @BeforeClass
+    public static void prepare() throws Exception {
+        logInAsAdmin();
+    }
+
+    @Before
+    public void setUp() throws Exception {
+        testPatient = PatientDatabaseHandler.insertNewTestPatient();
+        initBasicPageObjects();
+        newCheckIn = new NewCheckIn(driver);
+        appDashboard.startClinicVisit();
+        newCheckIn.checkInPatientFillingTheFormTwice(testPatient.getIdentifier());
+    }
 	
 	@Test
 	public void createRetrospectiveCheckInAndRemoveIt() throws Exception {
-        Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
-        initBasicPageObjects();
-        NewCheckIn newCheckIn = new NewCheckIn(driver);
 
-		login();
-		
-		appDashboard.startClinicVisit();
-		newCheckIn.checkInPatientFillingTheFormTwice(testPatient.getIdentifier());
-		
 		assertThat(newCheckIn.isPatientSearchDisplayed(), is(true));
 		
 		appDashboard.goToPatientPage(testPatient.getId());
@@ -53,14 +64,6 @@ public class NewCheckInTest extends DbTest {
 	}
     @Test
     public void createRetrospectiveCheckInWithScheduleAppointment() throws Exception {
-        Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
-        initBasicPageObjects();
-        NewCheckIn newCheckIn = new NewCheckIn(driver);
-
-        login();
-
-        appDashboard.startClinicVisit();
-        newCheckIn.checkInpatientFillingWithScheduledAppointment(testPatient.getIdentifier());
 
         assertThat(newCheckIn.isPatientSearchDisplayed(), is(true));
 
