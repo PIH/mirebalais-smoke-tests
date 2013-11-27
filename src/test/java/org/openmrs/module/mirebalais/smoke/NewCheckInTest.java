@@ -44,11 +44,13 @@ public class NewCheckInTest extends DbTest {
         initBasicPageObjects();
         newCheckIn = new NewCheckIn(driver);
         appDashboard.startClinicVisit();
-        newCheckIn.checkInPatientFillingTheFormTwice(testPatient.getIdentifier());
+
     }
 	
 	@Test
 	public void createRetrospectiveCheckInAndRemoveIt() throws Exception {
+
+        newCheckIn.checkInPatientFillingTheFormTwice(testPatient.getIdentifier());
 
 		assertThat(newCheckIn.isPatientSearchDisplayed(), is(true));
 		
@@ -64,6 +66,8 @@ public class NewCheckInTest extends DbTest {
 	}
     @Test
     public void createRetrospectiveCheckInWithScheduleAppointment() throws Exception {
+
+        newCheckIn.checkInpatientFillingWithScheduledAppointment(testPatient.getIdentifier());
 
         assertThat(newCheckIn.isPatientSearchDisplayed(), is(true));
 
