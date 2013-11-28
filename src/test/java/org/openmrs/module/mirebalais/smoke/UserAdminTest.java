@@ -5,7 +5,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.helper.NameGenerator;
-import org.openmrs.module.mirebalais.smoke.helper.Toast;
 import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.MyAccountApp;
 import org.openmrs.module.mirebalais.smoke.pageobjects.UserAdmin;
@@ -14,9 +13,7 @@ import org.openqa.selenium.By;
 import java.sql.SQLException;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class UserAdminTest extends DbTest {
 	
@@ -45,10 +42,9 @@ public class UserAdminTest extends DbTest {
 	
 	@Test
 	public void createUserWithClinicalRoleAndUserChangesOwnPassword() throws Exception {
-		userAdmin.createClinicalAccount(NameGenerator.getUserFirstName(), NameGenerator.getUserLastName(), username,
-		    DEFAULT_PASSWORD);
 
-		Toast.closeToast(driver);
+        userAdmin.createClinicalAccount(NameGenerator.getUserFirstName(), NameGenerator.getUserLastName(), username,
+		    DEFAULT_PASSWORD);
 		logOutAndLogInWithNewUser(username);
 		
 		appDashboard.openMyAccountApp();
@@ -79,7 +75,6 @@ public class UserAdminTest extends DbTest {
 		userAdmin.createRadiologyAccount(NameGenerator.getUserFirstName(), NameGenerator.getUserLastName(), username,
 		    DEFAULT_PASSWORD);
 
-		Toast.closeToast(driver);
 		logOutAndLogInWithNewUser(username);
 		
 		assertThat(appDashboard.isActiveVisitsAppPresented(), is(true));
@@ -105,7 +100,6 @@ public class UserAdminTest extends DbTest {
 		userAdmin.createDataArchivesAccount(NameGenerator.getUserFirstName(), NameGenerator.getUserLastName(), username,
 		    DEFAULT_PASSWORD);
 
-		Toast.closeToast(driver);
 		logOutAndLogInWithNewUser(username);
 		
 		assertThat(appDashboard.isActiveVisitsAppPresented(), is(true));
@@ -131,7 +125,6 @@ public class UserAdminTest extends DbTest {
 		userAdmin.createSysAdminAccount(NameGenerator.getUserFirstName(), NameGenerator.getUserLastName(), username,
 		    DEFAULT_PASSWORD, "en");
 
-		Toast.closeToast(driver);
 		logOutAndLogInWithNewUser(username);
 		
 		assertThat(appDashboard.isActiveVisitsAppPresented(), is(true));
@@ -167,8 +160,9 @@ public class UserAdminTest extends DbTest {
 		return new String("user" + System.currentTimeMillis());
 	}
 	
-	private void logOutAndLogInWithNewUser(String username) {
-		header.logOut();
+	private void logOutAndLogInWithNewUser(String username) throws InterruptedException {
+		Thread.sleep(5000);
+        header.logOut();
 		loginPage.logIn(username, DEFAULT_PASSWORD);
 	}
 	
