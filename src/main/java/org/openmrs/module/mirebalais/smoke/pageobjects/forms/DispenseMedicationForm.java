@@ -15,7 +15,6 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects.forms;
 
 import org.openmrs.module.mirebalais.smoke.pageobjects.AbstractPageObject;
-import org.openmrs.module.mirebalais.smoke.pageobjects.selects.DischargeLocation;
 import org.openmrs.module.mirebalais.smoke.pageobjects.selects.DrugFrequency;
 import org.openmrs.module.mirebalais.smoke.pageobjects.selects.DurationUnit;
 import org.openmrs.module.mirebalais.smoke.pageobjects.selects.TypeOfPrescrition;
@@ -24,8 +23,11 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.Select;
 
 import static org.openqa.selenium.By.cssSelector;
+import static org.openqa.selenium.support.ui.ExpectedConditions.textToBePresentInElement;
+import static org.openqa.selenium.support.ui.ExpectedConditions.textToBePresentInElementValue;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class DispenseMedicationForm extends AbstractPageObject {
@@ -82,8 +84,10 @@ public class DispenseMedicationForm extends AbstractPageObject {
 		autocomplete.sendKeys(Keys.ENTER);
 	}
 
-    public void fillDispensingInformation(TypeOfPrescrition typeOfPrescrition, DischargeLocation dischargeLocation) {
+    public void fillDispensingInformation(TypeOfPrescrition typeOfPrescrition, String dischargeLocationName) {
         driver.findElement(typeOfPrescriptionDropDown).findElements(By.tagName("option")).get(typeOfPrescrition.getIndex()).click();
-        driver.findElement(dischargeLocationDropDown).findElements(By.tagName("option")).get(dischargeLocation.getIndex()).click();
+        Select select = new Select(driver.findElement(dischargeLocationDropDown));
+        select.selectByVisibleText(dischargeLocationName);
+
     }
 }

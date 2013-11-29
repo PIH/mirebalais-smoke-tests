@@ -30,14 +30,15 @@ public abstract class AbstractPageObject {
 
     protected WebDriver driver;
     public WebDriverWait wait5seconds;
+    public WebDriverWait wait15seconds;
     private String baseServerUrl;
     private LoginPage loginPO;
 
     public AbstractPageObject(WebDriver driver) {
         this.driver = driver;
-
         this.loginPO = new LoginPage(driver);
         this.wait5seconds = new WebDriverWait(driver, 5);
+        this.wait15seconds = new WebDriverWait(driver,15);
 
         setBaseServerUrl();
     }

@@ -32,6 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class PatientDashboard extends AbstractPageObject {
 	
@@ -328,6 +329,7 @@ public class PatientDashboard extends AbstractPageObject {
 	}
 
 	public MedicationDispensed firstMedication() {
+        wait15seconds.until(visibilityOfElementLocated(dispensingForm));
 		WebElement first = driver.findElement(dispensingForm).findElements(medications).get(0);
         WebElement dispensingInformation = driver.findElement(dispensingForm);
 		return new MedicationDispensed(dispensingInformation, first, 1);
