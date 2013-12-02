@@ -14,22 +14,21 @@
 
 package org.openmrs.module.mirebalais.smoke;
 
-import static org.hamcrest.CoreMatchers.anything;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-import static org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard.CHECKIN;
-
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.NewCheckIn;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 
-@Ignore
+import static org.hamcrest.CoreMatchers.anything;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard.CHECKIN;
+
+
 public class NewCheckInTest extends DbTest {
 
     public NewCheckIn newCheckIn;
