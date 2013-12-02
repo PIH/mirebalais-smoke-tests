@@ -14,6 +14,11 @@
 
 package org.openmrs.module.mirebalais.smoke;
 
+import static org.hamcrest.CoreMatchers.anything;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -21,12 +26,6 @@ import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.NewCheckIn;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
-
-import static org.hamcrest.CoreMatchers.anything;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-import static org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard.CHECKIN;
 
 
 public class NewCheckInTest extends DbTest {
@@ -58,11 +57,11 @@ public class NewCheckInTest extends DbTest {
 		appDashboard.goToPatientPage(testPatient.getId());
 		assertThat(patientDashboard.getVisits().size(), is(1));
 		assertTrue(patientDashboard.hasActiveVisit());
-		assertThat(patientDashboard.countEncountersOfType(CHECKIN), is(1));
+		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CHECKIN), is(1));
 		
 		patientDashboard.deleteFirstEncounter();
 		
-		assertThat(patientDashboard.countEncountersOfType(CHECKIN), is(0));
+		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CHECKIN), is(0));
 		assertTrue(patientDashboard.hasActiveVisit());
 	}
     @Test
@@ -76,7 +75,7 @@ public class NewCheckInTest extends DbTest {
 
         assertThat(patientDashboard.getVisits().size(), is(1));
         assertTrue(patientDashboard.hasActiveVisit());
-        assertThat(patientDashboard.countEncountersOfType(CHECKIN), is(1));
+        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CHECKIN), is(1));
 
         patientDashboard.clickFirstEncounterDetails();
 
