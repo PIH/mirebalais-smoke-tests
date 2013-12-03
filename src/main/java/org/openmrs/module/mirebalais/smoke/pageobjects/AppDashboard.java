@@ -33,7 +33,7 @@ public class AppDashboard extends AbstractPageObject {
     public static final String REPORTS = "mirebalaisreports-Reports-app";
     public static final String LEGACY = "legacy-admin-app";
     public static final String MASTER_PATIENT_INDEX = "mirebalais-mpi-app";
-    public static final String IN_PATIENT = "mirebalaisreports-inpatients-app";
+    public static final String IN_PATIENT = "emr-inpatients-app";
     public static final String MY_ACCOUNT = "emr-myAccount-app";
 
     public AppDashboard(WebDriver driver) {
