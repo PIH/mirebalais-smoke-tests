@@ -151,7 +151,7 @@ public class PatientDatabaseHandler extends BaseDatabaseHandler {
 	}
 	
 	private static void unlockPatientIdentifier(String identifier) throws Exception {
-		setDateUsedOfPatientIdentifierTo(identifier, "null");
+		//setDateUsedOfPatientIdentifierTo(identifier, "null");
 	}
 	
 	private static Integer getPatientIdentifierId() throws Exception {
