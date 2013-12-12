@@ -14,10 +14,6 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
-import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
-
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.ConsultNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.DispenseMedicationForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.EditEncounterForm;
@@ -34,6 +30,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.HashMap;
 import java.util.List;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
+import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class PatientDashboard extends AbstractPageObject {
 	
@@ -128,7 +128,7 @@ public class PatientDashboard extends AbstractPageObject {
 	
 	public Integer countEncountersOfType(String encounterName) {
 
-        wait5seconds.until(presenceOfElementLocated(By.id("encountersList")));
+        wait15seconds.until(presenceOfElementLocated(By.id("encountersList")));
 
 		int count = 0;
 

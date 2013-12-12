@@ -94,8 +94,9 @@ public class PatientDatabaseHandler extends BaseDatabaseHandler {
 		}
 		
 		DELETE.execute(connection, datasets.get(patient));
-		
-		unlockPatientIdentifier(patient.getIdentifier());
+
+        // we stopped unlocking here because I don't think this was playing nicely with hibernate and we were getting duplicates
+		//unlockPatientIdentifier(patient.getIdentifier());
 	}
 	
 	private static void initializePatientTablesToDelete() {
@@ -151,7 +152,7 @@ public class PatientDatabaseHandler extends BaseDatabaseHandler {
 	}
 	
 	private static void unlockPatientIdentifier(String identifier) throws Exception {
-		//setDateUsedOfPatientIdentifierTo(identifier, "null");
+		setDateUsedOfPatientIdentifierTo(identifier, "null");
 	}
 	
 	private static Integer getPatientIdentifierId() throws Exception {
