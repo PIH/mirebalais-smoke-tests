@@ -2,7 +2,7 @@ package org.openmrs.module.mirebalais.smoke.helper;
 
 public class SmokeTestProperties {
 
-    public static final int IMPLICIT_WAIT_TIME = 5;
+    public static final int IMPLICIT_WAIT_TIME = 10;
 
     public String getWebAppUrl() {
         return envOrDefault("WEBAPP_URL", "http://localhost:8080/openmrs");
