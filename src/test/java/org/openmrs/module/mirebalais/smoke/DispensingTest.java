@@ -18,7 +18,7 @@ import static org.openmrs.module.mirebalais.smoke.pageobjects.selects.TypeOfPres
 public class DispensingTest extends DbTest {
 	
 	private String paracetamol = "Paracetamol, 500mg, tablet";
-    private String dischargeLocation = "Mirebalais Hospital";
+    private String dischargeLocation = "Sal Fanm";
 	
 	@Test
 	public void pharmacistCanDispenseMedicationForAnExistingActiveVisit() throws Exception {
@@ -37,7 +37,7 @@ public class DispensingTest extends DbTest {
 		appDashboard.goToPatientPage(patient.getId());
 		assertThat("Dispense medication.", patientDashboard.canDispenseMedication(), is(true));
 		DispenseMedicationForm dispensingForm = patientDashboard.goToDispenseMedicationForm();
-        dispensingForm.fillDispensingInformation(DISCHARGE,dischargeLocation );
+        dispensingForm.fillDispensingInformation(DISCHARGE, dischargeLocation);
 		dispensingForm.fillFirstMedication(paracetamol, THREE_TIMES_A_DAY , "5", "mg", "7", DAYS, "20");
 		dispensingForm.submit();
 
