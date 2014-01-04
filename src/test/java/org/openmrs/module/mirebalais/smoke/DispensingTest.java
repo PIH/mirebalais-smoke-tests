@@ -1,6 +1,5 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
@@ -18,7 +17,7 @@ import static org.openmrs.module.mirebalais.smoke.pageobjects.selects.TypeOfPres
 public class DispensingTest extends DbTest {
 	
 	private String paracetamol = "Paracetamol, 500mg, tablet";
-    private String dischargeLocation = "Sal Fanm";
+    private String prescriptionLocation = "Sal Fanm";
 	
 	@Test
 	public void pharmacistCanDispenseMedicationForAnExistingActiveVisit() throws Exception {
@@ -37,7 +36,7 @@ public class DispensingTest extends DbTest {
 		appDashboard.goToPatientPage(patient.getId());
 		assertThat("Dispense medication.", patientDashboard.canDispenseMedication(), is(true));
 		DispenseMedicationForm dispensingForm = patientDashboard.goToDispenseMedicationForm();
-        dispensingForm.fillDispensingInformation(DISCHARGE, dischargeLocation);
+        dispensingForm.fillDispensingInformation(DISCHARGE, prescriptionLocation);
 		dispensingForm.fillFirstMedication(paracetamol, THREE_TIMES_A_DAY , "5", "mg", "7", DAYS, "20");
 		dispensingForm.submit();
 
@@ -57,7 +56,7 @@ public class DispensingTest extends DbTest {
         assertThat("Medication amount is right.", medicationDispensed.getAmount(), is("20"));
 
         assertThat("Type of precription is right", medicationDispensed.getTypeOfPrescription(), is("Egzeyat"));
-        assertThat("Discharge location is right",  medicationDispensed.getDischargeLocation(), is("Mirebalais Hospital"));
+        assertThat("Prescription location is right",  medicationDispensed.getDischargeLocation(), is(prescriptionLocation));
 
 
 
