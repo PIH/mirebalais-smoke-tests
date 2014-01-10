@@ -14,18 +14,19 @@
 
 package org.openmrs.module.mirebalais.smoke;
 
-import static org.hamcrest.CoreMatchers.anything;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.NewCheckIn;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
+
+import static org.hamcrest.CoreMatchers.anything;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 
 public class NewCheckInTest extends DbTest {
@@ -64,7 +65,9 @@ public class NewCheckInTest extends DbTest {
 		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CHECKIN), is(0));
 		assertTrue(patientDashboard.hasActiveVisit());
 	}
+
     @Test
+    @Ignore // since we are no longer using scheduling appointment in check in
     public void createRetrospectiveCheckInWithScheduleAppointment() throws Exception {
 
         newCheckIn.checkInpatientFillingWithScheduledAppointment(testPatient.getIdentifier());
