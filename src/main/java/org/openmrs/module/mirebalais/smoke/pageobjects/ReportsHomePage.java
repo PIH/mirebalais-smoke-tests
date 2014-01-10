@@ -19,7 +19,7 @@ import org.openqa.selenium.WebDriver;
 
 public class ReportsHomePage extends AbstractPageObject {
 
-	public static final String BASIC_STATISTICS_REPORT = "mirebalaisreports-basicStatisticsReport-link";
+	public static final String BASIC_STATISTICS_REPORT = "reportingui-reports-homepagelink-app";
     public static final String NONCODED_DIAGNOSES_REPORT = "mirebalaisreports-nonCodedDiagnosesReport-link";
 
     public ReportsHomePage(WebDriver driver) {
