@@ -60,6 +60,14 @@ public class ArchivesRoomApp extends AbstractPageObject {
 	}
 
 	private String getDossierNumber(String patientIdentifier) throws Exception {
-        return driver.findElement(By.className(patientIdentifier)).findElement(By.cssSelector("td:nth-child(2)")).getText();
+
+        String dossierNumber = "";
+
+        // TODO: fix this, could be problematic and get stuck in infinite loop
+        while (dossierNumber.equals("")) {
+            dossierNumber = driver.findElement(By.className(patientIdentifier)).findElement(By.cssSelector("td:nth-child(2)")).getText();
+        }
+
+        return dossierNumber;
 	}
 }
