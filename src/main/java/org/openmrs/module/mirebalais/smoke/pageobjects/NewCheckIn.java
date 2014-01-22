@@ -9,7 +9,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
 
 import static org.openqa.selenium.Keys.ARROW_DOWN;
-import static org.openqa.selenium.Keys.ENTER;
 import static org.openqa.selenium.Keys.RETURN;
 
 public class NewCheckIn extends AbstractPageObject {
@@ -51,7 +50,6 @@ public class NewCheckIn extends AbstractPageObject {
 	}
 
 	private void confirmData() {
-		clickOnConfirmationTab();
 		clickOn(By.cssSelector("#confirmationQuestion .confirm"));
 	}
 
