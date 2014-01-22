@@ -70,16 +70,19 @@ public abstract class BasicMirebalaisSmokeTest {
 		new LoginPage(driver).logInAsPharmacistUser();
 	}
 
-    protected static void logInAsAdmin() throws Exception {
-        new LoginPage(driver).logInAsAdmin();
-    }
-
     protected static void logInAsArchivist() throws Exception{
         new LoginPage(driver).logInAsArchivistUser();
     }
 
+    protected static void logInAsAdmin() throws Exception {
+        new LoginPage(driver).logInAsAdmin();
+    }
 
-	protected void initBasicPageObjects() {
+    protected static void logInAsAdmin(int locationIndex) throws Exception {
+        new LoginPage(driver).logInAsAdmin(locationIndex);
+    }
+
+    protected void initBasicPageObjects() {
 		loginPage = new LoginPage(driver);
 		header = new HeaderPage(driver);
 		registration = new Registration(driver);

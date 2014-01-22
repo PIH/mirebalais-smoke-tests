@@ -23,11 +23,15 @@ public class LoginPage {
 	public void logIn(String user, String password) {
 		logIn(user, password, 1);
 	}
-	
+
 	public void logInAsAdmin() {
 		this.logIn("admin", "Admin123");
 	}
-	
+
+    public void logInAsAdmin(int locationIndex) {
+        this.logIn("admin", "Admin123", locationIndex);
+    }
+
 	public void logInAsClinicalUser() throws Exception {
 		User clinical = UserDatabaseHandler.insertNewClinicalUser();
 		this.logIn(clinical.getUsername(), "Admin123");
