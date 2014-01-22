@@ -72,9 +72,9 @@ public class NewCheckIn extends AbstractPageObject {
 	}
 	
 	private void confirmPopup() {
-        new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(By.id("create-dossier-number-dialog")));
-        if(driver.findElement(By.id("create-dossier-number-dialog")).isDisplayed()){
-            clickOn(By.cssSelector("#create-dossier-number-dialog button"));
+        new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(By.id("create-paper-record-dialog")));
+        if(driver.findElement(By.id("create-paper-record-dialog")).isDisplayed()){
+            clickOn(By.cssSelector("#create-paper-record-dialog button"));
             return;
         }
         new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(By.id("request-paper-record-dialog")));

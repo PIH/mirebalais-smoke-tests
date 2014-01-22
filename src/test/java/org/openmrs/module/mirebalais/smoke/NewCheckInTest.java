@@ -49,7 +49,7 @@ public class NewCheckInTest extends DbTest {
     }
 	
 	@Test
-	public void createRetrospectiveCheckInAndRemoveIt() throws Exception {
+	public void createCheckInAndRemoveIt() throws Exception {
 
         newCheckIn.checkInPatientFillingTheFormTwice(testPatient.getIdentifier());
 
