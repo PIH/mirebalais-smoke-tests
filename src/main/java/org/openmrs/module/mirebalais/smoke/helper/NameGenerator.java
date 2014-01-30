@@ -1,5 +1,8 @@
 package org.openmrs.module.mirebalais.smoke.helper;
 
+import java.util.Date;
+import java.util.Random;
+
 public class NameGenerator {
 
 	private static final String[] PATIENT_FIRST_NAMES = { "Alexandre", "Achint", 
@@ -20,7 +23,13 @@ public class NameGenerator {
 			"Parker", "Banner", "Prince", "Stark", "Rogers", "Richards",
 			"Howlett", "Jordan", "Murdock", "Grayson", "Gray", "Gordon",
 			"Xavier", "Barton", "West", "Munroe" };
-	
+
+    private static final String[] SERVICE_TYPES_NAMES = { "Radiology, follow up",
+            "Radiology, new patient", "Orthopedics, new patient", "Orthopedics, follow up",
+            "Mental health, follow up", "Mental health, new patient", "Adult chronic diseases, follow up",
+            "Adult chronic diseases, new patient", "Oncology, new patient", "Oncology, follow up", "Dental, new patient",
+            "Dental, follow up", "Women's health family, follow up", "Women's health family, new patient"};
+
 	public static String getPatientFirstName() {
 		return PATIENT_FIRST_NAMES[(int) (Math.random() * PATIENT_FIRST_NAMES.length)];
 	}
@@ -44,4 +53,9 @@ public class NameGenerator {
 	public static String getUserName() {
 		return new StringBuilder(NameGenerator.getUserFirstName() + " " + NameGenerator.getUserLastName()).toString();
 	}
+
+    public static String getServiceTypeName(){
+        Random random = new Random(new Date().getTime());
+        return new StringBuilder(SERVICE_TYPES_NAMES[random.nextInt(SERVICE_TYPES_NAMES.length)] + " " + random.nextInt()).toString();
+    }
 }

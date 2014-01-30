@@ -17,5 +17,9 @@ public class SysAdminPage extends AbstractPageObject {
 	public void openManagePatientRecords() {
 		driver.findElement(By.cssSelector(".task .icon-group")).click();
 	}
+
+    public void openManageServiceTypes(){
+        driver.findElement(By.cssSelector(".task .icon-calendar")).click();
+    }
 	
 }
