@@ -3,6 +3,9 @@ package org.openmrs.module.mirebalais.smoke.pageobjects;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class ServiceTypeApp extends AbstractPageObject {
     private static final By NEW_SERVICE_TYPE = By.cssSelector("button.appointment-type-label");
     private static final By SAVE_BUTTON = By.id("save-button");
@@ -25,7 +28,9 @@ public class ServiceTypeApp extends AbstractPageObject {
 
     public int getTotalAmountOfServiceTypes() {
         String tableInfo =  driver.findElement(SERVICE_TYPE_TABLE_INFO).getText();
-        String[] tableInfoDetails = tableInfo.split(" ");
-        return  Integer.parseInt(tableInfoDetails[6]);
+        Pattern pattern = Pattern.compile("(\\d+)(?!.*\\d)");
+        Matcher matcher = pattern.matcher(tableInfo);
+        matcher.find();
+        return Integer.parseInt(matcher.group());
     }
 }
