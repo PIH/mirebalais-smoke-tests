@@ -149,7 +149,7 @@ public class PatientDashboard extends AbstractPageObject {
 		clickOn(checkIn);
 		clickOn(confirmStartVisit);
 		
-		wait5seconds.until(visibilityOfElementLocated(By.cssSelector(".visit-actions.active-visit")));
+		wait15seconds.until(visibilityOfElementLocated(By.cssSelector(".visit-actions.active-visit")));
 	}
 
     public void addRetroVisit() {
