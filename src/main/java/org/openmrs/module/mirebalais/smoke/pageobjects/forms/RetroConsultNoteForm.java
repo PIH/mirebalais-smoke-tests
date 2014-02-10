@@ -31,7 +31,7 @@ public class RetroConsultNoteForm extends ConsultNoteForm {
         assertThat(subbmitButtonIsEnabled(),is(false));
 
         chooseLocation();
-        assertThat(subbmitButtonIsEnabled(),is(true));   // note that disposition is not mandatory for retro note, so submit should be enabled at this point
+        assertThat(subbmitButtonIsEnabled(),is(false));   // aren't allowed to submit until disposition selected
 
         chooseDisposition(disposition);
         confirmData();
