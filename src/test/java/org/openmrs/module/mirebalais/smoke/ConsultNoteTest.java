@@ -37,11 +37,11 @@ public class ConsultNoteTest extends DbTest {
 	}
 	
 	@Test
-	public void addConsultationNoteWithDeathAsDispositionClosesVisit() throws Exception {
+	public void addConsultationNoteWithDeathAsDispositionDoesNotCloseVisit() throws Exception {
 		patientDashboard.addConsultNoteWithDeath(PRIMARY_DIAGNOSIS);
 		
 		assertThat(patientDashboard.isDead(), is(true));
-		assertThat(patientDashboard.hasActiveVisit(), is(false));
+		assertThat(patientDashboard.hasActiveVisit(), is(true));
 		assertThat(patientDashboard.startVisitButtonIsVisible(), is(false));
 	}
 
