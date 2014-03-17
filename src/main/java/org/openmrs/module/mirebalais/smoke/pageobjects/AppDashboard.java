@@ -35,6 +35,7 @@ public class AppDashboard extends AbstractPageObject {
     public static final String MASTER_PATIENT_INDEX = "mirebalais-mpi-app";
     public static final String IN_PATIENT = "mirebalaisreports-inpatients-app";
     public static final String MY_ACCOUNT = "emr-myAccount-app";
+    public static final String MANAGE_APPOINTMENTS = "appointmentschedulingui-schedulingAppointmentAppLink-app";
 
     public AppDashboard(WebDriver driver) {
         super(driver);
@@ -43,6 +44,10 @@ public class AppDashboard extends AbstractPageObject {
     public void openActiveVisitsApp() {
         openApp(ACTIVE_VISITS);
 	}
+
+    public void openManageAppointmentsApp() {
+        openApp(MANAGE_APPOINTMENTS);
+    }
 
     public void openMyAccountApp() {
         openApp(MY_ACCOUNT);
