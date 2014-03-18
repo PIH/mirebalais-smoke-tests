@@ -1,6 +1,7 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -14,7 +15,8 @@ public class ManageAppointments extends AbstractPageObject {
     public void enterPatientIdentifier(String patientID) throws InterruptedException {
         WebElement searchField = driver.findElement(By.id("patient-search"));
         searchField.sendKeys(patientID);
-        wait15seconds.until(presenceOfElementLocated(By.tagName("tbody")));
+        searchField.sendKeys(Keys.RETURN);
+        wait5seconds.until(presenceOfElementLocated(By.tagName("tbody")));
         WebElement tbody = driver.findElement(By.tagName("tbody"));
         tbody.findElement(By.tagName("tr")).click();
     }
