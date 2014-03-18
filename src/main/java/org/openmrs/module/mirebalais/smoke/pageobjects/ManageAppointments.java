@@ -16,7 +16,7 @@ public class ManageAppointments extends AbstractPageObject {
         WebElement searchField = driver.findElement(By.id("patient-search"));
         searchField.sendKeys(patientID);
         searchField.sendKeys(Keys.RETURN);
-        wait5seconds.until(presenceOfElementLocated(By.tagName("tbody")));
+        wait5seconds.until(presenceOfElementLocated(By.xpath("//tbody/tr/td[contains(text(),'" + patientID +"')]")));
         WebElement tbody = driver.findElement(By.tagName("tbody"));
         tbody.findElement(By.tagName("tr")).click();
     }
