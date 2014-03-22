@@ -142,5 +142,14 @@ public abstract class AbstractPageObject {
         Actions hover = builder.moveToElement(driver.findElement(elementId));
         hover.perform();
     }
-    
+
+    protected WebElement findOptionByText(String text, WebElement selectElement) {
+        for (WebElement option : selectElement.findElements(By.tagName("option"))) {
+            if (option.getText().contains(text)) {
+                return option;
+            }
+        }
+        return null;
+    }
+
 }

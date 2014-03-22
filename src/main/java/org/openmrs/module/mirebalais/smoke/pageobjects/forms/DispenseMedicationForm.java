@@ -26,8 +26,6 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Select;
 
 import static org.openqa.selenium.By.cssSelector;
-import static org.openqa.selenium.support.ui.ExpectedConditions.textToBePresentInElement;
-import static org.openqa.selenium.support.ui.ExpectedConditions.textToBePresentInElementValue;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class DispenseMedicationForm extends AbstractPageObject {
@@ -36,7 +34,7 @@ public class DispenseMedicationForm extends AbstractPageObject {
 	
 	private By doseTextInput = cssSelector("#dose1 input[type=text]");
 	
-	private By doseUnitTextInput = cssSelector("#doseUnit1 input[type=text]");
+	private By doseUnitDropDown = cssSelector("#doseUnit1 select");
 	
 	private By durationTextInput = cssSelector("#duration1 input[type=text]");
 	
@@ -65,13 +63,13 @@ public class DispenseMedicationForm extends AbstractPageObject {
 		
 		driver.findElement(frequencyDropDown).findElements(By.tagName("option")).get(frequency.getIndex()).click();
 		driver.findElement(doseTextInput).sendKeys(dose);
-		driver.findElement(doseUnitTextInput).sendKeys(doseUnit);
+        findOptionByText(doseUnit, driver.findElement(doseUnitDropDown)).click();
 		driver.findElement(durationTextInput).sendKeys(duration);
 		driver.findElement(durationUnitDropDown).findElements(By.tagName("option")).get(durationUnit.getIndex()).click();
 		driver.findElement(amountTextInput).sendKeys(amount);
 	}
-	
-	public void submit() {
+
+    public void submit() {
 		driver.findElement(By.className("submitButton")).click();
 	}
 	
