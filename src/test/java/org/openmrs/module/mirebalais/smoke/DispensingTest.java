@@ -37,7 +37,7 @@ public class DispensingTest extends DbTest {
 		assertThat("Dispense medication.", patientDashboard.canDispenseMedication(), is(true));
 		DispenseMedicationForm dispensingForm = patientDashboard.goToDispenseMedicationForm();
         dispensingForm.fillDispensingInformation(DISCHARGE, prescriptionLocation);
-		dispensingForm.fillFirstMedication(paracetamol, THREE_TIMES_A_DAY , "5", "mg", "7", DAYS, "20");
+		dispensingForm.fillFirstMedication(paracetamol, THREE_TIMES_A_DAY , "5", "Milligramme (mg)", "7", DAYS, "20");
 		dispensingForm.submit();
 
 
