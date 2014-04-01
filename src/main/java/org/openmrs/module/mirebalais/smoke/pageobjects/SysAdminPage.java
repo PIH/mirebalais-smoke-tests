@@ -5,21 +5,31 @@ import org.openqa.selenium.WebDriver;
 
 public class SysAdminPage extends AbstractPageObject {
 
-	
+
+    public static final String MANAGE_ACCOUNTS = "emr-account-manageAccounts-app";
+
+    public static final String MERGE_PATIENT_RECORDS = "emr-mergePatients-app";
+
+    public static final String MANAGE_APPOINTMENT_TYPES = "appointmentschedulingui-manageAppointmentTypes-systemAdminLink-app";
+
 	public SysAdminPage(WebDriver driver) {
 		super(driver);
 	}
 
 	public void openManageAccounts() {
-		driver.findElement(By.cssSelector(".task .icon-book")).click();
+		openApp(MANAGE_ACCOUNTS);
 	}
 	
 	public void openManagePatientRecords() {
-		driver.findElement(By.cssSelector(".task .icon-group")).click();
+        openApp(MERGE_PATIENT_RECORDS);
 	}
 
     public void openManageServiceTypes(){
-        driver.findElement(By.cssSelector(".task .icon-calendar")).click();
+        openApp(MANAGE_APPOINTMENT_TYPES);
+    }
+
+    public void openApp(String appId) {
+        driver.findElement(By.id(appId)).click();
     }
 	
 }
