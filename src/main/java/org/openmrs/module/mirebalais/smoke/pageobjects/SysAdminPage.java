@@ -10,8 +10,6 @@ public class SysAdminPage extends AbstractPageObject {
 
     public static final String MERGE_PATIENT_RECORDS = "emr-mergePatients-app";
 
-    public static final String MANAGE_APPOINTMENT_TYPES = "appointmentschedulingui-manageAppointmentTypes-systemAdminLink-app";
-
 	public SysAdminPage(WebDriver driver) {
 		super(driver);
 	}
@@ -23,10 +21,6 @@ public class SysAdminPage extends AbstractPageObject {
 	public void openManagePatientRecords() {
         openApp(MERGE_PATIENT_RECORDS);
 	}
-
-    public void openManageServiceTypes(){
-        openApp(MANAGE_APPOINTMENT_TYPES);
-    }
 
     public void openApp(String appId) {
         driver.findElement(By.id(appId)).click();
