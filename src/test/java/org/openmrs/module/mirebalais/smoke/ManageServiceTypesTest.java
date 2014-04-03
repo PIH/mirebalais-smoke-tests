@@ -16,7 +16,7 @@ public class ManageServiceTypesTest extends DbTest {
 
         logInAsAdmin();
 
-        appDashboard.openManageAppointmentsApp();
+        appDashboard.openManageAppointmentTypesApp();
         int expectedAmountOfServiceTypes = serviceTypeApp.getTotalAmountOfServiceTypes() + 1;
 
         serviceTypeApp.openNewServiceType();
