@@ -56,6 +56,6 @@ public class NameGenerator {
 
     public static String getServiceTypeName(){
         Random random = new Random(new Date().getTime());
-        return new StringBuilder(SERVICE_TYPES_NAMES[random.nextInt(SERVICE_TYPES_NAMES.length)] + " " + random.nextInt()).toString();
+        return new StringBuilder("TEST " + SERVICE_TYPES_NAMES[random.nextInt(SERVICE_TYPES_NAMES.length)] + " " + random.nextInt()).toString();
     }
 }

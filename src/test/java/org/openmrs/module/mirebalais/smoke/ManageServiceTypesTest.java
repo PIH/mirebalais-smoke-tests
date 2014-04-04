@@ -1,6 +1,8 @@
 package org.openmrs.module.mirebalais.smoke;
 
+import org.junit.After;
 import org.junit.Test;
+import org.openmrs.module.mirebalais.smoke.helper.AppointmentTypeDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.helper.NameGenerator;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.ServiceTypeApp;
@@ -23,5 +25,16 @@ public class ManageServiceTypesTest extends DbTest {
         serviceTypeApp.createServiceType(NameGenerator.getServiceTypeName(), "20", "Description");
 
         assertEquals(expectedAmountOfServiceTypes, serviceTypeApp.getTotalAmountOfServiceTypes());
+    }
+
+    @After
+    public void deleteAppointmentTypeTestData() throws Exception {
+        try {
+            AppointmentTypeDatabaseHandler.deleteAppointmentTypes();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("tear down failed", e);
+        }
     }
 }
