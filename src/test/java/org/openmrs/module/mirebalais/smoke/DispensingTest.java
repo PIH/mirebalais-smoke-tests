@@ -50,7 +50,7 @@ public class DispensingTest extends DbTest {
 
         assertThat("Medication name is right.", medicationDispensed.getName(), is(("Paracetamol, 500mg, tablet")));
         assertThat("Medication frequency is right.", medicationDispensed.getFrequency(), is("TID"));
-        assertThat("Medication dose is right.", medicationDispensed.getDose(), is("5.0"));
+        assertThat("Medication dose is right.", medicationDispensed.getDose(), is("5"));
         assertThat("Medication dose unit is right.", medicationDispensed.getDoseUnit(), is(doseUnit));
         assertThat("Medication duration is right.", medicationDispensed.getDuration(), is("7"));
         assertThat("Medication duration unit is right.", medicationDispensed.getDurationUnit(), is("Jou"));
