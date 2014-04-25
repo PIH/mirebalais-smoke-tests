@@ -1,11 +1,10 @@
 package org.openmrs.module.mirebalais.smoke;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
-import org.openmrs.module.mirebalais.smoke.helper.UserDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.InPatientList;
-import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -18,6 +17,7 @@ public class InPatientTest extends DbTest {
 	private InPatientList inPatientList;
 	
 	@Test
+    @Ignore
 	public void admitPatientTransferInsideHospitalAndFilterWard() throws Exception {
 		Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
 		Patient testPatient2 = PatientDatabaseHandler.insertNewTestPatient();
