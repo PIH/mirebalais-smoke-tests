@@ -11,7 +11,7 @@ import org.openqa.selenium.JavascriptExecutor;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import static org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard.RADIOLOGY;
+import static org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard.RADIOLOGY_CREOLE_NAME;
 
 public class OrdersTest extends DbTest {
 	
@@ -45,7 +45,7 @@ public class OrdersTest extends DbTest {
 		patientDashboard.startVisit();
 		patientDashboard.orderXRay(STUDY_1, STUDY_2);
 		
-		assertThat(patientDashboard.countEncountersOfType(RADIOLOGY), is(1));
+		assertThat(patientDashboard.countEncountersOfType(RADIOLOGY_CREOLE_NAME), is(1));
 	}
 
     @Test
@@ -64,6 +64,6 @@ public class OrdersTest extends DbTest {
         driver.findElement(confirmButton).click();
         patientDashboard.orderXRay(STUDY_1, STUDY_2);
 
-        assertThat(patientDashboard.countEncountersOfType(RADIOLOGY), is(1));
+        assertThat(patientDashboard.countEncountersOfType(RADIOLOGY_CREOLE_NAME), is(1));
     }
 }

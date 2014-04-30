@@ -14,7 +14,9 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects.forms;
 
-import org.openmrs.module.mirebalais.smoke.pageobjects.AbstractPageObject;
+import static org.openqa.selenium.By.cssSelector;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
+
 import org.openmrs.module.mirebalais.smoke.pageobjects.selects.DrugFrequency;
 import org.openmrs.module.mirebalais.smoke.pageobjects.selects.DurationUnit;
 import org.openmrs.module.mirebalais.smoke.pageobjects.selects.TypeOfPrescrition;
@@ -25,10 +27,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Select;
 
-import static org.openqa.selenium.By.cssSelector;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
-
-public class DispenseMedicationForm extends AbstractPageObject {
+public class DispenseMedicationForm extends BaseHtmlForm {
 	
 	private By frequencyDropDown = cssSelector("#frequencyCoded1 select");
 	

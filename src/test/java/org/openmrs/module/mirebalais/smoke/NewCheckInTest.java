@@ -58,11 +58,11 @@ public class NewCheckInTest extends DbTest {
 		appDashboard.goToPatientPage(testPatient.getId());
 		assertThat(patientDashboard.getVisits().size(), is(1));
 		assertTrue(patientDashboard.hasActiveVisit());
-		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CHECKIN), is(1));
+		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CHECKIN_CREOLE_NAME), is(1));
 		
 		patientDashboard.deleteFirstEncounter();
 		
-		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CHECKIN), is(0));
+		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CHECKIN_CREOLE_NAME), is(0));
 		assertTrue(patientDashboard.hasActiveVisit());
 	}
 
@@ -78,7 +78,7 @@ public class NewCheckInTest extends DbTest {
 
         assertThat(patientDashboard.getVisits().size(), is(1));
         assertTrue(patientDashboard.hasActiveVisit());
-        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CHECKIN), is(1));
+        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CHECKIN_CREOLE_NAME), is(1));
 
         patientDashboard.clickFirstEncounterDetails();
 

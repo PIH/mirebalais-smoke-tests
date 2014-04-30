@@ -28,7 +28,7 @@ public class MultipleSubmitTest extends DbTest {
 
         appDashboard.goToPatientPage(testPatient.getId());
 
-        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CHECKIN), is(1));
+        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CHECKIN_CREOLE_NAME), is(1));
     }
 
 }

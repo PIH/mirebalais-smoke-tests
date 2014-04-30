@@ -14,11 +14,10 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects.forms;
 
-import org.openmrs.module.mirebalais.smoke.pageobjects.AbstractPageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class SurgicalPostOperativeNoteForm extends AbstractPageObject {
+public class SurgicalPostOperativeNoteForm extends BaseHtmlForm {
 
 	private final static By REQUIRED_PROVIDER = By.xpath("//*[@id='htmlform']/htmlform/fieldset[1]/p[2]/select");
 	

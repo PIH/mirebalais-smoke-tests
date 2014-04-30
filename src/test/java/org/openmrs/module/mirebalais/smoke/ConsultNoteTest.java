@@ -33,7 +33,7 @@ public class ConsultNoteTest extends DbTest {
 	public void addConsultationToAVisitWithoutCheckin() throws Exception {
 		patientDashboard.addConsultNoteWithDischarge(PRIMARY_DIAGNOSIS);
 		
-		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION), is(1));
+		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION_CREOLE_NAME), is(1));
 	}
 	
 	@Test
@@ -52,7 +52,7 @@ public class ConsultNoteTest extends DbTest {
         patientDashboard.addConsultNoteWithDischarge(PRIMARY_DIAGNOSIS);
         patientDashboard.editExistingConsultNote(EDITED_PRIMARY_DIAGNOSIS);
 
-        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION), is(1));
+        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION_CREOLE_NAME), is(1));
 
         patientDashboard.viewConsultationDetails();
         assertThat(patientDashboard.containsText(EDITED_PRIMARY_DIAGNOSIS), is(true));
@@ -63,7 +63,7 @@ public class ConsultNoteTest extends DbTest {
 	public void addEDNote() throws Exception {
 		patientDashboard.addEmergencyDepartmentNote(PRIMARY_DIAGNOSIS);
 		
-		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION), is(1));
+		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION_CREOLE_NAME), is(1));
 	}
 
     @Test
@@ -72,7 +72,7 @@ public class ConsultNoteTest extends DbTest {
         patientDashboard.addEmergencyDepartmentNote(PRIMARY_DIAGNOSIS);
         patientDashboard.editExistingEDNote(EDITED_PRIMARY_DIAGNOSIS);
 
-        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION), is(1));
+        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION_CREOLE_NAME), is(1));
 
         patientDashboard.viewConsultationDetails();
         assertThat(patientDashboard.containsText(EDITED_PRIMARY_DIAGNOSIS), is(true));

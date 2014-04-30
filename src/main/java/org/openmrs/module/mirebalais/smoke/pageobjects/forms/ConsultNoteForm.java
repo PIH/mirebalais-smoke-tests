@@ -14,19 +14,17 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects.forms;
 
-import org.openmrs.module.mirebalais.smoke.pageobjects.AbstractPageObject;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
-
-public class ConsultNoteForm extends AbstractPageObject {
+public class ConsultNoteForm extends BaseHtmlForm {
 
     // TODO key on something other than text
 	public static final String ADMISSION = "Admisyon";
@@ -62,22 +60,16 @@ public class ConsultNoteForm extends AbstractPageObject {
         return fillFormAndReturnPlace(primaryDiagnosis, TRANSFER, locationsForTransferWithinHospital, locationNumbered);
 	}
 
-    public void editPrimaryDiagnosis(String primaryDiagnosis) throws Exception {
-        removePrimaryDiagnosis();
-        choosePrimaryDiagnosis(primaryDiagnosis);
-        confirmData();
-    }
-
     protected void fillFormWithBasicInfo(String primaryDiagnosis, String disposition) throws Exception {
 
-        assertThat(subbmitButtonIsEnabled(),is(false));
+        assertThat(submitButtonIsEnabled(),is(false));
 
         choosePrimaryDiagnosis(primaryDiagnosis);
-        assertThat(subbmitButtonIsEnabled(),is(false));
+        assertThat(submitButtonIsEnabled(),is(false));
 
         chooseDisposition(disposition);
         // for real-time consult note, submit button should not be enabled until diagnosis and disposition have been selected
-        assertThat(subbmitButtonIsEnabled(),is(true));
+        assertThat(submitButtonIsEnabled(),is(true));
 
         confirmData();
     }
@@ -99,25 +91,9 @@ public class ConsultNoteForm extends AbstractPageObject {
 		return location.getText();
 	}
 
-	protected void choosePrimaryDiagnosis(String primaryDiagnosis) {
-		setClearTextToField("diagnosis-search", primaryDiagnosis);
-		driver.findElement(By.cssSelector("strong.matched-name")).click();
-	}
-	
 	protected void chooseDisposition(String dispositionText) throws Exception {
         Select dispositions = new Select(driver.findElement(By.cssSelector("span[id^='disposition'] select:nth-of-type(1)")));  // find the first select that is child of the span whose id starts with "disposition"
         dispositions.selectByVisibleText(dispositionText);
     }
 
-    protected void removePrimaryDiagnosis() {
-        clickOn(By.cssSelector("#display-encounter-diagnoses-container .delete-item"));
-    }
-
-    protected void confirmData() {
-		clickOn(By.cssSelector("#buttons .confirm"));
-	}
-
-    protected boolean subbmitButtonIsEnabled() {
-        return !driver.findElement(By.cssSelector("#buttons .confirm")).getAttribute("class").contains("disabled");
-    }
 }

@@ -14,9 +14,16 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
+import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
+
+import java.util.HashMap;
+import java.util.List;
+
+import org.openmrs.module.mirebalais.smoke.pageobjects.forms.AdmissionNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.ConsultNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.DispenseMedicationForm;
-import org.openmrs.module.mirebalais.smoke.pageobjects.forms.EditEncounterForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.EmergencyDepartmentNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.RetroConsultNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.XRayForm;
@@ -28,28 +35,29 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.HashMap;
-import java.util.List;
-
-import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
-import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
-
 public class PatientDashboard extends AbstractPageObject {
 	
-	public static final String CHECKIN = "Tcheke";
+	public static final String CHECKIN_CREOLE_NAME = "Tcheke";
 	
-	public static final String CONSULTATION = "Konsiltasyon";
+	public static final String CONSULTATION_CREOLE_NAME = "Konsiltasyon";
 	
-	public static final String VITALS = "Siy Vito";
+	public static final String VITALS_CREOLE_NAME = "Siy Vito";
 	
-	public static final String RADIOLOGY = "Preskripsyon Radyoloji";
-	
-	public static final String ACTIVE_VISIT_MESSAGE = "Vizit aktiv";
-	
-	public static final String ADMISSION = "Admisyon";
-	
-	public static final String TRANSFER = "Transfè";
+	public static final String RADIOLOGY_CREOLE_NAME = "Preskripsyon Radyoloji";
+
+    public static final String ADMISSION_CREOLE_NAME = "Admisyon";
+
+    public static final String ADMISSION_FRENCH_NAME = "Admission aux soins hospitaliers";
+
+    public static final String TRANSFER_CREOLE_NAME= "Transfè";
+
+    public static final String TRANSFER_FRENCH_NAME= "Transfert";
+
+    public static final String DISCHARGE_CREOLE_NAME= "Soti Nan Swen Entèn";
+
+    public static final String DISCHARGE_FRENCH_NAME= "Sortie de soins hospitaliers";
+
+	public static final String ACTIVE_VISIT_CREOLE_MESSAGE = "Vizit aktiv";
 	
 	private final By dispensingForm = By.cssSelector(".encounter-summary-container .dispensing-form");
 	
@@ -62,11 +70,13 @@ public class PatientDashboard extends AbstractPageObject {
 	private EmergencyDepartmentNoteForm eDNoteForm;
 	
 	private RetroConsultNoteForm retroConsultNoteForm;
+
+    private AdmissionNoteForm admissionNoteForm;
 	
 	private XRayForm xRayForm;
 	
 	private HashMap<String, By> formList;
-	
+
 	private By deleteEncounter = By.cssSelector("i.deleteEncounterId");
 	
 	private By confirmDeleteEncounter = By.cssSelector("#delete-encounter-dialog .confirm");
@@ -103,6 +113,7 @@ public class PatientDashboard extends AbstractPageObject {
 		eDNoteForm = new EmergencyDepartmentNoteForm(driver);
 		retroConsultNoteForm = new RetroConsultNoteForm(driver);
 		xRayForm = new XRayForm(driver);
+        admissionNoteForm = new AdmissionNoteForm(driver);
 		createFormsMap();
 	}
 	
@@ -116,9 +127,13 @@ public class PatientDashboard extends AbstractPageObject {
 	}
 	
 	public boolean hasActiveVisit() {
-        return driver.findElement(By.cssSelector(".status-container")).getText().contains(ACTIVE_VISIT_MESSAGE);
+        return driver.findElement(By.cssSelector(".status-container")).getText().contains(ACTIVE_VISIT_CREOLE_MESSAGE);
 	}
-	
+
+    public void editFirstEncounter() {
+        clickOn(By.cssSelector(".editEncounter"));
+    }
+
 	public void deleteFirstEncounter() {
 		clickOn(deleteEncounter);
 		clickOn(confirmDeleteEncounter);
@@ -183,6 +198,7 @@ public class PatientDashboard extends AbstractPageObject {
 	public void editExistingConsultNote(String primaryDiagnosis) throws Exception {
 		openForm(By.cssSelector(".consult-encounter-template .editEncounter"));
 		consultNoteForm.editPrimaryDiagnosis(primaryDiagnosis);
+        consultNoteForm.confirmData();
 	}
 	
 	public void addRetroConsultNoteWithDischarge(String primaryDiagnosis) throws Exception {
@@ -208,8 +224,33 @@ public class PatientDashboard extends AbstractPageObject {
 	public void editExistingEDNote(String primaryDiagnosis) throws Exception {
 		openForm(By.cssSelector(".consult-encounter-template .editEncounter"));
 		eDNoteForm.editPrimaryDiagnosis(primaryDiagnosis);
+        eDNoteForm.confirmData();
 	}
-	
+
+    public void addAdmissionNote(String primaryDiagnosis) throws Exception {
+        openForm(formList.get("Admission Note"));
+        admissionNoteForm.fillFormWithDiagnosis(primaryDiagnosis);
+    }
+
+    public void addAdmissionNoteAsAdminUser(String primaryDiagnosis) throws Exception {
+        openForm(formList.get("Admission Note"));
+        admissionNoteForm.fillFormWithBasicEncounterInfoAndDiagnosis(primaryDiagnosis);
+    }
+
+    public void editExistingAdmissionNote(String primaryDiagnosis) throws Exception {
+        editFirstEncounter();
+        admissionNoteForm.editPrimaryDiagnosis(primaryDiagnosis);
+        admissionNoteForm.confirmData();
+    }
+
+    public void editExistingAdmissionNote(String primaryDiagnosis, int location, int provider) throws Exception {
+        editFirstEncounter();
+        admissionNoteForm.selectLocation(location);
+        admissionNoteForm.selectProvider(provider);
+        admissionNoteForm.editPrimaryDiagnosis(primaryDiagnosis);
+        admissionNoteForm.confirmData();
+    }
+
 	public void openForm(By formIdentification) {
 		clickOn(formIdentification);
 	}
@@ -282,15 +323,6 @@ public class PatientDashboard extends AbstractPageObject {
 		return driver.findElement(By.className("encounter-details")).findElement(By.className("location")).getText();
 	}
 	
-	public EditEncounterForm.SelectedProviderAndLocation editFirstEncounter(int providerOption, int locationOption) {
-		EditEncounterForm editEncounterForm = editEncounter();
-		
-		editEncounterForm.selectProvider(providerOption);
-		editEncounterForm.selectLocation(locationOption);
-		
-		return editEncounterForm.selectedProviderAndLocation();
-	}
-	
 	public boolean canDispenseMedication() {
 		try {
 			driver.findElement(dispenseMedicationButton);
@@ -312,12 +344,7 @@ public class PatientDashboard extends AbstractPageObject {
         WebElement encounterDetails = driver.findElement(firstEncounterDetails);
 		encounterDetails.click();
 		wait30seconds.until(detailsAjaxCallReturns);
-	}
-	
-	private EditEncounterForm editEncounter() {
-		driver.findElement(firstPencilIcon).click();
-		return new EditEncounterForm(driver);
-	}
+    }
 	
 	private void createFormsMap() {
 		formList = new HashMap<String, By>();
@@ -325,6 +352,7 @@ public class PatientDashboard extends AbstractPageObject {
 		formList.put("Surgical Note", By.id("mirebalais.surgicalOperativeNote"));
 		formList.put("Order X-Ray", By.id("org.openmrs.module.radiologyapp.orderXray"));
 		formList.put("ED Note", By.id("mirebalais.edConsult"));
+        formList.put("Admission Note", By.id("mirebalais.admit"));
 	}
 
 	public MedicationDispensed firstMedication() {
@@ -444,5 +472,21 @@ public class PatientDashboard extends AbstractPageObject {
             return By.cssSelector("p span");
         }
 
+    }
+
+    public ConsultNoteForm getConsultNoteForm() {
+        return consultNoteForm;
+    }
+
+    public EmergencyDepartmentNoteForm geteDNoteForm() {
+        return eDNoteForm;
+    }
+
+    public RetroConsultNoteForm getRetroConsultNoteForm() {
+        return retroConsultNoteForm;
+    }
+
+    public AdmissionNoteForm getAdmissionNoteForm() {
+        return admissionNoteForm;
     }
 }

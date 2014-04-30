@@ -27,7 +27,7 @@ public class CaptureVitalsTest extends DbTest {
 		assertThat(vitals.isSearchPatientDisplayed(), is(true));
 		
 		appDashboard.goToPatientPage(testPatient.getId());
-		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.VITALS), is(1));
+		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.VITALS_CREOLE_NAME), is(1));
 	}
 	
 }

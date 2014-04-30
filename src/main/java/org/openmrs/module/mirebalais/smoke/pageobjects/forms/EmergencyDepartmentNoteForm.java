@@ -14,14 +14,14 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects.forms;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class EmergencyDepartmentNoteForm extends ConsultNoteForm {
 
@@ -30,16 +30,16 @@ public class EmergencyDepartmentNoteForm extends ConsultNoteForm {
 	}
 
 	protected void fillFormWithBasicInfo(String primaryDiagnosis, String disposition) throws Exception {
-        assertThat(subbmitButtonIsEnabled(),is(false));
+        assertThat(submitButtonIsEnabled(),is(false));
 
         choosePrimaryDiagnosis(primaryDiagnosis);
-        assertThat(subbmitButtonIsEnabled(),is(false));
+        assertThat(submitButtonIsEnabled(),is(false));
 
 		chooseDisposition(disposition);
-        assertThat(subbmitButtonIsEnabled(),is(false));
+        assertThat(submitButtonIsEnabled(),is(false));
 
         fillTraumaData();
-        assertThat(subbmitButtonIsEnabled(),is(true));
+        assertThat(submitButtonIsEnabled(),is(true));
 
 		confirmData();
 	}

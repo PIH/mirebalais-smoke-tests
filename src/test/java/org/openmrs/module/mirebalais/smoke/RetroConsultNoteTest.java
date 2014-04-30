@@ -32,14 +32,14 @@ public class RetroConsultNoteTest extends DbTest {
     public void addConsultationToAnActiveVisit() throws Exception {
         patientDashboard.startVisit();
         patientDashboard.addRetroConsultNoteWithDischarge(PRIMARY_DIAGNOSIS);
-        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION), is(1));
+        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION_CREOLE_NAME), is(1));
     }
 
     @Test
     public void addConsultationToARetroVisit() throws Exception {
         patientDashboard.addRetroVisit();
         patientDashboard.addRetroConsultNoteWithDischarge(PRIMARY_DIAGNOSIS);
-        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION), is(1));
+        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION_CREOLE_NAME), is(1));
     }
 
     @Test
@@ -49,7 +49,7 @@ public class RetroConsultNoteTest extends DbTest {
         patientDashboard.addRetroConsultNoteWithDischarge(PRIMARY_DIAGNOSIS);
         patientDashboard.editExistingConsultNote(EDITED_PRIMARY_DIAGNOSIS);
 
-        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION), is(1));
+        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION_CREOLE_NAME), is(1));
 
         patientDashboard.viewConsultationDetails();
         assertThat(patientDashboard.containsText(EDITED_PRIMARY_DIAGNOSIS), is(true));
