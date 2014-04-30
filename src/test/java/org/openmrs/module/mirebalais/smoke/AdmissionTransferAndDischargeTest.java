@@ -39,13 +39,13 @@ public class AdmissionTransferAndDischargeTest extends DbTest {
         startPatientVisit();
 
         patientDashboard.addAdmissionNoteAsAdminUser(malaria);
-        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.ADMISSION_FRENCH_NAME), is(1));
+        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.ADMISSION_CREOLE_NAME), is(1));
 
         String previousProvider = patientDashboard.providerForFirstEncounter();
         String previousLocation = patientDashboard.locationForFirstEncounter();
         patientDashboard.editExistingAdmissionNote(anemia, 3, 4);
 
-        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.ADMISSION_FRENCH_NAME), is(1));
+        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.ADMISSION_CREOLE_NAME), is(1));
 
         String currentProvider = patientDashboard.getAdmissionNoteForm().getProvider();
         String currentLocation = patientDashboard.getAdmissionNoteForm().getLocation();

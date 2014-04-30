@@ -47,15 +47,9 @@ public class PatientDashboard extends AbstractPageObject {
 
     public static final String ADMISSION_CREOLE_NAME = "Admisyon";
 
-    public static final String ADMISSION_FRENCH_NAME = "Admission aux soins hospitaliers";
-
     public static final String TRANSFER_CREOLE_NAME= "Transfè";
 
-    public static final String TRANSFER_FRENCH_NAME= "Transfert";
-
     public static final String DISCHARGE_CREOLE_NAME= "Soti Nan Swen Entèn";
-
-    public static final String DISCHARGE_FRENCH_NAME= "Sortie de soins hospitaliers";
 
 	public static final String ACTIVE_VISIT_CREOLE_MESSAGE = "Vizit aktiv";
 	
