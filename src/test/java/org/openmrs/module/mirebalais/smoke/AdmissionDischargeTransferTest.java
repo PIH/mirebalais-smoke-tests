@@ -5,7 +5,6 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
@@ -29,7 +28,7 @@ public class AdmissionDischargeTransferTest extends DbTest {
 
     @Before
     public void setUp() throws Exception {
-        Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
+        testPatient = PatientDatabaseHandler.insertNewTestPatient();
         initBasicPageObjects();
 
         appDashboard.goToPatientPage(testPatient.getId());
@@ -50,7 +49,6 @@ public class AdmissionDischargeTransferTest extends DbTest {
 	@Test
 	public void shouldCreateTransferNote() throws Exception {
 
-
 		patientDashboard.addConsultNoteWithAdmissionToLocation(malaria, 3);
 		patientDashboard.addConsultNoteWithTransferToLocation(rubella, 3);
 
@@ -70,7 +68,6 @@ public class AdmissionDischargeTransferTest extends DbTest {
 	}
 
     @Test
-    @Ignore
     public void shouldAdmitPatientViaAwaitingAdmissionApp() throws Exception {
 
         patientDashboard.addConsultNoteWithAdmissionToLocation(malaria, 2);
@@ -82,5 +79,10 @@ public class AdmissionDischargeTransferTest extends DbTest {
         AwaitingAdmissionApp app = new AwaitingAdmissionApp(driver);
 
         app.assertPatientInAwaitingAdmissionTable(testPatient);
+
+        app.clickOnFirstAdmitButton();
+        patientDashboard.getAdmissionNoteForm().fillFormWithDiagnosis(malaria);
+
+        app.assertPatientNotInAwaitingAdmissionTable(testPatient);
     }
 }
