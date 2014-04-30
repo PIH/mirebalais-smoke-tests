@@ -16,10 +16,6 @@ package org.openmrs.module.mirebalais.smoke.pageobjects;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
 
 public class HeaderPage extends AbstractPageObject {
 
@@ -30,6 +26,10 @@ public class HeaderPage extends AbstractPageObject {
 	public void logOut() {
 		driver.findElement(By.className("logout")).click();
 	}
+
+    public void home() {
+        driver.findElement(By.className("logo")).click();
+    }
 
 	public By location() {
 		return By.cssSelector("li.change-location span");

@@ -14,11 +14,11 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
+import java.math.BigInteger;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-
-import java.math.BigInteger;
 
 public class AppDashboard extends AbstractPageObject {
 
@@ -38,6 +38,7 @@ public class AppDashboard extends AbstractPageObject {
     public static final String MANAGE_APPOINTMENTS = "appointmentschedulingui-schedulingAppointmentAppLink-app";
     public static final String MANAGE_APPOINTMENT_TYPES = "appointmentschedulingui-manageAppointmentTypes-app";
     public static final String DAILY_APPOINTMENTS = "appointmentschedulingui-scheduledAppointments-homepageLink-app";
+    public static final String AWAITING_ADMISSION = "org-openmrs-module-mirebalais-awaitingAdmissionHomepageLink-app";
 
 
     public AppDashboard(WebDriver driver) {
@@ -87,6 +88,10 @@ public class AppDashboard extends AbstractPageObject {
 
     public void openManageAppointmentTypesApp() {
         openApp(MANAGE_APPOINTMENT_TYPES);
+    }
+
+    public void openAwaitingAdmissionApp() {
+        openApp(AWAITING_ADMISSION);
     }
 
     public void startClinicVisit() {

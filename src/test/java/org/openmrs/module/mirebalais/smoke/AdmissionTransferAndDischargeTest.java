@@ -4,10 +4,13 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
-import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
+import org.openmrs.module.mirebalais.smoke.pageobjects.AwaitingAdmissionApp;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 
 public class AdmissionTransferAndDischargeTest extends DbTest {
@@ -17,26 +20,37 @@ public class AdmissionTransferAndDischargeTest extends DbTest {
 	private final String malaria = "B54";
 	
 	private final String rubella = "B06.9";
-	
+
+    private Patient testPatient;
+
+    @BeforeClass
+    public static void prepare() throws Exception {
+        logInAsClinicalUser();
+    }
+
+    @Before
+    public void setUp() throws Exception {
+        Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
+        initBasicPageObjects();
+
+        appDashboard.goToPatientPage(testPatient.getId());
+        patientDashboard.startVisit();
+    }
 
     @Test
     public void shouldEnterAndEditAnAdmissionNoteAsClinicalUser() throws Exception {
-        new LoginPage(driver).logInAsClinicalUser();
-
-        startPatientVisit();
 
         patientDashboard.addAdmissionNote(malaria);
         assertThat(patientDashboard.countEncountersOfType(PatientDashboard.ADMISSION_CREOLE_NAME), is(1));
 
         patientDashboard.editExistingAdmissionNote(anemia);
         assertThat(patientDashboard.countEncountersOfType(PatientDashboard.ADMISSION_CREOLE_NAME), is(1));
+
     }
 
     @Test
+    @Ignore
     public void shouldEnterAndEditAnAdmissionNoteAsAdminUser() throws Exception {
-        new LoginPage(driver).logInAsAdmin();
-
-        startPatientVisit();
 
         patientDashboard.addAdmissionNoteAsAdminUser(malaria);
         assertThat(patientDashboard.countEncountersOfType(PatientDashboard.ADMISSION_CREOLE_NAME), is(1));
@@ -52,43 +66,43 @@ public class AdmissionTransferAndDischargeTest extends DbTest {
 
         assertThat(currentProvider, not(previousProvider));
         assertThat(currentLocation, not(previousLocation));
+
     }
 
 	
 	@Test
 	public void shouldCreateTransferNote() throws Exception {
 
-        new LoginPage(driver).logInAsClinicalUser();
-
-		startPatientVisit();
 
 		patientDashboard.addConsultNoteWithAdmissionToLocation(malaria, 3);
 		patientDashboard.addConsultNoteWithTransferToLocation(rubella, 3);
 
         assertThat(patientDashboard.countEncountersOfType(PatientDashboard.TRANSFER_CREOLE_NAME), is(1));
+
 		
 	}
 	
 	@Test
 	public void shouldCreateDischargeNote() throws Exception {
 
-        new LoginPage(driver).logInAsClinicalUser();
-
-		startPatientVisit();
-
         patientDashboard.addAdmissionNote(malaria);
 		patientDashboard.addConsultNoteWithDischarge(anemia);
 
         assertThat(patientDashboard.countEncountersOfType(PatientDashboard.DISCHARGE_CREOLE_NAME), is(1));
-		
+
 	}
 
+    @Test
+    public void shouldAdmitPatientViaAwaitingAdmissionApp() throws Exception {
 
-	private void startPatientVisit() throws Exception {
-		Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
-		initBasicPageObjects();
-		
-		appDashboard.goToPatientPage(testPatient.getId());
-		patientDashboard.startVisit();
-	}
+        patientDashboard.addConsultNoteWithAdmissionToLocation(malaria, 2);
+        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION_CREOLE_NAME), is(1));
+
+        header.home();
+        appDashboard.openAwaitingAdmissionApp();
+
+        AwaitingAdmissionApp app = new AwaitingAdmissionApp(driver);
+
+        app.assertPatientInAwaitingAdmissionTable(testPatient);
+    }
 }
