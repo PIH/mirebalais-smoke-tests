@@ -13,6 +13,7 @@ public class AdmissionNoteForm extends BaseHtmlForm {
 
     public void fillFormWithDiagnosis(String primaryDiagnosis) throws Exception {
         assertThat(submitButtonIsEnabled(),is(false));
+        selectLocation(2);
         choosePrimaryDiagnosis(primaryDiagnosis);
         assertThat(submitButtonIsEnabled(),is(true));
         confirmData();
