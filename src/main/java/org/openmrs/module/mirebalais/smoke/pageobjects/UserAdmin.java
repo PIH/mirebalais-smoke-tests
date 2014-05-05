@@ -14,14 +14,14 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
+import java.util.List;
+
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import org.openmrs.module.mirebalais.smoke.helper.UserDatabaseHandler;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-
-import java.util.List;
 
 public class UserAdmin extends AbstractPageObject {
 	
@@ -117,7 +117,8 @@ public class UserAdmin extends AbstractPageObject {
 		List<WebElement> options = driver.findElements(By.name("capabilities"));
 		for (WebElement element : options) {
 			if (element.getAttribute("value").contains(role)) {
-				return element;
+                scrollIntoView(element);
+                return element;
 			}
 		}
 		throw new ElementNotFoundException(role, role, role);

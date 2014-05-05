@@ -14,15 +14,16 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
+import java.util.List;
+
 import org.openmrs.module.mirebalais.smoke.helper.SmokeTestProperties;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.util.List;
 
 public abstract class AbstractPageObject {
 
@@ -134,13 +135,19 @@ public abstract class AbstractPageObject {
     }
 
     public void clickOn(By elementId) {
-    	driver.findElement(elementId).click();
+        WebElement element = driver.findElement(elementId);
+        scrollIntoView(element);
+    	element.click();
 	}
 
     public void hoverOn(By elementId) {
         Actions builder = new Actions(driver);
         Actions hover = builder.moveToElement(driver.findElement(elementId));
         hover.perform();
+    }
+
+    public void scrollIntoView(WebElement element) {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
     protected WebElement findOptionByText(String text, WebElement selectElement) {
