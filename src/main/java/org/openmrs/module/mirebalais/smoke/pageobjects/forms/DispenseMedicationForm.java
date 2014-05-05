@@ -69,7 +69,7 @@ public class DispenseMedicationForm extends BaseHtmlForm {
 	}
 
     public void submit() {
-		driver.findElement(By.className("submitButton")).click();
+        clickOn(By.className("submitButton"));
 	}
 	
 	private void autocompleteMedicationWith(String name) throws InterruptedException {
