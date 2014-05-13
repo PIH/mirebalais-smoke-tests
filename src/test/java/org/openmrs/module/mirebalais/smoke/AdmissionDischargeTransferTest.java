@@ -1,8 +1,5 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -10,6 +7,9 @@ import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AwaitingAdmissionApp;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 public class AdmissionDischargeTransferTest extends DbTest {
 	
@@ -80,7 +80,7 @@ public class AdmissionDischargeTransferTest extends DbTest {
 
         app.assertPatientInAwaitingAdmissionTable(testPatient);
 
-        app.clickOnFirstAdmitButton();
+        app.clickOnLastAdmitButton();  // new patient should be at the end of the list
         patientDashboard.getAdmissionNoteForm().fillFormWithDiagnosis(malaria);
 
         app.assertPatientNotInAwaitingAdmissionTable(testPatient);
