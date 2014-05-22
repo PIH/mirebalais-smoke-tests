@@ -31,7 +31,7 @@ public class ConsultNoteTest extends DbTest {
 	
 	@Test
 	public void addConsultationToAVisitWithoutCheckin() throws Exception {
-		patientDashboard.addConsultNoteWithDischarge(PRIMARY_DIAGNOSIS);
+		patientDashboard.addConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS, 1);
 		
 		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION_CREOLE_NAME), is(1));
 	}
@@ -49,7 +49,7 @@ public class ConsultNoteTest extends DbTest {
     @Test
     public void editConsultationNote() throws Exception {
 
-        patientDashboard.addConsultNoteWithDischarge(PRIMARY_DIAGNOSIS);
+        patientDashboard.addConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS, 1);
         patientDashboard.editExistingConsultNote(EDITED_PRIMARY_DIAGNOSIS);
 
         assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION_CREOLE_NAME), is(1));
