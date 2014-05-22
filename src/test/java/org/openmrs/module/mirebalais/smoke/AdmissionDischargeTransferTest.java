@@ -49,7 +49,7 @@ public class AdmissionDischargeTransferTest extends DbTest {
 	@Test
 	public void shouldCreateTransferNote() throws Exception {
 
-		patientDashboard.addConsultNoteWithAdmissionToLocation(malaria, 3);
+        patientDashboard.addAdmissionNote(malaria);
 		patientDashboard.addConsultNoteWithTransferToLocation(rubella, 3);
 
         assertThat(patientDashboard.countEncountersOfType(PatientDashboard.TRANSFER_CREOLE_NAME), is(1));
