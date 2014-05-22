@@ -31,7 +31,7 @@ public class RetroConsultNoteTest extends DbTest {
     @Test
     public void addConsultationToAnActiveVisit() throws Exception {
         patientDashboard.startVisit();
-        patientDashboard.addRetroConsultNoteWithDischarge(PRIMARY_DIAGNOSIS);
+        patientDashboard.addRetroConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS,2);
         assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION_CREOLE_NAME), is(1));
     }
 
