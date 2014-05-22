@@ -14,15 +14,15 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects.forms;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class ConsultNoteForm extends BaseHtmlForm {
 
@@ -32,7 +32,7 @@ public class ConsultNoteForm extends BaseHtmlForm {
 	public static final String DISCHARGE = "Egzeyat";
 	public static final String TRANSFER = "Transfè anndan lopital la";
 
-    private By locationsForTransferWithinHospital = By.cssSelector("#transferInternalLocation option");
+    private By locationsForTransferWithinHospital = By.cssSelector("#inpatientTransferInternalLocation option");
     private By locationsForAdmission = By.cssSelector("#admissionLocation option");
 
     public ConsultNoteForm(WebDriver driver) {

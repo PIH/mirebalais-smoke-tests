@@ -50,7 +50,7 @@ public class AdmissionDischargeTransferTest extends DbTest {
 	public void shouldCreateTransferNote() throws Exception {
 
         patientDashboard.addAdmissionNote(malaria);
-		patientDashboard.addConsultNoteWithTransferToLocation(rubella, 3);
+		patientDashboard.addConsultNoteWithTransferToLocation(rubella, 5);
 
         assertThat(patientDashboard.countEncountersOfType(PatientDashboard.TRANSFER_CREOLE_NAME), is(1));
 

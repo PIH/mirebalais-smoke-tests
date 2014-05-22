@@ -14,14 +14,15 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects.forms;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 public class EmergencyDepartmentNoteForm extends ConsultNoteForm {
 
@@ -29,7 +30,25 @@ public class EmergencyDepartmentNoteForm extends ConsultNoteForm {
 		super(driver);
 	}
 
-	protected void fillFormWithBasicInfo(String primaryDiagnosis, String disposition) throws Exception {
+    @Override
+    public void fillFormWithDeath(String primaryDiagnosis) throws Exception {
+        choosePrimaryDiagnosis(primaryDiagnosis);
+        assertThat(submitButtonIsEnabled(),is(false));
+
+        chooseDisposition(DEATH);
+        WebElement dateField = driver.findElement(By.cssSelector("#dateOfDeath input"));
+        dateField.click();
+        dateField.sendKeys(Keys.RETURN);
+        assertThat(submitButtonIsEnabled(),is(false));
+
+        fillTraumaData();
+        assertThat(submitButtonIsEnabled(),is(true));
+
+        confirmData();
+    }
+
+
+    protected void fillFormWithBasicInfo(String primaryDiagnosis, String disposition) throws Exception {
         assertThat(submitButtonIsEnabled(),is(false));
 
         choosePrimaryDiagnosis(primaryDiagnosis);
