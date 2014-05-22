@@ -30,7 +30,7 @@ public class NonCodedDiagnosesTest extends DbTest {
     ReportsHomePage reportsHomePage;
 
     private void createConsultNote() throws Exception {
-        patientDashboard.addConsultNoteWithDischarge(NON_CODED_DIAGNOSIS);
+        patientDashboard.addConsultNoteWithAdmissionToLocation(NON_CODED_DIAGNOSIS,1);
         showEncounterAtPatientDashboard();
     }
 
