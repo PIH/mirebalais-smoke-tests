@@ -1,15 +1,14 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-
-import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LacollineIntegrationFlow;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+
 public class MasterPatientIndexTest extends BasicMirebalaisSmokeTest {
 	
-	private static final String DEFAULT_NAME = "alex";
+	private static final String DEFAULT_NAME = "test";
 	
 	@Test
 	public void searchForAPatientOnLacollineServer() {
