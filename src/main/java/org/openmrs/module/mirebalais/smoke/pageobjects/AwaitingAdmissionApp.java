@@ -13,6 +13,10 @@ public class AwaitingAdmissionApp extends AbstractPageObject {
 
     private By admitButtons = By.cssSelector(".icon-h-sign");
 
+    private By cancelButtons = By.cssSelector(".icon-remove");
+
+    private By cancelReasonSelector = By.id("cancel-reason");
+
     public AwaitingAdmissionApp(WebDriver driver) {
         super(driver);
     }
@@ -33,5 +37,15 @@ public class AwaitingAdmissionApp extends AbstractPageObject {
         clickOnLast(admitButtons);
     }
 
+    public void clickOnLastCancelButton() {
+        clickOnLast(cancelButtons);
+    }
+
+    public void cancelLastAdmission() {
+        clickOnLastCancelButton();
+        driver.findElement(cancelReasonSelector).findElement(By.cssSelector("option:nth-of-type(3)")).click(); // hack, depends on ordering of elements
+        clickOn(By.className("submitButton"));
+        clickOn(By.id("confirm-cancel-admission-button"));
+    }
 
 }

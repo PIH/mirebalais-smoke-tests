@@ -85,4 +85,21 @@ public class AdmissionDischargeTransferTest extends DbTest {
 
         app.assertPatientNotInAwaitingAdmissionTable(testPatient);
     }
+
+    @Test
+    public void shouldCancelPatientFromAwaitingAdmissionApp() throws Exception {
+
+        patientDashboard.addConsultNoteWithAdmissionToLocation(malaria, 2);
+        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION_CREOLE_NAME), is(1));
+
+        header.home();
+        appDashboard.openAwaitingAdmissionApp();
+
+        AwaitingAdmissionApp app = new AwaitingAdmissionApp(driver);
+
+        app.assertPatientInAwaitingAdmissionTable(testPatient);
+        app.cancelLastAdmission();
+        app.assertPatientNotInAwaitingAdmissionTable(testPatient);
+
+    }
 }
