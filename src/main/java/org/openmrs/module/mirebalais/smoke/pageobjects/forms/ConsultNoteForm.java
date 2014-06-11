@@ -32,7 +32,7 @@ public class ConsultNoteForm extends BaseHtmlForm {
 	public static final String DISCHARGE = "Egzeyat";
 	public static final String TRANSFER = "Transfè anndan lopital la";
 
-    private By locationsForTransferWithinHospital = By.cssSelector("#inpatientTransferInternalLocation option");
+    private By locationsForTransferWithinHospital = By.cssSelector("#transferInternalLocation option");
     private By locationsForAdmission = By.cssSelector("#admissionLocation option");
 
     public ConsultNoteForm(WebDriver driver) {
