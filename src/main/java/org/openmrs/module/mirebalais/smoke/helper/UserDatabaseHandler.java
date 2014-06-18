@@ -71,6 +71,7 @@ public class UserDatabaseHandler extends BaseDatabaseHandler {
 	}
 	
 	public static void deleteAllTestUsers() throws DatabaseUnitException, SQLException {
+
         for (String username : usernamesToDelete) {
             deleteUser(username);
         }
@@ -85,7 +86,6 @@ public class UserDatabaseHandler extends BaseDatabaseHandler {
 	public static void deleteUser(String username) throws SQLException, DataSetException, DatabaseUnitException {
 
 		ITable userQuery = connection.createQueryTable("users", "select * from users where username = '" + username + "'");
-        System.out.println("trying to delete user with username " + username);
 		Integer userId = (Integer) userQuery.getValue(0, "user_id");
 		Integer personId = (Integer) userQuery.getValue(0, "person_id");
 		
