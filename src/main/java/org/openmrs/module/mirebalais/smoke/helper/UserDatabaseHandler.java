@@ -15,7 +15,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -25,10 +27,11 @@ import static org.dbunit.operation.DatabaseOperation.INSERT;
 public class UserDatabaseHandler extends BaseDatabaseHandler {
 	
 	protected static Map<User, IDataSet> datasets = new HashMap<User, IDataSet>();
-	
-	private static QueryDataSet userDataToDelete;
+
+    protected static List<String> usernamesToDelete = new ArrayList<String>();
 	
 	public static User insertNewClinicalUser() throws Exception {
+
 		return createUserWithApplicationAndProviderRole("clinical", "Clinical Doctor");
 	}
 	
@@ -63,23 +66,27 @@ public class UserDatabaseHandler extends BaseDatabaseHandler {
 			throw new Exception("unable to create patient in database", e);
 		}
 		
-		addUserForDelete(user.getUsername());
+		usernamesToDelete.add(user.getUsername());
 		return user;
 	}
 	
 	public static void deleteAllTestUsers() throws DatabaseUnitException, SQLException {
-		if (userDataToDelete != null) {
-			DELETE.execute(connection, userDataToDelete);
-		}
+        for (String username : usernamesToDelete) {
+            deleteUser(username);
+        }
 	}
+
+    public static void addUserForDelete(String username) {
+        usernamesToDelete.add(username);
+    }
 	
-	public static void addUserForDelete(String username) throws SQLException, DataSetException {
+	public static void deleteUser(String username) throws SQLException, DataSetException, DatabaseUnitException {
+
 		ITable userQuery = connection.createQueryTable("users", "select * from users where username = '" + username + "'");
-		
 		Integer userId = (Integer) userQuery.getValue(0, "user_id");
 		Integer personId = (Integer) userQuery.getValue(0, "person_id");
 		
-		userDataToDelete = new QueryDataSet(connection);
+		QueryDataSet userDataToDelete = new QueryDataSet(connection);
 		userDataToDelete.addTable("person", "select * from person where person_id = " + personId);
 		userDataToDelete.addTable("provider", "select * from provider where person_id = " + personId);
 		userDataToDelete.addTable("person_name", "select * from person_name where person_id = " + personId);
@@ -90,6 +97,8 @@ public class UserDatabaseHandler extends BaseDatabaseHandler {
 		userDataToDelete.addTable("users", "select * from users where user_id = " + userId);
 		userDataToDelete.addTable("user_role", "select * from user_role where user_id = " + userId);
 		userDataToDelete.addTable("user_property", "select * from user_property where user_id = " + userId);
+
+        DELETE.execute(connection, userDataToDelete);
 	}
 	
 	private static IDataSet createDataset(User user) throws IOException, DataSetException {
