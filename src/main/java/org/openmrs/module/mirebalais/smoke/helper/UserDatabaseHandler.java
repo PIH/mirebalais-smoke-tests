@@ -74,6 +74,8 @@ public class UserDatabaseHandler extends BaseDatabaseHandler {
         for (String username : usernamesToDelete) {
             deleteUser(username);
         }
+        // this is a static variable, so we need to clear out the values after deleting
+        usernamesToDelete = new ArrayList<String>();
 	}
 
     public static void addUserForDelete(String username) {
