@@ -46,7 +46,8 @@ public class ConsultNoteForm extends BaseHtmlForm {
     public void fillFormWithDeath(String primaryDiagnosis) throws Exception {
         choosePrimaryDiagnosis(primaryDiagnosis);
         chooseDisposition(DEATH);
-        WebElement dateField = driver.findElement(By.cssSelector("#dateOfDeath input"));
+        WebElement dateField = driver.findElement(By.cssSelector("#dateOfDeath input[type=text]"));
+        dateField.sendKeys("20 Jun 2014");
         dateField.click();
         dateField.sendKeys(Keys.RETURN);
         confirmData();
