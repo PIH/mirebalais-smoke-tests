@@ -23,7 +23,6 @@ import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 public class EmergencyDepartmentNoteForm extends ConsultNoteForm {
 
@@ -37,9 +36,8 @@ public class EmergencyDepartmentNoteForm extends ConsultNoteForm {
         assertThat(submitButtonIsEnabled(),is(false));
 
         chooseDisposition(DEATH);
-        WebElement dateField = driver.findElement(By.cssSelector("#dateOfDeath input"));
+        WebElement dateField = driver.findElement(By.cssSelector("#dateOfDeath input[type=text]"));
         dateField.click();
-        assertTrue(false);
         dateField.sendKeys(Keys.RETURN);
         assertThat(submitButtonIsEnabled(),is(false));
 
