@@ -36,11 +36,11 @@ public class EmergencyDepartmentNoteForm extends ConsultNoteForm {
         assertThat(submitButtonIsEnabled(),is(false));
 
         chooseDisposition(DEATH);
-        Thread.sleep(2000);
         WebElement dateField = driver.findElement(By.cssSelector("#dateOfDeath input[type=text]"));
         dateField.click();
+        dateField.sendKeys("20 Jun 2014");
         dateField.sendKeys(Keys.RETURN);
-        assertThat(submitButtonIsEnabled(),is(false));
+        assertThat(submitButtonIsEnabled(), is(false));
 
         fillTraumaData();
         assertThat(submitButtonIsEnabled(),is(true));
