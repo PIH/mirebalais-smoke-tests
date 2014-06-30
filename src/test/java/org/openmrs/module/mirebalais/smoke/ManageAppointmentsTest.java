@@ -25,7 +25,5 @@ public class ManageAppointmentsTest extends DbTest {
         assertThat(manageAppointments.isSelectServiceTypeDefined(), is(true));
         assertThat(manageAppointments.isDateRangePickerDefined(), is(true));
 
-
-
     }
 }
