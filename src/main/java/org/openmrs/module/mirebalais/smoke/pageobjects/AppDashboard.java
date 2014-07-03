@@ -19,7 +19,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.math.BigInteger;
 
@@ -85,7 +84,6 @@ public class AppDashboard extends AbstractPageObject {
 
     public void openCaptureVitalsApp() {
         openApp(CAPTURE_VITALS);
-        wait5seconds.until(ExpectedConditions.visibilityOfElementLocated(SEARCH_FIELD));
     }
 
     public void openReportApp() {
