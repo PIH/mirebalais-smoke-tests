@@ -1,13 +1,14 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
+import org.openmrs.module.mirebalais.smoke.pageobjects.NewCheckIn;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.VitalsApp;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 public class CaptureVitalsTest extends DbTest {
 
@@ -16,11 +17,12 @@ public class CaptureVitalsTest extends DbTest {
         Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
         initBasicPageObjects();
         VitalsApp vitals = new VitalsApp(driver);
+        NewCheckIn newCheckIn = new NewCheckIn(driver);
 
 		login();
-		
-		appDashboard.goToPatientPage(testPatient.getId());
-		patientDashboard.startVisit();
+
+        appDashboard.startClinicVisit();
+        newCheckIn.checkInPatientFillingTheFormTwice(testPatient.getIdentifier());
 		
 		appDashboard.openCaptureVitalsApp();
 		vitals.captureVitalsForPatient(testPatient.getIdentifier());
