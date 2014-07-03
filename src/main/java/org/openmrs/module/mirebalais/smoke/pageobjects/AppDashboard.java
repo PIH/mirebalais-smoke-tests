@@ -14,11 +14,14 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
-import java.math.BigInteger;
-
+import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.math.BigInteger;
 
 public class AppDashboard extends AbstractPageObject {
 
@@ -39,6 +42,9 @@ public class AppDashboard extends AbstractPageObject {
     public static final String MANAGE_APPOINTMENT_TYPES = "appointmentschedulingui-manageAppointmentTypes-app";
     public static final String DAILY_APPOINTMENTS = "appointmentschedulingui-scheduledAppointments-homepageLink-app";
     public static final String AWAITING_ADMISSION = "org-openmrs-module-mirebalais-awaitingAdmissionHomepageLink-app";
+
+    public static final By SEARCH_FIELD = By.id("patient-search");
+    public static final By SEARCH_RESULTS_TABLE = By.id("patient-search-results-table");
 
 
     public AppDashboard(WebDriver driver) {
@@ -79,7 +85,7 @@ public class AppDashboard extends AbstractPageObject {
 
     public void openCaptureVitalsApp() {
         openApp(CAPTURE_VITALS);
-        wait5seconds.until(ExpectedConditions.visibilityOfElementLocated(By.id("patient-search-field-search")));
+        wait5seconds.until(ExpectedConditions.visibilityOfElementLocated(SEARCH_FIELD));
     }
 
     public void openReportApp() {
@@ -150,6 +156,22 @@ public class AppDashboard extends AbstractPageObject {
 		return isAppButtonPresent(LEGACY);
 	}
 
+    public void findPatientByIdentifier(String identifier) {
+        WebElement searchField = driver.findElement(SEARCH_FIELD);
+        searchField.sendKeys(identifier);
+        searchField.sendKeys(Keys.RETURN);
+    }
+
+    public void findPatientByName(Patient patient) {
+        WebElement searchField = driver.findElement(SEARCH_FIELD);
+        searchField.sendKeys(patient.getName()); // search on patient name
+
+        // patient should be in results list
+        WebElement searchResults = driver.findElement(SEARCH_RESULTS_TABLE);
+        searchResults.findElement(By.xpath("//*[contains(text(), '" + patient.getIdentifier() + "')]")).click();
+
+    }
+
     public void goToPatientPage(BigInteger patientId) {
         driver.get(properties.getWebAppUrl() + "/coreapps/patientdashboard/patientDashboard.page?patientId=" + patientId);
     }
@@ -170,4 +192,5 @@ public class AppDashboard extends AbstractPageObject {
         driver.get(properties.getWebAppUrl());
         clickAppButton(appIdentifier);
     }
+
 }
