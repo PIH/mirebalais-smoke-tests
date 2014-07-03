@@ -14,7 +14,9 @@ import static org.openqa.selenium.Keys.RETURN;
 public class NewCheckIn extends AbstractPageObject {
 	
 	private static final String CONFIRM_TEXT = "Konfime";
-	
+
+    public static final By SEARCH_FIELD = By.id("patient-search");
+
 	public NewCheckIn(WebDriver driver) {
 		super(driver);
 	}
@@ -42,7 +44,7 @@ public class NewCheckIn extends AbstractPageObject {
     }
 	
 	private void findPatient(String patientIdentifier) throws Exception {
-		super.findPatientById(patientIdentifier, "patient-search-field-search");
+		super.findPatientById(patientIdentifier, SEARCH_FIELD);
 	}
 
 	private void confirmRightPatient() {
@@ -110,7 +112,7 @@ public class NewCheckIn extends AbstractPageObject {
     }
 
 	public boolean isPatientSearchDisplayed() {
-		return driver.findElement(By.id("patient-search-field-search")).isDisplayed();
+		return driver.findElement(SEARCH_FIELD).isDisplayed();
 	}
     private void selectSheduledAppointment(String spanId) {
         findSelectInsideSpan(spanId).sendKeys(ARROW_DOWN,ARROW_DOWN,ARROW_DOWN,ARROW_DOWN,ARROW_DOWN,ARROW_DOWN,RETURN);

@@ -9,9 +9,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class VitalsApp extends AbstractPageObject {
 
+    private static final String SEARCH_PATIENT_FIELD_ID = "patient-search";
 	private static final By CONFIRM_PATIENT_BUTTON = By.className("icon-arrow-right");
 	private static final By HEIGHT_INCHES_FIELD = By.id("height_inches");
-	private static final By SEARCH_PATIENT_FIELD = By.id("patient-search-field-search");
+	private static final By SEARCH_PATIENT_FIELD = By.id(SEARCH_PATIENT_FIELD_ID);
 	private static final By WEIGHT_INCHES_FIELD = By.id("weight_lbs");
 	
 	public VitalsApp(WebDriver driver) {
@@ -19,7 +20,7 @@ public class VitalsApp extends AbstractPageObject {
 	}
 
 	public void enterPatientIdentifier(String patientID) {
-		setClearTextToField("patient-search-field-search", patientID);
+		setClearTextToField(SEARCH_PATIENT_FIELD_ID, patientID);
 	}
 
 	public void confirmPatient() {

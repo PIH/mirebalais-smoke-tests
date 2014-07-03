@@ -8,6 +8,8 @@ import org.openqa.selenium.WebElement;
 public class SearchAndConfirmPatientFlow {
     private static final By CONFIRM_PATIENT_BUTTON = By.className("icon-arrow-right");
 
+    public static final By SEARCH_FIELD = By.id("patient-search");
+
     private WebDriver driver;
 
     public SearchAndConfirmPatientFlow(WebDriver driver) {
@@ -20,7 +22,7 @@ public class SearchAndConfirmPatientFlow {
     }
 
     private void enterPatientIdentifier(String patientID) {
-        WebElement searchField = driver.findElement(By.id("patient-search-field-search"));
+        WebElement searchField = driver.findElement(SEARCH_FIELD);
         searchField.sendKeys(patientID);
         searchField.sendKeys(Keys.RETURN);
     }

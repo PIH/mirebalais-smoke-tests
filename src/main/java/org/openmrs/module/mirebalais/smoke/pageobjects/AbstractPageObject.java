@@ -101,8 +101,8 @@ public abstract class AbstractPageObject {
 					.toString();
 	}
     
-    public void findPatientById(String patientIdentifier, String idField) throws Exception {
-		WebElement element = driver.findElement(By.id(idField));
+    public void findPatientById(String patientIdentifier, By idField) throws Exception {
+		WebElement element = driver.findElement(idField);
 		element.sendKeys(patientIdentifier);
 		clickOnTheRightPatient(patientIdentifier);
 	}
