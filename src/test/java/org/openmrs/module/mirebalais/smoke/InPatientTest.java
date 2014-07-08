@@ -1,29 +1,31 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
+import org.openmrs.module.mirebalais.smoke.pageobjects.AwaitingAdmissionApp;
 import org.openmrs.module.mirebalais.smoke.pageobjects.InPatientList;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 public class InPatientTest extends DbTest {
 
     private static final String PRIMARY_DIAGNOSIS = "IGU";
 
 	private InPatientList inPatientList;
+
+    private AwaitingAdmissionApp awaitingAdmissionApp;
 	
 	@Test
-    @Ignore
 	public void admitPatientTransferInsideHospitalAndFilterWard() throws Exception {
 		Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
 		Patient testPatient2 = PatientDatabaseHandler.insertNewTestPatient();
 		initBasicPageObjects();
 
 		inPatientList = new InPatientList(driver);
+        awaitingAdmissionApp = new AwaitingAdmissionApp(driver);
 
         logInAsClinicalUser();
 
@@ -31,9 +33,12 @@ public class InPatientTest extends DbTest {
 		patientDashboard.startVisit();
 
 		String admissionPlace = patientDashboard.addConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS, 3);
-
 		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION_CREOLE_NAME), is(1));
-		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.ADMISSION_CREOLE_NAME), is(1));
+
+        patientDashboard.addAdmissionNoteWithDefaultLocation(PRIMARY_DIAGNOSIS);
+        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.ADMISSION_CREOLE_NAME), is(1));
+
+        patientDashboard.gotoAppDashboard();
 		assertFirstAdmittedAndCurrentWardAre(testPatient.getIdentifier(), admissionPlace, admissionPlace);
 
 		appDashboard.goToPatientPage(testPatient.getId());
@@ -42,6 +47,7 @@ public class InPatientTest extends DbTest {
 
 		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION_CREOLE_NAME), is(2));
 		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.TRANSFER_CREOLE_NAME), is(1));
+        patientDashboard.gotoAppDashboard();
 		assertFirstAdmittedAndCurrentWardAre(testPatient.getIdentifier(), admissionPlace, transferPlace);
 
 		appDashboard.goToPatientPage(testPatient2.getId());
@@ -50,7 +56,6 @@ public class InPatientTest extends DbTest {
 		
 		appDashboard.openInPatientApp();
 		inPatientList.filterBy(transferPlace);
-
 		inPatientList.waitUntilInpatientListIsFilteredBy(transferPlace);
 	}
 	

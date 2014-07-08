@@ -53,6 +53,8 @@ public class PatientDashboard extends AbstractPageObject {
     public static final String DISCHARGE_CREOLE_NAME= "Soti Nan Swen Entèn";
 
 	public static final String ACTIVE_VISIT_CREOLE_MESSAGE = "Vizit aktiv";
+
+    private final By home = By.className("logo");
 	
 	private final By dispensingForm = By.cssSelector(".encounter-summary-container .dispensing-form");
 	
@@ -255,6 +257,11 @@ public class PatientDashboard extends AbstractPageObject {
         admissionNoteForm.fillFormWithDiagnosis(primaryDiagnosis);
     }
 
+    public void addAdmissionNoteWithDefaultLocation(String primaryDiagnosis) throws Exception {
+        openForm(formList.get("Admission Note"));
+        admissionNoteForm.fillFormWithDiagnosisAndDefaultLocation(primaryDiagnosis);
+    }
+
     public void addAdmissionNoteAsAdminUser(String primaryDiagnosis) throws Exception {
         openForm(formList.get("Admission Note"));
         admissionNoteForm.fillFormWithBasicEncounterInfoAndDiagnosis(primaryDiagnosis);
@@ -368,7 +375,11 @@ public class PatientDashboard extends AbstractPageObject {
 		encounterDetails.click();
 		wait30seconds.until(detailsAjaxCallReturns);
     }
-	
+
+    public void gotoAppDashboard() {
+        driver.findElement(home).click();
+    }
+
 	private void createFormsMap() {
 		formList = new HashMap<String, By>();
 		formList.put("Consult Note", By.id("mirebalais.consult"));
