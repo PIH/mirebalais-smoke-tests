@@ -51,7 +51,7 @@ public class ArchivesRoomApp extends AbstractPageObject {
 	public String createRecord(String patientIdentifier) throws Exception {
 		findPatientInTheList(patientIdentifier, "create_requests_table").click();
 		clickOnAssign();
-        wait5seconds.until(visibilityOfElementLocated(By.cssSelector("#assigned_create_requests_table ." + patientIdentifier)));
+        wait15seconds.until(visibilityOfElementLocated(By.cssSelector("#assigned_create_requests_table ." + patientIdentifier)));
         return getDossierNumber(patientIdentifier);
 	}
 
