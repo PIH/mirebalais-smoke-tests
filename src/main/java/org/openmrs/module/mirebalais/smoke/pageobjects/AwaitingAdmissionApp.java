@@ -3,6 +3,7 @@ package org.openmrs.module.mirebalais.smoke.pageobjects;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -43,8 +44,9 @@ public class AwaitingAdmissionApp extends AbstractPageObject {
 
     public void cancelLastAdmission() {
         clickOnLastCancelButton();
-        driver.findElement(cancelReasonSelector).findElement(By.cssSelector("option:nth-of-type(3)")).click(); // hack, depends on ordering of elements
+        driver.findElement(cancelReasonSelector).findElement(By.cssSelector("option:nth-of-type(6)")).click(); // hack, depends on ordering of elements
         clickOn(By.className("submitButton"));
+        wait5seconds.until(ExpectedConditions.visibilityOfElementLocated(By.id("confirm-cancel-admission-button")));
         clickOn(By.id("confirm-cancel-admission-button"));
     }
 
