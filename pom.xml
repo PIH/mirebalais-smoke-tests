@@ -67,7 +67,7 @@
                 </executions>
                 <configuration>
                     <includes>
-                        <include>**/*.java</include>
+                        <include>**/SmokeTestSuite.java</include>
                     </includes>
                 </configuration>
             </plugin>

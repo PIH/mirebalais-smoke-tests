@@ -7,7 +7,6 @@ import org.junit.Rule;
 import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
-import org.openmrs.module.mirebalais.smoke.helper.SmokeTestDriver;
 import org.openmrs.module.mirebalais.smoke.helper.SmokeTestProperties;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
@@ -53,14 +52,16 @@ public abstract class BasicMirebalaisSmokeTest {
 	protected PatientDashboard patientDashboard;
 	
 	@BeforeClass
-	public static void startWebDriver() {
-		driver = new SmokeTestDriver().getDriver();
+	public static void getWebDriver() {
+		driver = SmokeTestSuite.getDriver();
 	}
-	
-	@AfterClass
-	public static void stopWebDriver() {
-		driver.quit();
-	}
+
+    @AfterClass
+    public static void after() {
+        // back to home page and logout after each test class
+        driver.get(new SmokeTestProperties().getWebAppUrl());
+        new HeaderPage(driver).logOut();
+    }
 	
 	protected static void logInAsClinicalUser() throws Exception {
 		new LoginPage(driver).logInAsClinicalUser();
