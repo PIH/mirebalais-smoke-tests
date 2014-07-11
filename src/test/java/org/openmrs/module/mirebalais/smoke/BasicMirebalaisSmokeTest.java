@@ -7,6 +7,7 @@ import org.junit.Rule;
 import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
+import org.openmrs.module.mirebalais.smoke.helper.SmokeTestDriver;
 import org.openmrs.module.mirebalais.smoke.helper.SmokeTestProperties;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
@@ -51,10 +52,22 @@ public abstract class BasicMirebalaisSmokeTest {
 	protected PatientRegistrationDashboard patientRegistrationDashboard;
 	
 	protected PatientDashboard patientDashboard;
+
+    protected static boolean createdOwnDriver;
 	
 	@BeforeClass
 	public static void getWebDriver() {
-		driver = MirebalaisSmokeTestSuite.getDriver();
+
+        // when running as a suite, MirebalaisSmokeTestSuite should inject the driver into the context
+        // if not running as a suite, we create our own driver (and flag createdOwnDriver as true so that we know we need to do teardown)
+        if (driver == null) {
+            driver = new SmokeTestDriver().getDriver();
+            createdOwnDriver = true;
+        }
+        else {
+            createdOwnDriver = false;
+        }
+        
 	}
 
     @AfterClass
@@ -68,6 +81,10 @@ public abstract class BasicMirebalaisSmokeTest {
         }
         catch (NoSuchElementException ex) {
             // do nothing, assume we are already logged out
+        }
+
+        if (createdOwnDriver) {
+            driver.quit();
         }
     }
 	
@@ -116,4 +133,7 @@ public abstract class BasicMirebalaisSmokeTest {
         driver.manage().timeouts().implicitlyWait(SmokeTestProperties.IMPLICIT_WAIT_TIME, TimeUnit.SECONDS);
     }
 
+    public static void setDriver(WebDriver driver) {
+        BasicMirebalaisSmokeTest.driver = driver;
+    }
 }

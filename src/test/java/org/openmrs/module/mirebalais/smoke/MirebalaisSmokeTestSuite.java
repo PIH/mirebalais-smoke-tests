@@ -40,6 +40,7 @@ public class MirebalaisSmokeTestSuite {
     @BeforeClass
     public static void startWebDriver() {
         driver = new SmokeTestDriver().getDriver();
+        BasicMirebalaisSmokeTest.setDriver(driver);
     }
 
     @AfterClass
