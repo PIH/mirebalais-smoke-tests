@@ -14,6 +14,7 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientRegistrationDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -53,14 +54,21 @@ public abstract class BasicMirebalaisSmokeTest {
 	
 	@BeforeClass
 	public static void getWebDriver() {
-		driver = SmokeTestSuite.getDriver();
+		driver = MirebalaisSmokeTestSuite.getDriver();
 	}
 
     @AfterClass
     public static void after() {
-        // back to home page and logout after each test class
+        // back to home page
         driver.get(new SmokeTestProperties().getWebAppUrl());
-        new HeaderPage(driver).logOut();
+
+        // log out if necessary
+        try {
+            new HeaderPage(driver).logOut();
+        }
+        catch (NoSuchElementException ex) {
+            // do nothing, assume we are already logged out
+        }
     }
 	
 	protected static void logInAsClinicalUser() throws Exception {

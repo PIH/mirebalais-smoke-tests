@@ -32,8 +32,8 @@ import org.openqa.selenium.WebDriver;
                         RegistrationFlowTest.class,
                         RetroConsultNoteTest.class,
                         RetroVisitTest.class,
-                        UserAdminTest.class} )
-public class SmokeTestSuite {
+                        UserAdminTest.class } )
+public class MirebalaisSmokeTestSuite {
 
     private static WebDriver driver;
 

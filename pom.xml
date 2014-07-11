@@ -67,7 +67,7 @@
                 </executions>
                 <configuration>
                     <includes>
-                        <include>**/SmokeTestSuite.java</include>
+                        <include>**/MirebalaisSmokeTestSuite.java</include>
                     </includes>
                 </configuration>
             </plugin>
