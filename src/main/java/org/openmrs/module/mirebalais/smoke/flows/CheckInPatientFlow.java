@@ -37,8 +37,5 @@ public class CheckInPatientFlow {
     public void checkInWithMultipleEnterKeystrokesOnSubmit(String patientId) {
         confirmPatient(patientId);
         checkinFormPage.enterInfoWithMultipleEnterKeystrokesOnSubmit();
-
-        new WebDriverWait(driver, 20).until(visibilityOfElementLocated(By.className("confirm")));
-        driver.findElement(By.className("confirm")).click();
     }
 }

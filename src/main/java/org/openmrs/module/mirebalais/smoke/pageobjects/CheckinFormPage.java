@@ -24,13 +24,14 @@ public class CheckinFormPage extends AbstractPageObject {
         new WebDriverWait(driver, 20).until(stalenessOf(confirmButton));
     }
 
-    public void enterInfoWithMultipleEnterKeystrokesOnSubmit() {
+    public void enterInfoWithMultipleEnterKeystrokesOnSubmit()  {
         selectFirstOptionFor("typeOfVisit");
         selectSecondOptionFor("paymentAmount");
         WebElement confirmButton = driver.findElement(By.id("confirmationQuestion")).findElement(By.className("confirm"));
         confirmButton.sendKeys(RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,
                 RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,
                 RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN);
+
     }
 
 
