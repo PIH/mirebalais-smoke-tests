@@ -8,7 +8,7 @@ import static org.junit.Assert.assertThat;
 
 public class MasterPatientIndexTest extends BasicMirebalaisSmokeTest {
 	
-	private static final String DEFAULT_NAME = "test";
+	private static final String DEFAULT_NAME = "joseph";
 	
 	@Test
 	public void searchForAPatientOnLacollineServer() {
