@@ -1,5 +1,6 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects.forms;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -16,6 +17,7 @@ public class AdmissionNoteForm extends BaseHtmlForm {
         choosePrimaryDiagnosis(primaryDiagnosis);
         assertThat(submitButtonIsEnabled(),is(true));
         confirmData();
+        chooseNotToPrintWristband();
     }
 
     public void fillFormWithDiagnosis(String primaryDiagnosis) throws Exception {
@@ -24,6 +26,7 @@ public class AdmissionNoteForm extends BaseHtmlForm {
         choosePrimaryDiagnosis(primaryDiagnosis);
         assertThat(submitButtonIsEnabled(),is(true));
         confirmData();
+        chooseNotToPrintWristband();
     }
 
     public void fillFormWithBasicEncounterInfoAndDiagnosis(String primaryDiagnosis) throws Exception {
@@ -34,6 +37,11 @@ public class AdmissionNoteForm extends BaseHtmlForm {
         choosePrimaryDiagnosis(primaryDiagnosis);
         assertThat(submitButtonIsEnabled(),is(true));
         confirmData();
+        chooseNotToPrintWristband();
+    }
+
+    public void chooseNotToPrintWristband() {
+        clickOn(By.cssSelector("#print-wristband-dialog .cancel"));
     }
 
 }
