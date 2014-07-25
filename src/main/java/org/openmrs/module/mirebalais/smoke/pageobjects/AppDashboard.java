@@ -107,7 +107,7 @@ public class AppDashboard extends AbstractPageObject {
 	}
 
     public void openCheckinApp() {
-        openApp("mirebalais-liveCheckin-app");
+        openApp(START_CLINIC_VISIT);
     }
 
     public void openDailyAppointments() {
