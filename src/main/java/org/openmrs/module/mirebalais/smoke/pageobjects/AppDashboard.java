@@ -29,7 +29,7 @@ public class AppDashboard extends AbstractPageObject {
     public static final String EDIT_PATIENT = "patientRegistration-lookup-app";
     public static final String PATIENT_REGISTRATION = "patientRegistration-registration-app";
     public static final String START_HOSPITAL_VISIT = "patientRegistration-emergencyCheckin-app";
-    public static final String START_CLINIC_VISIT = "mirebalais-liveCheckin-app";
+    public static final String START_CLINIC_VISIT = "mirebalais-liveCheckin-appLink-app";
     public static final String SYSTEM_ADMINISTRATION = "emr-systemAdministration-app";
     public static final String CAPTURE_VITALS = "mirebalais-outpatientVitals-appLink-app";
     public static final String REPORTS = "reportingui-reports-homepagelink-app";
