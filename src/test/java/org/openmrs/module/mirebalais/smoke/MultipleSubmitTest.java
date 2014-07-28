@@ -29,7 +29,7 @@ public class MultipleSubmitTest extends DbTest {
         CheckInPatientFlow checkInPatientFlow = new CheckInPatientFlow(driver);
         checkInPatientFlow.checkInWithMultipleEnterKeystrokesOnSubmit(testPatient.getIdentifier());
 
-        new WebDriverWait(driver, 5).until(visibilityOfElementLocated(By.id("patient-search-form")));
+        new WebDriverWait(driver, 5).until(visibilityOfElementLocated(By.id("create-paper-record-dialog")));
         appDashboard.goToPatientPage(testPatient.getId());
 
         assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CHECKIN_CREOLE_NAME), is(1));

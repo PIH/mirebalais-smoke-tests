@@ -3,9 +3,6 @@ package org.openmrs.module.mirebalais.smoke.flows;
 import org.openmrs.module.mirebalais.smoke.pageobjects.CheckinFormPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class CheckInPatientFlow {
     private WebDriver driver;
@@ -26,8 +23,8 @@ public class CheckInPatientFlow {
     public void checkIn() {
         checkinFormPage.enterInfo();
 
-        new WebDriverWait(driver, 5).until(visibilityOfElementLocated(By.className("confirm")));
-        driver.findElement(By.className("confirm")).click();
+        // click on the confirm button of either the request or create dialog (whichever one opens)
+        driver.findElement(By.cssSelector("#request-paper-record-dialog .confirm, #create-paper-record-dialog .confirm")).click();
     }
 
     public void confirmPatient(String patientId) {
