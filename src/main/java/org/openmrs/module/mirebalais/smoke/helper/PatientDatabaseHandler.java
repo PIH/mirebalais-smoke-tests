@@ -74,7 +74,7 @@ public class PatientDatabaseHandler extends BaseDatabaseHandler {
 	
 	private static Integer getEncounterTypeId() throws SQLException, DataSetException {
 		ITable patientRegistrationEncounterType = connection.createQueryTable("encounter_type",
-		    "select * from encounter_type where name = 'Patient Registration'");
+		    "select * from encounter_type where uuid = '873f968a-73a8-4f9c-ac78-9f4778b751b6'"); // Patient Registration
 		return (Integer) patientRegistrationEncounterType.getValue(0, "encounter_type_id");
 	}
 	
@@ -157,7 +157,7 @@ public class PatientDatabaseHandler extends BaseDatabaseHandler {
 	
 	private static Integer getPatientIdentifierId() throws Exception {
 		ITable patientIdentifierType = connection.createQueryTable("identifier_source",
-		    "select * from patient_identifier_type where name = 'ZL EMR ID'");
+		    "select * from patient_identifier_type where uuid = 'a541af1e-105c-40bf-b345-ba1fd6a59b85'"); // ZL EMR ID
 		return (Integer) patientIdentifierType.getValue(0, "patient_identifier_type_id");
 	}
 
