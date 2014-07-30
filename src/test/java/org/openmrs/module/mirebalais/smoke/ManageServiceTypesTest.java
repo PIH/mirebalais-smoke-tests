@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.helper.AppointmentTypeDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.helper.NameGenerator;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
+import org.openmrs.module.mirebalais.smoke.pageobjects.AppointmentSchedulingApp;
 import org.openmrs.module.mirebalais.smoke.pageobjects.ServiceTypeApp;
 
 import static junit.framework.Assert.assertEquals;
@@ -14,11 +15,13 @@ public class ManageServiceTypesTest extends DbTest {
     @Test
     public void systemAdminCanAddServiceType() throws Exception {
         AppDashboard appDashboard = new AppDashboard(driver);
+        AppointmentSchedulingApp appointmentSchedulingApp = new AppointmentSchedulingApp(driver);
         ServiceTypeApp serviceTypeApp = new ServiceTypeApp(driver);
 
         logInAsAdmin();
 
-        appDashboard.openManageAppointmentTypesApp();
+        appDashboard.openAppointmentSchedulingApp();
+        appointmentSchedulingApp.openManageAppointmentTypesApp();
         int expectedAmountOfServiceTypes = serviceTypeApp.getTotalAmountOfServiceTypes() + 1;
 
         serviceTypeApp.openNewServiceType();

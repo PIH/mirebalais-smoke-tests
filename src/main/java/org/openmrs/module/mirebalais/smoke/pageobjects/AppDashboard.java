@@ -37,9 +37,7 @@ public class AppDashboard extends AbstractPageObject {
     public static final String MASTER_PATIENT_INDEX = "mirebalais-mpi-app";
     public static final String IN_PATIENT = "mirebalaisreports-inpatients-app";
     public static final String MY_ACCOUNT = "emr-myAccount-app";
-    public static final String MANAGE_APPOINTMENTS = "appointmentschedulingui-schedulingAppointmentAppLink-app";
-    public static final String MANAGE_APPOINTMENT_TYPES = "appointmentschedulingui-manageAppointmentTypes-app";
-    public static final String DAILY_APPOINTMENTS = "appointmentschedulingui-scheduledAppointments-homepageLink-app";
+    public static final String APPOINTMENT_SCHEDULING = "appointmentschedulingui-homeAppLink-app";
     public static final String AWAITING_ADMISSION = "org-openmrs-module-mirebalais-awaitingAdmissionHomepageLink-app";
 
     public static final By SEARCH_FIELD = By.id("patient-search");
@@ -54,8 +52,8 @@ public class AppDashboard extends AbstractPageObject {
         openApp(ACTIVE_VISITS);
 	}
 
-    public void openManageAppointmentsApp() {
-        openApp(MANAGE_APPOINTMENTS);
+    public void openAppointmentSchedulingApp() {
+        openApp(APPOINTMENT_SCHEDULING);
     }
 
     public void openMyAccountApp() {
@@ -90,10 +88,6 @@ public class AppDashboard extends AbstractPageObject {
     	 openApp(REPORTS);
 	}
 
-    public void openManageAppointmentTypesApp() {
-        openApp(MANAGE_APPOINTMENT_TYPES);
-    }
-
     public void openAwaitingAdmissionApp() {
         openApp(AWAITING_ADMISSION);
     }
@@ -108,10 +102,6 @@ public class AppDashboard extends AbstractPageObject {
 
     public void openCheckinApp() {
         openApp(START_CLINIC_VISIT);
-    }
-
-    public void openDailyAppointments() {
-        openApp(DAILY_APPOINTMENTS);
     }
 
     public boolean isPatientRegistrationAppPresented() {
