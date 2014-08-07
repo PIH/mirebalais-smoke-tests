@@ -243,7 +243,7 @@ public class PatientDashboard extends AbstractPageObject {
 	
 	public void addEmergencyDepartmentNote(String primaryDiagnosis) throws Exception {
 		openForm(formList.get("ED Note"));
-		eDNoteForm.fillFormWithDeath(primaryDiagnosis);
+		eDNoteForm.fillFormWithDischarge(primaryDiagnosis);
 	}
 	
 	public void editExistingEDNote(String primaryDiagnosis) throws Exception {
