@@ -43,6 +43,7 @@ public class ConsultNoteTest extends DbTest {
 	@Test
 	public void addConsultationNoteWithDeathAsDispositionDoesNotCloseVisit() throws Exception {
 		patientDashboard.addConsultNoteWithDeath(PRIMARY_DIAGNOSIS);
+        deathCertificateForm.waitToLoad();
         deathCertificateForm.cancel();
 
 		assertThat(patientDashboard.isDead(), is(true));
