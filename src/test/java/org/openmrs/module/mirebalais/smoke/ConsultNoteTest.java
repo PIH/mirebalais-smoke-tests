@@ -5,6 +5,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
+import org.openmrs.module.mirebalais.smoke.pageobjects.DeathCertificateFormPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -15,6 +16,8 @@ public class ConsultNoteTest extends DbTest {
     private static final String PRIMARY_DIAGNOSIS = "IGU";
     private static final String EDITED_PRIMARY_DIAGNOSIS = "Asthme";
 
+    private DeathCertificateFormPage deathCertificateForm;
+
 	@BeforeClass
 	public static void prepare() throws Exception {
         logInAsClinicalUser();
@@ -24,8 +27,9 @@ public class ConsultNoteTest extends DbTest {
 	public void setUp() throws Exception {
 		Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
 		initBasicPageObjects();
-		
-		appDashboard.goToPatientPage(testPatient.getId());
+        deathCertificateForm = new DeathCertificateFormPage(driver);
+
+        appDashboard.goToPatientPage(testPatient.getId());
 		patientDashboard.startVisit();
 	}
 	
@@ -39,7 +43,8 @@ public class ConsultNoteTest extends DbTest {
 	@Test
 	public void addConsultationNoteWithDeathAsDispositionDoesNotCloseVisit() throws Exception {
 		patientDashboard.addConsultNoteWithDeath(PRIMARY_DIAGNOSIS);
-		
+        deathCertificateForm.cancel();
+
 		assertThat(patientDashboard.isDead(), is(true));
 		assertThat(patientDashboard.hasActiveVisit(), is(true));
 		assertThat(patientDashboard.startVisitButtonIsVisible(), is(false));
