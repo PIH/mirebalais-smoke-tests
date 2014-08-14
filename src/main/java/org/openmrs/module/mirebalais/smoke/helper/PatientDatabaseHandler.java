@@ -115,7 +115,7 @@ public class PatientDatabaseHandler extends BaseDatabaseHandler {
 		            "select * from name_phonetics where person_name_id in (select person_name_id from person_name where person_id = %d)");
 		secondToDelete.put("person_attribute", "select * from person_attribute where person_id = %d");
 		secondToDelete.put("patient_identifier", "select * from patient_identifier where patient_id = %d");
-		secondToDelete.put("emr_paper_record_request", "select * from emr_paper_record_request where patient_id = %d");
+		secondToDelete.put("paperrecord_paper_record_request", "select * from paperrecord_paper_record_request where patient_id = %d");
 		secondToDelete.put("visit", "select * from visit where patient_id = %d");
 		secondToDelete.put("encounter", "select * from encounter where patient_id = %d");
 		secondToDelete.put("orders", "select * from orders where patient_id = %d");
