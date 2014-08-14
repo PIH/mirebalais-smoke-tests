@@ -106,7 +106,9 @@ public class PatientDatabaseHandler extends BaseDatabaseHandler {
 		            "obs",
 		            "select * from obs where encounter_id in (select encounter_id from encounter where patient_id = %d) and obs_group_id is not null");
 		firstToDelete.put("person_merge_log", "select * from person_merge_log where winner_person_id = %d");
-		patientTablesToDelete.add(firstToDelete);
+        firstToDelete.put("paperrecord_paper_record_request",
+                "select * from paperrecord_paper_record_request where paper_record in (select record_id from paperrecord_paper_record where patient_identifier in (select patient_identifier_id from patient_identifier where patient_id = %d))");
+        patientTablesToDelete.add(firstToDelete);
 		
 		Map<String, String> secondToDelete = new LinkedHashMap<String, String>();
 		secondToDelete.put("person_merge_log", "select * from person_merge_log where loser_person_id = %d");
@@ -115,9 +117,7 @@ public class PatientDatabaseHandler extends BaseDatabaseHandler {
 		            "select * from name_phonetics where person_name_id in (select person_name_id from person_name where person_id = %d)");
 		secondToDelete.put("person_attribute", "select * from person_attribute where person_id = %d");
 		secondToDelete.put("patient_identifier", "select * from patient_identifier where patient_id = %d");
-		secondToDelete.put("paperrecord_paper_record_request",
-                "select * from paperrecord_paper_record_request where paper_record in (select record_id from paperrecord_paper_record where patient_identifier in (select patient_identifier_id from patient_identifier where patient_id = %d))");
-        secondToDelete.put("paperrecord_paper_record",
+		    secondToDelete.put("paperrecord_paper_record",
                 "select * from paperrecord_paper_record where patient_identifier in (select patient_identifier_id from patient_identifier where patient_id = %d)");
         secondToDelete.put("visit", "select * from visit where patient_id = %d");
         secondToDelete.put("visit", "select * from visit where patient_id = %d");
