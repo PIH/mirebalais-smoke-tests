@@ -7,18 +7,16 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class DeathCertificateFormPage extends AbstractPageObject {
 
-    public static final String FORM_HEADING = "Certificat / Constat de deces";
-
     public DeathCertificateFormPage(WebDriver driver) {
         super(driver);
     }
 
     public void waitToLoad() {
         WebDriverWait wait5seconds = new WebDriverWait(driver, 5);
-        wait5seconds.until(ExpectedConditions.textToBePresentInElement(By.cssSelector("htmlform h2 label"), FORM_HEADING));
+        wait5seconds.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("section#death")));
     }
 
     public void cancel() {
-        driver.findElement(By.cssSelector("#buttons .cancel")).click();
+        driver.findElement(By.cssSelector(".patient-header .demographics .name")).click();
     }
 }
