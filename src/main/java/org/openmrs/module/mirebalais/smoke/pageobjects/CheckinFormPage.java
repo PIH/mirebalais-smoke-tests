@@ -1,6 +1,7 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -17,6 +18,7 @@ public class CheckinFormPage extends AbstractPageObject {
 	public void enterInfo() {
         selectFirstOptionFor("typeOfVisit");
         selectSecondOptionFor("paymentAmount");
+        selectNotToPrintWristbandIfQuestionPresent();
 
         WebElement confirmButton = driver.findElement(By.id("confirmationQuestion")).findElement(By.className("confirm"));
         confirmButton.click();
@@ -27,6 +29,8 @@ public class CheckinFormPage extends AbstractPageObject {
     public void enterInfoWithMultipleEnterKeystrokesOnSubmit()  {
         selectFirstOptionFor("typeOfVisit");
         selectSecondOptionFor("paymentAmount");
+        selectNotToPrintWristbandIfQuestionPresent();
+
         WebElement confirmButton = driver.findElement(By.id("confirmationQuestion")).findElement(By.className("confirm"));
         confirmButton.sendKeys(RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,
                 RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,
@@ -46,5 +50,14 @@ public class CheckinFormPage extends AbstractPageObject {
     private WebElement findSelectInsideSpan(String spanId) {
         return driver.findElement(By.id(spanId)).findElement(By.tagName("select"));
     }
-	
+
+    private void selectNotToPrintWristbandIfQuestionPresent() {
+        try {
+            driver.findElement(By.id("print-wristband-question"));
+            selectSecondOptionFor("print-wristband-question");
+        }
+        catch (NoSuchElementException e) {
+            // ignore if question not present
+        }
+    }
 }

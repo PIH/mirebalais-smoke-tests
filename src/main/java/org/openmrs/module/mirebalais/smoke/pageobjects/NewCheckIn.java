@@ -1,6 +1,7 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -26,23 +27,15 @@ public class NewCheckIn extends AbstractPageObject {
 		confirmRightPatient();
         selectFirstOptionFor("typeOfVisit");
         selectSecondOptionFor("paymentAmount");
+        selectNotToPrintWristbandIfQuestionPresent();
         clickOnNoButton();
         selectSecondOptionFor("typeOfVisit");
         selectThirdOptionFor("paymentAmount");
+        selectNotToPrintWristbandIfQuestionPresent();
 		confirmData();
 		confirmPopup();
 	}
 
-    public void checkInpatientFillingWithScheduledAppointment(String patientIdentifier) throws Exception {
-        findPatient(patientIdentifier);
-        confirmRightPatient();
-        selectSheduledAppointment("typeOfVisit");
-        selectSecondOptionFor("service");
-        selectAppointmentDate("apptDate");
-        confirmDataForScheduleAppointment();
-        confirmPopup();
-    }
-	
 	private void findPatient(String patientIdentifier) throws Exception {
 		super.findPatientById(patientIdentifier, SEARCH_FIELD);
 	}
@@ -117,5 +110,15 @@ public class NewCheckIn extends AbstractPageObject {
     private void selectSheduledAppointment(String spanId) {
         findSelectInsideSpan(spanId).sendKeys(ARROW_DOWN,ARROW_DOWN,ARROW_DOWN,ARROW_DOWN,ARROW_DOWN,ARROW_DOWN,RETURN);
     }
-	
+
+    private void selectNotToPrintWristbandIfQuestionPresent() {
+        try {
+            driver.findElement(By.id("print-wristband-question"));
+            selectSecondOptionFor("print-wristband-question");
+        }
+        catch (NoSuchElementException e) {
+            // ignore if question not present
+        }
+    }
+
 }	
