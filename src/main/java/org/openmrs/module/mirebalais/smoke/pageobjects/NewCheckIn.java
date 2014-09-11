@@ -2,7 +2,6 @@ package org.openmrs.module.mirebalais.smoke.pageobjects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -68,21 +67,8 @@ public class NewCheckIn extends AbstractPageObject {
 	}
 	
 	private void confirmPopup() {
-
-        // could be either the create record dialog or the request paper dialog
-        try {
-            new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(By.id("create-paper-record-dialog")));
-                clickOn(By.cssSelector("#create-paper-record-dialog button"));
-                return;
-
-        }
-        catch (TimeoutException e){
-
-        }
-
-        new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(By.id("request-paper-record-dialog")));
-        clickOn(By.cssSelector("#request-paper-record-dialog button"));
-
+        new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(By.id("create-paper-record-dialog")));
+        clickOn(By.cssSelector("#create-paper-record-dialog button"));
 	}
 
     private void selectFirstOptionFor(String spanId) {
