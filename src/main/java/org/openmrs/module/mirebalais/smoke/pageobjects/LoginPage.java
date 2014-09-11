@@ -21,7 +21,7 @@ public class LoginPage {
 	}
 	
 	public void logIn(String user, String password) {
-		logIn(user, password, 1);
+		logIn(user, password, 0);
 	}
 
 	public void logInAsAdmin() {
