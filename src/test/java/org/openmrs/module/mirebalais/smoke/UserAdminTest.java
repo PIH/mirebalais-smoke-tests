@@ -1,11 +1,10 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import java.sql.SQLException;
-
 import org.dbunit.dataset.DataSetException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.mirebalais.smoke.helper.NameGenerator;
 import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.MyAccountApp;
@@ -13,6 +12,9 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.SysAdminPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.UserAdmin;
 import org.openqa.selenium.By;
 
+import java.sql.SQLException;
+
+import static org.apache.commons.lang.StringUtils.replaceChars;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
@@ -149,7 +151,7 @@ public class UserAdminTest extends DbTest {
 		
 		appDashboard.openSysAdminApp();
         // confirm localized in English
-		String text = driver.findElement(By.id(SysAdminPage.MANAGE_ACCOUNTS)).getText();
+		String text = driver.findElement(By.id(replaceChars(CustomAppLoaderConstants.MANAGE_ACCOUNTS_APP, ".", "-") + SysAdminPage.SYSTEM_ADMINISTRATION_APP_LINK_SUFFIX)).getText();
 		assertFalse(text.contains("Jere Kont"));
 		assertTrue(text.contains("Manage Accounts"));
 		

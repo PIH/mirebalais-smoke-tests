@@ -22,7 +22,7 @@ public class MergePatientTest extends DbTest {
 		Patient secondPatient = PatientDatabaseHandler.insertNewTestPatient();
 		
 		appDashboard.openSysAdminApp();
-		sysAdminPage.openManagePatientRecords();
+		sysAdminPage.openMergePatients();
 		
 		mergeFlow.setPatientsToMerge(firstPatient.getIdentifier(), secondPatient.getIdentifier());
 		

@@ -27,6 +27,10 @@
         <url>scm:git:git@github.com:PIH/mirebalais-smoke-tests.git</url>
     </scm>
 
+    <properties>
+        <mirebalaisVersion>1.2-SNAPSHOT</mirebalaisVersion>
+    </properties>
+
     <build>
 
         <resources>
@@ -95,6 +99,12 @@
     </build>
 
     <dependencies>
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>mirebalais-api</artifactId>
+            <version>${mirebalaisVersion}</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

@@ -14,6 +14,7 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
+import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.AdmissionNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.ConsultNoteForm;
@@ -94,7 +95,7 @@ public class PatientDashboard extends AbstractPageObject {
 
 	private By firstPencilIcon = By.cssSelector("#encountersList span i:nth-child(1)");
 	
-	private By dispenseMedicationButton = By.id("dispensing.dashboardAction");
+	private By dispenseMedicationButton = By.id(CustomAppLoaderConstants.DISPENSE_MEDICATION_VISIT_ACTION);
 
     private By encounterList = By.id("encountersList");
 	
@@ -382,12 +383,13 @@ public class PatientDashboard extends AbstractPageObject {
 
 	private void createFormsMap() {
 		formList = new HashMap<String, By>();
-		formList.put("Consult Note", By.id("mirebalais.consult"));
-		formList.put("Surgical Note", By.id("mirebalais.surgicalOperativeNote"));
-		formList.put("Order X-Ray", By.id("org.openmrs.module.radiologyapp.orderXray"));
-		formList.put("ED Note", By.id("mirebalais.edConsult"));
-        formList.put("Admission Note", By.id("mirebalais.admit"));
+		formList.put("Consult Note", By.id(CustomAppLoaderConstants.CONSULT_NOTE_VISIT_ACTION));
+		formList.put("Surgical Note", By.id(CustomAppLoaderConstants.SURGICAL_NOTE_VISIT_ACTION));
+		formList.put("Order X-Ray", By.id(CustomAppLoaderConstants.ORDER_XRAY_VISIT_ACTION));
+		formList.put("ED Note", By.id(CustomAppLoaderConstants.ED_CONSULT_NOTE_VISIT_ACTION));
+        formList.put("Admission Note", By.id(CustomAppLoaderConstants.ADMISSION_NOTE_VISIT_ACTION));
 	}
+
 
 	public MedicationDispensed firstMedication() {
         wait15seconds.until(visibilityOfElementLocated(dispensingForm));

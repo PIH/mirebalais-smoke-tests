@@ -14,6 +14,7 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
+import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -22,127 +23,115 @@ import org.openqa.selenium.WebElement;
 
 import java.math.BigInteger;
 
-public class AppDashboard extends AbstractPageObject {
+import static org.apache.commons.lang.StringUtils.replaceChars;
 
-	public static final String ACTIVE_VISITS = "org-openmrs-module-mirebalais-activeVisitsHomepageLink-app";
-    public static final String ARCHIVES_ROOM = "paperrecord-archivesRoom-app";
-    public static final String EDIT_PATIENT = "patientRegistration-lookup-app";
-    public static final String PATIENT_REGISTRATION = "patientRegistration-registration-app";
-    public static final String START_HOSPITAL_VISIT = "patientRegistration-emergencyCheckin-app";
-    public static final String START_CLINIC_VISIT = "mirebalais-liveCheckin-appLink-app";
-    public static final String SYSTEM_ADMINISTRATION = "emr-systemAdministration-app";
-    public static final String CAPTURE_VITALS = "mirebalais-outpatientVitals-appLink-app";
-    public static final String REPORTS = "reportingui-reports-homepagelink-app";
-    public static final String LEGACY = "legacy-admin-app";
-    public static final String MASTER_PATIENT_INDEX = "mirebalais-mpi-app";
-    public static final String IN_PATIENT = "mirebalaisreports-inpatients-app";
-    public static final String MY_ACCOUNT = "emr-myAccount-app";
-    public static final String APPOINTMENT_SCHEDULING = "appointmentschedulingui-homeAppLink-app";
-    public static final String AWAITING_ADMISSION = "org-openmrs-module-mirebalais-awaitingAdmissionHomepageLink-app";
+public class AppDashboard extends AbstractPageObject {
 
     public static final By SEARCH_FIELD = By.id("patient-search");
     public static final By SEARCH_RESULTS_TABLE = By.id("patient-search-results-table");
 
+    public static final String LEGACY = "legacy-admin-app";
+    public static final String APP_LINK_SUFFIX = "-appLink-app";
 
     public AppDashboard(WebDriver driver) {
         super(driver);
     }
 
     public void openActiveVisitsApp() {
-        openApp(ACTIVE_VISITS);
+        openApp(replaceChars(CustomAppLoaderConstants.ACTIVE_VISITS_APP, ".", "-") + APP_LINK_SUFFIX);
 	}
 
     public void openAppointmentSchedulingApp() {
-        openApp(APPOINTMENT_SCHEDULING);
+        openApp(replaceChars(CustomAppLoaderConstants.APPOINTMENT_SCHEDULING_HOME_APP, ".", "-") + APP_LINK_SUFFIX);
     }
 
     public void openMyAccountApp() {
-        openApp(MY_ACCOUNT);
+        openApp(replaceChars(CustomAppLoaderConstants.MY_ACCOUNT_APP, ".", "-") + APP_LINK_SUFFIX);
 	}
 
     public void openInPatientApp() {
-        openApp(IN_PATIENT);
+        openApp(replaceChars(CustomAppLoaderConstants.INPATIENTS_APP, ".", "-") + APP_LINK_SUFFIX);
 	}
 
 	public void openArchivesRoomApp() {
-        openApp(ARCHIVES_ROOM);
+        openApp(replaceChars(CustomAppLoaderConstants.ARCHIVES_ROOM_APP, ".", "-") + APP_LINK_SUFFIX);
 	}
 
 	public void openPatientRegistrationApp() {
-        openApp(PATIENT_REGISTRATION);
+        openApp(replaceChars(CustomAppLoaderConstants.LEGACY_PATIENT_REGISTRATION_APP, ".", "-") + APP_LINK_SUFFIX);
 	}
 
     public void openStartHospitalVisitApp() {
-        openApp(START_HOSPITAL_VISIT);
+        openApp(replaceChars(CustomAppLoaderConstants.LEGACY_PATIENT_REGISTRATION_ED_APP, ".", "-") + APP_LINK_SUFFIX);
     }
 
     public void openSysAdminApp() {
-        openApp(SYSTEM_ADMINISTRATION);
+        openApp(replaceChars(CustomAppLoaderConstants.SYSTEM_ADMINISTRATION_APP, ".", "-") + APP_LINK_SUFFIX);
 	}
 
     public void openCaptureVitalsApp() {
-        openApp(CAPTURE_VITALS);
+        openApp(replaceChars(CustomAppLoaderConstants.VITALS_APP, ".", "-") + APP_LINK_SUFFIX);
     }
 
     public void openReportApp() {
-    	 openApp(REPORTS);
+    	 openApp(replaceChars(CustomAppLoaderConstants.REPORTS_APP, ".", "-") + APP_LINK_SUFFIX);
 	}
 
     public void openAwaitingAdmissionApp() {
-        openApp(AWAITING_ADMISSION);
+        openApp(replaceChars(CustomAppLoaderConstants.AWAITING_ADMISSION_APP, ".", "-") + APP_LINK_SUFFIX);
     }
 
     public void startClinicVisit() {
-		openApp(START_CLINIC_VISIT);
+		openApp(replaceChars(CustomAppLoaderConstants.CHECK_IN_APP, ".", "-") + APP_LINK_SUFFIX);
 	}
 
     public void openMasterPatientIndexApp() {
-    	openApp(MASTER_PATIENT_INDEX);
+    	openApp(replaceChars(CustomAppLoaderConstants.LEGACY_MPI_APP, ".", "-") + APP_LINK_SUFFIX);
 	}
 
     public void openCheckinApp() {
-        openApp(START_CLINIC_VISIT);
+        openApp(replaceChars(CustomAppLoaderConstants.CHECK_IN_APP, ".", "-") + APP_LINK_SUFFIX);
     }
 
     public boolean isPatientRegistrationAppPresented() {
-		return isAppButtonPresent(PATIENT_REGISTRATION);
+		return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.LEGACY_PATIENT_REGISTRATION_APP, ".", "-") + APP_LINK_SUFFIX);
 	}
 
     public boolean isArchivesRoomAppPresented() {
-        return isAppButtonPresent(ARCHIVES_ROOM);
+        return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.ARCHIVES_ROOM_APP, ".", "-") + APP_LINK_SUFFIX);
     }
 
 	public boolean isSystemAdministrationAppPresented() {
-        return isAppButtonPresent(SYSTEM_ADMINISTRATION);
+        return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.SYSTEM_ADMINISTRATION_APP, ".", "-") + APP_LINK_SUFFIX);
     }
 
     public boolean isActiveVisitsAppPresented() {
-		return isAppButtonPresent(ACTIVE_VISITS);
+		return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.ACTIVE_VISITS_APP, ".", "-") + APP_LINK_SUFFIX);
 	}
 
 	public boolean isCaptureVitalsAppPresented() {
-		return isAppButtonPresent(CAPTURE_VITALS);
+		return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.VITALS_APP, ".", "-") + APP_LINK_SUFFIX);
 	}
 
 	public boolean isReportsAppPresented() {
-		return isAppButtonPresent(REPORTS);
+		return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.REPORTS_APP, ".", "-") + APP_LINK_SUFFIX);
 	}
 
 	public Boolean isStartHospitalVisitAppPresented() {
-		return isAppButtonPresent(START_HOSPITAL_VISIT);
+		return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.LEGACY_PATIENT_REGISTRATION_ED_APP, ".", "-") + APP_LINK_SUFFIX);
 	}
 
 	public Boolean isStartClinicVisitAppPresented() {
-		return isAppButtonPresent(START_CLINIC_VISIT);
+		return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.CHECK_IN_APP, ".", "-") + APP_LINK_SUFFIX);
 	}
 
 	public Boolean isEditPatientAppPresented() {
-		return isAppButtonPresent(EDIT_PATIENT);
+		return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.LEGACY_PATIENT_LOOKUP_APP, ".", "-") + APP_LINK_SUFFIX);
 	}
 
-	public Boolean isLegacyAppPresented() {
-		return isAppButtonPresent(LEGACY);
-	}
+    public Boolean isLegacyAppPresented() {
+        return isAppButtonPresent(LEGACY);
+    }
 
     public void findPatientByIdentifier(String identifier) {
         WebElement searchField = driver.findElement(SEARCH_FIELD);
