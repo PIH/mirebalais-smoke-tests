@@ -95,7 +95,7 @@ public class PatientDashboard extends AbstractPageObject {
 
 	private By firstPencilIcon = By.cssSelector("#encountersList span i:nth-child(1)");
 	
-	private By dispenseMedicationButton = By.id(CustomAppLoaderConstants.DISPENSE_MEDICATION_VISIT_ACTION);
+	private By dispenseMedicationButton = By.id(CustomAppLoaderConstants.Extensions.DISPENSE_MEDICATION_VISIT_ACTION);
 
     private By encounterList = By.id("encountersList");
 	
@@ -383,11 +383,11 @@ public class PatientDashboard extends AbstractPageObject {
 
 	private void createFormsMap() {
 		formList = new HashMap<String, By>();
-		formList.put("Consult Note", By.id(CustomAppLoaderConstants.CONSULT_NOTE_VISIT_ACTION));
-		formList.put("Surgical Note", By.id(CustomAppLoaderConstants.SURGICAL_NOTE_VISIT_ACTION));
-		formList.put("Order X-Ray", By.id(CustomAppLoaderConstants.ORDER_XRAY_VISIT_ACTION));
-		formList.put("ED Note", By.id(CustomAppLoaderConstants.ED_CONSULT_NOTE_VISIT_ACTION));
-        formList.put("Admission Note", By.id(CustomAppLoaderConstants.ADMISSION_NOTE_VISIT_ACTION));
+		formList.put("Consult Note", By.id(CustomAppLoaderConstants.Extensions.CONSULT_NOTE_VISIT_ACTION));
+		formList.put("Surgical Note", By.id(CustomAppLoaderConstants.Extensions.SURGICAL_NOTE_VISIT_ACTION));
+		formList.put("Order X-Ray", By.id(CustomAppLoaderConstants.Extensions.ORDER_XRAY_VISIT_ACTION));
+		formList.put("ED Note", By.id(CustomAppLoaderConstants.Extensions.ED_CONSULT_NOTE_VISIT_ACTION));
+        formList.put("Admission Note", By.id(CustomAppLoaderConstants.Extensions.ADMISSION_NOTE_VISIT_ACTION));
 	}
 
 

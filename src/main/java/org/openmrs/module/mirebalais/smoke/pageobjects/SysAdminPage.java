@@ -14,11 +14,11 @@ public class SysAdminPage extends AbstractPageObject {
 	}
 
 	public void openManageAccounts() {
-		openApp(replaceChars(CustomAppLoaderConstants.MANAGE_ACCOUNTS_APP, ".", "-") + SYSTEM_ADMINISTRATION_APP_LINK_SUFFIX);
+		openApp(replaceChars(CustomAppLoaderConstants.Apps.MANAGE_ACCOUNTS, ".", "-") + SYSTEM_ADMINISTRATION_APP_LINK_SUFFIX);
 	}
 	
 	public void openMergePatients() {
-        openApp(replaceChars(CustomAppLoaderConstants.MERGE_PATIENTS_APP, ".", "-") + SYSTEM_ADMINISTRATION_APP_LINK_SUFFIX);
+        openApp(replaceChars(CustomAppLoaderConstants.Apps.MERGE_PATIENTS, ".", "-") + SYSTEM_ADMINISTRATION_APP_LINK_SUFFIX);
 	}
 
     public void openApp(String appId) {

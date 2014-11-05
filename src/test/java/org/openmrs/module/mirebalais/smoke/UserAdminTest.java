@@ -151,7 +151,7 @@ public class UserAdminTest extends DbTest {
 		
 		appDashboard.openSysAdminApp();
         // confirm localized in English
-		String text = driver.findElement(By.id(replaceChars(CustomAppLoaderConstants.MANAGE_ACCOUNTS_APP, ".", "-") + SysAdminPage.SYSTEM_ADMINISTRATION_APP_LINK_SUFFIX)).getText();
+		String text = driver.findElement(By.id(replaceChars(CustomAppLoaderConstants.Apps.MANAGE_ACCOUNTS, ".", "-") + SysAdminPage.SYSTEM_ADMINISTRATION_APP_LINK_SUFFIX)).getText();
 		assertFalse(text.contains("Jere Kont"));
 		assertTrue(text.contains("Manage Accounts"));
 		

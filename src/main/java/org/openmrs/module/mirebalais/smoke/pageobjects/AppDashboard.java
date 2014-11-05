@@ -38,95 +38,95 @@ public class AppDashboard extends AbstractPageObject {
     }
 
     public void openActiveVisitsApp() {
-        openApp(replaceChars(CustomAppLoaderConstants.ACTIVE_VISITS_APP, ".", "-") + APP_LINK_SUFFIX);
+        openApp(replaceChars(CustomAppLoaderConstants.Apps.ACTIVE_VISITS, ".", "-") + APP_LINK_SUFFIX);
 	}
 
     public void openAppointmentSchedulingApp() {
-        openApp(replaceChars(CustomAppLoaderConstants.APPOINTMENT_SCHEDULING_HOME_APP, ".", "-") + APP_LINK_SUFFIX);
+        openApp(replaceChars(CustomAppLoaderConstants.Apps.APPOINTMENT_SCHEDULING_HOME, ".", "-") + APP_LINK_SUFFIX);
     }
 
     public void openMyAccountApp() {
-        openApp(replaceChars(CustomAppLoaderConstants.MY_ACCOUNT_APP, ".", "-") + APP_LINK_SUFFIX);
+        openApp(replaceChars(CustomAppLoaderConstants.Apps.MY_ACCOUNT, ".", "-") + APP_LINK_SUFFIX);
 	}
 
     public void openInPatientApp() {
-        openApp(replaceChars(CustomAppLoaderConstants.INPATIENTS_APP, ".", "-") + APP_LINK_SUFFIX);
+        openApp(replaceChars(CustomAppLoaderConstants.Apps.INPATIENTS, ".", "-") + APP_LINK_SUFFIX);
 	}
 
 	public void openArchivesRoomApp() {
-        openApp(replaceChars(CustomAppLoaderConstants.ARCHIVES_ROOM_APP, ".", "-") + APP_LINK_SUFFIX);
+        openApp(replaceChars(CustomAppLoaderConstants.Apps.ARCHIVES_ROOM, ".", "-") + APP_LINK_SUFFIX);
 	}
 
 	public void openPatientRegistrationApp() {
-        openApp(replaceChars(CustomAppLoaderConstants.LEGACY_PATIENT_REGISTRATION_APP, ".", "-") + APP_LINK_SUFFIX);
+        openApp(replaceChars(CustomAppLoaderConstants.Apps.LEGACY_PATIENT_REGISTRATION, ".", "-") + APP_LINK_SUFFIX);
 	}
 
     public void openStartHospitalVisitApp() {
-        openApp(replaceChars(CustomAppLoaderConstants.LEGACY_PATIENT_REGISTRATION_ED_APP, ".", "-") + APP_LINK_SUFFIX);
+        openApp(replaceChars(CustomAppLoaderConstants.Apps.LEGACY_PATIENT_REGISTRATION_ED, ".", "-") + APP_LINK_SUFFIX);
     }
 
     public void openSysAdminApp() {
-        openApp(replaceChars(CustomAppLoaderConstants.SYSTEM_ADMINISTRATION_APP, ".", "-") + APP_LINK_SUFFIX);
+        openApp(replaceChars(CustomAppLoaderConstants.Apps.SYSTEM_ADMINISTRATION, ".", "-") + APP_LINK_SUFFIX);
 	}
 
     public void openCaptureVitalsApp() {
-        openApp(replaceChars(CustomAppLoaderConstants.VITALS_APP, ".", "-") + APP_LINK_SUFFIX);
+        openApp(replaceChars(CustomAppLoaderConstants.Apps.VITALS, ".", "-") + APP_LINK_SUFFIX);
     }
 
     public void openReportApp() {
-    	 openApp(replaceChars(CustomAppLoaderConstants.REPORTS_APP, ".", "-") + APP_LINK_SUFFIX);
+    	 openApp(replaceChars(CustomAppLoaderConstants.Apps.REPORTS, ".", "-") + APP_LINK_SUFFIX);
 	}
 
     public void openAwaitingAdmissionApp() {
-        openApp(replaceChars(CustomAppLoaderConstants.AWAITING_ADMISSION_APP, ".", "-") + APP_LINK_SUFFIX);
+        openApp(replaceChars(CustomAppLoaderConstants.Apps.AWAITING_ADMISSION, ".", "-") + APP_LINK_SUFFIX);
     }
 
     public void startClinicVisit() {
-		openApp(replaceChars(CustomAppLoaderConstants.CHECK_IN_APP, ".", "-") + APP_LINK_SUFFIX);
+		openApp(replaceChars(CustomAppLoaderConstants.Apps.CHECK_IN, ".", "-") + APP_LINK_SUFFIX);
 	}
 
     public void openMasterPatientIndexApp() {
-    	openApp(replaceChars(CustomAppLoaderConstants.LEGACY_MPI_APP, ".", "-") + APP_LINK_SUFFIX);
+    	openApp(replaceChars(CustomAppLoaderConstants.Apps.LEGACY_MPI, ".", "-") + APP_LINK_SUFFIX);
 	}
 
     public void openCheckinApp() {
-        openApp(replaceChars(CustomAppLoaderConstants.CHECK_IN_APP, ".", "-") + APP_LINK_SUFFIX);
+        openApp(replaceChars(CustomAppLoaderConstants.Apps.CHECK_IN, ".", "-") + APP_LINK_SUFFIX);
     }
 
     public boolean isPatientRegistrationAppPresented() {
-		return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.LEGACY_PATIENT_REGISTRATION_APP, ".", "-") + APP_LINK_SUFFIX);
+		return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.Apps.LEGACY_PATIENT_REGISTRATION, ".", "-") + APP_LINK_SUFFIX);
 	}
 
     public boolean isArchivesRoomAppPresented() {
-        return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.ARCHIVES_ROOM_APP, ".", "-") + APP_LINK_SUFFIX);
+        return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.Apps.ARCHIVES_ROOM, ".", "-") + APP_LINK_SUFFIX);
     }
 
 	public boolean isSystemAdministrationAppPresented() {
-        return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.SYSTEM_ADMINISTRATION_APP, ".", "-") + APP_LINK_SUFFIX);
+        return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.Apps.SYSTEM_ADMINISTRATION, ".", "-") + APP_LINK_SUFFIX);
     }
 
     public boolean isActiveVisitsAppPresented() {
-		return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.ACTIVE_VISITS_APP, ".", "-") + APP_LINK_SUFFIX);
+		return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.Apps.ACTIVE_VISITS, ".", "-") + APP_LINK_SUFFIX);
 	}
 
 	public boolean isCaptureVitalsAppPresented() {
-		return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.VITALS_APP, ".", "-") + APP_LINK_SUFFIX);
+		return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.Apps.VITALS, ".", "-") + APP_LINK_SUFFIX);
 	}
 
 	public boolean isReportsAppPresented() {
-		return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.REPORTS_APP, ".", "-") + APP_LINK_SUFFIX);
+		return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.Apps.REPORTS, ".", "-") + APP_LINK_SUFFIX);
 	}
 
 	public Boolean isStartHospitalVisitAppPresented() {
-		return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.LEGACY_PATIENT_REGISTRATION_ED_APP, ".", "-") + APP_LINK_SUFFIX);
+		return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.Apps.LEGACY_PATIENT_REGISTRATION_ED, ".", "-") + APP_LINK_SUFFIX);
 	}
 
 	public Boolean isStartClinicVisitAppPresented() {
-		return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.CHECK_IN_APP, ".", "-") + APP_LINK_SUFFIX);
+		return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.Apps.CHECK_IN, ".", "-") + APP_LINK_SUFFIX);
 	}
 
 	public Boolean isEditPatientAppPresented() {
-		return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.LEGACY_PATIENT_LOOKUP_APP, ".", "-") + APP_LINK_SUFFIX);
+		return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.Apps.LEGACY_PATIENT_LOOKUP, ".", "-") + APP_LINK_SUFFIX);
 	}
 
     public Boolean isLegacyAppPresented() {
