@@ -88,7 +88,7 @@ public class NonCodedDiagnosesTest extends DbTest {
         reportsHomePage.openNonCodedDiagnosesReport(NON_CODED_DIAGNOSIS);
         NonCodedDiagnosesList nonCodedDiagnosesList = new NonCodedDiagnosesList(driver);
         nonCodedDiagnosesList.openCodeDiagnosisDialog(NON_CODED_DIAGNOSIS);
-        nonCodedDiagnosesList.setClearTextToField("diagnosis-search", CODED_DIAGNOSIS);
+        nonCodedDiagnosesList.setTextToField("diagnosis-search", CODED_DIAGNOSIS);
         driver.findElement(By.cssSelector("strong.matched-name")).click();
         nonCodedDiagnosesList.clickOn(confirmCodeDiagnosis);
         nonCodedDiagnosesList.wait5seconds.until(invisibilityOfElementLocated(By.id(CODE_DIAGNOSIS_DIALOG)));
@@ -104,7 +104,7 @@ public class NonCodedDiagnosesTest extends DbTest {
         reportsHomePage.openNonCodedDiagnosesReport(NON_CODED_DIAGNOSIS);
         NonCodedDiagnosesList nonCodedDiagnosesList = new NonCodedDiagnosesList(driver);
         nonCodedDiagnosesList.openCodeDiagnosisDialog(NON_CODED_DIAGNOSIS);
-        nonCodedDiagnosesList.setClearTextToField("diagnosis-search", CODED_DIAGNOSIS);
+        nonCodedDiagnosesList.setTextToField("diagnosis-search", CODED_DIAGNOSIS);
         driver.findElement(By.cssSelector("strong.matched-name")).click();
         nonCodedDiagnosesList.clickOn(confirmCodeDiagnosis);
         nonCodedDiagnosesList.wait5seconds.until(invisibilityOfElementLocated(By.id(CODE_DIAGNOSIS_DIALOG)));

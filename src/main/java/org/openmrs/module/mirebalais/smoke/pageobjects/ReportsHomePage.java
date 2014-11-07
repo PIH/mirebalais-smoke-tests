@@ -32,7 +32,7 @@ public class ReportsHomePage extends AbstractPageObject {
 
     public void openNonCodedDiagnosesReport(String diagnosis) {
         clickLink(NONCODED_DIAGNOSES_REPORT);
-        setClearTextToField("nonCodedField-display", diagnosis);
+        setTextToField("nonCodedField-display", diagnosis);
         clickOn(By.cssSelector("#submit"));
     }
 

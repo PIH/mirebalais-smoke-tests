@@ -66,11 +66,11 @@ public abstract class AbstractPageObject {
     	clickOn(By.id("checkmark-yellow"));
     }
     
-    public void setClearTextToField(By element, String text) {
+    public void setTextToField(By element, String text) {
         setText(driver.findElement(element), text);
     }
     
-    public void setClearTextToField(String textFieldId, String text) {
+    public void setTextToField(String textFieldId, String text) {
         setText(driver.findElement(By.id(textFieldId)), text);
     }
     
@@ -124,7 +124,7 @@ public abstract class AbstractPageObject {
 	    } 
 		throw new Exception("Option not found");
     }
-    
+
     public void clickOnRandomOption(By elementIdentifier) {
     	getRandomOption(elementIdentifier).click();
     }
@@ -161,6 +161,18 @@ public abstract class AbstractPageObject {
 
     public void scrollIntoView(WebElement element) {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+    }
+
+    public void selectFromDropdown(String id, int elementPosition) {
+        findSelectOptions(By.id(id)).get(elementPosition).click();
+    }
+
+    public void selectFromDropdown(By element, int elementPosition) {
+        findSelectOptions(element).get(elementPosition).click();
+    }
+
+    public List<WebElement> findSelectOptions(By element) {
+        return driver.findElement(element).findElements(By.tagName("option"));
     }
 
     protected WebElement findOptionByText(String text, WebElement selectElement) {

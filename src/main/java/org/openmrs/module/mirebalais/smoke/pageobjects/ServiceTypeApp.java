@@ -20,9 +20,9 @@ public class ServiceTypeApp extends AbstractPageObject {
     }
 
     public void createServiceType(String name, String duration, String description){
-        setClearTextToField("name-field",name);
-        setClearTextToField("duration-field", duration);
-        setClearTextToField(By.name("description"), description);
+        setTextToField("name-field", name);
+        setTextToField("duration-field", duration);
+        setTextToField(By.name("description"), description);
         clickOn(SAVE_BUTTON);
     }
 

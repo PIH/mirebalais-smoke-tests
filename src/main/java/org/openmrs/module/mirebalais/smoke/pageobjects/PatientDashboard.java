@@ -295,6 +295,11 @@ public class PatientDashboard extends AbstractPageObject {
 		clickOn(By.cssSelector(".actions i.icon-folder-open"));
 		clickOn(By.cssSelector("#request-paper-record-dialog .confirm"));
 	}
+
+    public void openRequestAppointmentForm() {
+        hoverOn(By.cssSelector(".actions"));
+        clickOn(By.cssSelector(".actions a[href*='requestAppointment'"));
+    }
 	
 	public String getDossierNumber() {
 		List<WebElement> elements = driver.findElements(By.cssSelector(".identifiers span"));
@@ -398,7 +403,7 @@ public class PatientDashboard extends AbstractPageObject {
 		return new MedicationDispensed(dispensingInformation, first, 1);
 	}
 
-	public class MedicationDispensed {
+    public class MedicationDispensed {
 
         private WebElement dispensingInformation;
 

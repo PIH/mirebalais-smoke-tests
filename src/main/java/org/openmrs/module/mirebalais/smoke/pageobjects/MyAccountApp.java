@@ -18,9 +18,9 @@ public class MyAccountApp extends AbstractPageObject{
 	}
 	
 	public void changePassword(String oldPassword, String newPassword) {
-		setClearTextToField("oldPassword", oldPassword);
-		setClearTextToField("newPassword", newPassword);
-		setClearTextToField("confirmPassword", newPassword);
+		setTextToField("oldPassword", oldPassword);
+		setTextToField("newPassword", newPassword);
+		setTextToField("confirmPassword", newPassword);
 		clickOn(SAVE_BUTTON);
 	}
 }

@@ -22,7 +22,7 @@ public abstract class BaseHtmlForm extends AbstractPageObject {
     }
 
     public void choosePrimaryDiagnosis(String primaryDiagnosis) {
-        setClearTextToField("diagnosis-search", primaryDiagnosis);
+        setTextToField("diagnosis-search", primaryDiagnosis);
         driver.findElement(By.cssSelector("strong.matched-name")).click();
     }
 

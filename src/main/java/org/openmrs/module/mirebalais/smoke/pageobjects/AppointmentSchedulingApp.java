@@ -8,10 +8,11 @@ import org.openqa.selenium.WebDriver;
  */
 public class AppointmentSchedulingApp extends AbstractPageObject {
 
-    public static final String MANAGE_APPOINTMENTS = "appointmentschedulingui-schedulingAppointmentAppLink-app";
+    public static final String MANAGE_APPOINTMENTS = "appointmentschedulingui-manageAppointments-app";
     public static final String MANAGE_APPOINTMENT_TYPES = "appointmentschedulingui-manageAppointmentTypes-app";
-    public static final String DAILY_APPOINTMENTS = "appointmentschedulingui-scheduledAppointments-homepageLink-app";
+    public static final String DAILY_APPOINTMENTS = "appointmentschedulingui-scheduledAppointments-app";
     public static final String SCHEDULE_PROVIDERS = "appointmentschedulingui-scheduleProviders-app";
+    public static final String APPOINTMENT_REQUESTS = "appointmentschedulingui-appointmentRequests-app";
 
     public AppointmentSchedulingApp(WebDriver driver) {
         super(driver);
@@ -32,6 +33,8 @@ public class AppointmentSchedulingApp extends AbstractPageObject {
     public void openScheduleProvidersApp() {
         openSubApp(SCHEDULE_PROVIDERS);
     }
+
+    public void openAppointmentRequestsApp() { openSubApp(APPOINTMENT_REQUESTS); }
 
     private void openSubApp(String appIdentifier) {
         driver.findElement(By.id(appIdentifier)).click();

@@ -108,6 +108,8 @@ public class PatientDatabaseHandler extends BaseDatabaseHandler {
 		firstToDelete.put("person_merge_log", "select * from person_merge_log where winner_person_id = %d");
         firstToDelete.put("paperrecord_paper_record_request",
                 "select * from paperrecord_paper_record_request where paper_record in (select record_id from paperrecord_paper_record where patient_identifier in (select patient_identifier_id from patient_identifier where patient_id = %d))");
+        firstToDelete.put("appointmentscheduling_appointment_request",
+                "select * from appointmentscheduling_appointment_request where patient_id= %d");
         patientTablesToDelete.add(firstToDelete);
 		
 		Map<String, String> secondToDelete = new LinkedHashMap<String, String>();

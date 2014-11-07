@@ -20,7 +20,7 @@ public class VitalsApp extends AbstractPageObject {
 	}
 
 	public void enterPatientIdentifier(String patientID) {
-		setClearTextToField(SEARCH_PATIENT_FIELD_ID, patientID);
+		setTextToField(SEARCH_PATIENT_FIELD_ID, patientID);
 	}
 
 	public void confirmPatient() {
@@ -55,7 +55,7 @@ public class VitalsApp extends AbstractPageObject {
     }
 
     private void hitEnterOnLbsField() {
-        setClearTextToField(WEIGHT_INCHES_FIELD, "");
+        setTextToField(WEIGHT_INCHES_FIELD, "");
     }
 
     private void hitEnterOnInchesField() {

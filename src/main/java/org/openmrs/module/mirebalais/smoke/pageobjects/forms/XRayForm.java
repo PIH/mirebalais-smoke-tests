@@ -31,10 +31,10 @@ public class XRayForm extends AbstractPageObject {
         chooseLocation("Ijans");
 
         driver.findElement(By.name("clinicalHistory")).sendKeys("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eu neque ut mi auctor pulvinar. Mauris in orci non sem consequat posuere.");
-		setClearTextToField("study-search", study1);
+		setTextToField("study-search", study1);
 		clickOn(By.linkText(study1));
 		
-		setClearTextToField("study-search", study2);
+		setTextToField("study-search", study2);
 		clickOn(By.linkText(study2));
 
 		clickOn(By.id("next"));
