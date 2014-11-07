@@ -16,12 +16,12 @@ public class RequestAppointmentPage extends AbstractPageObject {
     public void requestAppointment() throws InterruptedException {
 
         WebElement appointmentTypeField = driver.findElement(By.id("appointment-type"));
-        appointmentTypeField.sendKeys("outpatient");
+        appointmentTypeField.sendKeys("klinik");
         wait5seconds.until(visibilityOfElementLocated(By.tagName("strong")));
         appointmentTypeField.sendKeys(Keys.RETURN);
 
         WebElement providerField = driver.findElement(By.id("provider"));
-        providerField.sendKeys("bob");
+        providerField.sendKeys("unknown");
         wait5seconds.until(visibilityOfElementLocated(By.tagName("strong")));
         providerField.sendKeys(Keys.RETURN);
 

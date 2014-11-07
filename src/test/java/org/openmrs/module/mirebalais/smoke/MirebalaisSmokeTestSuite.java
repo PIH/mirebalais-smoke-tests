@@ -29,6 +29,7 @@ import org.openqa.selenium.WebDriver;
                         NonCodedDiagnosesTest.class,
                         OrdersTest.class,
                         PatientSearchTest.class,
+                        RequestAppointmentsTest.class,
                         RegistrationFlowTest.class,
                         RetroConsultNoteTest.class,
                         RetroVisitTest.class,
