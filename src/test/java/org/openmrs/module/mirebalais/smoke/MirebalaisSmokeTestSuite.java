@@ -15,6 +15,7 @@ import org.openqa.selenium.WebDriver;
                         CaptureVitalsTest.class,
                         ConsultNoteTest.class,
                         DailyAppointmentsTest.class,
+                        DeathCertificateTest.class,
                         DispensingTest.class,
                         EmergencyCheckinTest.class,
                         GenerateDossierAtCheckinTest.class,

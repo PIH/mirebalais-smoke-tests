@@ -85,6 +85,8 @@ public class PatientDashboard extends AbstractPageObject {
 
     private By addRetroVisit = By.cssSelector("a i.icon-plus");
 
+    private By enterDeathCertificateLink = By.cssSelector("a i.icon-remove-circle");
+
     private By retroStartDate = By.cssSelector("#retrospectiveVisitStartDate-display");
 
     private By retroStopDate = By.cssSelector("#retrospectiveVisitStopDate-display");
@@ -373,6 +375,12 @@ public class PatientDashboard extends AbstractPageObject {
 		driver.findElement(dispenseMedicationButton).click();
 		return new DispenseMedicationForm(driver);
 	}
+
+    public DeathCertificateFormPage goToEnterDeathCertificateForm() {
+        hoverOn(actions);
+        clickOn(enterDeathCertificateLink);
+        return new DeathCertificateFormPage(driver);
+    }
 	
 	public void clickFirstEncounterDetails() {
         WebDriverWait wait30seconds = new WebDriverWait(driver, 30);
