@@ -26,7 +26,7 @@ public class DeathCertificateTest extends DbTest {
         deathCertificateForm.waitToLoad();
         deathCertificateForm.pressEnter(); // to confirm patient
         deathCertificateForm.enterFieldByKeyboard("u"); // Urban
-        deathCertificateForm.enterFieldByKeyboard("s"); // Civil status: Separated
+        deathCertificateForm.enterFieldByKeyboard("v"); // Civil status: Vèf (widowed)
         deathCertificateForm.enterFieldByKeyboard("Software Tester"); // occupation
         deathCertificateForm.enterFieldByKeyboard("n"); // No maternal death
         deathCertificateForm.enterFieldsByKeyboard("7", "f", "2014", "", "", ""); // Enter 6 times for default date + time
@@ -42,7 +42,7 @@ public class DeathCertificateTest extends DbTest {
 
         String text = driver.findElement(By.cssSelector("#confirmation #dataCanvas")).getText();
         assertTrue(text.contains("Urbaine"));
-        assertTrue(text.contains("Separe"));
+        assertTrue(text.contains("Vèf"));
         assertTrue(text.contains("Software Tester"));
         // Lanmò matènèl: Non
         assertTrue(text.contains("(Médecin)")); // captured by role
