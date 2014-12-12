@@ -29,7 +29,23 @@
 
     <properties>
         <mirebalaisVersion>1.2-SNAPSHOT</mirebalaisVersion>
+        <suite>General</suite>
     </properties>
+
+    <profiles>
+        <profile>
+            <id>mirebalais</id>
+            <properties>
+                <suite>Mirebalais</suite>
+            </properties>
+        </profile>
+        <profile>
+            <id>general</id>
+            <properties>
+                <suite>General</suite>
+            </properties>
+        </profile>
+    </profiles>
 
     <build>
 
@@ -71,7 +87,7 @@
                 </executions>
                 <configuration>
                     <includes>
-                        <include>**/MirebalaisSmokeTestSuite.java</include>
+                        <include>**/${suite}SmokeTestSuite.java</include>
                     </includes>
                 </configuration>
             </plugin>
