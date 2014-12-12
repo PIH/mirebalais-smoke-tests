@@ -75,6 +75,10 @@ public abstract class AbstractPageObject {
         driver.findElement(elementId).sendKeys(Keys.TAB);
     }
 
+    public void hitEnterKey(By elementId) {
+        driver.findElement(elementId).sendKeys(Keys.ENTER);
+    }
+
     private void setText(WebElement element, String text) {
     	element.clear();
 		element.sendKeys(text);

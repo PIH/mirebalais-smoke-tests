@@ -1,24 +1,35 @@
 package org.openmrs.module.mirebalais.smoke;
 
 import org.junit.Test;
+import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
+import org.openmrs.module.mirebalais.smoke.pageobjects.ClinicianDashboard;
+import org.openmrs.module.mirebalais.smoke.pageobjects.PatientRegistration;
+import org.openqa.selenium.JavascriptExecutor;
+
+import java.math.BigInteger;
+
+import static org.junit.Assert.assertTrue;
 
 public class PatientRegistrationFlowTest extends DbTest {
 
     @Test
     public void registerNewPatient() throws Exception {
+
         initBasicPageObjects(new GeneralLoginPage(driver));
+        PatientRegistration registration = new PatientRegistration(driver);
 
         login();
-
         appDashboard.openPatientRegistrationApp();
-        //registration.goThruRegistrationProcessPrintingCard();
-        //populateTestPatientForTearDown();
+        registration.registerPatient("Tom", "Jones", PatientRegistration.Gender.MALE, 22, 1, 1975, "123-4567");
 
-        //assertThat(driver.findElement(By.tagName("body")).getText(), containsString(SCAN_MESSAGE));
+        assertTrue(new ClinicianDashboard(driver).isOpenForPatient("Tom", "Jones"));
+        // TODO: test that identifier has been assigned?
+
+        populateTestPatientForTearDown();
     }
 
     private void populateTestPatientForTearDown() throws Exception {
-        //String patientId = (String) ((JavascriptExecutor) driver).executeScript("return patientId");
-        //PatientDatabaseHandler.addTestPatientForDelete(new BigInteger(patientId));
+        String patientId = ((Long) ((JavascriptExecutor) driver).executeScript("return patient.id")).toString();
+        PatientDatabaseHandler.addTestPatientForDelete(new BigInteger(patientId));
     }
 }
