@@ -5,16 +5,16 @@ import org.openqa.selenium.WebDriver;
 
 public class EmergencyCheckin extends AbstractPageObject {
 
-	private Registration registration;
+	private LegacyRegistration legacyRegistration;
 	
     public EmergencyCheckin(WebDriver driver) {
         super(driver);
-        registration = new Registration(driver);
+        legacyRegistration = new LegacyRegistration(driver);
     }
 
     public void checkinMaleUnindentifiedPatient() {
         driver.findElement(By.id("registerJdBtn")).click();
-        registration.enterSexData();
+        legacyRegistration.enterSexData();
     }
 
 }

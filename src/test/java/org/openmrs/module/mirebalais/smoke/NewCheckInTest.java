@@ -33,7 +33,7 @@ public class NewCheckInTest extends DbTest {
     public Patient testPatient;
 
     @BeforeClass
-    public void prepare() throws Exception {
+    public static void prepare() throws Exception {
         logInAsAdmin();
     }
 

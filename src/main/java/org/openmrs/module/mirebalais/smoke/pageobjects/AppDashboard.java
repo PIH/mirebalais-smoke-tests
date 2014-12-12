@@ -57,9 +57,13 @@ public class AppDashboard extends AbstractPageObject {
         openApp(replaceChars(CustomAppLoaderConstants.Apps.ARCHIVES_ROOM, ".", "-") + APP_LINK_SUFFIX);
 	}
 
-	public void openPatientRegistrationApp() {
+	public void openLegacyPatientRegistrationApp() {
         openApp(replaceChars(CustomAppLoaderConstants.Apps.LEGACY_PATIENT_REGISTRATION, ".", "-") + APP_LINK_SUFFIX);
 	}
+
+    public void openPatientRegistrationApp() {
+        openApp(replaceChars(CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION, ".", "-") + APP_LINK_SUFFIX);
+    }
 
     public void openStartHospitalVisitApp() {
         openApp(replaceChars(CustomAppLoaderConstants.Apps.LEGACY_PATIENT_REGISTRATION_ED, ".", "-") + APP_LINK_SUFFIX);

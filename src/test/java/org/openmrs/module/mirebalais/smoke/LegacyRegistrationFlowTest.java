@@ -20,8 +20,8 @@ public class LegacyRegistrationFlowTest extends DbTest {
 
         login();
 		
-		appDashboard.openPatientRegistrationApp();
-		registration.goThruRegistrationProcessPrintingCard();
+		appDashboard.openLegacyPatientRegistrationApp();
+		legacyRegistration.goThruRegistrationProcessPrintingCard();
         populateTestPatientForTearDown();
 
 		assertThat(driver.findElement(By.tagName("body")).getText(), containsString(SCAN_MESSAGE));

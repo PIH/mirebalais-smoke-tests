@@ -10,7 +10,7 @@ public class PatientRegistrationFlowTest extends DbTest {
 
         login();
 
-        //appDashboard.openPatientRegistrationApp();
+        appDashboard.openPatientRegistrationApp();
         //registration.goThruRegistrationProcessPrintingCard();
         //populateTestPatientForTearDown();
 

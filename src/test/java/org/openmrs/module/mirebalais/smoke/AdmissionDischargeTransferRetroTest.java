@@ -19,7 +19,7 @@ public class AdmissionDischargeTransferRetroTest extends DbTest {
 
 
     @BeforeClass
-    public void prepare() throws Exception {
+    public static void prepare() throws Exception {
         logInAsAdmin();
     }
 

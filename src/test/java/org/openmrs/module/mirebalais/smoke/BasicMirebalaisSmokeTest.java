@@ -11,11 +11,11 @@ import org.openmrs.module.mirebalais.smoke.helper.SmokeTestDriver;
 import org.openmrs.module.mirebalais.smoke.helper.SmokeTestProperties;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
+import org.openmrs.module.mirebalais.smoke.pageobjects.LegacyPatientRegistrationDashboard;
+import org.openmrs.module.mirebalais.smoke.pageobjects.LegacyRegistration;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.MirebalaisLoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
-import org.openmrs.module.mirebalais.smoke.pageobjects.PatientRegistrationDashboard;
-import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -27,9 +27,9 @@ import java.util.concurrent.TimeUnit;
 
 public abstract class BasicMirebalaisSmokeTest {
 	
-	protected LoginPage loginPage;
+	protected static LoginPage loginPage;
 	
-	protected HeaderPage header;
+	protected static HeaderPage header;
 	
 	protected static WebDriver driver;
 	
@@ -48,9 +48,9 @@ public abstract class BasicMirebalaisSmokeTest {
 	
 	protected AppDashboard appDashboard;
 	
-	protected Registration registration;
+	protected LegacyRegistration legacyRegistration;
 	
-	protected PatientRegistrationDashboard patientRegistrationDashboard;
+	protected LegacyPatientRegistrationDashboard patientRegistrationDashboard;
 	
 	protected PatientDashboard patientDashboard;
 
@@ -89,31 +89,31 @@ public abstract class BasicMirebalaisSmokeTest {
         }
     }
 	
-	protected void logInAsClinicalUser() throws Exception {
+	protected static void logInAsClinicalUser() throws Exception {
 		loginPage.logInAsClinicalUser();
 	}
 	
-	protected void logInAsPharmacistUser() throws Exception {
+	protected static void logInAsPharmacistUser() throws Exception {
         loginPage.logInAsPharmacistUser();
 	}
 
-    protected void logInAsArchivist() throws Exception{
+    protected static void logInAsArchivist() throws Exception{
         loginPage.logInAsArchivistUser();
     }
 
-    protected void logInAsAdmin() throws Exception {
+    protected static void logInAsAdmin() throws Exception {
         loginPage.logInAsAdmin();
     }
 
-    protected void logInAsAdmin(int locationIndex) throws Exception {
+    protected static void logInAsAdmin(int locationIndex) throws Exception {
         loginPage.logInAsAdmin(locationIndex);
     }
 
     protected void initBasicPageObjects(LoginPage loginPage) {
         this.loginPage = loginPage;
 		header = new HeaderPage(driver);
-		registration = new Registration(driver);
-		patientRegistrationDashboard = new PatientRegistrationDashboard(driver);
+		legacyRegistration = new LegacyRegistration(driver);
+		patientRegistrationDashboard = new LegacyPatientRegistrationDashboard(driver);
 		patientDashboard = new PatientDashboard(driver);
 		appDashboard = new AppDashboard(driver);
 	}

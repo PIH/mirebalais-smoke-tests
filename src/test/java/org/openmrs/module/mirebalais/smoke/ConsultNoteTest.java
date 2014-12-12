@@ -19,7 +19,7 @@ public class ConsultNoteTest extends DbTest {
     private DeathCertificateFormPage deathCertificateForm;
 
 	@BeforeClass
-	public void prepare() throws Exception {
+	public static void prepare() throws Exception {
         logInAsClinicalUser();
     }
 	

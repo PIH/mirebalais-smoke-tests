@@ -3,10 +3,10 @@ package org.openmrs.module.mirebalais.smoke.pageobjects;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class PatientRegistrationDashboard extends AbstractPageObject{
+public class LegacyPatientRegistrationDashboard extends AbstractPageObject{
 
 	
-	public PatientRegistrationDashboard(WebDriver driver) {
+	public LegacyPatientRegistrationDashboard(WebDriver driver) {
 		super(driver);
 	}
 

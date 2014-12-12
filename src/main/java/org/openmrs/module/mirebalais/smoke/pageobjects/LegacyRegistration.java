@@ -2,23 +2,15 @@ package org.openmrs.module.mirebalais.smoke.pageobjects;
 
 import org.openmrs.module.mirebalais.smoke.helper.NameGenerator;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import javax.annotation.Nullable;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
-import static org.openqa.selenium.support.ui.ExpectedConditions.stalenessOf;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
-public class Registration extends AbstractPageObject {
+public class LegacyRegistration extends AbstractPageObject {
 
-	public Registration(WebDriver driver) {
+	public LegacyRegistration(WebDriver driver) {
         super(driver);
     }
 
