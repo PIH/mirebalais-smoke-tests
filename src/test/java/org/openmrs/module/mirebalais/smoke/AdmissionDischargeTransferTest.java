@@ -22,7 +22,7 @@ public class AdmissionDischargeTransferTest extends DbTest {
     private Patient testPatient;
 
     @BeforeClass
-    public static void prepare() throws Exception {
+    public void prepare() throws Exception {
         logInAsClinicalUser();
     }
 

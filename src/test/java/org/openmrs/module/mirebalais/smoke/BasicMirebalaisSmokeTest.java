@@ -12,6 +12,7 @@ import org.openmrs.module.mirebalais.smoke.helper.SmokeTestProperties;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
+import org.openmrs.module.mirebalais.smoke.pageobjects.MirebalaisLoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientRegistrationDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.Registration;
@@ -26,9 +27,9 @@ import java.util.concurrent.TimeUnit;
 
 public abstract class BasicMirebalaisSmokeTest {
 	
-	protected static LoginPage loginPage;
+	protected LoginPage loginPage;
 	
-	protected static HeaderPage header;
+	protected HeaderPage header;
 	
 	protected static WebDriver driver;
 	
@@ -88,37 +89,41 @@ public abstract class BasicMirebalaisSmokeTest {
         }
     }
 	
-	protected static void logInAsClinicalUser() throws Exception {
-		new LoginPage(driver).logInAsClinicalUser();
+	protected void logInAsClinicalUser() throws Exception {
+		loginPage.logInAsClinicalUser();
 	}
 	
-	protected static void logInAsPharmacistUser() throws Exception {
-		new LoginPage(driver).logInAsPharmacistUser();
+	protected void logInAsPharmacistUser() throws Exception {
+        loginPage.logInAsPharmacistUser();
 	}
 
-    protected static void logInAsArchivist() throws Exception{
-        new LoginPage(driver).logInAsArchivistUser();
+    protected void logInAsArchivist() throws Exception{
+        loginPage.logInAsArchivistUser();
     }
 
-    protected static void logInAsAdmin() throws Exception {
-        new LoginPage(driver).logInAsAdmin();
+    protected void logInAsAdmin() throws Exception {
+        loginPage.logInAsAdmin();
     }
 
-    protected static void logInAsAdmin(int locationIndex) throws Exception {
-        new LoginPage(driver).logInAsAdmin(locationIndex);
+    protected void logInAsAdmin(int locationIndex) throws Exception {
+        loginPage.logInAsAdmin(locationIndex);
     }
 
-    protected void initBasicPageObjects() {
-		loginPage = new LoginPage(driver);
+    protected void initBasicPageObjects(LoginPage loginPage) {
+        this.loginPage = loginPage;
 		header = new HeaderPage(driver);
 		registration = new Registration(driver);
 		patientRegistrationDashboard = new PatientRegistrationDashboard(driver);
 		patientDashboard = new PatientDashboard(driver);
 		appDashboard = new AppDashboard(driver);
 	}
-	
+
+    protected void initBasicPageObjects() {
+        initBasicPageObjects(new MirebalaisLoginPage(driver));
+    }
+
 	protected void login() {
-		new LoginPage(driver).logInAsAdmin();
+        loginPage.logInAsAdmin();
 	}
 	
 	protected void logout() {

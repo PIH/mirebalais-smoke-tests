@@ -33,11 +33,9 @@ public abstract class AbstractPageObject {
     public WebDriverWait wait5seconds;
     public WebDriverWait wait15seconds;
     private String baseServerUrl;
-    private LoginPage loginPO;
 
     public AbstractPageObject(WebDriver driver) {
         this.driver = driver;
-        this.loginPO = new LoginPage(driver);
         this.wait5seconds = new WebDriverWait(driver, 5);
         this.wait15seconds = new WebDriverWait(driver,15);
 
@@ -46,11 +44,6 @@ public abstract class AbstractPageObject {
 
     protected void gotoPage(String addressSufix) {
         driver.get(baseServerUrl + addressSufix);
-    }
-
-    protected void login(String username, String password) {
-        gotoPage("");
-        loginPO.logIn(username, password);
     }
 
     private void setBaseServerUrl() {

@@ -45,7 +45,7 @@ public class NonCodedDiagnosesTest extends DbTest {
     }
 
     @BeforeClass
-    public static void prepare() throws Exception {
+    public void prepare() throws Exception {
         logInAsClinicalUser();
     }
 

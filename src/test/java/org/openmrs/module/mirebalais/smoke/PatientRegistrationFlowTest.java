@@ -6,7 +6,7 @@ public class PatientRegistrationFlowTest extends DbTest {
 
     @Test
     public void registerNewPatient() throws Exception {
-        initBasicPageObjects();
+        initBasicPageObjects(new GeneralLoginPage(driver));
 
         login();
 

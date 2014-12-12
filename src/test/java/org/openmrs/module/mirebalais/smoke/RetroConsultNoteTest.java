@@ -16,7 +16,7 @@ public class RetroConsultNoteTest extends DbTest {
     private static final String EDITED_PRIMARY_DIAGNOSIS = "Asthme";
 
     @BeforeClass
-    public static void prepare() throws Exception {
+    public void prepare() throws Exception {
         logInAsAdmin();
     }
 
