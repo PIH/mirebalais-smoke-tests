@@ -20,9 +20,9 @@ public class PatientRegistration extends AbstractPageObject {
         enterPatientName(givenName, familyName);
         enterGender(gender);
         enterBirthDate(birthDay,birthMonth, birthYear);
-        skipAddressFields();  // TODO implement for real once we add hierarchy support
-        enterTelephoneNumber(phoneNumber);
-        confirm();
+        //skipAddressFields();  // TODO implement for real once we add hierarchy support
+        //enterTelephoneNumber(phoneNumber);
+        //confirm();
     }
 
     public void keepCurrentRegistrationDate() {
