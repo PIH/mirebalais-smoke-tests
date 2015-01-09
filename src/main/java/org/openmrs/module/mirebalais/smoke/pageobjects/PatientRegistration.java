@@ -16,7 +16,7 @@ public class PatientRegistration extends AbstractPageObject {
     }
 
     public void registerPatient(String givenName, String familyName, Gender gender, Integer birthDay, Integer birthMonth, Integer birthYear, String phoneNumber) {
-        keepCurrentRegistrationDate();
+        //keepCurrentRegistrationDate();
         enterPatientName(givenName, familyName);
         enterGender(gender);
         enterBirthDate(birthDay,birthMonth, birthYear);
