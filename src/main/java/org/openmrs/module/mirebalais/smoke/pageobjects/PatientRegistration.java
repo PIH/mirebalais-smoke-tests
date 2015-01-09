@@ -35,8 +35,8 @@ public class PatientRegistration extends AbstractPageObject {
     }
 
     public void enterGender(Gender gender) throws Exception {
-        // TODO depends on test running in English?
-        clickOnOptionLookingForText((gender.equals(Gender.FEMALE) ? "Female" : "Male"), By.name("gender"));
+        // TODO depends on test running in Creole
+        clickOnOptionLookingForText((gender.equals(Gender.FEMALE) ? "Fi" : "Gason"), By.name("gender"));
         hitEnterKey(By.name("gender"));
     }
 
