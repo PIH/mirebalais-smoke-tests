@@ -5,8 +5,6 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.util.List;
-
 public class PatientRegistration extends AbstractPageObject {
 
     public enum Gender {MALE, FEMALE}
@@ -15,7 +13,7 @@ public class PatientRegistration extends AbstractPageObject {
         super(driver);
     }
 
-    public void registerPatient(String givenName, String familyName, Gender gender, Integer birthDay, Integer birthMonth, Integer birthYear, String phoneNumber) {
+    public void registerPatient(String givenName, String familyName, Gender gender, Integer birthDay, Integer birthMonth, Integer birthYear, String phoneNumber) throws Exception{
         //keepCurrentRegistrationDate();
         enterPatientName(givenName, familyName);
         enterGender(gender);
@@ -36,15 +34,10 @@ public class PatientRegistration extends AbstractPageObject {
         setTextToField(By.name("familyName"), familyName);
     }
 
-    public void enterGender(Gender gender) {
-
-        List<WebElement> genderElements = driver.findElements(By.name("gender"));
-
-        if (gender == Gender.MALE) {
-            genderElements.get(0).sendKeys(" ", Keys.ENTER, Keys.TAB, Keys.TAB);
-        } else {
-            genderElements.get(1).sendKeys(" ", Keys.ENTER, Keys.TAB);
-        }
+    public void enterGender(Gender gender) throws Exception {
+        // TODO depends on test running in English?
+        clickOnOptionLookingForText((gender.equals(Gender.FEMALE) ? "Female" : "Male"), By.name("gender"));
+        hitEnterKey(By.name("gender"));
     }
 
     public void enterBirthDate(Integer day, Integer month, Integer year) {
