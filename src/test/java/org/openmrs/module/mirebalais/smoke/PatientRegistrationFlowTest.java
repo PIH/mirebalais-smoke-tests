@@ -2,10 +2,13 @@ package org.openmrs.module.mirebalais.smoke;
 
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
+import org.openmrs.module.mirebalais.smoke.pageobjects.ClinicianDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientRegistration;
 import org.openqa.selenium.JavascriptExecutor;
 
 import java.math.BigInteger;
+
+import static org.junit.Assert.assertTrue;
 
 public class PatientRegistrationFlowTest extends DbTest {
 
@@ -17,14 +20,13 @@ public class PatientRegistrationFlowTest extends DbTest {
 
         login();
         appDashboard.openPatientRegistrationApp();
-        registration.registerPatient("Tom", "Jones", PatientRegistration.Gender.MALE, 22, 1, 1975, "123-4567");
+        registration.registerPatient("Tom", "Jones", PatientRegistration.Gender.MALE, 22, 1, 1975, "cange", "123-4567", "X3WCME");
 
-        // TODO: re-implement once updated for new address hierarchy
+        appDashboard.goToAppDashboard();
+        appDashboard.findPatientByIdentifier("X3WCME");
+        assertTrue(new ClinicianDashboard(driver).isOpenForPatient("Tom", "Jones"));
 
-        //assertTrue(new ClinicianDashboard(driver).isOpenForPatient("Tom", "Jones"));
-        // TODO: test that identifier has been assigned?
-
-        //populateTestPatientForTearDown();
+        populateTestPatientForTearDown();
     }
 
     private void populateTestPatientForTearDown() throws Exception {

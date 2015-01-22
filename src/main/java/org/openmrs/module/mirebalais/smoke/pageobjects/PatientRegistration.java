@@ -5,6 +5,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
+
 public class PatientRegistration extends AbstractPageObject {
 
     public enum Gender {MALE, FEMALE}
@@ -13,20 +15,20 @@ public class PatientRegistration extends AbstractPageObject {
         super(driver);
     }
 
-    public void registerPatient(String givenName, String familyName, Gender gender, Integer birthDay, Integer birthMonth, Integer birthYear, String phoneNumber) throws Exception{
-        //keepCurrentRegistrationDate();
+    public void registerPatient(String givenName, String familyName, Gender gender, Integer birthDay, Integer birthMonth,
+                                Integer birthYear, String addressSearchValue, String phoneNumber, String identifier) throws Exception{
+        keepCurrentRegistrationDate();
         enterPatientName(givenName, familyName);
         enterGender(gender);
-        enterBirthDate(birthDay,birthMonth, birthYear);
-        //skipAddressFields();  // TODO implement for real once we add hierarchy support
-        //enterTelephoneNumber(phoneNumber);
-        //confirm();
+        enterBirthDate(birthDay, birthMonth, birthYear);
+        enterAddressViaShortcut(addressSearchValue);
+        enterTelephoneNumber(phoneNumber);
+        manuallyEnterIdentifier(identifier);
+        confirm();
     }
 
     public void keepCurrentRegistrationDate() {
-        hitTabKey(By.id("registrationDateDay-field"));
-        hitTabKey(By.id("registrationDateMonth-field"));
-        hitTabKey(By.id("registrationDateYear-field"));
+        hitEnterKey(By.id("checkbox-enable-registration-date"));
     }
 
     public void enterPatientName(String givenName, String familyName) {
@@ -35,8 +37,7 @@ public class PatientRegistration extends AbstractPageObject {
     }
 
     public void enterGender(Gender gender) throws Exception {
-        // TODO depends on test running in Creole
-        clickOnOptionLookingForText((gender.equals(Gender.FEMALE) ? "Fi" : "Gason"), By.name("gender"));
+        driver.findElement(By.name("gender")).findElements(By.tagName("option")).get((gender.equals(Gender.MALE) ? 1 : 2)).click();
         hitEnterKey(By.name("gender"));
     }
 
@@ -53,21 +54,26 @@ public class PatientRegistration extends AbstractPageObject {
         setTextToField(By.name("birthdateYear"), year.toString());
     }
 
-    public void skipAddressFields() {
-        hitTabKey(By.id("address2"));
-        hitTabKey(By.id("address1"));
-        hitTabKey(By.id("address3"));
-        hitTabKey(By.id("cityVillage"));
-        hitTabKey(By.id("stateProvince"));
-        hitTabKey(By.id("country"));
+    public void enterAddressViaShortcut(String searchValue) {
+        // use the shortcut to enter Cange
+        driver.findElement(By.className("address-hierarchy-shortcut")).sendKeys(searchValue);
+        wait5seconds.until(visibilityOfElementLocated(By.className("ui-menu-item")));
+        hitEnterKey(By.className("address-hierarchy-shortcut"));
+        hitEnterKey(By.className("address-hierarchy-shortcut"));
     }
 
     public void enterTelephoneNumber(String number) {
         setTextToField(By.name("phoneNumber"), number);
     }
 
+    public void manuallyEnterIdentifier(String identifier) {
+        driver.findElement(By.id("checkbox-autogenerate-identifier")).sendKeys(Keys.SPACE);
+        setTextToField(By.id("patient-identifier"), identifier);
+    }
+
     public void confirm() {
         hitEnterKey(By.className("submitButton"));
+        wait5seconds.until(visibilityOfElementLocated(By.id("checkbox-enable-registration-date")));  // wait for reload
     }
 
 

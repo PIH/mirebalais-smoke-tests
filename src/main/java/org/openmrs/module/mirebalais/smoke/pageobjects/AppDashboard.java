@@ -37,6 +37,10 @@ public class AppDashboard extends AbstractPageObject {
         super(driver);
     }
 
+    public void goToAppDashboard() {
+        clickOn(By.className("icon-home"));
+    }
+
     public void openActiveVisitsApp() {
         openApp(replaceChars(CustomAppLoaderConstants.Apps.ACTIVE_VISITS, ".", "-") + APP_LINK_SUFFIX);
 	}
