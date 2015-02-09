@@ -16,14 +16,14 @@ public class PatientRegistration extends AbstractPageObject {
     }
 
     public void registerPatient(String givenName, String familyName, Gender gender, Integer birthDay, Integer birthMonth,
-                                Integer birthYear, String addressSearchValue, String phoneNumber, String identifier) throws Exception{
+                                Integer birthYear, String addressSearchValue, String phoneNumber) throws Exception{
         keepCurrentRegistrationDate();
         enterPatientName(givenName, familyName);
         enterGender(gender);
         enterBirthDate(birthDay, birthMonth, birthYear);
         enterAddressViaShortcut(addressSearchValue);
         enterTelephoneNumber(phoneNumber);
-        manuallyEnterIdentifier(identifier);
+        automaticallyEnterIdentifier();
         confirm();
     }
 
@@ -64,6 +64,10 @@ public class PatientRegistration extends AbstractPageObject {
 
     public void enterTelephoneNumber(String number) {
         setTextToField(By.name("phoneNumber"), number);
+    }
+
+    public void automaticallyEnterIdentifier() {
+        driver.findElement(By.id("checkbox-autogenerate-identifier")).sendKeys(Keys.ENTER);
     }
 
     public void manuallyEnterIdentifier(String identifier) {

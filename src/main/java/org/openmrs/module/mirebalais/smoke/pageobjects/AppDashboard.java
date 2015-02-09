@@ -154,7 +154,15 @@ public class AppDashboard extends AbstractPageObject {
         // patient should be in results list
         WebElement searchResults = driver.findElement(SEARCH_RESULTS_TABLE);
         searchResults.findElement(By.xpath("//*[contains(text(), '" + patient.getIdentifier() + "')]")).click();
+    }
 
+    public void findPatientByExactName(String givenName, String familyName) {
+        WebElement searchField = driver.findElement(SEARCH_FIELD);
+        searchField.sendKeys(givenName + " " + familyName);
+
+        // patient should be in results list
+        WebElement searchResults = driver.findElement(SEARCH_RESULTS_TABLE);
+        searchResults.findElement(By.xpath("//*[contains(text(), '" + givenName + " " + familyName + "')]")).click();
     }
 
     public void goToPatientPage(BigInteger patientId) {

@@ -7,6 +7,7 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.PatientRegistration;
 import org.openqa.selenium.JavascriptExecutor;
 
 import java.math.BigInteger;
+import java.util.Random;
 
 import static org.junit.Assert.assertTrue;
 
@@ -18,13 +19,16 @@ public class PatientRegistrationFlowTest extends DbTest {
         initBasicPageObjects(new GeneralLoginPage(driver));
         PatientRegistration registration = new PatientRegistration(driver);
 
+        String givenName = "Tom " + new Random().nextInt(1000);  // append a randon number so patient name is (more or less) unique
+        String familyName = "Jones";
+
         login();
         appDashboard.openPatientRegistrationApp();
-        registration.registerPatient("Tom", "Jones", PatientRegistration.Gender.MALE, 22, 1, 1975, "cange", "123-4567", "X3WCME");
+        registration.registerPatient(givenName, familyName, PatientRegistration.Gender.MALE, 22, 1, 1975, "cange", "123-4567");
 
         appDashboard.goToAppDashboard();
-        appDashboard.findPatientByIdentifier("X3WCME");
-        assertTrue(new ClinicianDashboard(driver).isOpenForPatient("Tom", "Jones"));
+        appDashboard.findPatientByExactName(givenName, familyName);
+        assertTrue(new ClinicianDashboard(driver).isOpenForPatient(givenName, familyName));
 
         populateTestPatientForTearDown();
     }
