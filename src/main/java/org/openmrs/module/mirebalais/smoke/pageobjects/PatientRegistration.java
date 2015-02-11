@@ -77,6 +77,7 @@ public class PatientRegistration extends AbstractPageObject {
 
     public void confirm() {
         hitEnterKey(By.className("submitButton"));
+        wait5seconds.until(visibilityOfElementLocated(By.className("confirm")));  // wait for duplicate dialog to open
         hitEnterKey(By.className("confirm")); // the duplicate patient pop-up
         wait5seconds.until(visibilityOfElementLocated(By.id("checkbox-enable-registration-date")));  // wait for reload
     }
