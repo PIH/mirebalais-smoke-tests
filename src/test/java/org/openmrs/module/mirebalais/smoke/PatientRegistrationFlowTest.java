@@ -19,7 +19,7 @@ public class PatientRegistrationFlowTest extends DbTest {
         initBasicPageObjects(new GeneralLoginPage(driver));
         PatientRegistration registration = new PatientRegistration(driver);
 
-        String givenName = "Tom " + new Random().nextInt(1000);  // append a randon number so patient name is (more or less) unique
+        String givenName = "Tom " + new Random().nextInt(1000);  // append a random number so patient name is (more or less) unique
         String familyName = "Jones";
 
         login();
