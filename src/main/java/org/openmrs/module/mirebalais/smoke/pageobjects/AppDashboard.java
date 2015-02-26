@@ -23,7 +23,7 @@ import org.openqa.selenium.WebElement;
 
 import java.math.BigInteger;
 
-import static org.apache.commons.lang.StringUtils.replaceChars;
+import static org.apache.commons.lang3.StringUtils.replaceChars;
 
 public class AppDashboard extends AbstractPageObject {
 

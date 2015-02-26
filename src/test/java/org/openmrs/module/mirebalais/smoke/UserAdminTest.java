@@ -14,7 +14,7 @@ import org.openqa.selenium.By;
 
 import java.sql.SQLException;
 
-import static org.apache.commons.lang.StringUtils.replaceChars;
+import static org.apache.commons.lang3.StringUtils.replaceChars;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
