@@ -4,7 +4,7 @@ import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import static org.apache.commons.lang3.StringUtils.replaceChars;
+import static org.apache.commons.lang.StringUtils.replaceChars;
 
 public class SysAdminPage extends AbstractPageObject {
 
