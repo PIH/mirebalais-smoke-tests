@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.ClinicianDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientRegistration;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 
 import java.math.BigInteger;
@@ -24,6 +25,9 @@ public class PatientRegistrationFlowTest extends DbTest {
 
         login();
         appDashboard.openPatientRegistrationApp();
+        //click on the Register Patient button
+        driver.findElement(By.id("registerPatient")).click();
+
         registration.registerPatient(givenName, familyName, PatientRegistration.Gender.MALE, 22, 1, 1975, "cange", "123-4567");
 
         appDashboard.goToAppDashboard();
