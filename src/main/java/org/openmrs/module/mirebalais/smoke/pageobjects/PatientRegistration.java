@@ -79,7 +79,7 @@ public class PatientRegistration extends AbstractPageObject {
 
     public void confirm() {
         hitEnterKey(By.className("submitButton"));
-        wait5seconds.until(visibilityOfElementLocated(By.id("checkbox-enable-registration-date")));  // wait for reload
+        wait5seconds.until(visibilityOfElementLocated(By.id("registerPatient")));  // wait for reload of the landing page
     }
 
 
