@@ -17,6 +17,8 @@ public class PatientRegistration extends AbstractPageObject {
 
     public void registerPatient(String givenName, String familyName, Gender gender, Integer birthDay, Integer birthMonth,
                                 Integer birthYear, String addressSearchValue, String phoneNumber) throws Exception{
+
+        wait15seconds.until(visibilityOfElementLocated(By.id("checkbox-enable-registration-date")));
         keepCurrentRegistrationDate();
         enterPatientName(givenName, familyName);
         enterGender(gender);
