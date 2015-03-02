@@ -26,7 +26,7 @@ public class PatientRegistrationFlowTest extends DbTest {
         login();
         appDashboard.openPatientRegistrationApp();
         //click on the Register Patient button
-        driver.findElement(By.id("registerPatient")).click();
+        driver.findElement(By.id("register-patient-button")).click();
 
         registration.registerPatient(givenName, familyName, PatientRegistration.Gender.MALE, 22, 4, 1975, "cange", "123-4567");
 
