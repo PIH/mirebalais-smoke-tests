@@ -77,7 +77,6 @@ public class PatientRegistration extends AbstractPageObject {
 
     public void enterOccupation(String occupation) {
         setTextToField(By.name("obs.PIH:2452"), occupation);
-        hitEnterKey(By.name("obs.PIH:2452"));
     }
 
 
