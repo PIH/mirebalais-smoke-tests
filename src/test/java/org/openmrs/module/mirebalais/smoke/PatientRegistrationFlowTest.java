@@ -22,17 +22,18 @@ public class PatientRegistrationFlowTest extends DbTest {
 
         String givenName = "Tom " + new Random().nextInt(1000);  // append a random number so patient name is (more or less) unique
         String familyName = "Jones";
+        String nickname = "Tommy";
 
         login();
         appDashboard.openPatientRegistrationApp();
         //click on the Register Patient button
         driver.findElement(By.id("register-patient-button")).click();
 
-        registration.registerPatient(givenName, familyName, PatientRegistration.Gender.MALE, 22, 4, 1975, "cange", "123-4567"
+        registration.registerPatient(givenName, familyName, nickname, PatientRegistration.Gender.MALE, 22, 4, 1975, "cange", "123-4567"
                 , 1, "Software Developer");
 
         appDashboard.goToAppDashboard();
-        appDashboard.findPatientByExactName(givenName, familyName);
+        appDashboard.findPatientByExactName(givenName, nickname, familyName);
         assertTrue(new ClinicianDashboard(driver).isOpenForPatient(givenName, familyName));
 
         populateTestPatientForTearDown();

@@ -15,12 +15,12 @@ public class PatientRegistration extends AbstractPageObject {
         super(driver);
     }
 
-    public void registerPatient(String givenName, String familyName, Gender gender, Integer birthDay, Integer birthMonth,
+    public void registerPatient(String givenName, String familyName, String nickname, Gender gender, Integer birthDay, Integer birthMonth,
                                 Integer birthYear, String addressSearchValue, String phoneNumber, int martialStatus, String occupation) throws Exception{
 
         wait15seconds.until(visibilityOfElementLocated(By.id("checkbox-enable-registration-date")));
         keepCurrentRegistrationDate();
-        enterPatientName(givenName, familyName);
+        enterPatientName(familyName, givenName, nickname);
         enterGender(gender);
         enterBirthDate(birthDay, birthMonth, birthYear);
         enterAddressViaShortcut(addressSearchValue);
@@ -35,9 +35,11 @@ public class PatientRegistration extends AbstractPageObject {
         hitEnterKey(By.id("checkbox-enable-registration-date"));
     }
 
-    public void enterPatientName(String givenName, String familyName) {
-        setTextToField(By.name("givenName"), givenName);
+    public void enterPatientName(String familyName, String givenName, String nickname) {
         setTextToField(By.name("familyName"), familyName);
+        setTextToField(By.name("givenName"), givenName);
+        setTextToField(By.name("middleName"), nickname);
+
     }
 
     public void enterGender(Gender gender) throws Exception {
