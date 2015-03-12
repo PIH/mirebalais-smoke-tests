@@ -33,7 +33,7 @@ public class PatientRegistrationFlowTest extends DbTest {
                 , 1, "Software Developer");
 
         appDashboard.goToAppDashboard();
-        appDashboard.findPatientByExactName(givenName, nickname, familyName);
+        appDashboard.findPatientByGivenAndFamilyName(givenName, familyName);
         assertTrue(new ClinicianDashboard(driver).isOpenForPatient(givenName, familyName));
 
         populateTestPatientForTearDown();

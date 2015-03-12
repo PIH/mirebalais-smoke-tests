@@ -14,7 +14,6 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
-import org.apache.commons.lang.StringUtils;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openqa.selenium.By;
@@ -158,15 +157,14 @@ public class AppDashboard extends AbstractPageObject {
     }
 
 
-    // TODO this will need to reworked once we rework search template to not include middle name
-    public void findPatientByExactName(String givenName, String middleName, String familyName) {
+    public void findPatientByGivenAndFamilyName(String givenName, String familyName) {
         WebElement searchField = driver.findElement(SEARCH_FIELD);
-        searchField.sendKeys(givenName + " " + middleName + " " + familyName);
+        searchField.sendKeys(givenName + " " + familyName);
 
         // patient should be in results list
         WebElement searchResults = driver.findElement(SEARCH_RESULTS_TABLE);
         searchResults.findElement(By.xpath("//*[contains(text(), '" + familyName + ", "
-                + givenName + (StringUtils.isNotBlank(middleName) ? " '" + middleName  + "'" : "")  + "')]")).click();
+                + givenName + "')]")).click();
     }
 
     public void goToPatientPage(BigInteger patientId) {
