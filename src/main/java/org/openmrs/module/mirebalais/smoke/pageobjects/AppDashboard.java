@@ -166,7 +166,7 @@ public class AppDashboard extends AbstractPageObject {
         // patient should be in results list
         WebElement searchResults = driver.findElement(SEARCH_RESULTS_TABLE);
         searchResults.findElement(By.xpath("//*[contains(text(), '" + familyName + ", "
-                + givenName + (StringUtils.isNotBlank(middleName) ? " \"" + middleName  + "\"" : "")  + "')]")).click();
+                + givenName + (StringUtils.isNotBlank(middleName) ? " '" + middleName  + "'" : "")  + "')]")).click();
     }
 
     public void goToPatientPage(BigInteger patientId) {
