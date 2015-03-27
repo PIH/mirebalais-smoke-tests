@@ -16,7 +16,7 @@ public class PatientRegistration extends AbstractPageObject {
     }
 
     public void registerPatient(String givenName, String familyName, String nickname, Gender gender, Integer birthDay, Integer birthMonth,
-                                Integer birthYear, String mothersFirstName, String addressSearchValue, String phoneNumber, int martialStatus, String occupation) throws Exception{
+                                Integer birthYear, String mothersFirstName, String birthplace, String addressSearchValue, String phoneNumber, int martialStatus, String occupation) throws Exception{
 
         wait15seconds.until(visibilityOfElementLocated(By.id("checkbox-enable-registration-date")));
         keepCurrentRegistrationDate();
@@ -24,6 +24,7 @@ public class PatientRegistration extends AbstractPageObject {
         enterGender(gender);
         enterBirthDate(birthDay, birthMonth, birthYear);
         enterMothersFirstName(mothersFirstName);
+        enterBirthplace(birthplace);
         enterAddressViaShortcut(addressSearchValue);
         enterTelephoneNumber(phoneNumber);
         selectMartialStatus(martialStatus);
@@ -63,6 +64,10 @@ public class PatientRegistration extends AbstractPageObject {
 
     public void enterMothersFirstName(String mothersFirstName) {
         setTextToField(By.name("mothersFirstName"), mothersFirstName);
+    }
+
+    public void enterBirthplace(String birthplace) {
+        setTextToField(By.name("birthplace"), birthplace);
     }
 
     public void enterAddressViaShortcut(String searchValue) {
