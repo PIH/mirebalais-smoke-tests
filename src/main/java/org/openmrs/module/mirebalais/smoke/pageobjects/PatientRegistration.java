@@ -68,6 +68,7 @@ public class PatientRegistration extends AbstractPageObject {
 
     public void enterBirthplace(String birthplace) {
         setTextToField(By.name("birthplace"), birthplace);
+        hitTabKey(By.name("birthplace"));  // because this is a text area, need to tab, not enter
     }
 
     public void enterAddressViaShortcut(String searchValue) {
