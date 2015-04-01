@@ -30,7 +30,7 @@ public class PatientRegistrationFlowTest extends DbTest {
         driver.findElement(By.id("register-patient-button")).click();
 
         registration.registerPatient(givenName, familyName, nickname, PatientRegistration.Gender.MALE, 22, 4, 1975, "louise", "mirebalais", "cange", "123-4567"
-                , 1, "Software Developer");
+                , 1, "Software Developer", 2);
 
         appDashboard.goToAppDashboard();
         appDashboard.findPatientByGivenAndFamilyName(givenName, familyName);
