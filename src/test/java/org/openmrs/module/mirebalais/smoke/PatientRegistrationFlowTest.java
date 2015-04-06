@@ -16,8 +16,8 @@ public class PatientRegistrationFlowTest extends DbTest {
 
     @Test
     public void registerNewPatient() throws Exception {
-
-        initBasicPageObjects(new GeneralLoginPage(driver));
+        initBasicPageObjects();
+        setLoginPage(new GeneralLoginPage(driver));  // because we want to use the General login page here, not the Mirebalaison
         PatientRegistration registration = new PatientRegistration(driver);
 
         String givenName = "Tom " + new Random().nextInt(1000);  // append a random number so patient name is (more or less) unique

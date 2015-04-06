@@ -68,7 +68,14 @@ public abstract class BasicMirebalaisSmokeTest {
         else {
             createdOwnDriver = false;
         }
-        
+
+        if (header == null) {
+            header = new HeaderPage(driver);
+        }
+
+        if (loginPage == null) {
+            loginPage = new MirebalaisLoginPage(driver);
+        }
 	}
 
     @AfterClass
@@ -109,17 +116,15 @@ public abstract class BasicMirebalaisSmokeTest {
         loginPage.logInAsAdmin(locationIndex);
     }
 
-    protected void initBasicPageObjects(LoginPage loginPage) {
+    protected void setLoginPageObject(LoginPage loginPage) {
         this.loginPage = loginPage;
-		header = new HeaderPage(driver);
-		legacyRegistration = new LegacyRegistration(driver);
-		patientRegistrationDashboard = new LegacyPatientRegistrationDashboard(driver);
-		patientDashboard = new PatientDashboard(driver);
-		appDashboard = new AppDashboard(driver);
 	}
 
     protected void initBasicPageObjects() {
-        initBasicPageObjects(new MirebalaisLoginPage(driver));
+        legacyRegistration = new LegacyRegistration(driver);
+        patientRegistrationDashboard = new LegacyPatientRegistrationDashboard(driver);
+        patientDashboard = new PatientDashboard(driver);
+        appDashboard = new AppDashboard(driver);
     }
 
 	protected void login() {
@@ -140,5 +145,13 @@ public abstract class BasicMirebalaisSmokeTest {
 
     public static void setDriver(WebDriver driver) {
         BasicMirebalaisSmokeTest.driver = driver;
+    }
+
+    public static void setLoginPage(LoginPage loginPage) {
+        BasicMirebalaisSmokeTest.loginPage = loginPage;
+    }
+
+    public static void setHeader(HeaderPage header) {
+        BasicMirebalaisSmokeTest.header = header;
     }
 }
