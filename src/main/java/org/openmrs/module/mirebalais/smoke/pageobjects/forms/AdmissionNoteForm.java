@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class AdmissionNoteForm extends BaseHtmlForm {
 
@@ -41,6 +42,7 @@ public class AdmissionNoteForm extends BaseHtmlForm {
     }
 
     public void chooseNotToPrintWristband() {
+        wait5seconds.until(visibilityOfElementLocated(By.cssSelector("#print-wristband-dialog .cancel")));
         clickOn(By.cssSelector("#print-wristband-dialog .cancel"));
     }
 
