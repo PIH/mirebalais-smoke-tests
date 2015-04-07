@@ -16,9 +16,9 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.LegacyRegistration;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.MirebalaisLoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 
 import java.io.File;
@@ -87,7 +87,7 @@ public abstract class BasicMirebalaisSmokeTest {
         try {
             new HeaderPage(driver).logOut();
         }
-        catch (NoSuchElementException ex) {
+        catch (TimeoutException ex) {
             // do nothing, assume we are already logged out
         }
 
