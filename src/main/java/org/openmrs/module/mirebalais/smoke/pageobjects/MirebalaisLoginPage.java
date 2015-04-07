@@ -10,10 +10,10 @@ public class MirebalaisLoginPage extends LoginPage {
     }
 
     @Override
-    public void logIn(String user, String password, int location) {
+    public void logIn(String user, String password, Integer location) {
         driver.findElement(By.id("username")).sendKeys(user);
         driver.findElement(By.id("password")).sendKeys(password);
-        driver.findElements(By.cssSelector("#sessionLocation li")).get(location).click();
+        driver.findElements(By.cssSelector("#sessionLocation li")).get(location != null ? location : 16).click();    // 16 = Klinik Ekstèn, which we use as our default login value for Mirebalais
         driver.findElement(By.id("login-button")).click();
     }
 }

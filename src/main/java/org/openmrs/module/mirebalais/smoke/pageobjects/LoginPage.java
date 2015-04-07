@@ -8,10 +8,10 @@ public abstract class LoginPage {
 	
 	protected WebDriver driver;
 	
-	public abstract void logIn(String user, String password, int location);
+	public abstract void logIn(String user, String password, Integer location);
 
 	public void logIn(String user, String password) {
-		logIn(user, password, 1);
+		logIn(user, password, null);
 	}
 
 	public void logInAsAdmin() {

@@ -11,7 +11,7 @@ public class GeneralLoginPage extends LoginPage {
     }
 
     @Override
-    public void logIn(String user, String password, int location) {
+    public void logIn(String user, String password, Integer location) {
         driver.findElement(By.id("username")).sendKeys(user);
         driver.findElement(By.id("password")).sendKeys(password);
         driver.findElement(By.id("login-button")).click();
