@@ -32,7 +32,7 @@ public class UserDatabaseHandler extends BaseDatabaseHandler {
 	
 	public static User insertNewClinicalUser() throws Exception {
 
-		return createUserWithApplicationAndProviderRole("clinical", "Clinical Doctor");
+		return createUserWithApplicationAndProviderRole("clinical", "Physician");
 	}
 	
 	public static User insertNewPharmacistUser() throws Exception {
