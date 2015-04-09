@@ -1,6 +1,7 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -27,10 +28,12 @@ public class NewCheckIn extends AbstractPageObject {
 		confirmRightPatient();
         selectFirstOptionFor("typeOfVisit");
         selectSecondOptionFor("paymentAmount");
+        findInputInsideSpan("receiptNumber").sendKeys("receipt #" + Keys.RETURN);
         selectNotToPrintWristbandIfQuestionPresent();
         clickOnNoButton();
         selectSecondOptionFor("typeOfVisit");
         selectThirdOptionFor("paymentAmount");
+        findInputInsideSpan("receiptNumber").sendKeys("receipt #" + Keys.RETURN);
         selectNotToPrintWristbandIfQuestionPresent();
 		confirmData();
 		confirmPopup();
