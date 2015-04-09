@@ -19,7 +19,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
-import org.openmrs.module.mirebalais.smoke.pageobjects.NewCheckIn;
+import org.openmrs.module.mirebalais.smoke.pageobjects.CheckInFormPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -27,9 +27,9 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 
-public class NewCheckInTest extends DbTest {
+public class CheckInTest extends DbTest {
 
-    public NewCheckIn newCheckIn;
+    public CheckInFormPage newCheckIn;
     public Patient testPatient;
 
     @BeforeClass
@@ -41,7 +41,7 @@ public class NewCheckInTest extends DbTest {
     public void setUp() throws Exception {
         testPatient = PatientDatabaseHandler.insertNewTestPatient();
         initBasicPageObjects();
-        newCheckIn = new NewCheckIn(driver);
+        newCheckIn = new CheckInFormPage(driver);
         appDashboard.startClinicVisit();
 
     }
@@ -49,7 +49,7 @@ public class NewCheckInTest extends DbTest {
 	@Test
 	public void createCheckInAndRemoveIt() throws Exception {
 
-        newCheckIn.checkInPatientFillingTheFormTwice(testPatient.getIdentifier());
+        newCheckIn.enterInfoFillingTheFormTwice(testPatient.getIdentifier());
 
 		assertThat(newCheckIn.isPatientSearchDisplayed(), is(true));
 		

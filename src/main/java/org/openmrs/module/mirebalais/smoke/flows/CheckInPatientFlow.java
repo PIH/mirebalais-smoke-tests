@@ -1,18 +1,18 @@
 package org.openmrs.module.mirebalais.smoke.flows;
 
-import org.openmrs.module.mirebalais.smoke.pageobjects.CheckinFormPage;
+import org.openmrs.module.mirebalais.smoke.pageobjects.CheckInFormPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class CheckInPatientFlow {
     private WebDriver driver;
     private SearchAndConfirmPatientFlow searchAndConfirmPatientFlow;
-    private CheckinFormPage checkinFormPage;
+    private CheckInFormPage checkinFormPage;
 
     public CheckInPatientFlow(WebDriver driver) {
         this.driver = driver;
         searchAndConfirmPatientFlow = new SearchAndConfirmPatientFlow(driver);
-        checkinFormPage = new CheckinFormPage(driver);
+        checkinFormPage = new CheckInFormPage(driver);
     }
 
     public void checkInAndCreateLocalDossierFor(String patientId) {

@@ -12,18 +12,44 @@ import java.util.List;
 
 import static org.openqa.selenium.Keys.ARROW_DOWN;
 import static org.openqa.selenium.Keys.RETURN;
+import static org.openqa.selenium.support.ui.ExpectedConditions.stalenessOf;
 
-public class NewCheckIn extends AbstractPageObject {
+public class CheckInFormPage extends AbstractPageObject {
 	
 	private static final String CONFIRM_TEXT = "Konfime";
 
     public static final By SEARCH_FIELD = By.id("patient-search");
 
-	public NewCheckIn(WebDriver driver) {
+	public CheckInFormPage(WebDriver driver) {
 		super(driver);
 	}
 
-	public void checkInPatientFillingTheFormTwice(String patientIdentifier) throws Exception {
+    public void enterInfo() {
+        selectFirstOptionFor("typeOfVisit");
+        selectSecondOptionFor("paymentAmount");
+        findInputInsideSpan("receiptNumber").sendKeys("receipt #" + Keys.RETURN);
+        selectNotToPrintWristbandIfQuestionPresent();
+
+        WebElement confirmButton = driver.findElement(By.id("confirmationQuestion")).findElement(By.className("confirm"));
+        confirmButton.click();
+
+        new WebDriverWait(driver, 20).until(stalenessOf(confirmButton));
+    }
+
+    public void enterInfoWithMultipleEnterKeystrokesOnSubmit()  {
+        selectFirstOptionFor("typeOfVisit");
+        selectSecondOptionFor("paymentAmount");
+        findInputInsideSpan("receiptNumber").sendKeys("receipt #" + Keys.RETURN);
+        selectNotToPrintWristbandIfQuestionPresent();
+
+        WebElement confirmButton = driver.findElement(By.id("confirmationQuestion")).findElement(By.className("confirm"));
+        confirmButton.sendKeys(RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,
+                RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,
+                RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN);
+
+    }
+
+	public void enterInfoFillingTheFormTwice(String patientIdentifier) throws Exception {
 		findPatient(patientIdentifier);
 		confirmRightPatient();
         selectFirstOptionFor("typeOfVisit");

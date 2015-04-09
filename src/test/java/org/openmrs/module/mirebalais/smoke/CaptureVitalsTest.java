@@ -3,7 +3,7 @@ package org.openmrs.module.mirebalais.smoke;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
-import org.openmrs.module.mirebalais.smoke.pageobjects.NewCheckIn;
+import org.openmrs.module.mirebalais.smoke.pageobjects.CheckInFormPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.VitalsApp;
 
@@ -17,12 +17,12 @@ public class CaptureVitalsTest extends DbTest {
         Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
         initBasicPageObjects();
         VitalsApp vitals = new VitalsApp(driver);
-        NewCheckIn newCheckIn = new NewCheckIn(driver);
+        CheckInFormPage newCheckIn = new CheckInFormPage(driver);
 
 		login();
 
         appDashboard.startClinicVisit();
-        newCheckIn.checkInPatientFillingTheFormTwice(testPatient.getIdentifier());
+        newCheckIn.enterInfoFillingTheFormTwice(testPatient.getIdentifier());
 		
 		appDashboard.openCaptureVitalsApp();
 		vitals.captureVitalsForPatient(testPatient.getIdentifier());

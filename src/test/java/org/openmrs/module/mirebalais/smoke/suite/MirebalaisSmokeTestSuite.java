@@ -10,6 +10,7 @@ import org.openmrs.module.mirebalais.smoke.AdmissionDischargeTransferTest;
 import org.openmrs.module.mirebalais.smoke.ArchivesRoomFlowTest;
 import org.openmrs.module.mirebalais.smoke.BasicMirebalaisSmokeTest;
 import org.openmrs.module.mirebalais.smoke.CaptureVitalsTest;
+import org.openmrs.module.mirebalais.smoke.CheckInTest;
 import org.openmrs.module.mirebalais.smoke.ConsultNoteTest;
 import org.openmrs.module.mirebalais.smoke.DailyAppointmentsTest;
 import org.openmrs.module.mirebalais.smoke.DeathCertificateTest;
@@ -24,7 +25,6 @@ import org.openmrs.module.mirebalais.smoke.ManageServiceTypesTest;
 import org.openmrs.module.mirebalais.smoke.MasterPatientIndexTest;
 import org.openmrs.module.mirebalais.smoke.MergePatientTest;
 import org.openmrs.module.mirebalais.smoke.MultipleSubmitTest;
-import org.openmrs.module.mirebalais.smoke.NewCheckInTest;
 import org.openmrs.module.mirebalais.smoke.NonCodedDiagnosesTest;
 import org.openmrs.module.mirebalais.smoke.OrdersTest;
 import org.openmrs.module.mirebalais.smoke.PatientSearchTest;
@@ -55,7 +55,7 @@ import org.openqa.selenium.WebDriver;
                         MasterPatientIndexTest.class,
                         MergePatientTest.class,
                         MultipleSubmitTest.class,
-                        NewCheckInTest.class,
+                        CheckInTest.class,
                         NonCodedDiagnosesTest.class,
                         OrdersTest.class,
                         PatientSearchTest.class,
