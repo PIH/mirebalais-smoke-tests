@@ -17,7 +17,7 @@ public class PatientRegistration extends AbstractPageObject {
 
     public void registerPatient(String givenName, String familyName, String nickname, Gender gender, Integer birthDay, Integer birthMonth,
                                 Integer birthYear, String mothersFirstName, String birthplace, String addressSearchValue, String phoneNumber,
-                                int martialStatus, String occupation, int religion, String contact) throws Exception{
+                                int martialStatus, String occupation, int religion, String contact, String relationship, String contactPhoneNumber) throws Exception{
 
         wait15seconds.until(visibilityOfElementLocated(By.id("checkbox-enable-registration-date")));
         keepCurrentRegistrationDate();
@@ -32,6 +32,7 @@ public class PatientRegistration extends AbstractPageObject {
         enterOccupation(occupation);
         selectReligion(religion);
         enterContactPerson(contact);
+        enterContactRelationship(relationship);
         automaticallyEnterIdentifier();
         confirm();
     }
@@ -97,6 +98,14 @@ public class PatientRegistration extends AbstractPageObject {
 
     public void enterContactPerson(String contact) {
         setTextToField(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:NAMES AND FIRSTNAMES OF CONTACT"), contact);
+    }
+
+    public void enterContactRelationship(String relationship) {
+        setTextToField(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:RELATIONSHIPS OF CONTACT"), relationship);
+    }
+
+    public void enterContactPhoneNumber(String phoneNumber) {
+        setTextToField(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:TELEPHONE NUMBER OF CONTACT"), phoneNumber);
     }
 
     public void selectReligion(int option) {
