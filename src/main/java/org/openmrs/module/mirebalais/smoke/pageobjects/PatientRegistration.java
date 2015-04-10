@@ -33,6 +33,7 @@ public class PatientRegistration extends AbstractPageObject {
         selectReligion(religion);
         enterContactPerson(contact);
         enterContactRelationship(relationship);
+        enterContactPhoneNumber(contactPhoneNumber);
         automaticallyEnterIdentifier();
         confirm();
     }
