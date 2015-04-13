@@ -8,7 +8,7 @@ public abstract class LoginPage {
 	
 	protected WebDriver driver;
 	
-	public abstract void logIn(String user, String password, Integer location);
+	public abstract void logIn(String user, String password, String location);
 
 	public void logIn(String user, String password) {
 		logIn(user, password, null);
@@ -18,8 +18,8 @@ public abstract class LoginPage {
 		this.logIn("admin", "Admin123");
 	}
 
-    public void logInAsAdmin(int locationIndex) {
-        this.logIn("admin", "Admin123", locationIndex);
+    public void logInAsAdmin(String location) {
+        this.logIn("admin", "Admin123", location);
     }
 
 	public void logInAsClinicalUser() throws Exception {
@@ -29,7 +29,7 @@ public abstract class LoginPage {
 	
 	public void logInAsPharmacistUser() throws Exception {
 		User pharmacist = UserDatabaseHandler.insertNewPharmacistUser();
-		this.logIn(pharmacist.getUsername(), "Admin123", 17);   // HACK: 17 = Klinik Exten Famasi
+		this.logIn(pharmacist.getUsername(), "Admin123", "Klinik Exten Famasi");   // HACK: 17 = Klinik Exten Famasi
 	}
 
     public void logInAsArchivistUser() throws Exception{

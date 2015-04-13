@@ -112,8 +112,8 @@ public abstract class BasicMirebalaisSmokeTest {
         loginPage.logInAsAdmin();
     }
 
-    protected static void logInAsAdmin(int locationIndex) throws Exception {
-        loginPage.logInAsAdmin(locationIndex);
+    protected static void logInAsAdmin(String location) throws Exception {
+        loginPage.logInAsAdmin(location);
     }
 
     protected void setLoginPageObject(LoginPage loginPage) {

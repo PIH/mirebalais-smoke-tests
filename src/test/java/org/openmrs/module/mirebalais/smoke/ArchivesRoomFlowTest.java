@@ -16,7 +16,7 @@ public class ArchivesRoomFlowTest extends DbTest {
         initBasicPageObjects();
         ArchivesRoomApp archivesRoomApp = new ArchivesRoomApp(driver);
 
-		logInAsAdmin(0); // hack--we need to log into the archives room, so we pick the 0th item in the location list--relies on Archiv Santal being sorted first
+		logInAsAdmin("Achiv Santral");
 		
 		appDashboard.goToPatientPage(testPatient.getId());
 		patientDashboard.requestRecord();
