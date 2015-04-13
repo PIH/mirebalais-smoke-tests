@@ -29,7 +29,7 @@ public abstract class LoginPage {
 	
 	public void logInAsPharmacistUser() throws Exception {
 		User pharmacist = UserDatabaseHandler.insertNewPharmacistUser();
-		this.logIn(pharmacist.getUsername(), "Admin123");
+		this.logIn(pharmacist.getUsername(), "Admin123", 17);   // HACK: 17 = Klinik Exten Famasi
 	}
 
     public void logInAsArchivistUser() throws Exception{
