@@ -32,6 +32,9 @@ public class EmergencyDepartmentNoteForm extends ConsultNoteForm {
 
     @Override
     public void fillFormWithDeath(String primaryDiagnosis) throws Exception {
+
+        selectLocation(1);
+
         choosePrimaryDiagnosis(primaryDiagnosis);
         assertThat(submitButtonIsEnabled(),is(false));
 
@@ -51,6 +54,8 @@ public class EmergencyDepartmentNoteForm extends ConsultNoteForm {
 
     protected void fillFormWithBasicInfo(String primaryDiagnosis, String disposition) throws Exception {
         assertThat(submitButtonIsEnabled(),is(false));
+
+        selectLocation(1);
 
         choosePrimaryDiagnosis(primaryDiagnosis);
         assertThat(submitButtonIsEnabled(),is(false));
