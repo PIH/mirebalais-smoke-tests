@@ -70,7 +70,7 @@ public class AdmissionDischargeTransferTest extends DbTest {
     @Test
     public void shouldAdmitPatientViaAwaitingAdmissionApp() throws Exception {
 
-        patientDashboard.addConsultNoteWithAdmissionToLocation(malaria, 2);
+        patientDashboard.addConsultNoteWithAdmissionToLocation(malaria, 6);
         assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION_CREOLE_NAME), is(1));
 
         header.home();
@@ -89,7 +89,7 @@ public class AdmissionDischargeTransferTest extends DbTest {
     @Test
     public void shouldCancelPatientFromAwaitingAdmissionApp() throws Exception {
 
-        patientDashboard.addConsultNoteWithAdmissionToLocation(malaria, 2);
+        patientDashboard.addConsultNoteWithAdmissionToLocation(malaria, 6);
         assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION_CREOLE_NAME), is(1));
 
         header.home();
