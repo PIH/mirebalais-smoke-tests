@@ -65,25 +65,4 @@ public class ConsultNoteTest extends DbTest {
         assertThat(patientDashboard.containsText(PRIMARY_DIAGNOSIS), is(false));
     }
 
-	@Test
-	public void addEDNote() throws Exception {
-		patientDashboard.addEmergencyDepartmentNote(PRIMARY_DIAGNOSIS);
-		
-		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION_CREOLE_NAME), is(1));
-	}
-
-    @Test
-    public void editEDNote() throws Exception {
-
-        patientDashboard.addEmergencyDepartmentNote(PRIMARY_DIAGNOSIS);
-        patientDashboard.editExistingEDNote(EDITED_PRIMARY_DIAGNOSIS);
-
-        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION_CREOLE_NAME), is(1));
-
-        patientDashboard.viewConsultationDetails();
-        assertThat(patientDashboard.containsText(EDITED_PRIMARY_DIAGNOSIS), is(true));
-        assertThat(patientDashboard.containsText(PRIMARY_DIAGNOSIS), is(false));
-    }
-
-
 }

@@ -26,6 +26,11 @@ public abstract class LoginPage {
 		User clinical = UserDatabaseHandler.insertNewClinicalUser();
 		this.logIn(clinical.getUsername(), "Admin123");
 	}
+
+    public void logInAsClinicalUser(String location) throws Exception {
+        User clinical = UserDatabaseHandler.insertNewClinicalUser();
+        this.logIn(clinical.getUsername(), "Admin123", location);
+    }
 	
 	public void logInAsPharmacistUser() throws Exception {
 		User pharmacist = UserDatabaseHandler.insertNewPharmacistUser();
