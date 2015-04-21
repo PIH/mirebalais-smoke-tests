@@ -140,15 +140,15 @@ public class UserAdminTest extends DbTest {
         assertThat(appDashboard.isSystemAdministrationAppPresented(), is(true));
         assertThat(appDashboard.isReportsAppPresented(), is(true));
         assertThat(appDashboard.isInpatientsAppPresented(), is(true));
+        assertThat(appDashboard.isArchivesRoomAppPresented(), is(true));
+        assertThat(appDashboard.isPatientRegistrationAppPresented(), is(true));
+        assertThat(appDashboard.isStartHospitalVisitAppPresented(), is(true));
+        assertThat(appDashboard.isStartClinicVisitAppPresented(), is(true));
+        assertThat(appDashboard.isEditPatientAppPresented(), is(true));
+        assertThat(appDashboard.isCaptureVitalsAppPresented(), is(true));
+        assertThat(appDashboard.isCaptureVitalsAppPresented(), is(true));
 
-        assertThat(appDashboard.isArchivesRoomAppPresented(), is(false));
-        assertThat(appDashboard.isPatientRegistrationAppPresented(), is(false));
-        assertThat(appDashboard.isStartHospitalVisitAppPresented(), is(false));
-        assertThat(appDashboard.isStartClinicVisitAppPresented(), is(false));
-        assertThat(appDashboard.isEditPatientAppPresented(), is(false));
-        assertThat(appDashboard.isCaptureVitalsAppPresented(), is(false));
         assertThat(appDashboard.isLegacyAppPresented(), is(false));
-        assertThat(appDashboard.isCaptureVitalsAppPresented(), is(false));
         turnOnImplicitWait();
 		
 		appDashboard.openSysAdminApp();
