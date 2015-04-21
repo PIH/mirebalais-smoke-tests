@@ -137,6 +137,18 @@ public class AppDashboard extends AbstractPageObject {
 		return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.Apps.LEGACY_PATIENT_LOOKUP, ".", "-") + APP_LINK_SUFFIX);
 	}
 
+    public Boolean isAwaitingAdmissionAppPresented() {
+        return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.Apps.AWAITING_ADMISSION, ".", "-") + APP_LINK_SUFFIX);
+    }
+
+    public Boolean isInpatientsAppPresented() {
+        return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.Apps.INPATIENTS, ".", "-") + APP_LINK_SUFFIX);
+    }
+
+    public Boolean isSchedulingAppPresented() {
+        return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.Apps.APPOINTMENT_SCHEDULING_HOME, ".", "-") + APP_LINK_SUFFIX);
+    }
+
     public Boolean isLegacyAppPresented() {
         return isAppButtonPresent(LEGACY);
     }

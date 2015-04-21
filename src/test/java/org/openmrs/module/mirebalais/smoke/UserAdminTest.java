@@ -46,10 +46,10 @@ public class UserAdminTest extends DbTest {
 	}
 	
 	@Test
-	public void createUserWithClinicalRoleAndUserChangesOwnPassword() throws Exception {
+	public void createUserWithPhysicianRoleAndUserChangesOwnPassword() throws Exception {
 
-        userAdmin.createClinicalAccount(NameGenerator.getUserFirstName(), NameGenerator.getUserLastName(), username,
-		    DEFAULT_PASSWORD);
+        userAdmin.createPhysicianAccount(NameGenerator.getUserFirstName(), NameGenerator.getUserLastName(), username,
+                DEFAULT_PASSWORD);
 		logOutAndLogInWithNewUser(username);
 		
 		appDashboard.openMyAccountApp();
@@ -61,67 +61,69 @@ public class UserAdminTest extends DbTest {
 
         turnOffImplicitWaits(); // once we've found one element, assume that all are present
 		assertThat(appDashboard.isCaptureVitalsAppPresented(), is(true));
-		
+        assertThat(appDashboard.isAwaitingAdmissionAppPresented(), is(true));
+        assertThat(appDashboard.isInpatientsAppPresented(), is(true));
+
+        assertThat(appDashboard.isSchedulingAppPresented(), is(false));
 		assertThat(appDashboard.isSystemAdministrationAppPresented(), is(false));
 		assertThat(appDashboard.isPatientRegistrationAppPresented(), is(false));
 		assertThat(appDashboard.isArchivesRoomAppPresented(), is(false));
-		assertThat(appDashboard.isReportsAppPresented(), is(true));
-		
+		assertThat(appDashboard.isReportsAppPresented(), is(false));
 		assertThat(appDashboard.isStartHospitalVisitAppPresented(), is(false));
 		assertThat(appDashboard.isStartClinicVisitAppPresented(), is(false));
-		assertThat(appDashboard.isEditPatientAppPresented(), is(true));
-		
+		assertThat(appDashboard.isEditPatientAppPresented(), is(false));
 		assertThat(appDashboard.isLegacyAppPresented(), is(false));
         turnOnImplicitWait();
 	}
 	
 	@Test
-	public void createUserWithRadiologyRole() throws Exception {
-		userAdmin.createRadiologyAccount(NameGenerator.getUserFirstName(), NameGenerator.getUserLastName(), username,
-		    DEFAULT_PASSWORD);
+	public void createUserWithScheduleManagerRole() throws Exception {
+		userAdmin.createScheduleManagerAccount(NameGenerator.getUserFirstName(), NameGenerator.getUserLastName(), username,
+                DEFAULT_PASSWORD);
 
 		logOutAndLogInWithNewUser(username);
-		
-		assertThat(appDashboard.isActiveVisitsAppPresented(), is(true));
+
+        assertThat(appDashboard.isActiveVisitsAppPresented(), is(true));
 
         turnOffImplicitWaits(); // once we've found one element, assume that all are present
-		assertThat(appDashboard.isCaptureVitalsAppPresented(), is(false));
-		
-		assertThat(appDashboard.isSystemAdministrationAppPresented(), is(false));
-		assertThat(appDashboard.isPatientRegistrationAppPresented(), is(false));
-		assertThat(appDashboard.isArchivesRoomAppPresented(), is(false));
-		assertThat(appDashboard.isReportsAppPresented(), is(true));
-		
-		assertThat(appDashboard.isStartHospitalVisitAppPresented(), is(false));
-		assertThat(appDashboard.isStartClinicVisitAppPresented(), is(false));
-		assertThat(appDashboard.isEditPatientAppPresented(), is(true));
-		
-		assertThat(appDashboard.isLegacyAppPresented(), is(false));
+        assertThat(appDashboard.isAwaitingAdmissionAppPresented(), is(true));
+        assertThat(appDashboard.isInpatientsAppPresented(), is(true));
+        assertThat(appDashboard.isPatientRegistrationAppPresented(), is(true));
+        assertThat(appDashboard.isStartHospitalVisitAppPresented(), is(true));
+        assertThat(appDashboard.isEditPatientAppPresented(), is(true));
+        assertThat(appDashboard.isReportsAppPresented(), is(true));
+        assertThat(appDashboard.isSchedulingAppPresented(), is(true));
+
+        assertThat(appDashboard.isStartClinicVisitAppPresented(), is(false));
+        assertThat(appDashboard.isCaptureVitalsAppPresented(), is(false));
+        assertThat(appDashboard.isSystemAdministrationAppPresented(), is(false));
+        assertThat(appDashboard.isArchivesRoomAppPresented(), is(false));
+        assertThat(appDashboard.isLegacyAppPresented(), is(false));
         turnOnImplicitWait();
 	}
 	
 	@Test
-	public void createUserWithDataArchivesRole() throws Exception {
-		userAdmin.createDataArchivesAccount(NameGenerator.getUserFirstName(), NameGenerator.getUserLastName(), username,
-		    DEFAULT_PASSWORD);
+	public void createUserWithArchivistClerkRole() throws Exception {
+		userAdmin.createArchivistClerkAccount(NameGenerator.getUserFirstName(), NameGenerator.getUserLastName(), username,
+                DEFAULT_PASSWORD);
 
 		logOutAndLogInWithNewUser(username);
-		
-		assertThat(appDashboard.isActiveVisitsAppPresented(), is(true));
 
+        assertThat(appDashboard.isArchivesRoomAppPresented(), is(true));
         turnOffImplicitWaits(); // once we've found one element, assume that all are present
+        assertThat(appDashboard.isPatientRegistrationAppPresented(), is(true));
+        assertThat(appDashboard.isStartHospitalVisitAppPresented(), is(true));
+        assertThat(appDashboard.isStartClinicVisitAppPresented(), is(true));
+        assertThat(appDashboard.isEditPatientAppPresented(), is(true));
+
+        assertThat(appDashboard.isSchedulingAppPresented(), is(false));
 		assertThat(appDashboard.isCaptureVitalsAppPresented(), is(false));
-		
+        assertThat(appDashboard.isActiveVisitsAppPresented(), is(false));
 		assertThat(appDashboard.isSystemAdministrationAppPresented(), is(false));
-		assertThat(appDashboard.isPatientRegistrationAppPresented(), is(true));
-		assertThat(appDashboard.isArchivesRoomAppPresented(), is(true));
-		assertThat(appDashboard.isReportsAppPresented(), is(true));
-		
-		assertThat(appDashboard.isStartHospitalVisitAppPresented(), is(true));
-		assertThat(appDashboard.isStartClinicVisitAppPresented(), is(true));
-		assertThat(appDashboard.isEditPatientAppPresented(), is(true));
-		
+		assertThat(appDashboard.isReportsAppPresented(), is(false));
 		assertThat(appDashboard.isLegacyAppPresented(), is(false));
+        assertThat(appDashboard.isAwaitingAdmissionAppPresented(), is(false));
+        assertThat(appDashboard.isInpatientsAppPresented(), is(false));
         turnOnImplicitWait();
 	}
 	
@@ -131,22 +133,22 @@ public class UserAdminTest extends DbTest {
 		    DEFAULT_PASSWORD, "en");
 
 		logOutAndLogInWithNewUser(username);
-		
-		assertThat(appDashboard.isActiveVisitsAppPresented(), is(true));
 
-        turnOffImplicitWaits();
-		assertThat(appDashboard.isCaptureVitalsAppPresented(), is(true));
-		
-		assertThat(appDashboard.isSystemAdministrationAppPresented(), is(true));
-		assertThat(appDashboard.isPatientRegistrationAppPresented(), is(true));
-		assertThat(appDashboard.isArchivesRoomAppPresented(), is(true));
-		assertThat(appDashboard.isReportsAppPresented(), is(true));
-		
-		assertThat(appDashboard.isStartHospitalVisitAppPresented(), is(true));
-		assertThat(appDashboard.isStartClinicVisitAppPresented(), is(true));
-		assertThat(appDashboard.isEditPatientAppPresented(), is(true));
-		
-		assertThat(appDashboard.isLegacyAppPresented(), is(false));
+        assertThat(appDashboard.isSchedulingAppPresented(), is(true));
+        turnOffImplicitWaits(); // once we've found one element, assume that all are present
+        assertThat(appDashboard.isActiveVisitsAppPresented(), is(true));
+        assertThat(appDashboard.isSystemAdministrationAppPresented(), is(true));
+        assertThat(appDashboard.isReportsAppPresented(), is(true));
+        assertThat(appDashboard.isInpatientsAppPresented(), is(true));
+
+        assertThat(appDashboard.isArchivesRoomAppPresented(), is(false));
+        assertThat(appDashboard.isPatientRegistrationAppPresented(), is(false));
+        assertThat(appDashboard.isStartHospitalVisitAppPresented(), is(false));
+        assertThat(appDashboard.isStartClinicVisitAppPresented(), is(false));
+        assertThat(appDashboard.isEditPatientAppPresented(), is(false));
+        assertThat(appDashboard.isCaptureVitalsAppPresented(), is(false));
+        assertThat(appDashboard.isLegacyAppPresented(), is(false));
+        assertThat(appDashboard.isCaptureVitalsAppPresented(), is(false));
         turnOnImplicitWait();
 		
 		appDashboard.openSysAdminApp();

@@ -19,7 +19,7 @@ public class DeathCertificateTest extends DbTest {
 
         Patient patient = PatientDatabaseHandler.insertNewTestPatient();
 
-        logInAsClinicalUser();
+        logInAsPhysicianUser();
         appDashboard.goToPatientPage(patient.getId());
 
         DeathCertificateFormPage deathCertificateForm = patientDashboard.goToEnterDeathCertificateForm();

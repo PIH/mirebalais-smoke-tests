@@ -17,7 +17,7 @@ public class EDNoteTest extends DbTest {
 
     @BeforeClass
     public static void prepare() throws Exception {
-        logInAsClinicalUser("Ijans");
+        logInAsPhysicianUser("Ijans");
     }
 
     @Before

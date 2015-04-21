@@ -27,7 +27,7 @@ public class InPatientTest extends DbTest {
 		inPatientList = new InPatientList(driver);
         awaitingAdmissionApp = new AwaitingAdmissionApp(driver);
 
-        logInAsClinicalUser("Sal Gason");
+        logInAsPhysicianUser("Sal Gason");
 
 		appDashboard.goToPatientPage(testPatient.getId());
 		patientDashboard.startVisit();

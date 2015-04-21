@@ -14,8 +14,6 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
-import java.util.List;
-
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import org.openmrs.module.mirebalais.smoke.helper.UserDatabaseHandler;
 import org.openqa.selenium.By;
@@ -23,13 +21,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import java.util.List;
+
 public class UserAdmin extends AbstractPageObject {
 	
-	private static final String CLINICAL_ROLE = "clinical";
+	private static final String PHYSICIAN_ROLE = "physician";
 	
-	private static final String DATA_ARCHIVES_ROLE = "dataArchives";
+	private static final String ARCHIVIST_CLERK_ROLE = "archivistClerk";
 	
-	private static final String RADIOLOGY_ROLE = "radiology";
+	private static final String SCHEDULE_MANAGER_ROLE = "scheduleManager";
 	
 	private static final String SYS_ADMIN_ROLE = "sysAdmin";
     private final String CREOLE = "ht";
@@ -44,16 +44,16 @@ public class UserAdmin extends AbstractPageObject {
 		adminPage = new SysAdminPage(driver);
 	}
 	
-	public void createClinicalAccount(String firstName, String lastName, String username, String password) throws Exception {
-		createA(CLINICAL_ROLE, firstName, lastName, username, password, CREOLE);
+	public void createPhysicianAccount(String firstName, String lastName, String username, String password) throws Exception {
+		createA(PHYSICIAN_ROLE, firstName, lastName, username, password, CREOLE);
 	}
 	
-	public void createRadiologyAccount(String firstName, String lastName, String username, String password) throws Exception {
-		createA(RADIOLOGY_ROLE, firstName, lastName, username, password, CREOLE);
+	public void createScheduleManagerAccount(String firstName, String lastName, String username, String password) throws Exception {
+		createA(SCHEDULE_MANAGER_ROLE, firstName, lastName, username, password, CREOLE);
 	}
 	
-	public void createDataArchivesAccount(String firstName, String lastName, String username, String password) throws Exception {
-		createA(DATA_ARCHIVES_ROLE, firstName, lastName, username, password, CREOLE);
+	public void createArchivistClerkAccount(String firstName, String lastName, String username, String password) throws Exception {
+		createA(ARCHIVIST_CLERK_ROLE, firstName, lastName, username, password, CREOLE);
 	}
 	
 	public void createSysAdminAccount(String firstName, String lastName, String username, String password, String language) throws Exception {

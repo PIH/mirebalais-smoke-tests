@@ -22,18 +22,18 @@ public abstract class LoginPage {
         this.logIn("admin", "Admin123", location);
     }
 
-	public void logInAsClinicalUser() throws Exception {
-		User clinical = UserDatabaseHandler.insertNewClinicalUser();
+	public void logInAsPhysicianUser() throws Exception {
+		User clinical = UserDatabaseHandler.insertNewPhysicianUser();
 		this.logIn(clinical.getUsername(), "Admin123");
 	}
 
-    public void logInAsClinicalUser(String location) throws Exception {
-        User clinical = UserDatabaseHandler.insertNewClinicalUser();
+    public void logInAsPhysicianUser(String location) throws Exception {
+        User clinical = UserDatabaseHandler.insertNewPhysicianUser();
         this.logIn(clinical.getUsername(), "Admin123", location);
     }
 	
-	public void logInAsPharmacistUser() throws Exception {
-		User pharmacist = UserDatabaseHandler.insertNewPharmacistUser();
+	public void logInAsPharmacyManagerUser() throws Exception {
+		User pharmacist = UserDatabaseHandler.insertNewPharmacyManagerUser();
 		this.logIn(pharmacist.getUsername(), "Admin123", "Klinik Exten Famasi");   // HACK: 17 = Klinik Exten Famasi
 	}
 

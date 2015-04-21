@@ -30,17 +30,17 @@ public class UserDatabaseHandler extends BaseDatabaseHandler {
 
     protected static List<String> usernamesToDelete = new ArrayList<String>();
 	
-	public static User insertNewClinicalUser() throws Exception {
+	public static User insertNewPhysicianUser() throws Exception {
 
-		return createUserWithApplicationAndProviderRole("clinical", "Physician");
+		return createUserWithApplicationAndProviderRole("physician", "Physician");
 	}
 	
-	public static User insertNewPharmacistUser() throws Exception {
-		return createUserWithApplicationAndProviderRole("pharmacist", "Pharmacist");
+	public static User insertNewPharmacyManagerUser() throws Exception {
+		return createUserWithApplicationAndProviderRole("pharmacyManager", "Pharmacist");
 	}
 
     public static User insertNewArchivistUser() throws Exception {
-        return createUserWithApplicationAndProviderRole("dataArchives", "Archivist/Clerk");
+        return createUserWithApplicationAndProviderRole("archivistClerk", "Archivist/Clerk");
     }
 	
 	private static User createUserWithApplicationAndProviderRole(String role, String providerRole) throws Exception {

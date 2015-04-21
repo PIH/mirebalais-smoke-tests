@@ -96,16 +96,16 @@ public abstract class BasicMirebalaisSmokeTest {
         }
     }
 	
-	protected static void logInAsClinicalUser() throws Exception {
-		loginPage.logInAsClinicalUser();
+	protected static void logInAsPhysicianUser() throws Exception {
+		loginPage.logInAsPhysicianUser();
 	}
 
-    protected static void logInAsClinicalUser(String location) throws Exception {
-        loginPage.logInAsClinicalUser(location);
+    protected static void logInAsPhysicianUser(String location) throws Exception {
+        loginPage.logInAsPhysicianUser(location);
     }
 	
-	protected static void logInAsPharmacistUser() throws Exception {
-        loginPage.logInAsPharmacistUser();
+	protected static void logInAsPharmacyManagerUser() throws Exception {
+        loginPage.logInAsPharmacyManagerUser();
 	}
 
     protected static void logInAsArchivist() throws Exception{

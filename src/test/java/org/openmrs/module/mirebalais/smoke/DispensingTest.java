@@ -21,19 +21,19 @@ public class DispensingTest extends DbTest {
     private String doseUnit = "Milligramme (mg)";
 
     @Test
-	public void pharmacistCanDispenseMedicationForAnExistingActiveVisit() throws Exception {
+	public void pharmacyManagerCanDispenseMedicationForAnExistingActiveVisit() throws Exception {
 		AppDashboard appDashboard = new AppDashboard(driver);
 		PatientDashboard patientDashboard = new PatientDashboard(driver);
 		
 		Patient patient = PatientDatabaseHandler.insertNewTestPatient();
 		
-		logInAsClinicalUser();
+		logInAsPhysicianUser();
 		appDashboard.goToPatientPage(patient.getId());
 		patientDashboard.startVisit();
 		assertThat("Dispense medication.", patientDashboard.canDispenseMedication(), is(false));
 		logout();
 		
-		logInAsPharmacistUser();
+		logInAsPharmacyManagerUser();
 		appDashboard.goToPatientPage(patient.getId());
 		assertThat("Dispense medication.", patientDashboard.canDispenseMedication(), is(true));
 		DispenseMedicationForm dispensingForm = patientDashboard.goToDispenseMedicationForm();
