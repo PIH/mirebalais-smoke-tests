@@ -17,7 +17,8 @@ public class PatientRegistration extends AbstractPageObject {
 
     public void registerPatient(String givenName, String familyName, String nickname, Gender gender, Integer birthDay, Integer birthMonth,
                                 Integer birthYear, String mothersFirstName, String birthplace, String addressSearchValue, String phoneNumber,
-                                int martialStatus, String occupation, int religion, String contact, String relationship, String contactAddress, String contactPhoneNumber) throws Exception{
+                                int martialStatus, String occupation, int religion, String contact, String relationship, String contactAddress, String contactPhoneNumber,
+                                int printIdCard) throws Exception{
 
         wait15seconds.until(visibilityOfElementLocated(By.id("checkbox-enable-registration-date")));
         keepCurrentRegistrationDate();
@@ -36,6 +37,7 @@ public class PatientRegistration extends AbstractPageObject {
         enterContactAddress(contactAddress);
         enterContactPhoneNumber(contactPhoneNumber);
         automaticallyEnterIdentifier();
+        printIdCard(printIdCard);
         confirm();
     }
 
@@ -122,6 +124,11 @@ public class PatientRegistration extends AbstractPageObject {
 
     public void automaticallyEnterIdentifier() {
         driver.findElement(By.id("checkbox-autogenerate-identifier")).sendKeys(Keys.ENTER);
+    }
+
+    public void printIdCard(int option) {
+        selectFromDropdown(By.name("obs.PIH:ID Card Printing Requested"), option);
+        hitEnterKey(By.name("obs.PIH:ID Card Printing Requested"));
     }
 
     public void manuallyEnterIdentifier(String identifier) {
