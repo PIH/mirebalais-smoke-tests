@@ -34,7 +34,7 @@ public abstract class LoginPage {
 	
 	public void logInAsPharmacyManagerUser() throws Exception {
 		User pharmacist = UserDatabaseHandler.insertNewPharmacyManagerUser();
-		this.logIn(pharmacist.getUsername(), "Admin123", "Klinik Exten Famasi");   // HACK: 17 = Klinik Exten Famasi
+		this.logIn(pharmacist.getUsername(), "Admin123", "Klinik Ekstèn Famasi");
 	}
 
     public void logInAsArchivistUser() throws Exception{
