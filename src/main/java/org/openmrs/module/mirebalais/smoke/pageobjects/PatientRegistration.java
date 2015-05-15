@@ -17,7 +17,7 @@ public class PatientRegistration extends AbstractPageObject {
 
     public void registerPatient(String givenName, String familyName, String nickname, Gender gender, Integer birthDay, Integer birthMonth,
                                 Integer birthYear, String mothersFirstName, String birthplace, String addressSearchValue, String phoneNumber,
-                                int martialStatus, String occupation, int religion, String contact, String relationship, String contactAddress, String contactPhoneNumber,
+                                int martialStatus, int occupation, int religion, String contact, String relationship, String contactAddress, String contactPhoneNumber,
                                 int printIdCard) throws Exception{
 
         wait15seconds.until(visibilityOfElementLocated(By.id("checkbox-enable-registration-date")));
@@ -30,7 +30,7 @@ public class PatientRegistration extends AbstractPageObject {
         enterAddressViaShortcut(addressSearchValue);
         enterTelephoneNumber(phoneNumber);
         selectMartialStatus(martialStatus);
-        enterOccupation(occupation);
+        selectOccupation(occupation);
         selectReligion(religion);
         enterContactPerson(contact);
         enterContactRelationship(relationship);
@@ -101,8 +101,9 @@ public class PatientRegistration extends AbstractPageObject {
         hitEnterKey(By.name("obs.PIH:CIVIL STATUS"));
     }
 
-    public void enterOccupation(String occupation) {
-        setTextToField(By.name("obs.PIH:2452"), occupation);
+    public void selectOccupation(int option) {
+        selectFromDropdown(By.name("obs.PIH:Occupation"), option);
+        hitEnterKey(By.name("obs.PIH:Occupation"));
     }
 
     public void enterContactPerson(String contact) {
