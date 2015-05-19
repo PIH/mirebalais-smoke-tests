@@ -34,16 +34,22 @@ public class PatientRegistration extends AbstractPageObject {
         selectReligion(religion);
         enterContactPerson(contact);
         enterContactRelationship(relationship);
-        enterContactAddress(contactAddress);
+        enterContactAddressViaShortcut(contactAddress);
         enterContactPhoneNumber(contactPhoneNumber);
         automaticallyEnterIdentifier();
         printIdCard(printIdCard);
         confirm();
     }
 
-    private void enterContactAddress(String contactAddress) {
-        setTextToField(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:ADDRESS OF PATIENT CONTACT"), contactAddress);
-        hitTabKey(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:ADDRESS OF PATIENT CONTACT"));  // because this is a text area, need to tab, not enter
+    private void enterContactAddressViaShortcut(String searchValue) throws Exception {
+        //wait5seconds.until(visibilityOfElementLocated(By.className("address-hierarchy-shortcut")));
+        WebElement searchBox = driver.findElements(By.className("address-hierarchy-shortcut")).get(1);
+        searchBox.sendKeys(searchValue);
+
+        // TODO fix
+        Thread.sleep(1000);
+        searchBox.sendKeys(Keys.ENTER);
+        searchBox.sendKeys(Keys.ENTER);
     }
 
     public void keepCurrentRegistrationDate() {
