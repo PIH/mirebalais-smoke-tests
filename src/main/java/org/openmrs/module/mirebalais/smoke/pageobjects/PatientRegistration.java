@@ -27,7 +27,7 @@ public class PatientRegistration extends AbstractPageObject {
         enterBirthDate(birthDay, birthMonth, birthYear);
         enterMothersFirstName(mothersFirstName);
         enterBirthplace(birthplace);
-        enterAddressViaShortcut(addressSearchValue);
+        enterPersonAddressViaShortcut(addressSearchValue);
         enterTelephoneNumber(phoneNumber);
         selectMartialStatus(martialStatus);
         selectOccupation(occupation);
@@ -39,17 +39,6 @@ public class PatientRegistration extends AbstractPageObject {
         automaticallyEnterIdentifier();
         printIdCard(printIdCard);
         confirm();
-    }
-
-    private void enterContactAddressViaShortcut(String searchValue) throws Exception {
-        //wait5seconds.until(visibilityOfElementLocated(By.className("address-hierarchy-shortcut")));
-        WebElement searchBox = driver.findElements(By.className("address-hierarchy-shortcut")).get(1);
-        searchBox.sendKeys(searchValue);
-
-        // TODO fix
-        Thread.sleep(1000);
-        searchBox.sendKeys(Keys.ENTER);
-        searchBox.sendKeys(Keys.ENTER);
     }
 
     public void keepCurrentRegistrationDate() {
@@ -90,12 +79,20 @@ public class PatientRegistration extends AbstractPageObject {
         hitTabKey(By.name("birthplace"));  // because this is a text area, need to tab, not enter
     }
 
-    public void enterAddressViaShortcut(String searchValue) {
-        // use the shortcut to enter Cange
-        driver.findElement(By.className("address-hierarchy-shortcut")).sendKeys(searchValue);
-        wait5seconds.until(visibilityOfElementLocated(By.className("ui-menu-item")));
-        hitEnterKey(By.className("address-hierarchy-shortcut"));
-        hitEnterKey(By.className("address-hierarchy-shortcut"));
+    public void enterPersonAddressViaShortcut(String searchValue) {
+        enterAddressViaShortcut(searchValue,0);  // index=0 because person address is first address in the registration form
+    }
+
+    public void enterContactAddressViaShortcut(String searchValue) {
+        enterAddressViaShortcut(searchValue,1);  // index=1 because contact is the second address in the registration form
+    }
+
+    public void enterAddressViaShortcut(String searchValue, int index) {
+        WebElement searchBox = driver.findElements(By.className("address-hierarchy-shortcut")).get(index);
+        searchBox.sendKeys(searchValue);
+        wait5seconds.until(visibilityOfElementLocated(By.partialLinkText(searchValue)));
+        searchBox.sendKeys(Keys.ENTER);
+        searchBox.sendKeys(Keys.ENTER);
     }
 
     public void enterTelephoneNumber(String number) {
