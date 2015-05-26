@@ -45,6 +45,12 @@
                 <suite>Haiti</suite>
             </properties>
         </profile>
+        <profile>
+            <id>liberia</id>
+            <properties>
+                <suite>Liberia</suite>
+            </properties>
+        </profile>
     </profiles>
 
     <build>
