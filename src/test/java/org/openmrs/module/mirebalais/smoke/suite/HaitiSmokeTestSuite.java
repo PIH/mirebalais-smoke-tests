@@ -11,7 +11,7 @@ import org.openqa.selenium.WebDriver;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({PatientRegistrationFlowTest.class})
-public class GeneralSmokeTestSuite {
+public class HaitiSmokeTestSuite {
 
     private static WebDriver driver;
 

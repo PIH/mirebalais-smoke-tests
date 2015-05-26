@@ -26,9 +26,9 @@ public class PatientRegistration extends AbstractPageObject {
         enterGender(gender);
         enterBirthDate(birthDay, birthMonth, birthYear);
         enterMothersFirstName(mothersFirstName);
-        enterBirthplace(birthplace);
         enterPersonAddressViaShortcut(addressSearchValue);
         enterTelephoneNumber(phoneNumber);
+        enterBirthplace(birthplace);
         selectMartialStatus(martialStatus);
         selectOccupation(occupation);
         selectReligion(religion);
@@ -74,11 +74,6 @@ public class PatientRegistration extends AbstractPageObject {
         setTextToField(By.name("mothersFirstName"), mothersFirstName);
     }
 
-    public void enterBirthplace(String birthplace) {
-        setTextToField(By.name("birthplace"), birthplace);
-        hitTabKey(By.name("birthplace"));  // because this is a text area, need to tab, not enter
-    }
-
     public void enterPersonAddressViaShortcut(String searchValue) {
         enterAddressViaShortcut(searchValue,0);  // index=0 because person address is first address in the registration form
     }
@@ -98,6 +93,11 @@ public class PatientRegistration extends AbstractPageObject {
     public void enterTelephoneNumber(String number) {
         setTextToField(By.name("phoneNumber"), number);
     }
+
+    public void enterBirthplace(String birthplace) {
+        setTextToField(By.name("obs.PIH:PLACE OF BIRTH"), birthplace);
+    }
+
 
     public void selectMartialStatus(int option) {
         selectFromDropdown(By.name("obs.PIH:CIVIL STATUS"), option);

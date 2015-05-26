@@ -40,9 +40,9 @@
             </properties>
         </profile>
         <profile>
-            <id>general</id>
+            <id>haiti</id>
             <properties>
-                <suite>General</suite>
+                <suite>Haiti</suite>
             </properties>
         </profile>
     </profiles>

@@ -1,6 +1,5 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.ClinicianDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientRegistration;
@@ -12,9 +11,8 @@ import java.util.Random;
 
 import static org.junit.Assert.assertTrue;
 
-public class PatientRegistrationFlowTest extends DbTest {
+public abstract class PatientRegistrationFlowTest extends DbTest {
 
-    @Test
     public void registerNewPatient() throws Exception {
         initBasicPageObjects();
         setLoginPage(new GeneralLoginPage(driver));  // because we want to use the General login page here, not the Mirebalaison
@@ -29,14 +27,22 @@ public class PatientRegistrationFlowTest extends DbTest {
         //click on the Register Patient button
         driver.findElement(By.id("register-patient-button")).click();
 
-        registration.registerPatient(givenName, familyName, nickname, PatientRegistration.Gender.MALE, 22, 4, 1975, "louise", "mirebalais", "Cange", "123-4567"
-                , 1, 1, 2, "dan", "cousin", "Hinche", "4312533", 1);
+        registration.registerPatient(givenName, familyName, nickname, PatientRegistration.Gender.MALE, 22, 4, 1975, "louise", "mirebalais", getPersonAddressSearchString(), "123-4567"
+                , 1, 1, 2, "dan", "cousin", getContactAddressSearchString(), "4312533", 1);
 
         appDashboard.goToAppDashboard();
         appDashboard.findPatientByGivenAndFamilyName(givenName, familyName);
         assertTrue(new ClinicianDashboard(driver).isOpenForPatient(givenName, familyName));
 
         populateTestPatientForTearDown();
+    }
+
+    protected String getPersonAddressSearchString() {
+        return "";
+    }
+
+    protected String getContactAddressSearchString() {
+        return "";
     }
 
     private void populateTestPatientForTearDown() throws Exception {
