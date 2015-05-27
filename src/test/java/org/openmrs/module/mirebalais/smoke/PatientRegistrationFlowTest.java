@@ -27,8 +27,8 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         //click on the Register Patient button
         driver.findElement(By.id("register-patient-button")).click();
 
-        registration.registerPatient(givenName, familyName, nickname, PatientRegistration.Gender.MALE, 22, 4, 1975, "louise", "mirebalais", getPersonAddressSearchString(), "123-4567"
-                , 1, 1, getReligion(), "dan", "cousin", getContactAddressSearchString(), "4312533", 1);
+        registration.registerPatient(givenName, familyName, nickname, PatientRegistration.Gender.MALE, 22, 4, 1975, "louise", "mirebalais", getPersonAddressString(), "123-4567"
+                , 1, 1, getReligion(), "dan", "cousin", getContactAddressString(), contactAddressUsesHierarchy(), "4312533", 1);
 
         appDashboard.goToAppDashboard();
         appDashboard.findPatientByGivenAndFamilyName(givenName, familyName);
@@ -37,13 +37,15 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         populateTestPatientForTearDown();
     }
 
-    protected String getPersonAddressSearchString() {
+    protected String getPersonAddressString() {
         return "";
     }
 
-    protected String getContactAddressSearchString() {
+    protected String getContactAddressString() {
         return "";
     }
+
+    protected Boolean contactAddressUsesHierarchy() { return true; }
 
     protected Integer getReligion() { return null; }
 

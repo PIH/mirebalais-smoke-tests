@@ -11,14 +11,16 @@ public class PatientRegistrationLiberiaFlowTest extends PatientRegistrationFlowT
     }
 
     @Override
-    protected String getPersonAddressSearchString() {
+    protected String getPersonAddressString() {
         return "Zeno";
     }
 
     @Override
-    protected String getContactAddressSearchString() {
+    protected String getContactAddressString() {
         return "Zeno";
     }
+
+    protected Boolean contactAddressUsesHierarchy() { return false; }
 
     @Override
     protected Integer getReligion() { return null; }

@@ -17,7 +17,8 @@ public class PatientRegistration extends AbstractPageObject {
 
     public void registerPatient(String givenName, String familyName, String nickname, Gender gender, Integer birthDay, Integer birthMonth,
                                 Integer birthYear, String mothersFirstName, String birthplace, String addressSearchValue, String phoneNumber,
-                                Integer martialStatus, Integer occupation, Integer religion, String contact, String relationship, String contactAddress, String contactPhoneNumber,
+                                Integer martialStatus, Integer occupation, Integer religion, String contact, String relationship, String contactAddress,
+                                Boolean contactAddressUsesHierarchy, String contactPhoneNumber,
                                 Integer printIdCard) throws Exception{
 
         wait15seconds.until(visibilityOfElementLocated(By.id("checkbox-enable-registration-date")));
@@ -34,7 +35,14 @@ public class PatientRegistration extends AbstractPageObject {
         selectReligion(religion);
         enterContactPerson(contact);
         enterContactRelationship(relationship);
-        enterContactAddressViaShortcut(contactAddress);
+
+        if (contactAddressUsesHierarchy) {
+            enterContactAddressViaShortcut(contactAddress);
+        }
+        else {
+            enterContactAddressAsFreeText(contact);
+        }
+
         enterContactPhoneNumber(contactPhoneNumber);
         automaticallyEnterIdentifier();
         printIdCard(printIdCard);
@@ -78,10 +86,6 @@ public class PatientRegistration extends AbstractPageObject {
         enterAddressViaShortcut(searchValue,0);  // index=0 because person address is first address in the registration form
     }
 
-    public void enterContactAddressViaShortcut(String searchValue) {
-        enterAddressViaShortcut(searchValue,1);  // index=1 because contact is the second address in the registration form
-    }
-
     public void enterAddressViaShortcut(String searchValue, int index) {
         WebElement searchBox = driver.findElements(By.className("address-hierarchy-shortcut")).get(index);
         searchBox.sendKeys(searchValue);
@@ -115,6 +119,14 @@ public class PatientRegistration extends AbstractPageObject {
 
     public void enterContactRelationship(String relationship) {
         setTextToField(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:RELATIONSHIPS OF CONTACT"), relationship);
+    }
+
+    public void enterContactAddressViaShortcut(String searchValue) {
+        enterAddressViaShortcut(searchValue,1);  // index=1 because contact is the second address in the registration form
+    }
+
+    public void enterContactAddressAsFreeText(String searchValue) {
+        setTextToField(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:ADDRESS OF PATIENT CONTACT"), searchValue);
     }
 
     public void enterContactPhoneNumber(String phoneNumber) {
