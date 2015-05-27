@@ -28,7 +28,8 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         driver.findElement(By.id("register-patient-button")).click();
 
         registration.registerPatient(givenName, familyName, nickname, PatientRegistration.Gender.MALE, 22, 4, 1975, "louise", "mirebalais", getPersonAddressString(), "123-4567"
-                , 1, 1, getReligion(), "dan", "cousin", getContactAddressString(), contactAddressUsesHierarchy(), "4312533", automaticallyEnterIdentifier(), getPrintIdCardOption());
+                , 1, 1, getReligion(), "dan", "cousin", getContactAddressString(), contactAddressUsesHierarchy(), "4312533", automaticallyEnterIdentifier(), getPrintIdCardOption(),
+                getSuccessElement());
 
         appDashboard.goToAppDashboard();
         appDashboard.findPatientByGivenAndFamilyName(givenName, familyName);
@@ -52,6 +53,10 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
     protected Boolean automaticallyEnterIdentifier() { return true; }
 
     protected Integer getPrintIdCardOption() { return 1; }
+
+    protected By getSuccessElement() {
+        return By.id("register-patient-button");
+    }
 
     private void populateTestPatientForTearDown() throws Exception {
         String patientId = ((Long) ((JavascriptExecutor) driver).executeScript("return patient.id")).toString();

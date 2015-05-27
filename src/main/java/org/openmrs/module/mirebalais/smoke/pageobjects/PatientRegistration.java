@@ -19,7 +19,7 @@ public class PatientRegistration extends AbstractPageObject {
                                 Integer birthYear, String mothersFirstName, String birthplace, String addressSearchValue, String phoneNumber,
                                 Integer martialStatus, Integer occupation, Integer religion, String contact, String relationship, String contactAddress,
                                 Boolean contactAddressUsesHierarchy, String contactPhoneNumber,
-                                Boolean automaticallyEnterIdentifier, Integer printIdCard) throws Exception{
+                                Boolean automaticallyEnterIdentifier, Integer printIdCard, By successElement) throws Exception{
 
         wait15seconds.until(visibilityOfElementLocated(By.id("checkbox-enable-registration-date")));
         keepCurrentRegistrationDate();
@@ -47,7 +47,7 @@ public class PatientRegistration extends AbstractPageObject {
         automaticallyEnterIdentifier(automaticallyEnterIdentifier);
         printIdCard(printIdCard);
 
-        confirm();
+        confirm(successElement);
     }
 
     public void keepCurrentRegistrationDate() {
@@ -128,6 +128,7 @@ public class PatientRegistration extends AbstractPageObject {
 
     public void enterContactAddressAsFreeText(String searchValue) {
         setTextToField(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:ADDRESS OF PATIENT CONTACT"), searchValue);
+        hitTabKey(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:ADDRESS OF PATIENT CONTACT"));
     }
 
     public void enterContactPhoneNumber(String phoneNumber) {
@@ -162,9 +163,9 @@ public class PatientRegistration extends AbstractPageObject {
         setTextToField(By.id("patient-identifier"), identifier);
     }
 
-    public void confirm() {
+    public void confirm(By successElement) {
         hitEnterKey(By.className("submitButton"));
-        wait5seconds.until(visibilityOfElementLocated(By.id("register-patient-button")));  // wait for reload of the landing page
+        wait5seconds.until(visibilityOfElementLocated(successElement));  // wait for reload of the landing page
     }
 
 

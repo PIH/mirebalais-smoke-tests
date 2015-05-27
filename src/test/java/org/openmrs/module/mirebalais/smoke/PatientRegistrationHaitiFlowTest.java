@@ -1,6 +1,7 @@
 package org.openmrs.module.mirebalais.smoke;
 
 import org.junit.Test;
+import org.openqa.selenium.By;
 
 public class PatientRegistrationHaitiFlowTest extends PatientRegistrationFlowTest {
 
@@ -30,5 +31,10 @@ public class PatientRegistrationHaitiFlowTest extends PatientRegistrationFlowTes
 
     @Override
     protected Integer getPrintIdCardOption() { return 1; }
+
+    @Override
+    protected By getSuccessElement() {
+        return By.id("register-patient-button");    // Haiti redirects to Register Patient search page
+    }
 
 }
