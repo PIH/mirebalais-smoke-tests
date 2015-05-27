@@ -28,7 +28,7 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         driver.findElement(By.id("register-patient-button")).click();
 
         registration.registerPatient(givenName, familyName, nickname, PatientRegistration.Gender.MALE, 22, 4, 1975, "louise", "mirebalais", getPersonAddressSearchString(), "123-4567"
-                , 1, 1, 2, "dan", "cousin", getContactAddressSearchString(), "4312533", 1);
+                , 1, 1, getReligion(), "dan", "cousin", getContactAddressSearchString(), "4312533", 1);
 
         appDashboard.goToAppDashboard();
         appDashboard.findPatientByGivenAndFamilyName(givenName, familyName);
@@ -44,6 +44,8 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
     protected String getContactAddressSearchString() {
         return "";
     }
+
+    protected Integer getReligion() { return null; }
 
     private void populateTestPatientForTearDown() throws Exception {
         String patientId = ((Long) ((JavascriptExecutor) driver).executeScript("return patient.id")).toString();

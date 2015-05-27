@@ -20,4 +20,7 @@ public class PatientRegistrationLiberiaFlowTest extends PatientRegistrationFlowT
         return "Zeno";
     }
 
+    @Override
+    protected Integer getReligion() { return null; }
+
 }

@@ -17,8 +17,8 @@ public class PatientRegistration extends AbstractPageObject {
 
     public void registerPatient(String givenName, String familyName, String nickname, Gender gender, Integer birthDay, Integer birthMonth,
                                 Integer birthYear, String mothersFirstName, String birthplace, String addressSearchValue, String phoneNumber,
-                                int martialStatus, int occupation, int religion, String contact, String relationship, String contactAddress, String contactPhoneNumber,
-                                int printIdCard) throws Exception{
+                                Integer martialStatus, Integer occupation, Integer religion, String contact, String relationship, String contactAddress, String contactPhoneNumber,
+                                Integer printIdCard) throws Exception{
 
         wait15seconds.until(visibilityOfElementLocated(By.id("checkbox-enable-registration-date")));
         keepCurrentRegistrationDate();
@@ -121,16 +121,18 @@ public class PatientRegistration extends AbstractPageObject {
         setTextToField(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:TELEPHONE NUMBER OF CONTACT"), phoneNumber);
     }
 
-    public void selectReligion(int option) {
-        selectFromDropdown(By.name("obs.PIH:Religion"), option);
-        hitEnterKey(By.name("obs.PIH:Religion"));
+    public void selectReligion(Integer option) {
+        if (option != null) {
+            selectFromDropdown(By.name("obs.PIH:Religion"), option);
+            hitEnterKey(By.name("obs.PIH:Religion"));
+        }
     }
 
     public void automaticallyEnterIdentifier() {
         driver.findElement(By.id("checkbox-autogenerate-identifier")).sendKeys(Keys.ENTER);
     }
 
-    public void printIdCard(int option) {
+    public void printIdCard(Integer option) {
         selectFromDropdown(By.name("obs.PIH:ID Card Printing Requested"), option);
         hitEnterKey(By.name("obs.PIH:ID Card Printing Requested"));
     }

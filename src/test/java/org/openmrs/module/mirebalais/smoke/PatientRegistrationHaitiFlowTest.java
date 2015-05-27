@@ -19,4 +19,8 @@ public class PatientRegistrationHaitiFlowTest extends PatientRegistrationFlowTes
     protected String getContactAddressSearchString() {
         return "Hinche";
     }
+
+
+    @Override
+    protected Integer getReligion() { return 1; }
 }
