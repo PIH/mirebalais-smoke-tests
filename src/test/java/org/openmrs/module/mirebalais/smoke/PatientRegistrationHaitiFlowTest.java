@@ -24,4 +24,11 @@ public class PatientRegistrationHaitiFlowTest extends PatientRegistrationFlowTes
 
     @Override
     protected Integer getReligion() { return 1; }
+
+    @Override
+    protected Boolean automaticallyEnterIdentifier() { return true; }
+
+    @Override
+    protected Integer getPrintIdCardOption() { return 1; }
+
 }

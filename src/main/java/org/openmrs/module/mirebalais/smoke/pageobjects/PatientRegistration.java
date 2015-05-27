@@ -19,7 +19,7 @@ public class PatientRegistration extends AbstractPageObject {
                                 Integer birthYear, String mothersFirstName, String birthplace, String addressSearchValue, String phoneNumber,
                                 Integer martialStatus, Integer occupation, Integer religion, String contact, String relationship, String contactAddress,
                                 Boolean contactAddressUsesHierarchy, String contactPhoneNumber,
-                                Integer printIdCard) throws Exception{
+                                Boolean automaticallyEnterIdentifier, Integer printIdCard) throws Exception{
 
         wait15seconds.until(visibilityOfElementLocated(By.id("checkbox-enable-registration-date")));
         keepCurrentRegistrationDate();
@@ -44,8 +44,9 @@ public class PatientRegistration extends AbstractPageObject {
         }
 
         enterContactPhoneNumber(contactPhoneNumber);
-        automaticallyEnterIdentifier();
+        automaticallyEnterIdentifier(automaticallyEnterIdentifier);
         printIdCard(printIdCard);
+
         confirm();
     }
 
@@ -140,13 +141,20 @@ public class PatientRegistration extends AbstractPageObject {
         }
     }
 
-    public void automaticallyEnterIdentifier() {
-        driver.findElement(By.id("checkbox-autogenerate-identifier")).sendKeys(Keys.ENTER);
+    public void automaticallyEnterIdentifier(Boolean automaticallyEnterIdentifier) {
+        if (automaticallyEnterIdentifier != null && automaticallyEnterIdentifier) {   // this field not present in Liberia, so automaticallyEnterIdentifier set to null
+            driver.findElement(By.id("checkbox-autogenerate-identifier")).sendKeys(Keys.ENTER);
+        }
+        else {
+            // handle manual entry case
+        }
     }
 
     public void printIdCard(Integer option) {
-        selectFromDropdown(By.name("obs.PIH:ID Card Printing Requested"), option);
-        hitEnterKey(By.name("obs.PIH:ID Card Printing Requested"));
+        if (option != null && option != 0) {   // this field not present in Liberia, so option set to null
+            selectFromDropdown(By.name("obs.PIH:ID Card Printing Requested"), option);
+            hitEnterKey(By.name("obs.PIH:ID Card Printing Requested"));
+        }
     }
 
     public void manuallyEnterIdentifier(String identifier) {

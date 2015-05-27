@@ -25,4 +25,10 @@ public class PatientRegistrationLiberiaFlowTest extends PatientRegistrationFlowT
     @Override
     protected Integer getReligion() { return null; }
 
+    @Override
+    protected Boolean automaticallyEnterIdentifier() { return null; }
+
+    @Override
+    protected Integer getPrintIdCardOption() { return null; }
+
 }
