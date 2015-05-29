@@ -18,7 +18,7 @@ public class PatientRegistration extends AbstractPageObject {
     public void registerPatient(String givenName, String familyName, String nickname, Gender gender, Integer birthDay, Integer birthMonth,
                                 Integer birthYear, String mothersFirstName, String birthplace, String addressSearchValue, String phoneNumber,
                                 Integer martialStatus, Integer occupation, Integer religion, String contact, String relationship, String contactAddress,
-                                Boolean contactAddressUsesHierarchy, String contactPhoneNumber,
+                                Boolean addressUsesHierarchy, String contactPhoneNumber,
                                 Boolean automaticallyEnterIdentifier, Integer printIdCard, By successElement) throws Exception{
 
         wait15seconds.until(visibilityOfElementLocated(By.id("checkbox-enable-registration-date")));
@@ -29,14 +29,21 @@ public class PatientRegistration extends AbstractPageObject {
         enterMothersFirstName(mothersFirstName);
         enterPersonAddressViaShortcut(addressSearchValue);
         enterTelephoneNumber(phoneNumber);
-        enterBirthplace(birthplace);
+
+        if (addressUsesHierarchy) {
+            enterBirthplaceViaShortcut(birthplace);
+        }
+        else {
+            enterBirthplaceAsFreeText(birthplace);
+        }
+
         selectMartialStatus(martialStatus);
         selectOccupation(occupation);
         selectReligion(religion);
         enterContactPerson(contact);
         enterContactRelationship(relationship);
 
-        if (contactAddressUsesHierarchy) {
+        if (addressUsesHierarchy) {
             enterContactAddressViaShortcut(contactAddress);
         }
         else {
@@ -99,10 +106,13 @@ public class PatientRegistration extends AbstractPageObject {
         setTextToField(By.name("phoneNumber"), number);
     }
 
-    public void enterBirthplace(String birthplace) {
-        setTextToField(By.name("obs.PIH:PLACE OF BIRTH"), birthplace);
+    public void enterBirthplaceViaShortcut(String searchValue) {
+        enterAddressViaShortcut(searchValue, 1);  // index=1 because place of birth is the second address in the registration form
     }
 
+    public void enterBirthplaceAsFreeText(String birthplace) {
+        setTextToField(By.name("obs.PIH:PLACE OF BIRTH"), birthplace);
+    }
 
     public void selectMartialStatus(int option) {
         selectFromDropdown(By.name("obs.PIH:CIVIL STATUS"), option);
@@ -123,7 +133,7 @@ public class PatientRegistration extends AbstractPageObject {
     }
 
     public void enterContactAddressViaShortcut(String searchValue) {
-        enterAddressViaShortcut(searchValue,1);  // index=1 because contact is the second address in the registration form
+        enterAddressViaShortcut(searchValue, 2);  // index=2 because contact is the third address in the registration form
     }
 
     public void enterContactAddressAsFreeText(String searchValue) {

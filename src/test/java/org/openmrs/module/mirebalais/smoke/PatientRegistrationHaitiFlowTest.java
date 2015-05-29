@@ -17,11 +17,15 @@ public class PatientRegistrationHaitiFlowTest extends PatientRegistrationFlowTes
     }
 
     @Override
+    protected String getPlaceOfBirthString() { return "Cange"; }
+
+    @Override
     protected String getContactAddressString() {
         return "Hinche";
     }
 
-    protected Boolean contactAddressUsesHierarchy() { return true; }
+    @Override
+    protected Boolean placeOfBirthAndContactAddressUseHierarchy() { return true; }
 
     @Override
     protected Integer getReligion() { return 1; }
