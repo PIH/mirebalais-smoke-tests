@@ -40,8 +40,8 @@ public class PatientDatabaseHandler extends BaseDatabaseHandler {
     }
 
 	public static void addTestPatientForDelete(BigInteger patientId) throws IOException, DataSetException, SQLException {
-		Patient patient = new Patient("123", null, null, patientId, null, -1, getTableId("person_name", patientId), getTableId(
-		    "person_address", patientId), new BigInteger("-1"), new BigInteger("-1"), -1);
+		Patient patient = new Patient("123", null, null, patientId, null, -1, new BigInteger("-1"), new BigInteger("-1"),
+                new BigInteger("-1"), new BigInteger("-1"), -1);
 		
 		datasets.put(patient, createDataset(patient));
 	}
