@@ -110,13 +110,13 @@ public class PatientDatabaseHandler extends BaseDatabaseHandler {
                 "select * from paperrecord_paper_record_request where paper_record in (select record_id from paperrecord_paper_record where patient_identifier in (select patient_identifier_id from patient_identifier where patient_id = %d))");
         firstToDelete.put("appointmentscheduling_appointment_request",
                 "select * from appointmentscheduling_appointment_request where patient_id= %d");
+        firstToDelete
+                .put("name_phonetics",
+                        "select * from name_phonetics where person_name_id in (select person_name_id from person_name where person_id = %d)");
         patientTablesToDelete.add(firstToDelete);
 		
 		Map<String, String> secondToDelete = new LinkedHashMap<String, String>();
 		secondToDelete.put("person_merge_log", "select * from person_merge_log where loser_person_id = %d");
-		secondToDelete
-		        .put("name_phonetics",
-		            "select * from name_phonetics where person_name_id in (select person_name_id from person_name where person_id = %d)");
 		secondToDelete.put("person_attribute", "select * from person_attribute where person_id = %d");
 		secondToDelete.put("patient_identifier", "select * from patient_identifier where patient_id = %d");
 		    secondToDelete.put("paperrecord_paper_record",
@@ -134,6 +134,9 @@ public class PatientDatabaseHandler extends BaseDatabaseHandler {
 		secondToDelete
 		        .put("encounter_provider",
 		            "select * from encounter_provider where encounter_id in (select encounter_id from encounter where patient_id = %d)");
+        secondToDelete.put("person_name", "select * from person_name where person_id = %d");
+        secondToDelete.put("person_address", "select * from person_address where person_id = %d");
+        secondToDelete.put("patient_identifier", "select * from patient_identifier where patient_id = %d");
 		patientTablesToDelete.add(secondToDelete);
 	}
 	

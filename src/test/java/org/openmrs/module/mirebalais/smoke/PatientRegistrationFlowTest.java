@@ -1,5 +1,6 @@
 package org.openmrs.module.mirebalais.smoke;
 
+import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.ClinicianDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientRegistration;
@@ -15,7 +16,7 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
 
     public void registerNewPatient() throws Exception {
         initBasicPageObjects();
-        setLoginPage(new GeneralLoginPage(driver));  // because we want to use the General login page here, not the Mirebalaison
+        setLoginPage(new GeneralLoginPage(driver));  // because we want to use the General login page here, not the Mirebalais
         PatientRegistration registration = new PatientRegistration(driver);
 
         String givenName = "Tom " + new Random().nextInt(1000);  // append a random number so patient name is (more or less) unique
@@ -34,6 +35,22 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         appDashboard.goToAppDashboard();
         appDashboard.findPatientByGivenAndFamilyName(givenName, familyName);
         assertTrue(new ClinicianDashboard(driver).isOpenForPatient(givenName, familyName));
+
+        populateTestPatientForTearDown();
+    }
+
+    public void editExistingPatient() throws Exception {
+
+        Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
+
+        initBasicPageObjects();
+        setLoginPage(new GeneralLoginPage(driver));  // because we want to use the General login page here, not the Mirebalais
+        PatientRegistration registration = new PatientRegistration(driver);
+
+        login();
+        appDashboard.openPatientRegistrationApp();
+
+        registration.editExistingPatient(testPatient, "Billy", "Thorton", "Bob", PatientRegistration.Gender.FEMALE, 10, 10, 1950, "Mary");
 
         populateTestPatientForTearDown();
     }

@@ -1,5 +1,6 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
+import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -8,6 +9,8 @@ import org.openqa.selenium.WebElement;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class PatientRegistration extends AbstractPageObject {
+
+    private static final By SEARCH_RESULTS_TABLE = By.id("patient-search-results-table");
 
     public enum Gender {MALE, FEMALE}
 
@@ -57,6 +60,39 @@ public class PatientRegistration extends AbstractPageObject {
         confirm(successElement);
     }
 
+    public void editExistingPatient(Patient patient, String givenName, String familyName,
+                                    String nickname, Gender gender, Integer birthDay, Integer birthMonth,
+                                    Integer birthYear, String mothersFirstName) throws Exception {
+
+        // find the existing patient
+        findExistingPatient(patient);
+        editDemographics(familyName, givenName,  nickname, gender, birthDay, birthMonth, birthYear, mothersFirstName);
+
+    }
+
+    public void findExistingPatient(Patient patient) {
+
+        setTextToField(By.id("patient-search"), patient.getName());
+
+        // patient should be in results list
+        WebElement searchResults = driver.findElement(SEARCH_RESULTS_TABLE);
+        searchResults.findElement(By.xpath("/*//*[contains(text(), '" + patient.getFamily_name() + ", "
+                + patient.getGiven_name() + "')]")).click();
+
+
+    }
+
+    public void editDemographics(String familyName, String givenName, String nickname, Gender gender, Integer birthDay,
+                                 Integer birthMonth, Integer birthYear, String mothersFirstName)  throws Exception {
+        driver.findElement(By.id("demographics-edit-link")).click();
+        enterPatientName(familyName, givenName, nickname);
+        enterGender(gender);
+        enterBirthDate(birthDay, birthMonth, birthYear);
+        hitTabKey(By.id("birthdateEstimated-field"));
+        enterMothersFirstName(mothersFirstName);
+        confirm(By.id("demographics-edit-link")); // back on edit page
+    }
+
     public void keepCurrentRegistrationDate() {
         hitEnterKey(By.id("checkbox-enable-registration-date"));
     }
@@ -69,7 +105,7 @@ public class PatientRegistration extends AbstractPageObject {
     }
 
     public void enterGender(Gender gender) throws Exception {
-        driver.findElement(By.name("gender")).findElements(By.tagName("option")).get((gender.equals(Gender.MALE) ? 1 : 2)).click();
+        driver.findElement(By.name("gender")).findElements(By.tagName("option")).get((gender.equals(Gender.MALE) ? 0 : 1)).click();
         hitEnterKey(By.name("gender"));
     }
 
