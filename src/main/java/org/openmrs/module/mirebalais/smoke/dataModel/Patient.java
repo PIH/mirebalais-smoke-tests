@@ -4,7 +4,8 @@ import java.math.BigInteger;
 
 public class Patient {
 
-	private String name;
+	private String given_name;
+    private String family_name;
 	private String identifier;
     private BigInteger id;
     private String uuid;
@@ -15,10 +16,12 @@ public class Patient {
     private BigInteger encounterId;
     private Integer encounterTypeId;
 
-    public Patient(String identifier, String name, BigInteger id, String uuid, Integer identifier_id,
+    public Patient(String identifier, String given_name, String family_name, BigInteger id, String uuid, Integer identifier_id,
                    BigInteger person_name_id, BigInteger person_address_id, BigInteger patient_identifier_id, BigInteger encounterId, Integer encounterTypeId) {
-		this.name = name;
-		this.identifier = identifier;
+
+        this.given_name = given_name;
+		this.family_name = family_name;
+        this.identifier = identifier;
         this.id = id;
         this.uuid = uuid;
         this.identifier_id = identifier_id;
@@ -30,7 +33,7 @@ public class Patient {
     }
 
 	public String getName() {
-		return name;
+		return given_name + " " + family_name;
 	}
 
 	public String getIdentifier() {
@@ -43,6 +46,14 @@ public class Patient {
 
     public Integer getIdentifier_id() {
         return identifier_id;
+    }
+
+    public String getGiven_name() {
+        return given_name;
+    }
+
+    public String getFamily_name() {
+        return family_name;
     }
 
     public BigInteger getPerson_name_id() {
