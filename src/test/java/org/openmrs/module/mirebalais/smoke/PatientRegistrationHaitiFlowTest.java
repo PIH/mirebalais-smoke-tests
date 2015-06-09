@@ -1,5 +1,6 @@
 package org.openmrs.module.mirebalais.smoke;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
@@ -11,6 +12,7 @@ public class PatientRegistrationHaitiFlowTest extends PatientRegistrationFlowTes
         super.registerNewPatient();
     }
 
+    @Ignore
     @Test
     @Override
     public void editExistingPatient() throws Exception {
