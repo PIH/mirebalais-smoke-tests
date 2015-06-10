@@ -5,12 +5,12 @@ import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.openmrs.module.mirebalais.smoke.BasicMirebalaisSmokeTest;
-import org.openmrs.module.mirebalais.smoke.PatientRegistrationLiberiaFlowTest;
+import org.openmrs.module.mirebalais.smoke.TempTest;
 import org.openmrs.module.mirebalais.smoke.helper.SmokeTestDriver;
 import org.openqa.selenium.WebDriver;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({PatientRegistrationLiberiaFlowTest.class})
+@Suite.SuiteClasses({TempTest.class})
 public class LiberiaSmokeTestSuite {
 
     private static WebDriver driver;
