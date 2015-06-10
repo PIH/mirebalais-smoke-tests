@@ -19,7 +19,10 @@ public class SmokeTestDriver {
 
         DesiredCapabilities capability = DesiredCapabilities.chrome();
         capability.setCapability("chrome.switches",
-                Arrays.asList("--verbose"));
+                Arrays.asList("--verbose", "--log-path=/tmp/chromedriver.log"));
+
+
+
 
         driver = new ChromeDriver(capability);
         driver.manage().timeouts().implicitlyWait(SmokeTestProperties.IMPLICIT_WAIT_TIME, SECONDS);
