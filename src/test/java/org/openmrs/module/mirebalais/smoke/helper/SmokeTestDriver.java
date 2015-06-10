@@ -4,7 +4,7 @@ import org.apache.commons.lang.SystemUtils;
 import org.openmrs.module.mirebalais.smoke.BasicMirebalaisSmokeTest;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.net.URL;
 import java.util.Arrays;
@@ -17,14 +17,12 @@ public class SmokeTestDriver {
     public SmokeTestDriver() {
         setupChromeDriver();
 
-        DesiredCapabilities capability = DesiredCapabilities.chrome();
-        capability.setCapability("chrome.switches",
-                Arrays.asList("--verbose", "--log-path=/tmp/chromedriver.log"));
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments(Arrays.asList("no-sandbox", "user-data-dir"));
 
 
 
-
-        driver = new ChromeDriver(capability);
+        driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(SmokeTestProperties.IMPLICIT_WAIT_TIME, SECONDS);
         driver.get(new SmokeTestProperties().getWebAppUrl());
     }
