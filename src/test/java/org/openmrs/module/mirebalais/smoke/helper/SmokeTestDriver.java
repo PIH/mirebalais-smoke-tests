@@ -17,14 +17,13 @@ public class SmokeTestDriver {
     public SmokeTestDriver() {
         setupChromeDriver();
 
+        // these options allow us to run chrome as root (which we really shouldn't do) see https://bbs.archlinux.org/viewtopic.php?id=196353
         ChromeOptions options = new ChromeOptions();
         options.addArguments(Arrays.asList("no-sandbox", "user-data-dir"));
-
-
-
         driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(SmokeTestProperties.IMPLICIT_WAIT_TIME, SECONDS);
         driver.get(new SmokeTestProperties().getWebAppUrl());
+
     }
 
     private static void setupChromeDriver() {
