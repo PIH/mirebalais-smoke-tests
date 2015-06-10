@@ -4,8 +4,10 @@ import org.apache.commons.lang.SystemUtils;
 import org.openmrs.module.mirebalais.smoke.BasicMirebalaisSmokeTest;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.URL;
+import java.util.Arrays;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
@@ -14,7 +16,12 @@ public class SmokeTestDriver {
 
     public SmokeTestDriver() {
         setupChromeDriver();
-        driver = new ChromeDriver();
+
+        DesiredCapabilities capability = DesiredCapabilities.chrome();
+        capability.setCapability("chrome.switches",
+                Arrays.asList("--verbose"));
+
+        driver = new ChromeDriver(capability);
         driver.manage().timeouts().implicitlyWait(SmokeTestProperties.IMPLICIT_WAIT_TIME, SECONDS);
         driver.get(new SmokeTestProperties().getWebAppUrl());
     }
