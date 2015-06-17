@@ -36,6 +36,10 @@ public class Patient {
 		return given_name + " " + family_name;
 	}
 
+    public String getNameLastNameFirst() {
+        return family_name + ", " + given_name;
+    }
+
 	public String getIdentifier() {
 		return identifier;
 	}
