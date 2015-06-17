@@ -14,15 +14,14 @@
 
 package org.openmrs.module.mirebalais.smoke;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.matchers.JUnitMatchers.containsString;
-
-import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openqa.selenium.By;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
+import static org.junit.matchers.JUnitMatchers.containsString;
 
 public class ActiveVisitsTest extends DbTest {
 	
@@ -41,7 +40,7 @@ public class ActiveVisitsTest extends DbTest {
 		
 		appDashboard.openActiveVisitsApp();
 		String contentText = driver.findElement(By.id("content")).getText();
-		assertThat(contentText, containsString(testPatient.getName()));
+		assertThat(contentText, containsString(testPatient.getNameLastNameFirst()));
 		assertThat(contentText, containsString(testPatient.getIdentifier()));
 	}
 }
