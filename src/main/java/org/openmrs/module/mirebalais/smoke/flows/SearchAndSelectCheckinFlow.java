@@ -5,14 +5,14 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class SearchAndConfirmPatientFlow {
-    private static final By CONFIRM_PATIENT_BUTTON = By.className("icon-arrow-right");
+public class SearchAndSelectCheckinFlow {
+    private static final By CHECK_IN_PATIENT_BUTTON = By.id("pih.checkin.registrationAction");
 
     public static final By SEARCH_FIELD = By.id("patient-search");
 
     private WebDriver driver;
 
-    public SearchAndConfirmPatientFlow(WebDriver driver) {
+    public SearchAndSelectCheckinFlow(WebDriver driver) {
         this.driver = driver;
     }
 
@@ -28,6 +28,6 @@ public class SearchAndConfirmPatientFlow {
     }
 
     private void confirm() {
-        driver.findElement(CONFIRM_PATIENT_BUTTON).click();
+        driver.findElement(CHECK_IN_PATIENT_BUTTON).click();
     }
 }

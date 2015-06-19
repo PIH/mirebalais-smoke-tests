@@ -6,12 +6,12 @@ import org.openqa.selenium.WebDriver;
 
 public class CheckInPatientFlow {
     private WebDriver driver;
-    private SearchAndConfirmPatientFlow searchAndConfirmPatientFlow;
+    private SearchAndSelectCheckinFlow searchAndSelectCheckinFlow;
     private CheckInFormPage checkinFormPage;
 
     public CheckInPatientFlow(WebDriver driver) {
         this.driver = driver;
-        searchAndConfirmPatientFlow = new SearchAndConfirmPatientFlow(driver);
+        searchAndSelectCheckinFlow = new SearchAndSelectCheckinFlow(driver);
         checkinFormPage = new CheckInFormPage(driver);
     }
 
@@ -28,7 +28,7 @@ public class CheckInPatientFlow {
     }
 
     public void confirmPatient(String patientId) {
-        searchAndConfirmPatientFlow.confirmPatient(patientId);
+        searchAndSelectCheckinFlow.confirmPatient(patientId);
     }
 
     public void checkInWithMultipleEnterKeystrokesOnSubmit(String patientId) {
