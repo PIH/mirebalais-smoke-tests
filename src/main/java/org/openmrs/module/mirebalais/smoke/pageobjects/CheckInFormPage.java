@@ -51,7 +51,7 @@ public class CheckInFormPage extends AbstractPageObject {
 
 	public void enterInfoFillingTheFormTwice(String patientIdentifier) throws Exception {
 		findPatient(patientIdentifier);
-		confirmRightPatient();
+		clickOnCheckIn();
         selectFirstOptionFor("typeOfVisit");
         selectSecondOptionFor("paymentAmount");
         findInputInsideSpan("receiptNumber").sendKeys("receipt #" + Keys.RETURN);
@@ -69,8 +69,8 @@ public class CheckInFormPage extends AbstractPageObject {
 		super.findPatientById(patientIdentifier, SEARCH_FIELD);
 	}
 
-	private void confirmRightPatient() {
-		clickOn(By.className("icon-arrow-right"));
+	private void clickOnCheckIn() {
+		clickOn(By.id("pih.checkin.registrationAction"));
 	}
 
 	private void confirmData() {
