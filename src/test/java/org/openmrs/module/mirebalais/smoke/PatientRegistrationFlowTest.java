@@ -15,6 +15,7 @@ import static org.junit.Assert.assertTrue;
 public abstract class PatientRegistrationFlowTest extends DbTest {
 
     public void registerNewPatient() throws Exception {
+
         initBasicPageObjects();
         setLoginPage(new GeneralLoginPage(driver));  // because we want to use the General login page here, not the Mirebalais
         PatientRegistration registration = new PatientRegistration(driver);
@@ -37,6 +38,7 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         assertTrue(new ClinicianDashboard(driver).isOpenForPatient(givenName, familyName));
 
         populateTestPatientForTearDown();
+        logout();
     }
 
     public void editExistingPatient() throws Exception {
@@ -47,12 +49,22 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         setLoginPage(new GeneralLoginPage(driver));  // because we want to use the General login page here, not the Mirebalais
         PatientRegistration registration = new PatientRegistration(driver);
 
+        String givenName = "Billy " + new Random().nextInt(1000);  // append a random number so patient name is (more or less) unique
+        String familyName = "Thorton";
+        String nickname = "Bob";
+
         login();
         appDashboard.openPatientRegistrationApp();
 
-        registration.editExistingPatient(testPatient, "Billy", "Thorton", "Bob", PatientRegistration.Gender.FEMALE, 10, 10, 1950, "Mary");
+        registration.editExistingPatient(testPatient, givenName, familyName, nickname, PatientRegistration.Gender.FEMALE, 10, 10, 1950, "Mary",
+                getPersonAddressString(), placeOfBirthAndContactAddressUseHierarchy(), "987-6543", getReligion());
+
+        appDashboard.goToAppDashboard();
+        appDashboard.findPatientByGivenAndFamilyName(givenName, familyName);
+        assertTrue(new ClinicianDashboard(driver).isOpenForPatient(givenName, familyName));
 
         populateTestPatientForTearDown();
+        logout();
     }
 
     protected String getPersonAddressString() {

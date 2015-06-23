@@ -11,6 +11,12 @@ public class PatientRegistrationLiberiaFlowTest extends PatientRegistrationFlowT
         super.registerNewPatient();
     }
 
+    @Test
+    @Override
+    public void editExistingPatient() throws Exception {
+        super.editExistingPatient();
+    }
+
     @Override
     protected String getPersonAddressString() {
         return "Zeno";

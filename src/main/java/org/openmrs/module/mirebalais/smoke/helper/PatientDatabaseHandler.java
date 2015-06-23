@@ -3,10 +3,12 @@ package org.openmrs.module.mirebalais.smoke.helper;
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.dbunit.database.QueryDataSet;
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
+import org.dbunit.dataset.RowOutOfBoundsException;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 
@@ -19,6 +21,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.UUID;
 
 import static org.dbunit.operation.DatabaseOperation.DELETE;
@@ -49,7 +52,7 @@ public class PatientDatabaseHandler extends BaseDatabaseHandler {
 	public static Patient insertNewTestPatient() throws Exception {
 		try {
 			Patient patient = new Patient(getNextValidPatientIdentifier(), "Crash Test", "Dummy",
-			        getNextAutoIncrementFor("person"), UUID.randomUUID().toString(), getPatientIdentifierId(),
+			        getNextAutoIncrementFor("person"), UUID.randomUUID().toString(), getPatientIdentifierTypeId(),
 			        getNextAutoIncrementFor("person_name"), getNextAutoIncrementFor("person_address"),
 			        getNextAutoIncrementFor("patient_identifier"), getNextAutoIncrementFor("encounter"),
 			        getEncounterTypeId());
@@ -148,11 +151,23 @@ public class PatientDatabaseHandler extends BaseDatabaseHandler {
 	}
 	
 	private static String getNextValidPatientIdentifier() throws Exception {
+
+        String identifier;
+
+        // handles Haiti address generation form
 		ITable patientIdentifier = connection.createQueryTable("idgen_pooled_identifier",
 		    "select * from idgen_pooled_identifier where date_used is null limit 1");
-		
-		String identifier = (String) patientIdentifier.getValue(0, "identifier");
-		lockPatientIdentifier(identifier);
+
+        try {
+            identifier = (String) patientIdentifier.getValue(0, "identifier");
+            lockPatientIdentifier(identifier);
+        }
+        catch(RowOutOfBoundsException e) {
+            // TODO improve this
+            // hack to generate a random pseudo (won't be sequential) Pleebo identifier if Haiti generator fails
+            identifier = "PL9" + StringUtils.leftPad(new Integer(new Random().nextInt(999999)).toString(), 6, '0');
+        }
+
 		return identifier;
 	}
 	
@@ -164,10 +179,22 @@ public class PatientDatabaseHandler extends BaseDatabaseHandler {
 		setDateUsedOfPatientIdentifierTo(identifier, "null");
 	}
 	
-	private static Integer getPatientIdentifierId() throws Exception {
-		ITable patientIdentifierType = connection.createQueryTable("identifier_source",
+	private static Integer getPatientIdentifierTypeId() throws Exception {
+
+        // bit of a hack--search for ZL EMR ID type first, if this fails, go for Pleebo EMR ID
+        ITable patientIdentifierType = connection.createQueryTable("identifier_source",
 		    "select * from patient_identifier_type where uuid = 'a541af1e-105c-40bf-b345-ba1fd6a59b85'"); // ZL EMR ID
-		return (Integer) patientIdentifierType.getValue(0, "patient_identifier_type_id");
+
+        try {
+            return (Integer) patientIdentifierType.getValue(0, "patient_identifier_type_id");
+        }
+        catch (RowOutOfBoundsException e) {
+        }
+
+        patientIdentifierType = connection.createQueryTable("identifier_source",
+                    "select * from patient_identifier_type where uuid = '0bc545e0-f401-11e4-b939-0800200c9a66'"); // Pleebo EMR ID
+        return (Integer) patientIdentifierType.getValue(0, "patient_identifier_type_id");
+
 	}
 
 	private static void setDateUsedOfPatientIdentifierTo(String identifier, String date) throws Exception {

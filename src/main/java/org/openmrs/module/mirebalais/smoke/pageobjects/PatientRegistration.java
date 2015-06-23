@@ -31,7 +31,7 @@ public class PatientRegistration extends AbstractPageObject {
         enterBirthDate(birthDay, birthMonth, birthYear);
         enterMothersFirstName(mothersFirstName);
         enterPersonAddressViaShortcut(addressSearchValue);
-        enterTelephoneNumber(phoneNumber);
+        enterPhoneNumber(phoneNumber);
 
         if (addressUsesHierarchy) {
             enterBirthplaceViaShortcut(birthplace);
@@ -58,39 +58,6 @@ public class PatientRegistration extends AbstractPageObject {
         printIdCard(printIdCard);
 
         confirm(successElement);
-    }
-
-    public void editExistingPatient(Patient patient, String givenName, String familyName,
-                                    String nickname, Gender gender, Integer birthDay, Integer birthMonth,
-                                    Integer birthYear, String mothersFirstName) throws Exception {
-
-        // find the existing patient
-        findExistingPatient(patient);
-        editDemographics(familyName, givenName,  nickname, gender, birthDay, birthMonth, birthYear, mothersFirstName);
-
-    }
-
-    public void findExistingPatient(Patient patient) {
-
-        setTextToField(By.id("patient-search"), patient.getName());
-
-        // patient should be in results list
-        WebElement searchResults = driver.findElement(SEARCH_RESULTS_TABLE);
-        searchResults.findElement(By.xpath("/*//*[contains(text(), '" + patient.getFamily_name() + ", "
-                + patient.getGiven_name() + "')]")).click();
-
-
-    }
-
-    public void editDemographics(String familyName, String givenName, String nickname, Gender gender, Integer birthDay,
-                                 Integer birthMonth, Integer birthYear, String mothersFirstName)  throws Exception {
-        driver.findElement(By.id("demographics-edit-link")).click();
-        enterPatientName(familyName, givenName, nickname);
-        enterGender(gender);
-        enterBirthDate(birthDay, birthMonth, birthYear);
-        hitTabKey(By.id("birthdateEstimated-field"));
-        enterMothersFirstName(mothersFirstName);
-        confirm(By.id("demographics-edit-link")); // back on edit page
     }
 
     public void keepCurrentRegistrationDate() {
@@ -138,7 +105,7 @@ public class PatientRegistration extends AbstractPageObject {
         searchBox.sendKeys(Keys.ENTER);
     }
 
-    public void enterTelephoneNumber(String number) {
+    public void enterPhoneNumber(String number) {
         setTextToField(By.name("phoneNumber"), number);
     }
 
@@ -214,6 +181,95 @@ public class PatientRegistration extends AbstractPageObject {
         wait5seconds.until(visibilityOfElementLocated(successElement));  // wait for reload of the landing page
     }
 
+    public void editExistingPatient(Patient patient, String givenName, String familyName,
+                                    String nickname, Gender gender, Integer birthDay, Integer birthMonth,
+                                    Integer birthYear, String mothersFirstName, String addressSearchValue,
+                                    Boolean placeOfBirthAndContactAddressUseHierarchy,
+                                    String phoneNumber, Integer religion) throws Exception {
 
+        // find the existing patient
+        findExistingPatient(patient);
+        editDemographics(familyName, givenName,  nickname, gender, birthDay, birthMonth, birthYear, mothersFirstName);
+        editContactInfo(addressSearchValue, phoneNumber);
+        editRegistration();
+        editSocial(addressSearchValue, religion, placeOfBirthAndContactAddressUseHierarchy);
+        editContactPerson(addressSearchValue, placeOfBirthAndContactAddressUseHierarchy);
+    }
+
+    public void findExistingPatient(Patient patient) {
+
+        setTextToField(By.id("patient-search"), patient.getName());
+
+        // patient should be in results list
+        WebElement searchResults = driver.findElement(SEARCH_RESULTS_TABLE);
+        searchResults.findElement(By.xpath("/*//*[contains(text(), '" + patient.getFamily_name() + ", "
+                + patient.getGiven_name() + "')]")).click();
+
+
+    }
+
+    public void editDemographics(String familyName, String givenName, String nickname, Gender gender, Integer birthDay,
+                                 Integer birthMonth, Integer birthYear, String mothersFirstName)  throws Exception {
+        driver.findElement(By.id("demographics-edit-link")).click();
+        enterPatientName(familyName, givenName, nickname);
+        enterGender(gender);
+        enterBirthDate(birthDay, birthMonth, birthYear);
+        hitTabKey(By.id("birthdateEstimated-field"));
+        enterMothersFirstName(mothersFirstName);
+        confirm(By.id("demographics-edit-link")); // edit-link is success element to confirm back on edit page
+    }
+
+    public void editContactInfo(String searchValue, String phoneNumber) {
+        driver.findElement(By.id("contactInfo-edit-link")).click();
+        enterPersonAddressViaShortcut(searchValue);
+        enterPhoneNumber(phoneNumber);
+        confirm(By.id("demographics-edit-link")); // edit-link is success element to confirm back on edit page
+    }
+
+    public void editRegistration() {
+        driver.findElement(By.cssSelector("#coreapps-mostRecentRegistrationSummary .edit-action")).click();
+        // just edit location  and provider for now to keep it simple--should verify that the edit page opens, can be updated, and saves
+        selectFromDropdown(By.cssSelector("#patientRegistration select:nth-of-type(1)"), 1);  // kind of a hack, should add ID to encounterProviderAndRole tag
+        selectFromDropdown(By.cssSelector("#encounterLocationField select"), 1);
+        confirm(By.id("demographics-edit-link")); // edit-link is success element to confirm back on edit page
+    }
+
+    public void editSocial(String addressSearchValue, Integer religion, Boolean useHierarchyForPlaceOfBirth) {
+        driver.findElement(By.cssSelector("#coreapps-mostRecentRegistrationSocial .edit-action")).click();
+
+        if (useHierarchyForPlaceOfBirth) {
+            enterAddressViaShortcut(addressSearchValue, 0);
+        }
+        else {
+            setTextToField(By.cssSelector("#placeOfBirth input"), addressSearchValue);
+        }
+
+        selectFromDropdown(By.cssSelector("#civilStatus"), 4);
+        selectFromDropdown(By.cssSelector("#occupation"), 4);
+
+        if (religion != null) {
+            selectFromDropdown(By.cssSelector("#religion"), religion);
+        }
+
+        confirm(By.id("demographics-edit-link")); // edit-link is success element to confirm back on edit page
+    }
+
+    public void editContactPerson(String addressSearchValue, Boolean userHierarchyForContactPersonAddress) {
+        driver.findElement(By.cssSelector("#coreapps-mostRecentRegistrationContact .edit-action")).click();
+
+        setTextToField(By.cssSelector("#contactName input"), "Yogi Bear");
+        setTextToField(By.cssSelector("#contactRelationship input"), "Father");
+
+        if (userHierarchyForContactPersonAddress) {
+            enterAddressViaShortcut(addressSearchValue, 0);
+        }
+        else {
+            setTextToField(By.cssSelector("#contactAddress textarea"), addressSearchValue);
+        }
+
+        setTextToField(By.cssSelector("#contactPhoneNumber input"), "555-1212");
+
+        confirm(By.id("demographics-edit-link")); // edit-link is success element to confirm back on edit page
+    }
 
 }
