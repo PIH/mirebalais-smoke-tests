@@ -132,8 +132,8 @@ public abstract class AbstractPageObject {
     }
 
     public void clickOn(WebElement element) {
-        scrollIntoView(element);
-        element.click();
+        Actions actions = new Actions(driver);
+        actions.moveToElement(element).click().perform();
     }
 
     public void clickOn(By elementId) {

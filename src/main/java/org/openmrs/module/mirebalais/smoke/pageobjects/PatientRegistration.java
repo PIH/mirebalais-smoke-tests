@@ -255,7 +255,7 @@ public class PatientRegistration extends AbstractPageObject {
     }
 
     public void editContactPerson(String addressSearchValue, Boolean userHierarchyForContactPersonAddress) {
-        driver.findElement(By.cssSelector("#coreapps-mostRecentRegistrationContact .edit-action")).click();
+        clickOn(By.cssSelector("#coreapps-mostRecentRegistrationContact .edit-action"));
 
         setTextToField(By.cssSelector("#contactName input"), "Yogi Bear");
         setTextToField(By.cssSelector("#contactRelationship input"), "Father");
