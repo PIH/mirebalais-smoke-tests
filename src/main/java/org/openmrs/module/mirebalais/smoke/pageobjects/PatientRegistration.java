@@ -210,7 +210,7 @@ public class PatientRegistration extends AbstractPageObject {
 
     public void editDemographics(String familyName, String givenName, String nickname, Gender gender, Integer birthDay,
                                  Integer birthMonth, Integer birthYear, String mothersFirstName)  throws Exception {
-        driver.findElement(By.id("demographics-edit-link")).click();
+        clickOn(By.id("demographics-edit-link"));
         enterPatientName(familyName, givenName, nickname);
         enterGender(gender);
         enterBirthDate(birthDay, birthMonth, birthYear);
@@ -220,14 +220,14 @@ public class PatientRegistration extends AbstractPageObject {
     }
 
     public void editContactInfo(String searchValue, String phoneNumber) {
-        driver.findElement(By.id("contactInfo-edit-link")).click();
+        clickOn(By.id("contactInfo-edit-link"));
         enterPersonAddressViaShortcut(searchValue);
         enterPhoneNumber(phoneNumber);
         confirm(By.id("demographics-edit-link")); // edit-link is success element to confirm back on edit page
     }
 
     public void editRegistration() {
-        driver.findElement(By.cssSelector("#coreapps-mostRecentRegistrationSummary .edit-action")).click();
+        clickOn(By.cssSelector("#coreapps-mostRecentRegistrationSummary .edit-action"));
         // just edit location  and provider for now to keep it simple--should verify that the edit page opens, can be updated, and saves
         selectFromDropdown(By.cssSelector("#patientRegistration select:nth-of-type(1)"), 1);  // kind of a hack, should add ID to encounterProviderAndRole tag
         selectFromDropdown(By.cssSelector("#encounterLocationField select"), 1);
@@ -235,7 +235,7 @@ public class PatientRegistration extends AbstractPageObject {
     }
 
     public void editSocial(String addressSearchValue, Integer religion, Boolean useHierarchyForPlaceOfBirth) {
-        driver.findElement(By.cssSelector("#coreapps-mostRecentRegistrationSocial .edit-action")).click();
+        clickOn(By.cssSelector("#coreapps-mostRecentRegistrationSocial .edit-action"));
 
         if (useHierarchyForPlaceOfBirth) {
             enterAddressViaShortcut(addressSearchValue, 0);
