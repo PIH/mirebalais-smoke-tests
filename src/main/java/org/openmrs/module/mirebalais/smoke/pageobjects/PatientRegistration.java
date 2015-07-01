@@ -98,7 +98,12 @@ public class PatientRegistration extends AbstractPageObject {
     }
 
     public void enterAddressViaShortcut(String searchValue, int index) {
-        wait5seconds.until(visibilityOfElementLocated(By.className("address-hierarchy-shortcut")));
+
+        // hack to hopefully add a delay when opening in edit mode
+        if (index == 0) {
+            wait5seconds.until(visibilityOfElementLocated(By.className("address-hierarchy-shortcut")));
+        }
+
         WebElement searchBox = driver.findElements(By.className("address-hierarchy-shortcut")).get(index);
         searchBox.sendKeys(searchValue);
         wait5seconds.until(visibilityOfElementLocated(By.partialLinkText(searchValue)));
