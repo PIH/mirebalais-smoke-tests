@@ -198,7 +198,7 @@ public class PatientRegistration extends AbstractPageObject {
         editDemographics(familyName, givenName,  nickname, gender, birthDay, birthMonth, birthYear, mothersFirstName);
         editContactInfo(addressSearchValue, phoneNumber);
         editRegistration();
-        editSocial(addressSearchValue, religion, placeOfBirthAndContactAddressUseHierarchy);
+        //editSocial(addressSearchValue, religion, placeOfBirthAndContactAddressUseHierarchy);
         editContactPerson(addressSearchValue, placeOfBirthAndContactAddressUseHierarchy);
     }
 
