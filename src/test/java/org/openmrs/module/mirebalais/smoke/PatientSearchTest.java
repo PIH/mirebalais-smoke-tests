@@ -18,7 +18,7 @@ public class PatientSearchTest extends DbTest {
 
         appDashboard.findPatientByIdentifier(testPatient.getIdentifier());
 
-        assertTrue(patientDashboard.isOpenForPatient(testPatient));
+        assertTrue(clinicianFacingDashboard.isOpenForPatient(testPatient));
 
         logout();
     }
@@ -32,11 +32,10 @@ public class PatientSearchTest extends DbTest {
 
         appDashboard.findPatientByName(testPatient);
 
-        assertTrue(patientDashboard.isOpenForPatient(testPatient));
+        assertTrue(clinicianFacingDashboard.isOpenForPatient(testPatient));
 
         logout();
     }
-
 
 }
 
