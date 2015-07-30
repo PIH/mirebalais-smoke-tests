@@ -46,9 +46,8 @@ public class ConsultNoteTest extends DbTest {
         deathCertificateForm.waitToLoad();
         deathCertificateForm.cancel();
 
-		assertThat(patientDashboard.isDead(), is(true));
-		assertThat(patientDashboard.hasActiveVisit(), is(true));
-		assertThat(patientDashboard.startVisitButtonIsVisible(), is(false));
+		assertThat(clinicianDashboard.isDead(), is(true));
+		assertThat(clinicianDashboard.hasActiveVisit(), is(true));
 	}
 
 

@@ -10,7 +10,7 @@ import org.junit.runner.Description;
 import org.openmrs.module.mirebalais.smoke.helper.SmokeTestDriver;
 import org.openmrs.module.mirebalais.smoke.helper.SmokeTestProperties;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
-import org.openmrs.module.mirebalais.smoke.pageobjects.ClinicianFacingDashboard;
+import org.openmrs.module.mirebalais.smoke.pageobjects.ClinicianDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LegacyPatientRegistrationDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LegacyRegistration;
@@ -55,7 +55,7 @@ public abstract class BasicMirebalaisSmokeTest {
 	
 	protected PatientDashboard patientDashboard;
 
-    protected ClinicianFacingDashboard clinicianFacingDashboard;
+    protected ClinicianDashboard clinicianDashboard;
 
     protected static boolean createdOwnDriver;
 	
@@ -132,7 +132,7 @@ public abstract class BasicMirebalaisSmokeTest {
         patientRegistrationDashboard = new LegacyPatientRegistrationDashboard(driver);
         patientDashboard = new PatientDashboard(driver);
         appDashboard = new AppDashboard(driver);
-        clinicianFacingDashboard = new ClinicianFacingDashboard(driver);
+        clinicianDashboard = new ClinicianDashboard(driver);
     }
 
 	protected void login() {

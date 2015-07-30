@@ -7,16 +7,42 @@ import org.openqa.selenium.WebDriver;
 
 public class ClinicianDashboard extends AbstractPageObject {
 
+    public static final String ACTIVE_VISIT_CREOLE_MESSAGE = "Aktif";
+
     public ClinicianDashboard(WebDriver driver) {
         super(driver);
     }
 
-    /**
-     * Confirm that the patient dashboard is currently open for the specified patient
-     * @param patient
-     * @return
-     */
+    public boolean isOpenForPatient(Patient patient) {
+
+        try {
+            // just make sure that a few core page elements exist
+            driver.findElement(By.className("info-section"));
+            driver.findElement(By.className("action-section"));
+            driver.findElement(By.className("patient-header"));
+
+            // patient specific information
+            if (!driver.findElement(By.className("patient-header")).getText().contains(patient.getIdentifier())) {
+                System.out.println("Did not find identifier " + patient.getIdentifier() + " in patient header.");
+                return false;
+            }
+
+            return true;
+        }
+        catch (NoSuchElementException ex) {
+            ex.printStackTrace(System.out);
+            return false;
+        }
+
+    }
+
     public boolean isOpenForPatient(String givenName, String familyName) {
+
+        // just make sure that a few core page elements exist
+        driver.findElement(By.className("info-section"));
+        driver.findElement(By.className("action-section"));
+        driver.findElement(By.className("patient-header"));
+
 
         try {
             // patient specific information
@@ -34,4 +60,20 @@ public class ClinicianDashboard extends AbstractPageObject {
         }
 
     }
+
+    public boolean hasActiveVisit() {
+        return driver.findElements(By.cssSelector(".tag")).get(0).getText().contains(ACTIVE_VISIT_CREOLE_MESSAGE);
+    }
+
+
+    public boolean isDead() {
+        try {
+            driver.findElement(By.className("death-message"));
+            return true;
+        }
+        catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
 }
