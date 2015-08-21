@@ -25,6 +25,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
+
 public abstract class AbstractPageObject {
 
     protected SmokeTestProperties properties = new SmokeTestProperties();
@@ -60,11 +62,12 @@ public abstract class AbstractPageObject {
     }
     
     public void setTextToField(By element, String text) {
+        wait5seconds.until(visibilityOfElementLocated(element));  // TODO hack until chromedriver bug is fixed
         setText(driver.findElement(element), text);
     }
     
     public void setTextToField(String textFieldId, String text) {
-        setText(driver.findElement(By.id(textFieldId)), text);
+        setTextToField(By.id(textFieldId), text);
     }
     
     public void setClearTextToFieldThruSpan(String spanId, String text) {
