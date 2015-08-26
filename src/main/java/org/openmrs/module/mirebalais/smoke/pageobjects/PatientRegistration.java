@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
@@ -80,10 +81,8 @@ public class PatientRegistration extends AbstractPageObject {
 
         setTextToField(By.name("birthdateDay"), day.toString());
 
-        WebElement birthDateMonth = driver.findElement(By.id("birthdateMonth-field"));
-        for (int i = 0; i < month; i++) {
-            birthDateMonth.sendKeys(Keys.ARROW_DOWN);
-        }
+        WebElement birthDateMonth = driver.findElement(By.name("birthdateMonth"));
+        new Select(birthDateMonth).selectByIndex(month);
         birthDateMonth.sendKeys(Keys.TAB);
 
         setTextToField(By.name("birthdateYear"), year.toString());
