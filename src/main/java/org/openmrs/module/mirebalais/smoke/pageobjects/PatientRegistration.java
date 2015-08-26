@@ -80,7 +80,7 @@ public class PatientRegistration extends AbstractPageObject {
 
         setTextToField(By.name("birthdateDay"), day.toString());
 
-        WebElement birthDateMonth = driver.findElement(By.name("birthdateMonth"));
+        WebElement birthDateMonth = driver.findElement(By.id("birthdateMonth-field"));
         for (int i = 0; i < month; i++) {
             birthDateMonth.sendKeys(Keys.ARROW_DOWN);
         }
