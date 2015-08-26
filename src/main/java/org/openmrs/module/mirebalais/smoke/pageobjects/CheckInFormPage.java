@@ -100,6 +100,8 @@ public class CheckInFormPage extends AbstractPageObject {
         clickOn(By.cssSelector("#create-paper-record-dialog button"));
 	}
 
+    // TODO: revert https://github.com/PIH/mirebalais-smoke-tests/commit/e9ab41b02f4c263362b3627cd9e9b3cde951bd4f
+    // TODO: after this chrome bug is fixed: https://code.google.com/p/chromium/issues/detail?id=513768
     private void selectOptionFor(String spanId, int option) {
         findSelectInsideSpan(spanId).selectByIndex(option);
     }

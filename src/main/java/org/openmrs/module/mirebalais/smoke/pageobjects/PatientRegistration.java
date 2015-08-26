@@ -81,6 +81,8 @@ public class PatientRegistration extends AbstractPageObject {
 
         setTextToField(By.name("birthdateDay"), day.toString());
 
+        // TODO: revert https://github.com/PIH/mirebalais-smoke-tests/commit/62837a40a4461529c45cf78645aac65a032d2c92
+        // TODO: after this chrome bug is fixed: https://code.google.com/p/chromium/issues/detail?id=513768
         WebElement birthDateMonth = driver.findElement(By.name("birthdateMonth"));
         new Select(birthDateMonth).selectByIndex(month);
         birthDateMonth.sendKeys(Keys.TAB);

@@ -53,6 +53,8 @@ public class DeathCertificateTest extends DbTest {
         assertTrue(text.contains("AVC"));
         assertTrue(text.contains("Hypertension portale"));
         assertTrue(text.contains("Related cause"));
+
+        // TODO: uncomment this line after a new version of chrome is released with a fix for this issue: https://code.google.com/p/chromium/issues/detail?id=513768
         assertTrue(text.contains("Chirurgie"));
         assertTrue(text.contains("CERT-1234"));
         deathCertificateForm.pressEnter(); // to confirm form
