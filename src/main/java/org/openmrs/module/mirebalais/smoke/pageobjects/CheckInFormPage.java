@@ -6,11 +6,11 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
-import static org.openqa.selenium.Keys.ARROW_DOWN;
 import static org.openqa.selenium.Keys.RETURN;
 import static org.openqa.selenium.support.ui.ExpectedConditions.stalenessOf;
 
@@ -100,27 +100,24 @@ public class CheckInFormPage extends AbstractPageObject {
         clickOn(By.cssSelector("#create-paper-record-dialog button"));
 	}
 
+    private void selectOptionFor(String spanId, int option) {
+        findSelectInsideSpan(spanId).selectByIndex(option);
+    }
+
     private void selectFirstOptionFor(String spanId) {
-        findSelectInsideSpan(spanId).sendKeys(ARROW_DOWN, RETURN);
+        selectOptionFor(spanId, 1);
     }
 
     private void selectSecondOptionFor(String spanId) {
-        findSelectInsideSpan(spanId).sendKeys(ARROW_DOWN, ARROW_DOWN, RETURN);
+        selectOptionFor(spanId, 2);
     }
 
     private void selectThirdOptionFor(String spanId) {
-        findSelectInsideSpan(spanId).sendKeys(ARROW_DOWN, ARROW_DOWN, ARROW_DOWN, RETURN);
+        selectOptionFor(spanId, 3);
     }
 
-    private void selectAppointmentDate(String spandId){
-      WebElement dataField =  findInputInsideSpan(spandId);
-      dataField.click();
-      dataField.sendKeys(RETURN, RETURN);
-    }
-
-
-    private WebElement findSelectInsideSpan(String spanId) {
-        return driver.findElement(By.id(spanId)).findElement(By.tagName("select"));
+    private Select findSelectInsideSpan(String spanId) {
+        return new Select(driver.findElement(By.id(spanId)).findElement(By.tagName("select")));
     }
 
     private WebElement findInputInsideSpan(String spanId) {
@@ -131,9 +128,6 @@ public class CheckInFormPage extends AbstractPageObject {
 	public boolean isPatientSearchDisplayed() {
 		return driver.findElement(SEARCH_FIELD).isDisplayed();
 	}
-    private void selectSheduledAppointment(String spanId) {
-        findSelectInsideSpan(spanId).sendKeys(ARROW_DOWN,ARROW_DOWN,ARROW_DOWN,ARROW_DOWN,ARROW_DOWN,ARROW_DOWN,RETURN);
-    }
 
     private void selectNotToPrintWristbandIfQuestionPresent() {
         try {
