@@ -103,7 +103,9 @@ public class CheckInFormPage extends AbstractPageObject {
     // TODO: revert https://github.com/PIH/mirebalais-smoke-tests/commit/e9ab41b02f4c263362b3627cd9e9b3cde951bd4f
     // TODO: after this chrome bug is fixed: https://code.google.com/p/chromium/issues/detail?id=513768
     private void selectOptionFor(String spanId, int option) {
-        findSelectInsideSpan(spanId).selectByIndex(option);
+        WebElement select = findSelectInsideSpan(spanId);
+        new Select(select).selectByIndex(option);
+        select.sendKeys(RETURN);
     }
 
     private void selectFirstOptionFor(String spanId) {
@@ -118,8 +120,8 @@ public class CheckInFormPage extends AbstractPageObject {
         selectOptionFor(spanId, 3);
     }
 
-    private Select findSelectInsideSpan(String spanId) {
-        return new Select(driver.findElement(By.id(spanId)).findElement(By.tagName("select")));
+    private WebElement findSelectInsideSpan(String spanId) {
+        return driver.findElement(By.id(spanId)).findElement(By.tagName("select"));
     }
 
     private WebElement findInputInsideSpan(String spanId) {
