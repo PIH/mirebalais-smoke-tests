@@ -25,7 +25,7 @@ public class CheckInFormPage extends AbstractPageObject {
 	}
 
     public void enterInfo() {
-        selectFirstOptionFor("typeOfVisit");
+        selectThirdOptionFor("typeOfVisit");
         selectSecondOptionFor("paymentAmount");
         findInputInsideSpan("receiptNumber").sendKeys("receipt #" + Keys.RETURN);
         selectNotToPrintWristbandIfQuestionPresent();
@@ -37,7 +37,7 @@ public class CheckInFormPage extends AbstractPageObject {
     }
 
     public void enterInfoWithMultipleEnterKeystrokesOnSubmit()  {
-        selectFirstOptionFor("typeOfVisit");
+        selectThirdOptionFor("typeOfVisit");
         selectSecondOptionFor("paymentAmount");
         findInputInsideSpan("receiptNumber").sendKeys("receipt #" + Keys.RETURN);
         selectNotToPrintWristbandIfQuestionPresent();
@@ -52,7 +52,7 @@ public class CheckInFormPage extends AbstractPageObject {
 	public void enterInfoFillingTheFormTwice(String patientIdentifier) throws Exception {
 		findPatient(patientIdentifier);
 		clickOnCheckIn();
-        selectFirstOptionFor("typeOfVisit");
+        selectThirdOptionFor("typeOfVisit");
         selectSecondOptionFor("paymentAmount");
         findInputInsideSpan("receiptNumber").sendKeys("receipt #" + Keys.RETURN);
         selectNotToPrintWristbandIfQuestionPresent();
@@ -109,15 +109,15 @@ public class CheckInFormPage extends AbstractPageObject {
     }
 
     private void selectFirstOptionFor(String spanId) {
-        selectOptionFor(spanId, 1);
+        selectOptionFor(spanId, 0);
     }
 
     private void selectSecondOptionFor(String spanId) {
-        selectOptionFor(spanId, 2);
+        selectOptionFor(spanId, 1);
     }
 
     private void selectThirdOptionFor(String spanId) {
-        selectOptionFor(spanId, 3);
+        selectOptionFor(spanId, 2);
     }
 
     private WebElement findSelectInsideSpan(String spanId) {
