@@ -58,7 +58,7 @@ public class CheckInFormPage extends AbstractPageObject {
         selectNotToPrintWristbandIfQuestionPresent();
         clickOnNoButton();
         selectSecondOptionFor("typeOfVisit");
-        selectThirdOptionFor("paymentAmount");
+        selectSecondOptionFor("paymentAmount");
         findInputInsideSpan("receiptNumber").sendKeys("receipt #" + Keys.RETURN);
         selectNotToPrintWristbandIfQuestionPresent();
 		confirmData();
