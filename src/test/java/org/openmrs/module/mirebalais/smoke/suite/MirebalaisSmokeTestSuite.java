@@ -16,11 +16,9 @@ import org.openmrs.module.mirebalais.smoke.DailyAppointmentsTest;
 import org.openmrs.module.mirebalais.smoke.DeathCertificateTest;
 import org.openmrs.module.mirebalais.smoke.DispensingTest;
 import org.openmrs.module.mirebalais.smoke.EDNoteTest;
-import org.openmrs.module.mirebalais.smoke.EmergencyCheckinTest;
 import org.openmrs.module.mirebalais.smoke.GenerateDossierAtCheckinTest;
 import org.openmrs.module.mirebalais.smoke.HeaderTest;
 import org.openmrs.module.mirebalais.smoke.InPatientTest;
-import org.openmrs.module.mirebalais.smoke.LegacyRegistrationFlowTest;
 import org.openmrs.module.mirebalais.smoke.ManageAppointmentsTest;
 import org.openmrs.module.mirebalais.smoke.ManageServiceTypesTest;
 import org.openmrs.module.mirebalais.smoke.MasterPatientIndexTest;
@@ -48,11 +46,9 @@ import org.openqa.selenium.WebDriver;
                         DeathCertificateTest.class,
                         DispensingTest.class,
                         EDNoteTest.class,
-                        EmergencyCheckinTest.class,
                         GenerateDossierAtCheckinTest.class,
                         HeaderTest.class,
                         InPatientTest.class,
-                        LegacyRegistrationFlowTest.class,
                         ManageAppointmentsTest.class,
                         ManageServiceTypesTest.class,
                         MasterPatientIndexTest.class,
