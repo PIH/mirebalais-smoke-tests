@@ -7,7 +7,7 @@ import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.ArchivesRoomApp;
 import org.openmrs.module.mirebalais.smoke.pageobjects.MirebalaisLoginPage;
-import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
+import org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -23,7 +23,7 @@ public class GenerateDossierAtCheckinTest extends DbTest {
 		AppDashboard dashboard = new AppDashboard(driver);
 		dashboard.openCheckinApp();
 		
-		PatientDashboard patientDashboard = new PatientDashboard(driver);
+		VisitNote patientDashboard = new VisitNote(driver);
 		
 		CheckInPatientFlow checkInPatientFlow = new CheckInPatientFlow(driver);
 		checkInPatientFlow.checkInAndCreateLocalDossierFor(testPatient.getIdentifier());

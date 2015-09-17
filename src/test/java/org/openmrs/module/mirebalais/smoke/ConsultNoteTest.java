@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.DeathCertificateFormPage;
-import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
+import org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -29,20 +29,20 @@ public class ConsultNoteTest extends DbTest {
 		initBasicPageObjects();
         deathCertificateForm = new DeathCertificateFormPage(driver);
 
-        appDashboard.goToPatientPage(testPatient.getId());
-		patientDashboard.startVisit();
+        appDashboard.goToVisitNote(testPatient.getId());
+		visitNote.startVisit();
 	}
 	
 	@Test
 	public void addConsultationToAVisitWithoutCheckin() throws Exception {
-		patientDashboard.addConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS, 2);
+		visitNote.addConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS, 2);
 		
-		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION_CREOLE_NAME), is(1));
+		assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(1));
 	}
 	
 	@Test
 	public void addConsultationNoteWithDeathAsDispositionDoesNotCloseVisit() throws Exception {
-		patientDashboard.addConsultNoteWithDeath(PRIMARY_DIAGNOSIS);
+		visitNote.addConsultNoteWithDeath(PRIMARY_DIAGNOSIS);
         deathCertificateForm.waitToLoad();
         deathCertificateForm.cancel();
 
@@ -54,14 +54,14 @@ public class ConsultNoteTest extends DbTest {
     @Test
     public void editConsultationNote() throws Exception {
 
-        patientDashboard.addConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS, 2);
-        patientDashboard.editExistingConsultNote(EDITED_PRIMARY_DIAGNOSIS);
+        visitNote.addConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS, 2);
+        visitNote.editExistingConsultNote(EDITED_PRIMARY_DIAGNOSIS);
 
-        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION_CREOLE_NAME), is(1));
+        assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(1));
 
-        patientDashboard.viewConsultationDetails();
-        assertThat(patientDashboard.containsText(EDITED_PRIMARY_DIAGNOSIS), is(true));
-        assertThat(patientDashboard.containsText(PRIMARY_DIAGNOSIS), is(false));
+        visitNote.viewConsultationDetails();
+        assertThat(visitNote.containsText(EDITED_PRIMARY_DIAGNOSIS), is(true));
+        assertThat(visitNote.containsText(PRIMARY_DIAGNOSIS), is(false));
     }
 
 }

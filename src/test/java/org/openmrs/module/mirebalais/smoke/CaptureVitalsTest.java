@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.CheckInFormPage;
-import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
+import org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote;
 import org.openmrs.module.mirebalais.smoke.pageobjects.VitalsApp;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -28,8 +28,8 @@ public class CaptureVitalsTest extends DbTest {
 		vitals.captureVitalsForPatient(testPatient.getIdentifier());
 		assertThat(vitals.isSearchPatientDisplayed(), is(true));
 		
-		appDashboard.goToPatientPage(testPatient.getId());
-		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.VITALS_CREOLE_NAME), is(1));
+		appDashboard.goToVisitNote(testPatient.getId());
+		assertThat(visitNote.countEncountersOfType(VisitNote.VITALS_CREOLE_NAME), is(1));
 	}
 	
 }

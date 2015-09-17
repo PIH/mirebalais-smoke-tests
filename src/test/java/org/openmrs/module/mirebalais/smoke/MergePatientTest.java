@@ -26,7 +26,7 @@ public class MergePatientTest extends DbTest {
 		
 		mergeFlow.setPatientsToMerge(firstPatient.getIdentifier(), secondPatient.getIdentifier());
 		
-		assertTrue(patientDashboard.verifyIfSuccessfulMessageIsDisplayed());
+		assertTrue(visitNote.verifyIfSuccessfulMessageIsDisplayed());
 	}
 	
 }

@@ -5,7 +5,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
-import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
+import org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -25,35 +25,35 @@ public class RetroConsultNoteTest extends DbTest {
         Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
         initBasicPageObjects();
 
-        appDashboard.goToPatientPage(testPatient.getId());
+        appDashboard.goToVisitNote(testPatient.getId());
     }
 
     @Test
     public void addConsultationToAnActiveVisit() throws Exception {
-        patientDashboard.startVisit();
-        patientDashboard.addRetroConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS,2);
-        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION_CREOLE_NAME), is(1));
+        visitNote.startVisit();
+        visitNote.addRetroConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS,2);
+        assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(1));
     }
 
     @Test
     public void addConsultationToARetroVisit() throws Exception {
-        patientDashboard.addRetroVisit();
-        patientDashboard.addRetroConsultNoteWithDischarge(PRIMARY_DIAGNOSIS);
-        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION_CREOLE_NAME), is(1));
+        visitNote.addRetroVisit();
+        visitNote.addRetroConsultNoteWithDischarge(PRIMARY_DIAGNOSIS);
+        assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(1));
     }
 
     @Test
     public void editRetroConsultationNote() throws Exception {
 
-        patientDashboard.addRetroVisit();
-        patientDashboard.addRetroConsultNoteWithDischarge(PRIMARY_DIAGNOSIS);
-        patientDashboard.editExistingConsultNote(EDITED_PRIMARY_DIAGNOSIS);
+        visitNote.addRetroVisit();
+        visitNote.addRetroConsultNoteWithDischarge(PRIMARY_DIAGNOSIS);
+        visitNote.editExistingConsultNote(EDITED_PRIMARY_DIAGNOSIS);
 
-        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION_CREOLE_NAME), is(1));
+        assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(1));
 
-        patientDashboard.viewConsultationDetails();
-        assertThat(patientDashboard.containsText(EDITED_PRIMARY_DIAGNOSIS), is(true));
-        assertThat(patientDashboard.containsText(PRIMARY_DIAGNOSIS), is(false));
+        visitNote.viewConsultationDetails();
+        assertThat(visitNote.containsText(EDITED_PRIMARY_DIAGNOSIS), is(true));
+        assertThat(visitNote.containsText(PRIMARY_DIAGNOSIS), is(false));
     }
 
 }

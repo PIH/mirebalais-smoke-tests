@@ -16,10 +16,10 @@ public class RetroVisitTest extends DbTest {
 
         login();
 
-        appDashboard.goToPatientPage(testPatient.getId());
-        patientDashboard.addRetroVisit();
+        appDashboard.goToVisitNote(testPatient.getId());
+        visitNote.addRetroVisit();
 
-        assertThat(patientDashboard.countVisits(), is(1));
+        assertThat(visitNote.countVisits(), is(1));
     }
 
 }

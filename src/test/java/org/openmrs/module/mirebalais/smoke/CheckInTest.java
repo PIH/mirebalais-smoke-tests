@@ -20,7 +20,7 @@ import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.CheckInFormPage;
-import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
+import org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -53,15 +53,14 @@ public class CheckInTest extends DbTest {
 
 		assertThat(newCheckIn.isPatientSearchDisplayed(), is(true));
 		
-		appDashboard.goToPatientPage(testPatient.getId());
-		assertThat(patientDashboard.getVisits().size(), is(1));
-		assertTrue(patientDashboard.hasActiveVisit());
-		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CHECKIN_CREOLE_NAME), is(1));
+		appDashboard.goToVisitNote(testPatient.getId());
+		assertTrue(visitNote.hasActiveVisit());
+		assertThat(visitNote.countEncountersOfType(VisitNote.CHECKIN_CREOLE_NAME), is(1));
 		
-		patientDashboard.deleteFirstEncounter();
+		visitNote.deleteFirstEncounter();
 		
-		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CHECKIN_CREOLE_NAME), is(0));
-		assertTrue(patientDashboard.hasActiveVisit());
+		assertThat(visitNote.countEncountersOfType(VisitNote.CHECKIN_CREOLE_NAME), is(0));
+		assertTrue(visitNote.hasActiveVisit());
 	}
 
 }

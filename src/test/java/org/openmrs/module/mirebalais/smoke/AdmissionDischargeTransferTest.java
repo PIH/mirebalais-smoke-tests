@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AwaitingAdmissionApp;
-import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
+import org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -31,28 +31,28 @@ public class AdmissionDischargeTransferTest extends DbTest {
         testPatient = PatientDatabaseHandler.insertNewTestPatient();
         initBasicPageObjects();
 
-        appDashboard.goToPatientPage(testPatient.getId());
-        patientDashboard.startVisit();
+        appDashboard.goToClinicianFacingDashboard(testPatient.getId());
+        clinicianDashboard.startVisit();
     }
 
     @Test
     public void shouldEnterAndEditAnAdmissionNoteAsClinicalUser() throws Exception {
 
-        patientDashboard.addAdmissionNote(malaria);
-        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.ADMISSION_CREOLE_NAME), is(1));
+        visitNote.addAdmissionNote(malaria);
+        assertThat(visitNote.countEncountersOfType(VisitNote.ADMISSION_CREOLE_NAME), is(1));
 
-        patientDashboard.editExistingAdmissionNote(anemia);
-        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.ADMISSION_CREOLE_NAME), is(1));
+        visitNote.editExistingAdmissionNote(anemia);
+        assertThat(visitNote.countEncountersOfType(VisitNote.ADMISSION_CREOLE_NAME), is(1));
 
     }
 
 	@Test
 	public void shouldCreateTransferNote() throws Exception {
 
-        patientDashboard.addAdmissionNote(malaria);
-		patientDashboard.addConsultNoteWithTransferToLocation(rubella, 3);
+        visitNote.addAdmissionNote(malaria);
+		visitNote.addConsultNoteWithTransferToLocation(rubella, 3);
 
-        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.TRANSFER_CREOLE_NAME), is(1));
+        assertThat(visitNote.countEncountersOfType(VisitNote.TRANSFER_CREOLE_NAME), is(1));
 
 		
 	}
@@ -60,18 +60,18 @@ public class AdmissionDischargeTransferTest extends DbTest {
 	@Test
 	public void shouldCreateDischargeNote() throws Exception {
 
-        patientDashboard.addAdmissionNote(malaria);
-		patientDashboard.addConsultNoteWithDischarge(anemia);
+        visitNote.addAdmissionNote(malaria);
+		visitNote.addConsultNoteWithDischarge(anemia);
 
-        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.DISCHARGE_CREOLE_NAME), is(1));
+        assertThat(visitNote.countEncountersOfType(VisitNote.DISCHARGE_CREOLE_NAME), is(1));
 
 	}
 
     @Test
     public void shouldAdmitPatientViaAwaitingAdmissionApp() throws Exception {
 
-        patientDashboard.addConsultNoteWithAdmissionToLocation(malaria, 6);
-        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION_CREOLE_NAME), is(1));
+        visitNote.addConsultNoteWithAdmissionToLocation(malaria, 6);
+        assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(1));
 
         header.home();
         appDashboard.openAwaitingAdmissionApp();
@@ -81,7 +81,7 @@ public class AdmissionDischargeTransferTest extends DbTest {
         app.assertPatientInAwaitingAdmissionTable(testPatient);
 
         app.clickOnLastAdmitButton();  // new patient should be at the end of the list
-        patientDashboard.getAdmissionNoteForm().fillFormWithDiagnosis(malaria);
+        visitNote.getAdmissionNoteForm().fillFormWithDiagnosis(malaria);
 
         app.assertPatientNotInAwaitingAdmissionTable(testPatient);
     }
@@ -89,8 +89,8 @@ public class AdmissionDischargeTransferTest extends DbTest {
     @Test
     public void shouldCancelPatientFromAwaitingAdmissionApp() throws Exception {
 
-        patientDashboard.addConsultNoteWithAdmissionToLocation(malaria, 6);
-        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION_CREOLE_NAME), is(1));
+        visitNote.addConsultNoteWithAdmissionToLocation(malaria, 6);
+        assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(1));
 
         header.home();
         appDashboard.openAwaitingAdmissionApp();

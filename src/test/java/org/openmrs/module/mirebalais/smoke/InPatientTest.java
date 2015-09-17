@@ -5,7 +5,7 @@ import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AwaitingAdmissionApp;
 import org.openmrs.module.mirebalais.smoke.pageobjects.InPatientList;
-import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
+import org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -29,30 +29,30 @@ public class InPatientTest extends DbTest {
 
         logInAsPhysicianUser("Sal Gason");
 
-		appDashboard.goToPatientPage(testPatient.getId());
-		patientDashboard.startVisit();
+		appDashboard.goToVisitNote(testPatient.getId());
+		visitNote.startVisit();
 
-		String admissionPlace = patientDashboard.addConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS, 3);
-		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION_CREOLE_NAME), is(1));
+		String admissionPlace = visitNote.addConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS, 3);
+		assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(1));
 
-        patientDashboard.addAdmissionNoteWithDefaultLocation(PRIMARY_DIAGNOSIS);
-        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.ADMISSION_CREOLE_NAME), is(1));
+        visitNote.addAdmissionNoteWithDefaultLocation(PRIMARY_DIAGNOSIS);
+        assertThat(visitNote.countEncountersOfType(VisitNote.ADMISSION_CREOLE_NAME), is(1));
 
-        patientDashboard.gotoAppDashboard();
+        visitNote.gotoAppDashboard();
 		assertFirstAdmittedAndCurrentWardAre(testPatient.getIdentifier(), admissionPlace, admissionPlace);
 
-		appDashboard.goToPatientPage(testPatient.getId());
+		appDashboard.goToVisitNote(testPatient.getId());
 
-		String transferPlace = patientDashboard.addConsultNoteWithTransferToLocation(PRIMARY_DIAGNOSIS, 4);
+		String transferPlace = visitNote.addConsultNoteWithTransferToLocation(PRIMARY_DIAGNOSIS, 4);
 
-		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CONSULTATION_CREOLE_NAME), is(2));
-		assertThat(patientDashboard.countEncountersOfType(PatientDashboard.TRANSFER_CREOLE_NAME), is(1));
-        patientDashboard.gotoAppDashboard();
+		assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(2));
+		assertThat(visitNote.countEncountersOfType(VisitNote.TRANSFER_CREOLE_NAME), is(1));
+        visitNote.gotoAppDashboard();
 		assertFirstAdmittedAndCurrentWardAre(testPatient.getIdentifier(), admissionPlace, transferPlace);
 
-		appDashboard.goToPatientPage(testPatient2.getId());
-		patientDashboard.startVisit();
-		patientDashboard.addConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS, 3);
+		appDashboard.goToVisitNote(testPatient2.getId());
+		visitNote.startVisit();
+		visitNote.addConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS, 3);
 		
 		appDashboard.openInPatientApp();
 		inPatientList.filterBy(transferPlace);

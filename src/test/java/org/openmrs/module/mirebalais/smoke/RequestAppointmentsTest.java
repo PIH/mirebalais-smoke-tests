@@ -26,8 +26,8 @@ public class RequestAppointmentsTest extends DbTest {
 
         logInAsAdmin();
 
-        appDashboard.goToPatientPage(testPatient.getId());
-        patientDashboard.openRequestAppointmentForm();
+        appDashboard.goToVisitNote(testPatient.getId());
+        visitNote.openRequestAppointmentForm();
         requestAppointmentPage.requestAppointment();
 
         header.home();

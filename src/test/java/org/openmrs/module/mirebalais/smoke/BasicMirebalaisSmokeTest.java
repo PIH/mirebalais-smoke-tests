@@ -16,7 +16,7 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.LegacyPatientRegistration
 import org.openmrs.module.mirebalais.smoke.pageobjects.LegacyRegistration;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.MirebalaisLoginPage;
-import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
+import org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.TimeoutException;
@@ -53,7 +53,7 @@ public abstract class BasicMirebalaisSmokeTest {
 	
 	protected LegacyPatientRegistrationDashboard patientRegistrationDashboard;
 	
-	protected PatientDashboard patientDashboard;
+	protected VisitNote visitNote;
 
     protected ClinicianDashboard clinicianDashboard;
 
@@ -130,7 +130,7 @@ public abstract class BasicMirebalaisSmokeTest {
     protected void initBasicPageObjects() {
         legacyRegistration = new LegacyRegistration(driver);
         patientRegistrationDashboard = new LegacyPatientRegistrationDashboard(driver);
-        patientDashboard = new PatientDashboard(driver);
+        visitNote = new VisitNote(driver);
         appDashboard = new AppDashboard(driver);
         clinicianDashboard = new ClinicianDashboard(driver);
     }

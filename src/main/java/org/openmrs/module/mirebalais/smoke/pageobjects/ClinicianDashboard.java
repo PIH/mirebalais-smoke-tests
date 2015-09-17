@@ -5,9 +5,17 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
+
 public class ClinicianDashboard extends AbstractPageObject {
 
     public static final String ACTIVE_VISIT_CREOLE_MESSAGE = "Aktif";
+
+    private static final By actions = By.className("action-section");
+
+    private static final By startVisitAction = By.id("coreapps.createVisit");
+
+    private static final By confirmStartVisit = By.cssSelector("#quick-visit-creation-dialog .confirm");
 
     public ClinicianDashboard(WebDriver driver) {
         super(driver);
@@ -74,6 +82,13 @@ public class ClinicianDashboard extends AbstractPageObject {
         catch (NoSuchElementException e) {
             return false;
         }
+    }
+
+
+    public void startVisit() {
+        clickOn(startVisitAction);
+        clickOn(confirmStartVisit);
+        wait15seconds.until(visibilityOfElementLocated(By.id("visit-details")));  // visit note should open
     }
 
 }

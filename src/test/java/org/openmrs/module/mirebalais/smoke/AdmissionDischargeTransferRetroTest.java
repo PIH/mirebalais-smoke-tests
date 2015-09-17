@@ -5,10 +5,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
-import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
+import org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 
 public class AdmissionDischargeTransferRetroTest extends DbTest {
@@ -28,27 +28,28 @@ public class AdmissionDischargeTransferRetroTest extends DbTest {
         Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
         initBasicPageObjects();
 
-        appDashboard.goToPatientPage(testPatient.getId());
-        patientDashboard.startVisit();
+        appDashboard.goToClinicianFacingDashboard(testPatient.getId());
+        clinicianDashboard.startVisit();
     }
 
     @Test
     public void shouldEnterAndEditAnAdmissionNoteAsAdminUser() throws Exception {
 
-        patientDashboard.addAdmissionNoteAsAdminUser(malaria);
-        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.ADMISSION_CREOLE_NAME), is(1));
+        visitNote.addAdmissionNoteAsAdminUser(malaria);
+        assertThat(visitNote.countEncountersOfType(VisitNote.ADMISSION_CREOLE_NAME), is(1));
 
-        String previousProvider = patientDashboard.providerForFirstEncounter();
-        String previousLocation = patientDashboard.locationForFirstEncounter();
-        patientDashboard.editExistingAdmissionNote(anemia, 3, 4);
+        String previousProvider = visitNote.providerForFirstEncounter();
+        String previousLocation = visitNote.locationForFirstAdmission();
+        visitNote.editExistingAdmissionNote(anemia, 3, 4);
 
-        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.ADMISSION_CREOLE_NAME), is(1));
+        assertThat(visitNote.countEncountersOfType(VisitNote.ADMISSION_CREOLE_NAME), is(1));
 
-        String currentProvider = patientDashboard.getAdmissionNoteForm().getProvider();
-        String currentLocation = patientDashboard.getAdmissionNoteForm().getLocation();
+        String currentProvider = visitNote.getAdmissionNoteForm().getProvider();
+        String currentLocation = visitNote.getAdmissionNoteForm().getLocation();
 
-        assertThat(currentProvider, not(previousProvider));
-        assertThat(currentLocation, not(previousLocation));
+        // this is a bit of a hack
+        assertFalse(previousProvider.contains(currentProvider));
+        assertFalse(previousLocation.contains(currentLocation));
 
     }
 

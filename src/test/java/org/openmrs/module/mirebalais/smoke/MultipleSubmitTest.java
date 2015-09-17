@@ -5,7 +5,7 @@ import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.flows.CheckInPatientFlow;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
-import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
+import org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -24,15 +24,15 @@ public class MultipleSubmitTest extends DbTest {
         appDashboard = new AppDashboard(driver);
         appDashboard.openCheckinApp();
 
-        PatientDashboard patientDashboard = new PatientDashboard(driver);
+        VisitNote patientDashboard = new VisitNote(driver);
 
         CheckInPatientFlow checkInPatientFlow = new CheckInPatientFlow(driver);
         checkInPatientFlow.checkInWithMultipleEnterKeystrokesOnSubmit(testPatient.getIdentifier());
 
         new WebDriverWait(driver, 5).until(visibilityOfElementLocated(By.id("create-paper-record-dialog")));
-        appDashboard.goToPatientPage(testPatient.getId());
+        appDashboard.goToVisitNote(testPatient.getId());
 
-        assertThat(patientDashboard.countEncountersOfType(PatientDashboard.CHECKIN_CREOLE_NAME), is(1));
+        assertThat(patientDashboard.countEncountersOfType(VisitNote.CHECKIN_CREOLE_NAME), is(1));
     }
 
 }

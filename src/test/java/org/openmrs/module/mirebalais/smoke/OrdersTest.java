@@ -11,7 +11,7 @@ import org.openqa.selenium.JavascriptExecutor;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import static org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard.RADIOLOGY_CREOLE_NAME;
+import static org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote.RADIOLOGY_CREOLE_NAME;
 
 public class OrdersTest extends DbTest {
 	
@@ -31,7 +31,7 @@ public class OrdersTest extends DbTest {
         Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
         initBasicPageObjects();
         login();
-        appDashboard.goToPatientPage(testPatient.getId());
+        appDashboard.goToVisitNote(testPatient.getId());
     }
     @After
     public void tearDown() {
@@ -42,10 +42,10 @@ public class OrdersTest extends DbTest {
     @Test
 	public void orderSingleXRay() throws Exception {
 
-		patientDashboard.startVisit();
-		patientDashboard.orderXRay(STUDY_1, STUDY_2);
+		visitNote.startVisit();
+		visitNote.orderXRay(STUDY_1, STUDY_2);
 		
-		assertThat(patientDashboard.countEncountersOfType(RADIOLOGY_CREOLE_NAME), is(1));
+		assertThat(visitNote.countEncountersOfType(RADIOLOGY_CREOLE_NAME), is(1));
 	}
 
     @Test
@@ -62,8 +62,8 @@ public class OrdersTest extends DbTest {
         jse.executeScript("document.getElementById('retrospectiveVisitStopDate-field').value='" + END_DATE_FIELD + "';");
 
         driver.findElement(confirmButton).click();
-        patientDashboard.orderXRay(STUDY_1, STUDY_2);
+        visitNote.orderXRay(STUDY_1, STUDY_2);
 
-        assertThat(patientDashboard.countEncountersOfType(RADIOLOGY_CREOLE_NAME), is(1));
+        assertThat(visitNote.countEncountersOfType(RADIOLOGY_CREOLE_NAME), is(1));
     }
 }

@@ -37,7 +37,10 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfEl
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
-public class PatientDashboard extends AbstractPageObject {
+// this has been migrated from the old patient dashboard page object
+// TODO make sure everything is migrated, go through and rip out anything no longer used/working
+// TODO consolidate/clean up constants vs hard-coded in text
+public class VisitNote extends AbstractPageObject {
 	
 	public static final String CHECKIN_CREOLE_NAME = "Tcheke";
 	
@@ -53,7 +56,7 @@ public class PatientDashboard extends AbstractPageObject {
 
     public static final String DISCHARGE_CREOLE_NAME= "Soti Nan Swen Entèn";
 
-	public static final String ACTIVE_VISIT_CREOLE_MESSAGE = "Vizit aktiv";
+	public static final String ACTIVE_VISIT_CREOLE_MESSAGE = "aktif";
 
     private final By home = By.className("logo");
 	
@@ -75,9 +78,9 @@ public class PatientDashboard extends AbstractPageObject {
 	
 	private HashMap<String, By> formList;
 
-	private By deleteEncounter = By.cssSelector("i.deleteEncounterId");
-	
-	private By confirmDeleteEncounter = By.cssSelector("#delete-encounter-dialog .confirm");
+    private By editEncounter = By.className("edit-encounter");
+
+	private By deleteEncounter = By.className("delete-encounter");
 	
 	private By actions = By.cssSelector(".actions");
 	
@@ -107,7 +110,7 @@ public class PatientDashboard extends AbstractPageObject {
 
     private ExpectedCondition<WebElement> encounterListView = visibilityOfElementLocated(encounterList);
 	
-	public PatientDashboard(WebDriver driver) {
+	public VisitNote(WebDriver driver) {
 		super(driver);
 		consultNoteForm = new ConsultNoteForm(driver);
 		eDNoteForm = new EmergencyDepartmentNoteForm(driver);
@@ -127,27 +130,29 @@ public class PatientDashboard extends AbstractPageObject {
 	}
 	
 	public boolean hasActiveVisit() {
-        return driver.findElement(By.cssSelector(".status-container")).getText().contains(ACTIVE_VISIT_CREOLE_MESSAGE);
+        if (!driver.findElement(By.className("active")).isDisplayed()) {
+            return false;
+        }
+        return driver.findElement(By.className("active")).getText().toLowerCase().contains(ACTIVE_VISIT_CREOLE_MESSAGE);
 	}
 
     public void editFirstEncounter() {
-        clickOn(By.cssSelector(".editEncounter"));
+        clickOn(editEncounter);
     }
 
 	public void deleteFirstEncounter() {
 		clickOn(deleteEncounter);
-		clickOn(confirmDeleteEncounter);
-		
-		wait5seconds.until(invisibilityOfElementLocated(By.id("delete-encounter-dialog")));
+		clickOn(By.className("confirm"));
+		wait5seconds.until(invisibilityOfElementLocated(By.className("delete-encounter-dialog")));
 	}
 	
 	public Integer countEncountersOfType(String encounterName) {
 
-        wait15seconds.until(presenceOfElementLocated(By.id("encountersList")));
+        wait15seconds.until(presenceOfElementLocated(By.className("encounter-name")));
 
 		int count = 0;
 
-        List<WebElement> encounters = driver.findElements(By.cssSelector("span.encounter-name"));
+        List<WebElement> encounters = driver.findElements(By.className("encounter-name"));
 
         if (!encounters.isEmpty()) {
             for (WebElement encounter : encounters) {
@@ -354,11 +359,11 @@ public class PatientDashboard extends AbstractPageObject {
 	}
 	
 	public String providerForFirstEncounter() {
-		return driver.findElement(By.className("encounter-details")).findElement(By.className("provider")).getText();
+		return driver.findElement(By.className("encounter-provider")).getText();
 	}
 	
-	public String locationForFirstEncounter() {
-		return driver.findElement(By.className("encounter-details")).findElement(By.className("location")).getText();
+	public String locationForFirstAdmission() {
+		return driver.findElement(By.className("admission-location")).getText();
 	}
 	
 	public boolean canDispenseMedication() {

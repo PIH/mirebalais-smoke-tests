@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
-import org.openmrs.module.mirebalais.smoke.pageobjects.PatientDashboard;
+import org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.DispenseMedicationForm;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -23,18 +23,18 @@ public class DispensingTest extends DbTest {
     @Test
 	public void pharmacyManagerCanDispenseMedicationForAnExistingActiveVisit() throws Exception {
 		AppDashboard appDashboard = new AppDashboard(driver);
-		PatientDashboard patientDashboard = new PatientDashboard(driver);
+		VisitNote patientDashboard = new VisitNote(driver);
 		
 		Patient patient = PatientDatabaseHandler.insertNewTestPatient();
 		
 		logInAsPhysicianUser();
-		appDashboard.goToPatientPage(patient.getId());
+		appDashboard.goToVisitNote(patient.getId());
 		patientDashboard.startVisit();
 		assertThat("Dispense medication.", patientDashboard.canDispenseMedication(), is(false));
 		logout();
 		
 		logInAsPharmacyManagerUser();
-		appDashboard.goToPatientPage(patient.getId());
+		appDashboard.goToVisitNote(patient.getId());
 		assertThat("Dispense medication.", patientDashboard.canDispenseMedication(), is(true));
 		DispenseMedicationForm dispensingForm = patientDashboard.goToDispenseMedicationForm();
         dispensingForm.fillDispensingInformation(DISCHARGE, prescriptionLocation);
@@ -46,7 +46,7 @@ public class DispensingTest extends DbTest {
 
         assertThat("Medication was dispensed.", patientDashboard.countEncountersOfType("Medikaman Ki Distribye"), is(1));
 
-        PatientDashboard.MedicationDispensed medicationDispensed = patientDashboard.firstMedication();
+        VisitNote.MedicationDispensed medicationDispensed = patientDashboard.firstMedication();
 
         assertThat("Medication name is right.", medicationDispensed.getName(), is(("Paracetamol, 500mg, tablet")));
         assertThat("Medication frequency is right.", medicationDispensed.getFrequency(), is("TID"));

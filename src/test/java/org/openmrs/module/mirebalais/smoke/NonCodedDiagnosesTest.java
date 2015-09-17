@@ -31,18 +31,18 @@ public class NonCodedDiagnosesTest extends DbTest {
     ReportsHomePage reportsHomePage;
 
     private void createConsultNote() throws Exception {
-        patientDashboard.addConsultNoteWithAdmissionToLocation(NON_CODED_DIAGNOSIS,2);
+        visitNote.addConsultNoteWithAdmissionToLocation(NON_CODED_DIAGNOSIS,2);
         showEncounterAtPatientDashboard();
     }
 
     private void createEDNote() throws Exception {
-        patientDashboard.addEmergencyDepartmentNote(NON_CODED_DIAGNOSIS);
+        visitNote.addEmergencyDepartmentNote(NON_CODED_DIAGNOSIS);
         showEncounterAtPatientDashboard();
     }
 
     private void showEncounterAtPatientDashboard(){
-        patientDashboard.wait15seconds.until(visibilityOfElementLocated(By.className("encounter-name")));
-        appDashboard.goToPatientPage(testPatient.getId());
+        visitNote.wait15seconds.until(visibilityOfElementLocated(By.className("encounter-name")));
+        appDashboard.goToVisitNote(testPatient.getId());
     }
 
     @BeforeClass
@@ -55,8 +55,8 @@ public class NonCodedDiagnosesTest extends DbTest {
         testPatient = PatientDatabaseHandler.insertNewTestPatient();
         initBasicPageObjects();
 
-        appDashboard.goToPatientPage(testPatient.getId());
-        patientDashboard.startVisit();
+        appDashboard.goToVisitNote(testPatient.getId());
+        visitNote.startVisit();
         reportsHomePage = new ReportsHomePage(driver);
     }
 
