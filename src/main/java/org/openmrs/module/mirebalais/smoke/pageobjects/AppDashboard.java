@@ -102,7 +102,7 @@ public class AppDashboard extends AbstractPageObject {
     }
 
     public boolean isPatientRegistrationAppPresented() {
-		return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.Apps.LEGACY_PATIENT_REGISTRATION, ".", "-") + APP_LINK_SUFFIX);
+		return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION, ".", "-") + APP_LINK_SUFFIX);
 	}
 
     public boolean isArchivesRoomAppPresented() {

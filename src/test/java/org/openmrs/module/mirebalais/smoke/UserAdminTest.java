@@ -88,9 +88,7 @@ public class UserAdminTest extends DbTest {
         turnOffImplicitWaits(); // once we've found one element, assume that all are present
         assertThat(appDashboard.isAwaitingAdmissionAppPresented(), is(true));
         assertThat(appDashboard.isInpatientsAppPresented(), is(true));
-        assertThat(appDashboard.isPatientRegistrationAppPresented(), is(false));  // since old patient registration has been disabled
-        assertThat(appDashboard.isStartHospitalVisitAppPresented(), is(false));  // since old patient registration has been disabled
-        assertThat(appDashboard.isEditPatientAppPresented(), is(false));    // since old patient registration has been disabled
+        assertThat(appDashboard.isPatientRegistrationAppPresented(), is(true));
         assertThat(appDashboard.isReportsAppPresented(), is(true));
         assertThat(appDashboard.isSchedulingAppPresented(), is(true));
 
@@ -99,6 +97,8 @@ public class UserAdminTest extends DbTest {
         assertThat(appDashboard.isSystemAdministrationAppPresented(), is(false));
         assertThat(appDashboard.isArchivesRoomAppPresented(), is(false));
         assertThat(appDashboard.isLegacyAppPresented(), is(false));
+        assertThat(appDashboard.isStartHospitalVisitAppPresented(), is(false));  // since old patient registration has been disabled
+        assertThat(appDashboard.isEditPatientAppPresented(), is(false));    // since old patient registration has been disabled
         turnOnImplicitWait();
 	}
 	
@@ -111,10 +111,8 @@ public class UserAdminTest extends DbTest {
 
         assertThat(appDashboard.isArchivesRoomAppPresented(), is(true));
         turnOffImplicitWaits(); // once we've found one element, assume that all are present
-        assertThat(appDashboard.isPatientRegistrationAppPresented(), is(false));   // since old patient registration has been disabled
-        assertThat(appDashboard.isStartHospitalVisitAppPresented(), is(false));  // since old patient registration has been disabled
+        assertThat(appDashboard.isPatientRegistrationAppPresented(), is(true));
         assertThat(appDashboard.isStartClinicVisitAppPresented(), is(true));
-        assertThat(appDashboard.isEditPatientAppPresented(), is(false));  // since old patient registration has been disabled
 
         assertThat(appDashboard.isSchedulingAppPresented(), is(false));
 		assertThat(appDashboard.isCaptureVitalsAppPresented(), is(false));
@@ -124,6 +122,8 @@ public class UserAdminTest extends DbTest {
 		assertThat(appDashboard.isLegacyAppPresented(), is(false));
         assertThat(appDashboard.isAwaitingAdmissionAppPresented(), is(false));
         assertThat(appDashboard.isInpatientsAppPresented(), is(false));
+        assertThat(appDashboard.isEditPatientAppPresented(), is(false));  // since old patient registration has been disabled
+        assertThat(appDashboard.isStartHospitalVisitAppPresented(), is(false));  // since old patient registration has been disabled
         turnOnImplicitWait();
 	}
 	
@@ -141,13 +141,13 @@ public class UserAdminTest extends DbTest {
         assertThat(appDashboard.isReportsAppPresented(), is(true));
         assertThat(appDashboard.isInpatientsAppPresented(), is(true));
         assertThat(appDashboard.isArchivesRoomAppPresented(), is(true));
-        assertThat(appDashboard.isPatientRegistrationAppPresented(), is(false));  // since old patient registration has been disabled
-        assertThat(appDashboard.isStartHospitalVisitAppPresented(), is(false));  // since old patient registration has been disabled
+        assertThat(appDashboard.isPatientRegistrationAppPresented(), is(true));
         assertThat(appDashboard.isStartClinicVisitAppPresented(), is(true));
-        assertThat(appDashboard.isEditPatientAppPresented(), is(false));   /// since old patient registration has been disabled
         assertThat(appDashboard.isCaptureVitalsAppPresented(), is(true));
 
         assertThat(appDashboard.isLegacyAppPresented(), is(false));
+        assertThat(appDashboard.isEditPatientAppPresented(), is(false));   /// since old patient registration has been disabled
+        assertThat(appDashboard.isStartHospitalVisitAppPresented(), is(false));  // since old patient registration has been disabled
         turnOnImplicitWait();
 		
 		appDashboard.openSysAdminApp();
