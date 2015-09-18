@@ -17,7 +17,7 @@ public class RetroVisitTest extends DbTest {
         login();
 
         appDashboard.goToClinicianFacingDashboard(testPatient.getId());
-        visitNote.addRetroVisit();
+        clinicianDashboard.addRetroVisit();
 
         assertThat(visitNote.countVisits(), is(1));
     }

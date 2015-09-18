@@ -37,14 +37,14 @@ public class RetroConsultNoteTest extends DbTest {
 
     @Test
     public void addConsultationToARetroVisit() throws Exception {
-        visitNote.addRetroVisit();
+        clinicianDashboard.addRetroVisit();
         visitNote.addRetroConsultNoteWithDischarge(PRIMARY_DIAGNOSIS);
         assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(1));
     }
 
     @Test
     public void editRetroConsultationNote() throws Exception {
-        visitNote.addRetroVisit();
+        clinicianDashboard.addRetroVisit();
         visitNote.addRetroConsultNoteWithDischarge(PRIMARY_DIAGNOSIS);
         visitNote.editExistingConsultNote(EDITED_PRIMARY_DIAGNOSIS);
 

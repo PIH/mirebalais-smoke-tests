@@ -2,13 +2,11 @@ package org.openmrs.module.mirebalais.smoke;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.helper.Toast;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -50,22 +48,9 @@ public class RadiologyOrdersTest extends DbTest {
 	}
 
     @Test
-    @Ignore
     public void orderRetroSingleXRay() throws Exception {
 
-        clinicianDashboard.startVisit();
-
-        JavascriptExecutor jse = (JavascriptExecutor)driver;
-        jse.executeScript("visit.showRetrospectiveVisitCreationDialog();");
-        jse.executeScript("document.getElementById('retrospectiveVisitStartDate-display').removeAttribute('readonly', 0);");
-        jse.executeScript("document.getElementById('retrospectiveVisitStopDate-display').removeAttribute('readonly', 0);");
-        driver.findElement(By.cssSelector("#retrospective-visit-creation-dialog i.icon-plus")).click();
-        jse.executeScript("document.getElementById('retrospectiveVisitStartDate-display').value='" + START_DATE + "';");
-        jse.executeScript("document.getElementById('retrospectiveVisitStartDate-field').value='" + START_DATE_FIELD + "';");
-        jse.executeScript("document.getElementById('retrospectiveVisitStopDate-display').value='" + END_DATE + "';");
-        jse.executeScript("document.getElementById('retrospectiveVisitStopDate-field').value='" + END_DATE_FIELD + "';");
-
-        driver.findElement(confirmButton).click();
+        clinicianDashboard.addRetroVisit();
         visitNote.orderXRay(STUDY_1, STUDY_2);
 
         assertThat(visitNote.countEncountersOfType(RADIOLOGY_CREOLE_NAME), is(1));

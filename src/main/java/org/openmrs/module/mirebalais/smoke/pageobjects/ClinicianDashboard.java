@@ -11,11 +11,17 @@ public class ClinicianDashboard extends AbstractPageObject {
 
     public static final String ACTIVE_VISIT_CREOLE_MESSAGE = "Aktif";
 
-    private static final By actions = By.className("action-section");
-
     private static final By startVisitAction = By.id("coreapps.createVisit");
 
     private static final By confirmStartVisit = By.cssSelector("#quick-visit-creation-dialog .confirm");
+
+    private By addRetroVisit = By.id("coreapps.createRetrospectiveVisit");
+
+    private By retroStartDate = By.cssSelector("#retrospectiveVisitStartDate-display");
+
+    private By retroStopDate = By.cssSelector("#retrospectiveVisitStopDate-display");
+
+    private By confirmRetroVisit = By.cssSelector("#retrospective-visit-creation-dialog .confirm");
 
     public ClinicianDashboard(WebDriver driver) {
         super(driver);
@@ -89,6 +95,13 @@ public class ClinicianDashboard extends AbstractPageObject {
         clickOn(startVisitAction);
         clickOn(confirmStartVisit);
         wait15seconds.until(visibilityOfElementLocated(By.id("visit-details")));  // visit note should open
+    }
+
+    public void addRetroVisit() {
+        clickOn(addRetroVisit);
+        hitTabKey(retroStartDate);
+        hitTabKey(retroStopDate);
+        clickOn(confirmRetroVisit);
     }
 
     public void openRequestAppointmentForm() {

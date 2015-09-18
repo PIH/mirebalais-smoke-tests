@@ -83,17 +83,9 @@ public class VisitNote extends AbstractPageObject {
 	
 	private By checkIn = By.cssSelector("a i.icon-check-in");
 
-    private By addRetroVisit = By.id("coreapps.createRetrospectiveVisit");
-
     private By enterDeathCertificateLink = By.id("pih.haiti.deathCertificate");
-
-    private By retroStartDate = By.cssSelector("#retrospectiveVisitStartDate-display");
-
-    private By retroStopDate = By.cssSelector("#retrospectiveVisitStopDate-display");
 	
 	private By confirmStartVisit = By.cssSelector("#quick-visit-creation-dialog .confirm");
-
-    private By confirmRetroVisit = By.cssSelector("#retrospective-visit-creation-dialog .confirm");
 
     private By goToAnotherVisit = By.cssSelector("#choose-another-visit a");
 	
@@ -202,13 +194,6 @@ public class VisitNote extends AbstractPageObject {
 		
 		wait15seconds.until(visibilityOfElementLocated(By.cssSelector(".visit-actions.active-visit")));
 	}
-
-    public void addRetroVisit() {
-        clickOn(addRetroVisit);
-        hitTabKey(retroStartDate);
-        hitTabKey(retroStopDate);
-        clickOn(confirmRetroVisit);
-    }
 
 	public void addConsultNoteWithDischarge(String primaryDiagnosis) throws Exception {
 		openForm(formList.get("Consult Note"));
