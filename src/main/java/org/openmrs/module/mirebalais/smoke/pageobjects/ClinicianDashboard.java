@@ -23,6 +23,10 @@ public class ClinicianDashboard extends AbstractPageObject {
 
     private By confirmRetroVisit = By.cssSelector("#retrospective-visit-creation-dialog .confirm");
 
+    private By requestAppointment = By.id("appointmentschedulingui.requestAppointment");
+
+    private By visitDetails = By.id("visit-details");
+
     public ClinicianDashboard(WebDriver driver) {
         super(driver);
     }
@@ -80,21 +84,10 @@ public class ClinicianDashboard extends AbstractPageObject {
     }
 
 
-    public boolean isDead() {
-        try {
-            driver.findElement(By.className("death-message"));
-            return true;
-        }
-        catch (NoSuchElementException e) {
-            return false;
-        }
-    }
-
-
     public void startVisit() {
         clickOn(startVisitAction);
         clickOn(confirmStartVisit);
-        wait15seconds.until(visibilityOfElementLocated(By.id("visit-details")));  // visit note should open
+        wait15seconds.until(visibilityOfElementLocated(visitDetails));  // visit note should open
     }
 
     public void addRetroVisit() {
@@ -105,7 +98,18 @@ public class ClinicianDashboard extends AbstractPageObject {
     }
 
     public void openRequestAppointmentForm() {
-        clickOn(By.id("appointmentschedulingui.requestAppointment"));
+        clickOn(requestAppointment);
     }
+
+    public boolean isDead() {
+        try {
+            driver.findElement(By.className("death-message"));
+            return true;
+        }
+        catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
 
 }
