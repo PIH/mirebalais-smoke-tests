@@ -18,8 +18,8 @@ public class ArchivesRoomFlowTest extends DbTest {
 
 		logInAsAdmin("Achiv Santral");
 		
-		appDashboard.goToVisitNote(testPatient.getId());
-		visitNote.requestRecord();
+		appDashboard.goToClinicianFacingDashboard(testPatient.getId());
+		clinicianDashboard.requestRecord();
 		
 		appDashboard.openArchivesRoomApp();
 		
@@ -27,10 +27,10 @@ public class ArchivesRoomFlowTest extends DbTest {
 		archivesRoomApp.sendDossier(dossierNumber);
 		archivesRoomApp.returnRecord(dossierNumber);
 		
-		appDashboard.goToVisitNote(testPatient.getId());
+		appDashboard.goToClinicianFacingDashboard(testPatient.getId());
 		
-		assertThat(visitNote.getDossierNumber(), is(dossierNumber));
-		assertThat(visitNote.canRequestRecord(), is(true));
+		assertThat(clinicianDashboard.getDossierNumber(), is(dossierNumber));
+		assertThat(clinicianDashboard.canRequestRecord(), is(true));
 	}
 	
 }

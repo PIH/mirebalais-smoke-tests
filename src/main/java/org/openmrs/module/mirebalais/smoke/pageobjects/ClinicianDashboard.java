@@ -1,9 +1,13 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
+import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
@@ -15,17 +19,19 @@ public class ClinicianDashboard extends AbstractPageObject {
 
     private static final By confirmStartVisit = By.cssSelector("#quick-visit-creation-dialog .confirm");
 
-    private By addRetroVisit = By.id("coreapps.createRetrospectiveVisit");
+    private static final By addRetroVisit = By.id("coreapps.createRetrospectiveVisit");
 
-    private By retroStartDate = By.cssSelector("#retrospectiveVisitStartDate-display");
+    private static final By retroStartDate = By.cssSelector("#retrospectiveVisitStartDate-display");
 
-    private By retroStopDate = By.cssSelector("#retrospectiveVisitStopDate-display");
+    private static final By retroStopDate = By.cssSelector("#retrospectiveVisitStopDate-display");
 
-    private By confirmRetroVisit = By.cssSelector("#retrospective-visit-creation-dialog .confirm");
+    private static final By confirmRetroVisit = By.cssSelector("#retrospective-visit-creation-dialog .confirm");
 
-    private By requestAppointment = By.id("appointmentschedulingui.requestAppointment");
+    private static final By requestAppointment = By.id("appointmentschedulingui.requestAppointment");
 
-    private By visitDetails = By.id("visit-details");
+    private static final By deathCertificate = By.id(CustomAppLoaderConstants.Extensions.DEATH_CERTIFICATE_OVERALL_ACTION);
+
+    private static final By visitDetails = By.id("visit-details");
 
     public ClinicianDashboard(WebDriver driver) {
         super(driver);
@@ -79,10 +85,14 @@ public class ClinicianDashboard extends AbstractPageObject {
 
     }
 
+    public String getDossierNumber() {
+        List<WebElement> elements = driver.findElements(By.cssSelector(".identifiers span"));
+        return elements.get(1).getText();
+    }
+
     public boolean hasActiveVisit() {
         return driver.findElements(By.cssSelector(".tag")).get(0).getText().contains(ACTIVE_VISIT_CREOLE_MESSAGE);
     }
-
 
     public void startVisit() {
         clickOn(startVisitAction);
@@ -100,6 +110,21 @@ public class ClinicianDashboard extends AbstractPageObject {
     public void openRequestAppointmentForm() {
         clickOn(requestAppointment);
     }
+
+    public void requestRecord() {
+        clickOn(By.id(CustomAppLoaderConstants.Extensions.REQUEST_PAPER_RECORD_OVERALL_ACTION));
+        clickOn(By.cssSelector("#request-paper-record-dialog .confirm"));
+    }
+
+    public boolean canRequestRecord() {
+        return driver.findElement((By.id(CustomAppLoaderConstants.Extensions.REQUEST_PAPER_RECORD_OVERALL_ACTION))).isDisplayed();
+    }
+
+    public DeathCertificateFormPage goToEnterDeathCertificateForm() {
+        clickOn(deathCertificate);
+        return new DeathCertificateFormPage(driver);
+    }
+
 
     public boolean isDead() {
         try {

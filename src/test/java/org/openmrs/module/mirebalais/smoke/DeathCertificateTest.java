@@ -24,7 +24,7 @@ public class DeathCertificateTest extends DbTest {
         logInAsPhysicianUser();
         appDashboard.goToClinicianFacingDashboard(patient.getId());
 
-        DeathCertificateFormPage deathCertificateForm = patientDashboard.goToEnterDeathCertificateForm();
+        DeathCertificateFormPage deathCertificateForm = clinicianDashboard.goToEnterDeathCertificateForm();
         deathCertificateForm.waitToLoad();
         deathCertificateForm.pressEnter(); // to confirm patient
         deathCertificateForm.enterFieldByKeyboard("u"); // Urban
@@ -62,7 +62,7 @@ public class DeathCertificateTest extends DbTest {
         deathCertificateForm.pressEnter(); // to confirm form
 
         // now we're back on the patient dashboard
-        assertTrue(patientDashboard.isDead());
+        assertTrue(clinicianDashboard.isDead());
     }
 
 }

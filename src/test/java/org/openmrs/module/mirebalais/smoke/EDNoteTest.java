@@ -31,7 +31,7 @@ public class EDNoteTest extends DbTest {
 
     @Test
     public void addEDNote() throws Exception {
-        visitNote.addEmergencyDepartmentNote(PRIMARY_DIAGNOSIS);
+        visitNote.addEDNote(PRIMARY_DIAGNOSIS);
 
         assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(1));
     }
@@ -39,7 +39,7 @@ public class EDNoteTest extends DbTest {
     @Test
     public void editEDNote() throws Exception {
 
-        visitNote.addEmergencyDepartmentNote(PRIMARY_DIAGNOSIS);
+        visitNote.addEDNote(PRIMARY_DIAGNOSIS);
         visitNote.editExistingEDNote(EDITED_PRIMARY_DIAGNOSIS);
 
         assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(1));

@@ -15,7 +15,6 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
-import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.AdmissionNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.ConsultNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.DispenseMedicationForm;
@@ -27,7 +26,6 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 
 import java.util.HashMap;
 import java.util.List;
@@ -36,9 +34,6 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfEl
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
-// this has been migrated from the old patient dashboard page object
-// TODO make sure everything is migrated, go through and rip out anything no longer used/working
-// TODO consolidate/clean up constants vs hard-coded in text
 public class VisitNote extends AbstractPageObject {
 	
 	public static final String CHECKIN_CREOLE_NAME = "Tcheke";
@@ -57,13 +52,20 @@ public class VisitNote extends AbstractPageObject {
 
 	public static final String ACTIVE_VISIT_CREOLE_MESSAGE = "aktif";
 
-    private final By home = By.className("logo");
-	
-	private final By medications = By.className("medication");
+    private static final By home = By.className("logo");
 
-    private final By encounterDetails = By.className("encounter-summary-long");
-	
-	private ConsultNoteForm consultNoteForm;
+    private static final By encounterDetails = By.className("encounter-summary-long");
+
+    private static final By editEncounter = By.className("edit-encounter");
+
+    private static final By deleteEncounter = By.className("delete-encounter");
+
+    private static final By goToAnotherVisit = By.cssSelector("#choose-another-visit a");
+
+    private static final By firstEncounterDetails = By.className("expand-encounter");
+
+
+    private ConsultNoteForm consultNoteForm;
 	
 	private EmergencyDepartmentNoteForm eDNoteForm;
 	
@@ -75,29 +77,6 @@ public class VisitNote extends AbstractPageObject {
 	
 	private HashMap<String, By> formList;
 
-    private By editEncounter = By.className("edit-encounter");
-
-	private By deleteEncounter = By.className("delete-encounter");
-	
-	private By actions = By.cssSelector(".actions");
-	
-	private By checkIn = By.cssSelector("a i.icon-check-in");
-
-    private By enterDeathCertificateLink = By.id("pih.haiti.deathCertificate");
-	
-	private By confirmStartVisit = By.cssSelector("#quick-visit-creation-dialog .confirm");
-
-    private By goToAnotherVisit = By.cssSelector("#choose-another-visit a");
-	
-	private By dispenseMedicationButton = By.id(CustomAppLoaderConstants.Extensions.DISPENSE_MEDICATION_VISIT_ACTION);
-
-    private By encounterList = By.id("encountersList");
-	
-	private By firstEncounterDetails = By.className("expand-encounter");
-	
-	private ExpectedCondition<WebElement> detailsAjaxCallReturns = visibilityOfElementLocated(encounterDetails);
-
-    private ExpectedCondition<WebElement> encounterListView = visibilityOfElementLocated(encounterList);
 	
 	public VisitNote(WebDriver driver) {
 		super(driver);
@@ -107,11 +86,6 @@ public class VisitNote extends AbstractPageObject {
 		xRayForm = new XRayForm(driver);
         admissionNoteForm = new AdmissionNoteForm(driver);
 		createFormsMap();
-	}
-	
-	public void orderXRay(String study1, String study2) throws Exception {
-		openForm(formList.get("Order X-Ray"));
-		xRayForm.fillForm(study1, study2);
 	}
 	
 	public boolean verifyIfSuccessfulMessageIsDisplayed() {
@@ -159,42 +133,6 @@ public class VisitNote extends AbstractPageObject {
 		return count;
 	}
 
-    /**
-     * Confirm that the patient dashboard is currently open for the specified patient
-     * @param patient
-     * @return
-     */
-    public boolean isOpenForPatient(Patient patient) {
-
-        try {
-            // just make sure that a few core page elements exist
-            driver.findElement(By.id("visit-details"));
-            driver.findElement(By.id("visits-list"));
-            driver.findElement(By.className("patient-header"));
-
-            // patient specific information
-            if (!driver.findElement(By.className("patient-header")).getText().contains(patient.getIdentifier())) {
-                System.out.println("Did not find identifier " + patient.getIdentifier() + " in patient header.");
-                return false;
-            }
-
-            return true;
-        }
-        catch (NoSuchElementException ex) {
-            ex.printStackTrace(System.out);
-            return false;
-        }
-
-    }
-
-	public void startVisit() {
-		hoverOn(actions);
-		clickOn(checkIn);
-		clickOn(confirmStartVisit);
-		
-		wait15seconds.until(visibilityOfElementLocated(By.cssSelector(".visit-actions.active-visit")));
-	}
-
 	public void addConsultNoteWithDischarge(String primaryDiagnosis) throws Exception {
 		openForm(formList.get("Consult Note"));
 		consultNoteForm.fillFormWithDischarge(primaryDiagnosis);
@@ -236,7 +174,7 @@ public class VisitNote extends AbstractPageObject {
 		return retroConsultNoteForm.fillFormWithTransferAndReturnLocation(primaryDiagnosis, numbered);
 	}
 	
-	public void addEmergencyDepartmentNote(String primaryDiagnosis) throws Exception {
+	public void addEDNote(String primaryDiagnosis) throws Exception {
 		openForm(formList.get("ED Note"));
 		eDNoteForm.fillFormWithDischarge(primaryDiagnosis);
 	}
@@ -276,38 +214,17 @@ public class VisitNote extends AbstractPageObject {
         admissionNoteForm.confirmData();
     }
 
+    public void orderXRay(String study1, String study2) throws Exception {
+        openForm(formList.get("Order X-Ray"));
+        xRayForm.fillForm(study1, study2);
+    }
+
 	public void openForm(By formIdentification) {
 		clickOn(formIdentification);
 	}
 	
 	public void viewConsultationDetails() {
 		clickFirstEncounterDetails();
-	}
-	
-	public void requestRecord() {
-		hoverOn(By.cssSelector(".actions"));
-		clickOn(By.cssSelector(".actions i.icon-folder-open"));
-		clickOn(By.cssSelector("#request-paper-record-dialog .confirm"));
-	}
-
-	public String getDossierNumber() {
-		List<WebElement> elements = driver.findElements(By.cssSelector(".identifiers span"));
-		return elements.get(1).getText();
-	}
-	
-	public boolean canRequestRecord() {
-		hoverOn(By.cssSelector(".actions"));
-		return driver.findElement(By.cssSelector(".actions i.icon-folder-open")).isDisplayed();
-	}
-	
-	public Boolean startVisitButtonIsVisible() {
-		try {
-			driver.findElement(By.id("noVisitShowVisitCreationDialog"));
-			return true;
-		}
-		catch (NoSuchElementException e) {
-			return false;
-		}
 	}
 	
 	public Boolean containsText(String text) {
@@ -332,16 +249,6 @@ public class VisitNote extends AbstractPageObject {
         return getVisits().size();
     }
 
-	public boolean isDead() {
-		try {
-			driver.findElement(By.className("death-message"));
-			return true;
-		}
-		catch (NoSuchElementException e) {
-			return false;
-		}
-	}
-	
 	public String providerForFirstEncounter() {
 		return driver.findElement(By.className("encounter-provider")).getText();
 	}
@@ -349,27 +256,7 @@ public class VisitNote extends AbstractPageObject {
 	public String locationForFirstAdmission() {
 		return driver.findElement(By.className("admission-location")).getText();
 	}
-	
-	public boolean canDispenseMedication() {
-		try {
-			driver.findElement(dispenseMedicationButton);
-			return true;
-		}
-		catch (NoSuchElementException e) {
-			return false;
-		}
-	}
-	
-	public DispenseMedicationForm goToDispenseMedicationForm() {
-		driver.findElement(dispenseMedicationButton).click();
-		return new DispenseMedicationForm(driver);
-	}
 
-    public DeathCertificateFormPage goToEnterDeathCertificateForm() {
-        clickOn(enterDeathCertificateLink);
-        return new DeathCertificateFormPage(driver);
-    }
-	
 	public void clickFirstEncounterDetails() {
         clickOn(firstEncounterDetails);
         wait5seconds.until(visibilityOfElementLocated(encounterDetails));
@@ -388,10 +275,42 @@ public class VisitNote extends AbstractPageObject {
         formList.put("Admission Note", By.id(CustomAppLoaderConstants.Extensions.ADMISSION_NOTE_VISIT_ACTION));
 	}
 
+    public ConsultNoteForm getConsultNoteForm() {
+        return consultNoteForm;
+    }
 
-	public MedicationDispensed firstMedication() {
-		return new MedicationDispensed(driver.findElement(encounterDetails));
-	}
+    public EmergencyDepartmentNoteForm getEDNoteForm() {
+        return eDNoteForm;
+    }
+
+    public RetroConsultNoteForm getRetroConsultNoteForm() {
+        return retroConsultNoteForm;
+    }
+
+    public AdmissionNoteForm getAdmissionNoteForm() {
+        return admissionNoteForm;
+    }
+
+
+    // TODO move all this dispensing stuff somewhere else?
+    public DispenseMedicationForm goToDispenseMedicationForm() {
+        driver.findElement(By.id(CustomAppLoaderConstants.Extensions.DISPENSE_MEDICATION_VISIT_ACTION)).click();
+        return new DispenseMedicationForm(driver);
+    }
+
+    public MedicationDispensed firstMedication() {
+        return new MedicationDispensed(driver.findElement(encounterDetails));
+    }
+
+    public boolean canDispenseMedication() {
+        try {
+            driver.findElement(By.id(CustomAppLoaderConstants.Extensions.DISPENSE_MEDICATION_VISIT_ACTION));
+            return true;
+        }
+        catch (NoSuchElementException e) {
+            return false;
+        }
+    }
 
     public class MedicationDispensed {
 
@@ -399,7 +318,7 @@ public class VisitNote extends AbstractPageObject {
 
         public MedicationDispensed(WebElement encounterDetails) {
             this.medicationElements = encounterDetails.findElements(By.className("obs-value"));
-		}
+        }
 
         public String getTypeOfPrescription(){
             return medicationElements.get(0).getText();
@@ -409,9 +328,9 @@ public class VisitNote extends AbstractPageObject {
             return medicationElements.get(1).getText();
         }
 
-		public String getName() {
-			return medicationElements.get(3).getText();
-		}
+        public String getName() {
+            return medicationElements.get(3).getText();
+        }
 
         public String getDose() {
             return medicationElements.get(4).getText();
@@ -437,46 +356,7 @@ public class VisitNote extends AbstractPageObject {
             return medicationElements.get(9).getText();
         }
 
-		
-	}
-
-    public Checkin firstEncounterCheckIn() {
-        WebElement firstCheckIn = driver.findElements(encounterDetails).get(0);
-        return new Checkin(firstCheckIn);
-    }
-
-    public class Checkin {
-
-        private WebElement checkInInformation;
-
-
-        public Checkin(WebElement checkInInformation){
-            this.checkInInformation = checkInInformation;
-        }
-
-        public String getCheckInInformation(){
-            return checkInInformation.getText();
-        }
-
-        private By checkInformation() {
-            return By.cssSelector("p span");
-        }
 
     }
 
-    public ConsultNoteForm getConsultNoteForm() {
-        return consultNoteForm;
-    }
-
-    public EmergencyDepartmentNoteForm geteDNoteForm() {
-        return eDNoteForm;
-    }
-
-    public RetroConsultNoteForm getRetroConsultNoteForm() {
-        return retroConsultNoteForm;
-    }
-
-    public AdmissionNoteForm getAdmissionNoteForm() {
-        return admissionNoteForm;
-    }
 }

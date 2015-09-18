@@ -6,8 +6,8 @@ import org.openmrs.module.mirebalais.smoke.flows.CheckInPatientFlow;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.ArchivesRoomApp;
+import org.openmrs.module.mirebalais.smoke.pageobjects.ClinicianDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.MirebalaisLoginPage;
-import org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -23,13 +23,13 @@ public class GenerateDossierAtCheckinTest extends DbTest {
 		AppDashboard dashboard = new AppDashboard(driver);
 		dashboard.openCheckinApp();
 		
-		VisitNote patientDashboard = new VisitNote(driver);
+		ClinicianDashboard clinicianDashboard = new ClinicianDashboard(driver);
 		
 		CheckInPatientFlow checkInPatientFlow = new CheckInPatientFlow(driver);
 		checkInPatientFlow.checkInAndCreateLocalDossierFor(testPatient.getIdentifier());
 		checkInPatientFlow.confirmPatient(testPatient.getIdentifier());
 		
-		assertThat(patientDashboard.getDossierNumber().matches("A\\d{6}"), is(true));
+		assertThat(clinicianDashboard.getDossierNumber().matches("A\\d{6}"), is(true));
 		
 		checkInPatientFlow.checkIn();
 		

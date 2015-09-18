@@ -36,7 +36,7 @@ public class NonCodedDiagnosesTest extends DbTest {
     }
 
     private void createEDNote() throws Exception {
-        visitNote.addEmergencyDepartmentNote(NON_CODED_DIAGNOSIS);
+        visitNote.addEDNote(NON_CODED_DIAGNOSIS);
         showEncounterAtPatientDashboard();
     }
 
