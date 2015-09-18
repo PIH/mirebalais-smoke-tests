@@ -29,8 +29,8 @@ public class ConsultNoteTest extends DbTest {
 		initBasicPageObjects();
         deathCertificateForm = new DeathCertificateFormPage(driver);
 
-        appDashboard.goToVisitNote(testPatient.getId());
-		visitNote.startVisit();
+        appDashboard.goToClinicianFacingDashboard(testPatient.getId());
+		clinicianDashboard.startVisit();
 	}
 	
 	@Test

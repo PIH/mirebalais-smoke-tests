@@ -2,6 +2,7 @@ package org.openmrs.module.mirebalais.smoke;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
@@ -13,7 +14,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote.RADIOLOGY_CREOLE_NAME;
 
-public class OrdersTest extends DbTest {
+public class RadiologyOrdersTest extends DbTest {
 	
 	private static final String STUDY_1 = "Hanche - Gauche, 2 vues (Radiographie)";
 	
@@ -31,7 +32,7 @@ public class OrdersTest extends DbTest {
         Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
         initBasicPageObjects();
         login();
-        appDashboard.goToVisitNote(testPatient.getId());
+        appDashboard.goToClinicianFacingDashboard(testPatient.getId());
     }
     @After
     public void tearDown() {
@@ -42,14 +43,17 @@ public class OrdersTest extends DbTest {
     @Test
 	public void orderSingleXRay() throws Exception {
 
-		visitNote.startVisit();
+		clinicianDashboard.startVisit();
 		visitNote.orderXRay(STUDY_1, STUDY_2);
 		
 		assertThat(visitNote.countEncountersOfType(RADIOLOGY_CREOLE_NAME), is(1));
 	}
 
     @Test
+    @Ignore
     public void orderRetroSingleXRay() throws Exception {
+
+        clinicianDashboard.startVisit();
 
         JavascriptExecutor jse = (JavascriptExecutor)driver;
         jse.executeScript("visit.showRetrospectiveVisitCreationDialog();");

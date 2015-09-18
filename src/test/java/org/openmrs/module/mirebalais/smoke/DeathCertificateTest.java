@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
+import org.openmrs.module.mirebalais.smoke.pageobjects.ClinicianDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.DeathCertificateFormPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote;
 import org.openqa.selenium.By;
@@ -16,11 +17,12 @@ public class DeathCertificateTest extends DbTest {
     public void testEnteringDeathNote() throws Exception {
         AppDashboard appDashboard = new AppDashboard(driver);
         VisitNote patientDashboard = new VisitNote(driver);
+        ClinicianDashboard clinicianDashboard = new ClinicianDashboard(driver);
 
         Patient patient = PatientDatabaseHandler.insertNewTestPatient();
 
         logInAsPhysicianUser();
-        appDashboard.goToVisitNote(patient.getId());
+        appDashboard.goToClinicianFacingDashboard(patient.getId());
 
         DeathCertificateFormPage deathCertificateForm = patientDashboard.goToEnterDeathCertificateForm();
         deathCertificateForm.waitToLoad();

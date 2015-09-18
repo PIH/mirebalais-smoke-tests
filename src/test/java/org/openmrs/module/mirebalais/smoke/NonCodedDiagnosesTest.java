@@ -55,8 +55,8 @@ public class NonCodedDiagnosesTest extends DbTest {
         testPatient = PatientDatabaseHandler.insertNewTestPatient();
         initBasicPageObjects();
 
-        appDashboard.goToVisitNote(testPatient.getId());
-        visitNote.startVisit();
+        appDashboard.goToClinicianFacingDashboard(testPatient.getId());
+        clinicianDashboard.startVisit();
         reportsHomePage = new ReportsHomePage(driver);
     }
 

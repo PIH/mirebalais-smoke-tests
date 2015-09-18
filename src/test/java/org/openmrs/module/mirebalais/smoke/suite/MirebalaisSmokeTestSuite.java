@@ -25,7 +25,7 @@ import org.openmrs.module.mirebalais.smoke.MasterPatientIndexTest;
 import org.openmrs.module.mirebalais.smoke.MergePatientTest;
 import org.openmrs.module.mirebalais.smoke.MultipleSubmitTest;
 import org.openmrs.module.mirebalais.smoke.NonCodedDiagnosesTest;
-import org.openmrs.module.mirebalais.smoke.OrdersTest;
+import org.openmrs.module.mirebalais.smoke.RadiologyOrdersTest;
 import org.openmrs.module.mirebalais.smoke.PatientRegistrationHaitiFlowTest;
 import org.openmrs.module.mirebalais.smoke.PatientSearchTest;
 import org.openmrs.module.mirebalais.smoke.RequestAppointmentsTest;
@@ -56,7 +56,7 @@ import org.openqa.selenium.WebDriver;
                         MultipleSubmitTest.class,
                         CheckInTest.class,
                         NonCodedDiagnosesTest.class,
-                        OrdersTest.class,
+                        RadiologyOrdersTest.class,
                         PatientRegistrationHaitiFlowTest.class,
                         PatientSearchTest.class,
                         RequestAppointmentsTest.class,

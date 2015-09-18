@@ -10,6 +10,7 @@ import java.math.BigInteger;
 import static org.junit.Assert.assertThat;
 import static org.junit.matchers.JUnitMatchers.containsString;
 
+@Deprecated
 public class LegacyRegistrationFlowTest extends DbTest {
 	
 	private final static String SCAN_MESSAGE = "Tanpri skane kat idantifikasyon kontinye...";

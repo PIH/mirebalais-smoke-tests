@@ -25,12 +25,12 @@ public class RetroConsultNoteTest extends DbTest {
         Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
         initBasicPageObjects();
 
-        appDashboard.goToVisitNote(testPatient.getId());
+        appDashboard.goToClinicianFacingDashboard(testPatient.getId());
     }
 
     @Test
     public void addConsultationToAnActiveVisit() throws Exception {
-        visitNote.startVisit();
+        clinicianDashboard.startVisit();
         visitNote.addRetroConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS,2);
         assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(1));
     }
@@ -44,7 +44,6 @@ public class RetroConsultNoteTest extends DbTest {
 
     @Test
     public void editRetroConsultationNote() throws Exception {
-
         visitNote.addRetroVisit();
         visitNote.addRetroConsultNoteWithDischarge(PRIMARY_DIAGNOSIS);
         visitNote.editExistingConsultNote(EDITED_PRIMARY_DIAGNOSIS);

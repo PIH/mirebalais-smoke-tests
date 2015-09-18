@@ -25,8 +25,8 @@ public class EDNoteTest extends DbTest {
         Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
         initBasicPageObjects();
 
-        appDashboard.goToVisitNote(testPatient.getId());
-        visitNote.startVisit();
+        appDashboard.goToClinicianFacingDashboard(testPatient.getId());
+        clinicianDashboard.startVisit();
     }
 
     @Test

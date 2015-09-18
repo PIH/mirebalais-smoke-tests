@@ -1,10 +1,5 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.Matchers.stringContainsInOrder;
-import static org.junit.Assert.assertThat;
-
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.EmergencyCheckin;
@@ -13,6 +8,12 @@ import org.openqa.selenium.JavascriptExecutor;
 import java.math.BigInteger;
 import java.util.Arrays;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.Matchers.stringContainsInOrder;
+import static org.junit.Assert.assertThat;
+
+@Deprecated
 public class EmergencyCheckinTest extends DbTest {
 	
 	@Test

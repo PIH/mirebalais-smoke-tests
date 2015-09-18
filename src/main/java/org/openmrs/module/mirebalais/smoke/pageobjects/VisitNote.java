@@ -28,7 +28,6 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.HashMap;
 import java.util.List;
@@ -60,11 +59,9 @@ public class VisitNote extends AbstractPageObject {
 
     private final By home = By.className("logo");
 	
-	private final By dispensingForm = By.cssSelector(".encounter-summary-container .dispensing-form");
-	
 	private final By medications = By.className("medication");
 
-    private final By encounterDetails = By.cssSelector(".encounter-summary-container");
+    private final By encounterDetails = By.className("encounter-summary-long");
 	
 	private ConsultNoteForm consultNoteForm;
 	
@@ -86,9 +83,9 @@ public class VisitNote extends AbstractPageObject {
 	
 	private By checkIn = By.cssSelector("a i.icon-check-in");
 
-    private By addRetroVisit = By.cssSelector("a i.icon-plus");
+    private By addRetroVisit = By.id("coreapps.createRetrospectiveVisit");
 
-    private By enterDeathCertificateLink = By.cssSelector("a i.icon-remove-circle");
+    private By enterDeathCertificateLink = By.id("pih.haiti.deathCertificate");
 
     private By retroStartDate = By.cssSelector("#retrospectiveVisitStartDate-display");
 
@@ -98,13 +95,13 @@ public class VisitNote extends AbstractPageObject {
 
     private By confirmRetroVisit = By.cssSelector("#retrospective-visit-creation-dialog .confirm");
 
-	private By firstPencilIcon = By.cssSelector("#encountersList span i:nth-child(1)");
+    private By goToAnotherVisit = By.cssSelector("#choose-another-visit a");
 	
 	private By dispenseMedicationButton = By.id(CustomAppLoaderConstants.Extensions.DISPENSE_MEDICATION_VISIT_ACTION);
 
     private By encounterList = By.id("encountersList");
 	
-	private By firstEncounterDetails = By.className("details-action");
+	private By firstEncounterDetails = By.className("expand-encounter");
 	
 	private ExpectedCondition<WebElement> detailsAjaxCallReturns = visibilityOfElementLocated(encounterDetails);
 
@@ -142,13 +139,19 @@ public class VisitNote extends AbstractPageObject {
 
 	public void deleteFirstEncounter() {
 		clickOn(deleteEncounter);
-		clickOn(By.className("confirm"));
+		clickOn(By.className("delete-encounter-button") );
 		wait5seconds.until(invisibilityOfElementLocated(By.className("delete-encounter-dialog")));
 	}
 	
 	public Integer countEncountersOfType(String encounterName) {
 
-        wait15seconds.until(presenceOfElementLocated(By.className("encounter-name")));
+        try {
+            wait5seconds.until(presenceOfElementLocated(By.className("encounter-name")));
+        }
+        catch (TimeoutException e) {
+            // for the case when there are no encounters of *any* type
+            return 0;
+        }
 
 		int count = 0;
 
@@ -201,7 +204,6 @@ public class VisitNote extends AbstractPageObject {
 	}
 
     public void addRetroVisit() {
-        hoverOn(actions);
         clickOn(addRetroVisit);
         hitTabKey(retroStartDate);
         hitTabKey(retroStopDate);
@@ -229,7 +231,7 @@ public class VisitNote extends AbstractPageObject {
 	}
 	
 	public void editExistingConsultNote(String primaryDiagnosis) throws Exception {
-		openForm(By.cssSelector(".consult-encounter-template .editEncounter"));
+		editFirstEncounter();
 		consultNoteForm.editPrimaryDiagnosis(primaryDiagnosis);
         consultNoteForm.confirmData();
 	}
@@ -255,7 +257,7 @@ public class VisitNote extends AbstractPageObject {
 	}
 	
 	public void editExistingEDNote(String primaryDiagnosis) throws Exception {
-		openForm(By.cssSelector(".consult-encounter-template .editEncounter"));
+		editFirstEncounter();
 		eDNoteForm.editPrimaryDiagnosis(primaryDiagnosis);
         eDNoteForm.confirmData();
 	}
@@ -294,7 +296,7 @@ public class VisitNote extends AbstractPageObject {
 	}
 	
 	public void viewConsultationDetails() {
-		clickOn(By.cssSelector(".consult-encounter-template .show-details"));
+		clickFirstEncounterDetails();
 	}
 	
 	public void requestRecord() {
@@ -303,11 +305,6 @@ public class VisitNote extends AbstractPageObject {
 		clickOn(By.cssSelector("#request-paper-record-dialog .confirm"));
 	}
 
-    public void openRequestAppointmentForm() {
-        hoverOn(By.cssSelector(".actions"));
-        clickOn(By.cssSelector(".actions a[href*='requestAppointment'"));
-    }
-	
 	public String getDossierNumber() {
 		List<WebElement> elements = driver.findElements(By.cssSelector(".identifiers span"));
 		return elements.get(1).getText();
@@ -333,13 +330,15 @@ public class VisitNote extends AbstractPageObject {
 	}
 	
 	public List<WebElement> getVisits() {
-		return driver.findElements(By.cssSelector(".menu-item.viewVisitDetails"));
+		return driver.findElements(By.className("visit-list-item"));
 	}
 
     public Integer countVisits() {
 
+        clickOn(goToAnotherVisit);
+
         try {
-            wait5seconds.until(presenceOfElementLocated(By.cssSelector(".menu-item.viewVisitDetails")));
+            wait5seconds.until(presenceOfElementLocated(By.id("visit-list")));
         }
         catch (TimeoutException e) {
             return 0;
@@ -382,17 +381,13 @@ public class VisitNote extends AbstractPageObject {
 	}
 
     public DeathCertificateFormPage goToEnterDeathCertificateForm() {
-        hoverOn(actions);
         clickOn(enterDeathCertificateLink);
         return new DeathCertificateFormPage(driver);
     }
 	
 	public void clickFirstEncounterDetails() {
-        WebDriverWait wait30seconds = new WebDriverWait(driver, 30);
-        wait30seconds.until(encounterListView);
-        WebElement encounterDetails = driver.findElement(firstEncounterDetails);
-		encounterDetails.click();
-		wait30seconds.until(detailsAjaxCallReturns);
+        clickOn(firstEncounterDetails);
+        wait5seconds.until(visibilityOfElementLocated(encounterDetails));
     }
 
     public void gotoAppDashboard() {
@@ -410,97 +405,53 @@ public class VisitNote extends AbstractPageObject {
 
 
 	public MedicationDispensed firstMedication() {
-        wait15seconds.until(visibilityOfElementLocated(dispensingForm));
-		WebElement first = driver.findElement(dispensingForm).findElements(medications).get(0);
-        WebElement dispensingInformation = driver.findElement(dispensingForm);
-		return new MedicationDispensed(dispensingInformation, first, 1);
+		return new MedicationDispensed(driver.findElement(encounterDetails));
 	}
 
     public class MedicationDispensed {
 
-        private WebElement dispensingInformation;
+        private List<WebElement> medicationElements;
 
-        private WebElement medication;
-
-		private int order;
-
-        public MedicationDispensed(WebElement dispensingInformation, WebElement medication, int order) {
-			this.dispensingInformation = dispensingInformation;
-            this.medication = medication;
-			this.order = order;
+        public MedicationDispensed(WebElement encounterDetails) {
+            this.medicationElements = encounterDetails.findElements(By.className("obs-value"));
 		}
 
         public String getTypeOfPrescription(){
-            return dispensingInformation.findElement(typeOfPrescription()).getText();
+            return medicationElements.get(0).getText();
         }
 
         public String getDischargeLocation(){
-            return dispensingInformation.findElement(dischargeLocation()).getText();
+            return medicationElements.get(1).getText();
         }
 
 		public String getName() {
-			return medication.findElement(name()).getText();
-		}
-		
-		public String getFrequency() {
-			return medication.findElement(frequency()).getText();
-		}
-		
-		public String getDose() {
-			return medication.findElement(dose()).getText();
-		}
-		
-		public String getDoseUnit() {
-			return medication.findElement(doseUnit()).getText();
-		}
-		
-		public String getDuration() {
-			return medication.findElement(duration()).getText();
-		}
-		
-		public String getDurationUnit() {
-			return medication.findElement(durationUnit()).getText();
-		}
-		
-		public String getAmount() {
-			return medication.findElement(amount()).getText();
+			return medicationElements.get(3).getText();
 		}
 
-        private By typeOfPrescription() {
-            return By.cssSelector("[id='Timing of hospital prescription']");
+        public String getDose() {
+            return medicationElements.get(4).getText();
         }
 
-        private By dischargeLocation() {
-            return By.cssSelector("[id='Discharge location']");
+        public String getDoseUnit() {
+            return medicationElements.get(5).getText();
         }
-		
-		private By name() {
-			return By.cssSelector("#name" + order);
-		}
-		
-		private By frequency() {
-			return By.cssSelector("#frequencyCoded" + order);
-		}
-		
-		private By dose() {
-			return By.cssSelector("#dose" + order);
-		}
-		
-		private By doseUnit() {
-			return By.cssSelector("#doseUnit" + order);
-		}
-		
-		private By duration() {
-			return By.cssSelector("#duration" + order);
-		}
-		
-		private By durationUnit() {
-			return By.cssSelector("#durationUnit" + order);
-		}
-		
-		private By amount() {
-			return By.cssSelector("#amount" + order);
-		}
+
+        public String getFrequency() {
+            return medicationElements.get(6).getText();
+        }
+
+        public String getDuration() {
+            return medicationElements.get(7).getText();
+        }
+
+        public String getDurationUnit() {
+            return medicationElements.get(8).getText();
+        }
+
+        public String getAmount() {
+            return medicationElements.get(9).getText();
+        }
+
 		
 	}
 

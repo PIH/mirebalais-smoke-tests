@@ -91,4 +91,8 @@ public class ClinicianDashboard extends AbstractPageObject {
         wait15seconds.until(visibilityOfElementLocated(By.id("visit-details")));  // visit note should open
     }
 
+    public void openRequestAppointmentForm() {
+        clickOn(By.id("appointmentschedulingui.requestAppointment"));
+    }
+
 }

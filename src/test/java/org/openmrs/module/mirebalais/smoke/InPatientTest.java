@@ -29,8 +29,8 @@ public class InPatientTest extends DbTest {
 
         logInAsPhysicianUser("Sal Gason");
 
-		appDashboard.goToVisitNote(testPatient.getId());
-		visitNote.startVisit();
+		appDashboard.goToClinicianFacingDashboard(testPatient.getId());
+		clinicianDashboard.startVisit();
 
 		String admissionPlace = visitNote.addConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS, 3);
 		assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(1));
@@ -50,8 +50,8 @@ public class InPatientTest extends DbTest {
         visitNote.gotoAppDashboard();
 		assertFirstAdmittedAndCurrentWardAre(testPatient.getIdentifier(), admissionPlace, transferPlace);
 
-		appDashboard.goToVisitNote(testPatient2.getId());
-		visitNote.startVisit();
+		appDashboard.goToClinicianFacingDashboard(testPatient2.getId());
+		clinicianDashboard.startVisit();
 		visitNote.addConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS, 3);
 		
 		appDashboard.openInPatientApp();
