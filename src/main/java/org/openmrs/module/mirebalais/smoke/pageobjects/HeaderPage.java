@@ -17,7 +17,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 
 public class HeaderPage extends AbstractPageObject {
 
@@ -26,8 +26,9 @@ public class HeaderPage extends AbstractPageObject {
 	}
 
 	public void logOut() {
-        wait5seconds.until(elementToBeClickable(By.className("logout"))); // sometimes tests fail because a toast message is blocking the logout button, this should wait until the toast message closes
-		driver.findElement(By.className("logout")).click();
+        WebElement logoutButton =  driver.findElement(By.className("logout"));
+        wait5seconds.until(visibilityOf(logoutButton)); // sometimes tests fail because a toast message is blocking the logout button, this should wait until the toast message closes
+		logoutButton.click();
 	}
 
     public void home() {
@@ -38,9 +39,12 @@ public class HeaderPage extends AbstractPageObject {
 		return By.cssSelector("li.change-location span");
 	}
 
-	public void changeLocationTo(WebElement location) throws Exception {
+	public String changeLocationTo(int listElement) throws Exception {
 		clickOnLocationMenu();
+        WebElement location = driver.findElements(By.cssSelector("ul.select li")).get(listElement - 1);
+        String locationName = location.getAttribute("textContent");
         select(location);
+        return locationName;
     }
 
     private void select(WebElement location) {
@@ -51,11 +55,4 @@ public class HeaderPage extends AbstractPageObject {
 		driver.findElement(By.className("icon-map-marker")).click();
 	}
 
-    public WebElement fourthLocation() {
-        return driver.findElements(By.cssSelector("ul.select li")).get(3);
-    }
-
-    public String fourthLocationText() {
-        return fourthLocation().getAttribute("textContent");
-    }
 }

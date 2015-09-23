@@ -13,11 +13,8 @@ public class HeaderTest extends BasicMirebalaisSmokeTest {
 	@Test
 	public void shouldChangeLocation() throws Exception {
 		login();
-		
 		HeaderPage headerPage = new HeaderPage(driver);
-		
-		headerPage.changeLocationTo(headerPage.fourthLocation());
-		
-		wait5Second.until(textToBePresentInElement(headerPage.location(), headerPage.fourthLocationText()));
+        String locationName = headerPage.changeLocationTo(4);
+		wait5Second.until(textToBePresentInElement(headerPage.location(), locationName));
 	}
 }
