@@ -27,7 +27,7 @@ public class HeaderPage extends AbstractPageObject {
 
 	public void logOut() {
         wait5seconds.until(elementToBeClickable((By.className("logout")))); // sometimes tests fail because a toast message is blocking the logout button, this should wait until the toast message closes
-		driver.findElement(By.className("logout"));
+		driver.findElement(By.className("logout")).click();
 	}
 
     public void home() {
