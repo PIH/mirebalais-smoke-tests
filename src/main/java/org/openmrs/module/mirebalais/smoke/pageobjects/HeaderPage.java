@@ -15,10 +15,7 @@ package org.openmrs.module.mirebalais.smoke.pageobjects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
-
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
 public class HeaderPage extends AbstractPageObject {
 
@@ -27,16 +24,8 @@ public class HeaderPage extends AbstractPageObject {
 	}
 
 	public void logOut() {
-        wait5seconds.until(elementToBeClickable((By.className("logout")))); // sometimes tests fail because a toast message is blocking the logout button, this should wait until the toast message closes
-
-        try {
-            // strange hack to try to fix the issue with the toast message blocking the logout button--is it possible that the between the wait-for-clickable and this call,the toast message is appearing?
-            driver.findElement(By.className("logout")).click();
-        }
-        catch (WebDriverException e) {
-            wait5seconds.until(elementToBeClickable((By.className("logout"))));
-            driver.findElement(By.className("logout")).click();
-        }
+        // hack, just go to the logout url since the we are having so much trouble with the toast message overlapping the logout button
+        driver.get(properties.getWebAppUrl() + "/logout");
     }
 
     public void home() {
