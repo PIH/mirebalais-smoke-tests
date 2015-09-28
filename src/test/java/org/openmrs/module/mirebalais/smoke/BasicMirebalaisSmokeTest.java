@@ -1,7 +1,12 @@
 package org.openmrs.module.mirebalais.smoke;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Rule;
+import org.junit.rules.TestRule;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
 import org.openmrs.module.mirebalais.smoke.helper.SmokeTestDriver;
 import org.openmrs.module.mirebalais.smoke.helper.SmokeTestProperties;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
@@ -12,9 +17,13 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.LegacyRegistration;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.MirebalaisLoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public abstract class BasicMirebalaisSmokeTest {
@@ -25,7 +34,7 @@ public abstract class BasicMirebalaisSmokeTest {
 	
 	protected static WebDriver driver;
 	
-/*	@Rule
+	@Rule
 	public TestRule testWatcher = new TestWatcher() {
 		
 		@Override
@@ -36,7 +45,7 @@ public abstract class BasicMirebalaisSmokeTest {
 			}
 			catch (IOException e) {}
 		}
-	};*/
+	};
 	
 	protected AppDashboard appDashboard;
 	
