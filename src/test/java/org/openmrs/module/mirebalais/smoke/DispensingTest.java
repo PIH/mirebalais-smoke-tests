@@ -51,28 +51,21 @@ public class DispensingTest extends DbTest {
 
         assertThat("Type of precription is right", medicationDispensed.getTypeOfPrescription(), is("Egzeyat"));
 
-        // TODO fix and re-enable this after https://tickets.pih-emr.org/browse/UHM-2179
-        //assertThat("Prescription location is right",  medicationDispensed.getDischargeLocation(), is(prescriptionLocation));
+        assertThat("Prescription location is right",  medicationDispensed.getDischargeLocation(), is(prescriptionLocation));
 
-        // TODO fix and re-enable
-        //assertThat("Medication name is right.", medicationDispensed.getName(), is(("Paracetamol, 500mg, tablet")));
+        assertThat("Medication name is right.", medicationDispensed.getName(), is(("Paracetamol, 500mg, tablet")));
 
-        //assertThat("Medication dose is right.", medicationDispensed.getDose(), is("5"));
-        assertThat("Medication dose is right.", medicationDispensed.getDose(), is("5.0"));
+        assertThat("Medication dose is right.", medicationDispensed.getDose(), is("5"));
 
-        //assertThat("Medication frequency is right.", medicationDispensed.getFrequency(), is("TID"));
-        assertThat("Medication frequency is right.", medicationDispensed.getFrequency(), is("TDS"));
+        assertThat("Medication frequency is right.", medicationDispensed.getFrequency(), is("TID"));
 
-        //assertThat("Medication dose unit is right.", medicationDispensed.getDoseUnit(), is(doseUnit));
-        assertThat("Medication dose unit is right.", medicationDispensed.getDoseUnit(), is("mg"));
+        assertThat("Medication dose unit is right.", medicationDispensed.getDoseUnit(), is("Milligramme (mg)"));
 
-        //assertThat("Medication duration is right.", medicationDispensed.getDuration(), is("7"));
-        assertThat("Medication duration is right.", medicationDispensed.getDuration(), is("7.0"));
+        assertThat("Medication duration is right.", medicationDispensed.getDuration(), is("7"));
 
         assertThat("Medication duration unit is right.", medicationDispensed.getDurationUnit(), is("Jou"));
 
-        //assertThat("Medication amount is right.", medicationDispensed.getAmount(), is("20"));
-        assertThat("Medication amount is right.", medicationDispensed.getAmount(), is("20.0"));
+        assertThat("Medication amount is right.", medicationDispensed.getAmount(), is("20"));
 
     }
 	

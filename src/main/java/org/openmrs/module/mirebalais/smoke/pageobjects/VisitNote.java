@@ -299,7 +299,10 @@ public class VisitNote extends AbstractPageObject {
     }
 
     public MedicationDispensed firstMedication() {
-        return new MedicationDispensed(driver.findElement(encounterDetails));
+        wait15seconds.until(visibilityOfElementLocated(By.className("dispensing-form")));
+        WebElement first = driver.findElement(By.className("dispensing-form")).findElements(By.className("medication")).get(0);
+        WebElement dispensingInformation = driver.findElement(By.className("dispensing-form"));
+        return new MedicationDispensed(dispensingInformation, first, 1);
     }
 
     public boolean canDispenseMedication() {
@@ -314,49 +317,89 @@ public class VisitNote extends AbstractPageObject {
 
     public class MedicationDispensed {
 
-        private List<WebElement> medicationElements;
+        private WebElement dispensingInformation;
 
-        public MedicationDispensed(WebElement encounterDetails) {
-            this.medicationElements = encounterDetails.findElements(By.className("obs-value"));
+        private WebElement medication;
+
+        private int order;
+
+        public MedicationDispensed(WebElement dispensingInformation, WebElement medication, int order) {
+            this.dispensingInformation = dispensingInformation;
+            this.medication = medication;
+            this.order = order;
         }
 
         public String getTypeOfPrescription(){
-            return medicationElements.get(0).getText();
+            return dispensingInformation.findElement(typeOfPrescription()).getText();
         }
 
         public String getDischargeLocation(){
-            return medicationElements.get(1).getText();
+            return dispensingInformation.findElement(dischargeLocation()).getText();
         }
 
         public String getName() {
-            return medicationElements.get(3).getText();
-        }
-
-        public String getDose() {
-            return medicationElements.get(4).getText();
-        }
-
-        public String getDoseUnit() {
-            return medicationElements.get(5).getText();
+            return medication.findElement(name()).getText();
         }
 
         public String getFrequency() {
-            return medicationElements.get(6).getText();
+            return medication.findElement(frequency()).getText();
+        }
+
+        public String getDose() {
+            return medication.findElement(dose()).getText();
+        }
+
+        public String getDoseUnit() {
+            return medication.findElement(doseUnit()).getText();
         }
 
         public String getDuration() {
-            return medicationElements.get(7).getText();
+            return medication.findElement(duration()).getText();
         }
 
         public String getDurationUnit() {
-            return medicationElements.get(8).getText();
+            return medication.findElement(durationUnit()).getText();
         }
 
         public String getAmount() {
-            return medicationElements.get(9).getText();
+            return medication.findElement(amount()).getText();
         }
 
+        private By typeOfPrescription() {
+            return By.cssSelector("[id='Timing of hospital prescription']");
+        }
+
+        private By dischargeLocation() {
+            return By.cssSelector("[id='Discharge location']");
+        }
+
+        private By name() {
+            return By.cssSelector("#name" + order);
+        }
+
+        private By frequency() {
+            return By.cssSelector("#frequencyCoded" + order);
+        }
+
+        private By dose() {
+            return By.cssSelector("#dose" + order);
+        }
+
+        private By doseUnit() {
+            return By.cssSelector("#doseUnit" + order);
+        }
+
+        private By duration() {
+            return By.cssSelector("#duration" + order);
+        }
+
+        private By durationUnit() {
+            return By.cssSelector("#durationUnit" + order);
+        }
+
+        private By amount() {
+            return By.cssSelector("#amount" + order);
+        }
 
     }
-
 }
