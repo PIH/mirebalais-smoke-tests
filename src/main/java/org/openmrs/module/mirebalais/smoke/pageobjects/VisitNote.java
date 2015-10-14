@@ -63,6 +63,7 @@ public class VisitNote extends AbstractPageObject {
     private static final By goToAnotherVisit = By.cssSelector("#choose-another-visit a");
 
     private static final By firstEncounterDetails = By.className("expand-encounter");
+    private static final By firstEncounterContractDetails = By.className("contract-encounter");
 
 
     private ConsultNoteForm consultNoteForm;
@@ -259,7 +260,13 @@ public class VisitNote extends AbstractPageObject {
 
 	public void clickFirstEncounterDetails() {
         clickOn(firstEncounterDetails);
-        wait5seconds.until(visibilityOfElementLocated(encounterDetails));
+        clickOn(firstEncounterContractDetails);
+        clickOn(firstEncounterDetails);
+        try {
+            wait5seconds.wait();
+        } catch (InterruptedException e) {
+            return;
+        }
     }
 
     public void gotoAppDashboard() {
