@@ -56,7 +56,7 @@ public class VisitNote extends AbstractPageObject {
 
     private static final By encounterDetails = By.className("encounter-summary-long");
 
-    private static final By diagnosisDetails = By.className("diagnosisLongClass");
+    public static final By diagnosisDetails = By.className("diagnosisLongClass");
 
     private static final By editEncounter = By.className("edit-encounter");
 
