@@ -260,13 +260,7 @@ public class VisitNote extends AbstractPageObject {
 
 	public void clickFirstEncounterDetails() {
         clickOn(firstEncounterDetails);
-        clickOn(firstEncounterContractDetails);
-        clickOn(firstEncounterDetails);
-        try {
-            wait5seconds.wait();
-        } catch (InterruptedException e) {
-            return;
-        }
+        wait15seconds.until(visibilityOfElementLocated(encounterDetails));
     }
 
     public void gotoAppDashboard() {
