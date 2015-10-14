@@ -56,6 +56,8 @@ public class VisitNote extends AbstractPageObject {
 
     private static final By encounterDetails = By.className("encounter-summary-long");
 
+    private static final By diagnosisDetails = By.className("diagnosisLongClass");
+
     private static final By editEncounter = By.className("edit-encounter");
 
     private static final By deleteEncounter = By.className("delete-encounter");
@@ -226,6 +228,7 @@ public class VisitNote extends AbstractPageObject {
 	
 	public void viewConsultationDetails() {
 		clickFirstEncounterDetails();
+        wait15seconds.until(visibilityOfElementLocated(diagnosisDetails));
 	}
 	
 	public Boolean containsText(String text) {
