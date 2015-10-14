@@ -228,7 +228,6 @@ public class VisitNote extends AbstractPageObject {
 	
 	public void viewConsultationDetails() {
 		clickFirstEncounterDetails();
-        wait15seconds.until(visibilityOfElementLocated(diagnosisDetails));
 	}
 	
 	public Boolean containsText(String text) {
