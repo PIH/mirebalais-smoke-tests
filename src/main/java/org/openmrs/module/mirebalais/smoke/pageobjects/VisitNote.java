@@ -235,7 +235,7 @@ public class VisitNote extends AbstractPageObject {
 	}
 	
 	public List<WebElement> getVisits() {
-		return driver.findElements(By.className("visit-list-item"));
+		return driver.findElements(By.cssSelector("#visit-list-dropdown .list-element"));
 	}
 
     public Integer countVisits() {
@@ -243,7 +243,7 @@ public class VisitNote extends AbstractPageObject {
         clickOn(goToAnotherVisit);
 
         try {
-            wait5seconds.until(presenceOfElementLocated(By.id("visit-list")));
+            wait5seconds.until(presenceOfElementLocated(By.id("visit-list-dropdown")));
         }
         catch (TimeoutException e) {
             return 0;

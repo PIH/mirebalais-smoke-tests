@@ -1,6 +1,5 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
@@ -11,7 +10,6 @@ import static org.junit.Assert.assertThat;
 public class RetroVisitTest extends DbTest {
 
     @Test
-    @Ignore
     public void shouldAddRetroVisit() throws Exception {
         Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
         initBasicPageObjects();
