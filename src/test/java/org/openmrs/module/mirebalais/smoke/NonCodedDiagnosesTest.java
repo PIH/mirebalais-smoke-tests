@@ -41,7 +41,7 @@ public class NonCodedDiagnosesTest extends DbTest {
     }
 
     private void showEncounterAtPatientDashboard(){
-        visitNote.wait15seconds.until(visibilityOfElementLocated(By.className("encounter-name")));
+        //visitNote.wait15seconds.until(visibilityOfElementLocated(By.className("encounter-name")));
         appDashboard.goToVisitNote(testPatient.getId());
     }
 
