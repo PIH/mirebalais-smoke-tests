@@ -10,14 +10,11 @@ import static org.junit.Assert.assertThat;
 public class RetroVisitTest extends DbTest {
 
     @Test
-    public void shouldAddAndModifyRetroVisit() throws Exception {
+    public void shouldAddRetroVisit() throws Exception {
         Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
         initBasicPageObjects();
 
         login();
-
-        appDashboard.goToClinicianFacingDashboard(testPatient.getId());
-        clinicianDashboard.startVisit();
 
         appDashboard.goToClinicianFacingDashboard(testPatient.getId());
         clinicianDashboard.addRetroVisit();
