@@ -61,16 +61,8 @@ public class AppDashboard extends AbstractPageObject {
         openApp(replaceChars(CustomAppLoaderConstants.Apps.ARCHIVES_ROOM, ".", "-") + APP_LINK_SUFFIX);
 	}
 
-	public void openLegacyPatientRegistrationApp() {
-        openApp(replaceChars(CustomAppLoaderConstants.Apps.LEGACY_PATIENT_REGISTRATION, ".", "-") + APP_LINK_SUFFIX);
-	}
-
     public void openPatientRegistrationApp() {
         openApp(replaceChars(CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION, ".", "-") + APP_LINK_SUFFIX);
-    }
-
-    public void openStartHospitalVisitApp() {
-        openApp(replaceChars(CustomAppLoaderConstants.Apps.LEGACY_PATIENT_REGISTRATION_ED, ".", "-") + APP_LINK_SUFFIX);
     }
 
     public void openSysAdminApp() {
@@ -125,16 +117,8 @@ public class AppDashboard extends AbstractPageObject {
 		return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.Apps.REPORTS, ".", "-") + APP_LINK_SUFFIX);
 	}
 
-	public Boolean isStartHospitalVisitAppPresented() {
-		return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.Apps.LEGACY_PATIENT_REGISTRATION_ED, ".", "-") + APP_LINK_SUFFIX);
-	}
-
 	public Boolean isStartClinicVisitAppPresented() {
 		return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.Apps.CHECK_IN, ".", "-") + APP_LINK_SUFFIX);
-	}
-
-	public Boolean isEditPatientAppPresented() {
-		return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.Apps.LEGACY_PATIENT_LOOKUP, ".", "-") + APP_LINK_SUFFIX);
 	}
 
     public Boolean isAwaitingAdmissionAppPresented() {
