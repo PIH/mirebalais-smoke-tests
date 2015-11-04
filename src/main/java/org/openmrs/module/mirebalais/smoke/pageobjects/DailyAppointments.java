@@ -13,10 +13,10 @@ public class DailyAppointments extends AbstractPageObject {
     }
 
     public boolean isDateFilterDefined() {
-        return ( (driver.findElement(FILTER_DATE) != null)  ? true : false);
+        return ( (driver.findElement(FILTER_DATE) != null) && driver.findElement(FILTER_DATE).isDisplayed()  ? true : false);
     }
 
     public Boolean isLocationFilterDefined() {
-        return ( (driver.findElement(FILTER_LOCATION) != null) ? true : false);
+        return ( (driver.findElement(FILTER_LOCATION) != null) && driver.findElement(FILTER_LOCATION).isDisplayed() ? true : false);
     }
 }
