@@ -223,6 +223,7 @@ public class VisitNote extends AbstractPageObject {
     }
 
 	public void openForm(By formIdentification) {
+        clickOn(By.id("visit-actions-button"));
 		clickOn(formIdentification);
 	}
 	
