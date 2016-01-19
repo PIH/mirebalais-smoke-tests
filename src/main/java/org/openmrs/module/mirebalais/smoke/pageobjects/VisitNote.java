@@ -62,7 +62,7 @@ public class VisitNote extends AbstractPageObject {
 
     private static final By deleteEncounter = By.className("delete-encounter");
 
-    private static final By goToAnotherVisit = By.cssSelector("#choose-another-visit a");
+    private static final By goToAnotherVisit = By.cssSelector("#choose-another-visit button");
 
     private static final By firstEncounterDetails = By.className("expand-encounter");
     private static final By firstEncounterContractDetails = By.className("contract-encounter");
@@ -295,10 +295,9 @@ public class VisitNote extends AbstractPageObject {
         return admissionNoteForm;
     }
 
-
     // TODO move all this dispensing stuff somewhere else?
     public DispenseMedicationForm goToDispenseMedicationForm() {
-        driver.findElement(By.id(CustomAppLoaderConstants.Extensions.DISPENSE_MEDICATION_VISIT_ACTION)).click();
+        openForm(By.id(CustomAppLoaderConstants.Extensions.DISPENSE_MEDICATION_VISIT_ACTION));
         return new DispenseMedicationForm(driver);
     }
 
