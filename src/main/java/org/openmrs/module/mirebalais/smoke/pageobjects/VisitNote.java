@@ -250,7 +250,7 @@ public class VisitNote extends AbstractPageObject {
             return 0;
         }
 
-        return getVisits().size();
+        return getVisits().size() - 1;
     }
 
 	public String providerForFirstEncounter() {
