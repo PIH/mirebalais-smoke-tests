@@ -24,6 +24,7 @@ import org.openqa.selenium.WebElement;
 import java.math.BigInteger;
 
 import static org.apache.commons.lang.StringUtils.replaceChars;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class AppDashboard extends AbstractPageObject {
 
@@ -163,8 +164,14 @@ public class AppDashboard extends AbstractPageObject {
                 + givenName + "')]")).click();
     }
 
-    public void goToVisitNoteVisitListAndSelectFirstVisit(BigInteger patientId) {
+    public void goToVisitNoteVisitList(BigInteger patientId) {
         driver.get(properties.getWebAppUrl() + "/pihcore/visit/visit.page?patient=" + patientId + "#/visitList");
+        wait5seconds.until(visibilityOfElementLocated(By.id("visit-list")));
+    }
+
+
+    public void goToVisitNoteVisitListAndSelectFirstVisit(BigInteger patientId) {
+        goToVisitNoteVisitList(patientId);
         driver.findElements(By.className("list-element")).get(0).click();
     }
 
