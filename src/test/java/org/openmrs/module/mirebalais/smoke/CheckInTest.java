@@ -53,7 +53,7 @@ public class CheckInTest extends DbTest {
 
 		assertThat(newCheckIn.isPatientSearchDisplayed(), is(true));
 		
-		appDashboard.goToVisitNote(testPatient.getId());
+		appDashboard.goToVisitNoteVisitListAndSelectFirstVisit(testPatient.getId());
 		assertTrue(visitNote.hasActiveVisit());
 		assertThat(visitNote.countEncountersOfType(VisitNote.CHECKIN_CREOLE_NAME), is(1));
 		

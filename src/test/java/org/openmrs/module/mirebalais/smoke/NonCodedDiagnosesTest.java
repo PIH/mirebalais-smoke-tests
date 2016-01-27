@@ -14,7 +14,6 @@ import org.openqa.selenium.By;
 import java.util.List;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class NonCodedDiagnosesTest extends DbTest {
 
@@ -42,7 +41,7 @@ public class NonCodedDiagnosesTest extends DbTest {
 
     private void showEncounterAtPatientDashboard(){
         //visitNote.wait15seconds.until(visibilityOfElementLocated(By.className("encounter-name")));
-        appDashboard.goToVisitNote(testPatient.getId());
+        appDashboard.goToVisitNoteVisitListAndSelectFirstVisit(testPatient.getId());
     }
 
     @BeforeClass

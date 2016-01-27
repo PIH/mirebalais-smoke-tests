@@ -36,7 +36,7 @@ public class DispensingTest extends DbTest {
 		logout();
 		
 		logInAsPharmacyManagerUser();
-		appDashboard.goToVisitNote(patient.getId());
+		appDashboard.goToVisitNoteVisitListAndSelectFirstVisit(patient.getId());
 		assertThat("Dispense medication.", patientDashboard.canDispenseMedication(), is(true));
 		DispenseMedicationForm dispensingForm = patientDashboard.goToDispenseMedicationForm();
         dispensingForm.fillDispensingInformation(DISCHARGE, prescriptionLocation);

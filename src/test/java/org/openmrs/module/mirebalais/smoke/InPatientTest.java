@@ -41,7 +41,7 @@ public class InPatientTest extends DbTest {
         visitNote.gotoAppDashboard();
 		assertFirstAdmittedAndCurrentWardAre(testPatient.getIdentifier(), admissionPlace, admissionPlace);
 
-		appDashboard.goToVisitNote(testPatient.getId());
+		appDashboard.goToVisitNoteVisitListAndSelectFirstVisit(testPatient.getId());
 
 		String transferPlace = visitNote.addConsultNoteWithTransferToLocation(PRIMARY_DIAGNOSIS, 4);
 

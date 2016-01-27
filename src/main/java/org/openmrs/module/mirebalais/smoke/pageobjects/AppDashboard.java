@@ -163,8 +163,9 @@ public class AppDashboard extends AbstractPageObject {
                 + givenName + "')]")).click();
     }
 
-    public void goToVisitNote(BigInteger patientId) {
-        driver.get(properties.getWebAppUrl() + "/pihcore/visit/visit.page?patient=" + patientId);
+    public void goToVisitNoteVisitListAndSelectFirstVisit(BigInteger patientId) {
+        driver.get(properties.getWebAppUrl() + "/pihcore/visit/visit.page?patient=" + patientId + "#/visitList");
+        driver.findElements(By.className("list-element")).get(0).click();
     }
 
     public void goToClinicianFacingDashboard(BigInteger patientId) {
