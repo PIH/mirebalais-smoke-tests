@@ -20,10 +20,14 @@ public class User {
 
     private String providerUuid;
 
-    private Integer provider_role_id;
+    private Integer providerRoleId;
+
+    private String personNameUuid;
+
+    private String userUuid;
 
     public User(BigInteger personId, String uuid, BigInteger personNameId, BigInteger userId, String username, String role,
-                BigInteger providerId, String providerUuid, Integer provider_role_id) {
+                BigInteger providerId, String providerUuid, Integer providerRoleId, String personNameUuid, String userUuid) {
         this.personId = personId;
         this.uuid = uuid;
         this.personNameId = personNameId;
@@ -32,7 +36,9 @@ public class User {
         this.role = role;
         this.providerId = providerId;
         this.providerUuid = providerUuid;
-        this.provider_role_id = provider_role_id;
+        this.providerRoleId = providerRoleId;
+        this.personNameUuid = personNameUuid;
+        this.userUuid = userUuid;
     }
 
     public String getRole() {
@@ -76,7 +82,15 @@ public class User {
     }
 
     public Integer getProvider_role_id() {
-        return provider_role_id;
+        return providerRoleId;
+    }
+
+    public String getPerson_name_uuid() {
+        return personNameUuid;
+    }
+
+    public String getUser_uuid() {
+        return userUuid;
     }
 
     @Override

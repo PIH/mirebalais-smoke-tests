@@ -54,7 +54,7 @@ public class UserDatabaseHandler extends BaseDatabaseHandler {
 			
 			user = new User(getNextAutoIncrementFor("person"), UUID.randomUUID().toString(),
 			        getNextAutoIncrementFor("person_name"), userId, username, role, getNextAutoIncrementFor("provider"),
-			        UUID.randomUUID().toString(), providerRoleId);
+			        UUID.randomUUID().toString(), providerRoleId, UUID.randomUUID().toString(), UUID.randomUUID().toString());
 			
 			IDataSet dataset = createDataset(user);
 			datasets.put(user, dataset);
