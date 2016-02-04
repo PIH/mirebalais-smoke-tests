@@ -44,7 +44,7 @@ public class PatientDatabaseHandler extends BaseDatabaseHandler {
 
 	public static void addTestPatientForDelete(BigInteger patientId) throws IOException, DataSetException, SQLException {
 		Patient patient = new Patient("123", null, null, patientId, -1, new BigInteger("-1"), new BigInteger("-1"),
-                new BigInteger("-1"), new BigInteger("-1"), -1, null, null, null, null, null, null);
+                new BigInteger("-1"), new BigInteger("-1"), -1, null, null, null, null, null);
 		
 		datasets.put(patient, createDataset(patient));
 	}
@@ -56,7 +56,7 @@ public class PatientDatabaseHandler extends BaseDatabaseHandler {
 			        getNextAutoIncrementFor("person_name"), getNextAutoIncrementFor("person_address"),
 			        getNextAutoIncrementFor("patient_identifier"), getNextAutoIncrementFor("encounter"),
 			        getEncounterTypeId(), UUID.randomUUID().toString(), UUID.randomUUID().toString(), UUID.randomUUID().toString(),
-					UUID.randomUUID().toString(), UUID.randomUUID().toString(), UUID.randomUUID().toString());
+					UUID.randomUUID().toString(), UUID.randomUUID().toString());
 			
 			IDataSet dataset = createDataset(patient);
 			datasets.put(patient, dataset);

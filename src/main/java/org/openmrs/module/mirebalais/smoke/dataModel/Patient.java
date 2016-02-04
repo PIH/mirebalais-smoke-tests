@@ -17,14 +17,13 @@ public class Patient {
     private String person_uuid;
     private String person_name_uuid;
     private String person_address_uuid;
-    private String patient_uuid;
     private String patient_identifier_uuid;
     private String encounter_uuid;
 
 
     public Patient(String identifier, String given_name, String family_name, BigInteger id, Integer identifier_id,
                    BigInteger person_name_id, BigInteger person_address_id, BigInteger patient_identifier_id, BigInteger encounterId, Integer encounterTypeId,
-                   String person_uuid, String person_name_uuid, String person_address_uuid, String patient_uuid, String patient_identifier_uuid, String encounter_uuid) {
+                   String person_uuid, String person_name_uuid, String person_address_uuid, String patient_identifier_uuid, String encounter_uuid) {
 
         this.given_name = given_name;
 		this.family_name = family_name;
@@ -39,7 +38,6 @@ public class Patient {
         this.person_uuid = person_uuid;
         this.person_name_uuid = person_name_uuid;
         this.person_address_uuid = person_address_uuid;
-        this.patient_uuid = patient_uuid;
         this.patient_identifier_uuid = patient_identifier_uuid;
         this.encounter_uuid = encounter_uuid;
     }
@@ -104,9 +102,6 @@ public class Patient {
         return person_address_uuid;
     }
 
-    public String getPatient_uuid() {
-        return patient_uuid;
-    }
 
     public String getPatient_identifier_uuid() {
         return patient_identifier_uuid;
