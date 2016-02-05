@@ -70,8 +70,8 @@ public class AppDashboard extends AbstractPageObject {
         openApp(replaceChars(CustomAppLoaderConstants.Apps.SYSTEM_ADMINISTRATION, ".", "-") + APP_LINK_SUFFIX);
 	}
 
-    public void openCaptureVitalsApp() {
-        openApp(replaceChars(CustomAppLoaderConstants.Apps.VITALS, ".", "-") + APP_LINK_SUFFIX);
+    public void openUhmCaptureVitalsApp() {
+        openApp(replaceChars(CustomAppLoaderConstants.Apps.UHM_VITALS, ".", "-") + APP_LINK_SUFFIX);
     }
 
     public void openReportApp() {

@@ -13,7 +13,7 @@ import static org.junit.Assert.assertThat;
 public class CaptureVitalsTest extends DbTest {
 
 	@Test
-	public void checkInAndCaptureVitalsThruVitalsApp() throws Exception {
+	public void checkInAndCaptureVitalsThruUhmVitalsApp() throws Exception {
         Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
         initBasicPageObjects();
         VitalsApp vitals = new VitalsApp(driver);
@@ -24,7 +24,7 @@ public class CaptureVitalsTest extends DbTest {
         appDashboard.startClinicVisit();
         newCheckIn.enterInfoFillingTheFormTwice(testPatient.getIdentifier());
 		
-		appDashboard.openCaptureVitalsApp();
+		appDashboard.openUhmCaptureVitalsApp();
 		vitals.captureVitalsForPatient(testPatient.getIdentifier());
 		assertThat(vitals.isSearchPatientDisplayed(), is(true));
 		
