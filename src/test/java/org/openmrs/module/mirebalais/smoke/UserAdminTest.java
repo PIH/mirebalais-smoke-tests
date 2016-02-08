@@ -60,7 +60,7 @@ public class UserAdminTest extends DbTest {
 		assertThat(appDashboard.isActiveVisitsAppPresented(), is(true));
 
         turnOffImplicitWaits(); // once we've found one element, assume that all are present
-		assertThat(appDashboard.isCaptureVitalsAppPresented(), is(true));
+		assertThat(appDashboard.isUhmCaptureVitalsAppPresented(), is(true));
         assertThat(appDashboard.isAwaitingAdmissionAppPresented(), is(true));
         assertThat(appDashboard.isInpatientsAppPresented(), is(true));
 
@@ -91,7 +91,7 @@ public class UserAdminTest extends DbTest {
         assertThat(appDashboard.isSchedulingAppPresented(), is(true));
 
         assertThat(appDashboard.isStartClinicVisitAppPresented(), is(false));
-        assertThat(appDashboard.isCaptureVitalsAppPresented(), is(false));
+        assertThat(appDashboard.isUhmCaptureVitalsAppPresented(), is(false));
         assertThat(appDashboard.isSystemAdministrationAppPresented(), is(false));
         assertThat(appDashboard.isArchivesRoomAppPresented(), is(false));
         assertThat(appDashboard.isLegacyAppPresented(), is(false));
@@ -111,7 +111,7 @@ public class UserAdminTest extends DbTest {
         assertThat(appDashboard.isStartClinicVisitAppPresented(), is(true));
 
         assertThat(appDashboard.isSchedulingAppPresented(), is(false));
-		assertThat(appDashboard.isCaptureVitalsAppPresented(), is(false));
+		assertThat(appDashboard.isUhmCaptureVitalsAppPresented(), is(false));
         assertThat(appDashboard.isActiveVisitsAppPresented(), is(false));
 		assertThat(appDashboard.isSystemAdministrationAppPresented(), is(false));
 		assertThat(appDashboard.isReportsAppPresented(), is(false));
@@ -137,7 +137,7 @@ public class UserAdminTest extends DbTest {
         assertThat(appDashboard.isArchivesRoomAppPresented(), is(true));
         assertThat(appDashboard.isPatientRegistrationAppPresented(), is(true));
         assertThat(appDashboard.isStartClinicVisitAppPresented(), is(true));
-        assertThat(appDashboard.isCaptureVitalsAppPresented(), is(true));
+        assertThat(appDashboard.isUhmCaptureVitalsAppPresented(), is(true));
 
         assertThat(appDashboard.isLegacyAppPresented(), is(false));
         turnOnImplicitWait();
