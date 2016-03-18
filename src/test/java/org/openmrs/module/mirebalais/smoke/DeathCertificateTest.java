@@ -47,7 +47,7 @@ public class DeathCertificateTest extends DbTest {
         assertTrue(text.contains("Vèf"));
         assertTrue(text.contains("Software Tester"));
         // Lanmò matènèl: Non
-        assertTrue(text.contains("(Médecin)")); // captured by role
+        assertTrue(text.contains("(Doktè)")); // captured by role
         assertTrue(text.contains("Hôpital"));
         assertTrue(text.contains("Ijans, 1"));
         // te resevwa swen: Wi
