@@ -32,7 +32,7 @@ public class DeathCertificateTest extends DbTest {
         deathCertificateForm.enterFieldByKeyboard("Software Tester"); // occupation
         deathCertificateForm.enterFieldByKeyboard("n"); // No maternal death
         deathCertificateForm.enterFieldsByKeyboard("7", "f", "2014", "", "", ""); // Enter 6 times for default date + time
-        deathCertificateForm.enterFieldsByKeyboard("", "m"); // Default provider, Doctor
+        deathCertificateForm.enterFieldsByKeyboard("", "d"); // Default provider, Doctor
         deathCertificateForm.enterFieldByKeyboard("h"); // died in hospital
         deathCertificateForm.enterFieldsByKeyboard("ijans", "1"); // died in ER, hospitalized 1 day
         deathCertificateForm.enterFieldByKeyboard("w"); // yes, received care
