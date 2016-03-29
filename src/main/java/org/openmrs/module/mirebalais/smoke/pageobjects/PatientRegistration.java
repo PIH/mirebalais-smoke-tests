@@ -185,7 +185,7 @@ public class PatientRegistration extends AbstractPageObject {
 
     public void confirm(By successElement) {
         hitEnterKey(By.className("submitButton"));
-        wait5seconds.until(visibilityOfElementLocated(successElement));  // wait for reload of the landing page
+        wait15seconds.until(visibilityOfElementLocated(successElement));  // wait for reload of the landing page
     }
 
     public void editExistingPatient(Patient patient, String givenName, String familyName,
