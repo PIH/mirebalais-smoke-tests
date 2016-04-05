@@ -11,7 +11,7 @@ import org.openqa.selenium.WebDriver;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({PatientRegistrationMentalHealthFlowTest.class})
-public class MentalHealthTestSuite {
+public class MentalHealthSmokeTestSuite {
 
     private static WebDriver driver;
 
