@@ -10,4 +10,10 @@ public class PatientRegistrationMentalHealthFlowTest extends PatientRegistration
         return new MentalHealthLoginPage(driver);
     }
 
+    @Override
+    protected Boolean automaticallyEnterIdentifier() { return null; }
+
+    @Override
+    protected Integer getPrintIdCardOption() { return null; }
+
 }
