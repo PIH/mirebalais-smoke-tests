@@ -3,6 +3,7 @@ package org.openmrs.module.mirebalais.smoke;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.ClinicianDashboard;
+import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PatientRegistration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -17,7 +18,7 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
     public void registerNewPatient() throws Exception {
 
         initBasicPageObjects();
-        setLoginPage(new GeneralLoginPage(driver));  // because we want to use the General login page here, not the Mirebalais
+        setLoginPage(getLoginPage());
         PatientRegistration registration = new PatientRegistration(driver);
 
         String givenName = "Tom " + new Random().nextInt(1000);  // append a random number so patient name is (more or less) unique
@@ -46,7 +47,7 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
 
         initBasicPageObjects();
-        setLoginPage(new GeneralLoginPage(driver));  // because we want to use the General login page here, not the Mirebalais
+        setLoginPage(getLoginPage());
         PatientRegistration registration = new PatientRegistration(driver);
 
         String givenName = "Billy " + new Random().nextInt(1000);  // append a random number so patient name is (more or less) unique
@@ -66,6 +67,8 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         populateTestPatientForTearDown();
         logout();
     }
+
+    protected LoginPage getLoginPage() { return new GeneralLoginPage(driver); }
 
     protected String getPersonAddressString() {
         return "";

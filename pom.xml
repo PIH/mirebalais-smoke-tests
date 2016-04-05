@@ -51,6 +51,12 @@
                 <suite>Liberia</suite>
             </properties>
         </profile>
+        <profile>
+            <id>mentalHealth</id>
+            <properties>
+                <suite>Mental Health</suite>
+            </properties>
+        </profile>
     </profiles>
 
     <build>
