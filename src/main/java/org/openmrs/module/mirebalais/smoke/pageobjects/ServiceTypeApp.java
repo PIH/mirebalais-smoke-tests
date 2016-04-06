@@ -1,6 +1,7 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
 import java.util.regex.Matcher;
@@ -27,7 +28,16 @@ public class ServiceTypeApp extends AbstractPageObject {
     }
 
     public int getTotalAmountOfServiceTypes() {
-        String tableInfo =  driver.findElement(SERVICE_TYPE_TABLE_INFO).getText();
+        String tableInfo;
+
+        try {
+            tableInfo = driver.findElement(SERVICE_TYPE_TABLE_INFO).getText();
+        }
+        catch (NoSuchElementException e) {
+            // if no table, then there are no service types defined
+            return 0;
+        }
+
         Pattern pattern = Pattern.compile("(\\d+)(?!.*\\d)");
         Matcher matcher = pattern.matcher(tableInfo);
         matcher.find();
