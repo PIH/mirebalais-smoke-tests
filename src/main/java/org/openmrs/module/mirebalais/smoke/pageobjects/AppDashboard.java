@@ -184,6 +184,7 @@ public class AppDashboard extends AbstractPageObject {
     }*/
 
 	private void clickAppButton(String appId) {
+        wait15seconds.until(visibilityOfElementLocated(By.id(appId)));
         driver.findElement(By.id(appId)).click();
 	}
 
