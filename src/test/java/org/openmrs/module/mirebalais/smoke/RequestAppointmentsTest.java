@@ -41,7 +41,7 @@ public class RequestAppointmentsTest extends DbTest {
         appointmentRequestsPage.cancelLastRequest();
 
         // hack, stall
-        Thread.sleep(1000);
+        Thread.sleep(3000);
 
         // patient should be removed from list
         assertFalse(appointmentRequestsPage.containsRequestFor(testPatient));
