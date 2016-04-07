@@ -29,12 +29,9 @@ public class UserDatabaseHandler extends BaseDatabaseHandler {
 	protected static Map<User, IDataSet> datasets = new HashMap<User, IDataSet>();
 
     protected static List<String> usernamesToDelete = new ArrayList<String>();
-
-	public static User insertNewAdminUser() throws Exception {
-		return createUserWithApplicationAndProviderRole("sysAdmin", "Administrator");
-	}
-
+	
 	public static User insertNewPhysicianUser() throws Exception {
+
 		return createUserWithApplicationAndProviderRole("physician", "Physician");
 	}
 	
