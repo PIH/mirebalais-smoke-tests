@@ -14,12 +14,14 @@ public abstract class LoginPage {
 		logIn(user, password, null);
 	}
 
-	public void logInAsAdmin() {
-		this.logIn("admin", "Admin123");
+	public void logInAsAdmin() throws Exception {
+		User admin = UserDatabaseHandler.insertNewAdminUser();
+		this.logIn(admin.getUsername(), "Admin123");
 	}
 
-    public void logInAsAdmin(String location) {
-        this.logIn("admin", "Admin123", location);
+    public void logInAsAdmin(String location) throws Exception {
+		User admin = UserDatabaseHandler.insertNewAdminUser();
+		this.logIn(admin.getUsername(), "Admin123", location);
     }
 
 	public void logInAsPhysicianUser() throws Exception {
