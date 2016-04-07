@@ -49,6 +49,7 @@ public class SmokeTestProperties {
     }
 
     private String envOrDefault(String environmentVariable, String defaultValue) {
-        return System.getenv(environmentVariable) != null ? System.getenv(environmentVariable) : defaultValue;
+        String envVar = System.getenv(environmentVariable);
+        return envVar != null ? envVar : defaultValue;
     }
 }
