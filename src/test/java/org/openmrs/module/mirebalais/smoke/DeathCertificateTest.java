@@ -36,9 +36,9 @@ public class DeathCertificateTest extends DbTest {
         deathCertificateForm.enterFieldByKeyboard("h"); // died in hospital
         deathCertificateForm.enterFieldsByKeyboard("ijans", "1"); // died in ER, hospitalized 1 day
         deathCertificateForm.enterFieldByKeyboard("w"); // yes, received care
-        deathCertificateForm.enterFieldsByKeyboardWithWait(500, "hemorragie intracerebrale", "AVC", "k76.6"); // three death causes
+        deathCertificateForm.enterFieldsByKeyboardWithWait(1000, "hemorragie intracerebrale", "AVC", "k76.6"); // three death causes
         deathCertificateForm.pressEnter(); // skip to next question
-        deathCertificateForm.enterFieldByKeyboardWithWait(500, "Related cause"); // condition related to, but not causing, the death
+        deathCertificateForm.enterFieldByKeyboardWithWait(1000, "Related cause"); // condition related to, but not causing, the death
         deathCertificateForm.enterFieldsByKeyboard(" ", ""); // select surgery, not autopsy
         deathCertificateForm.enterFieldByKeyboard("CERT-1234"); // death certificate number
 
