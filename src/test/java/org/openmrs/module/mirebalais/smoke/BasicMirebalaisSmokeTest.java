@@ -135,7 +135,7 @@ public abstract class BasicMirebalaisSmokeTest {
         clinicianDashboard = new ClinicianDashboard(driver);
     }
 
-	protected void login() {
+	protected void login() throws Exception{
         loginPage.logInAsAdmin();
 	}
 	

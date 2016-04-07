@@ -15,7 +15,7 @@ public class MasterPatientIndexTest extends BasicMirebalaisSmokeTest {
 
 	@Test
     @Ignore
-	public void searchForAPatientOnLacollineServer() {
+	public void searchForAPatientOnLacollineServer() throws Exception {
 		initBasicPageObjects();
         LacollineIntegrationFlow lacollineIntegrationFlow = new LacollineIntegrationFlow(driver);
 

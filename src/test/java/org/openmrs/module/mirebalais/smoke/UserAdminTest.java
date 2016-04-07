@@ -1,6 +1,5 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import org.dbunit.dataset.DataSetException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,8 +10,6 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.MyAccountApp;
 import org.openmrs.module.mirebalais.smoke.pageobjects.SysAdminPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.UserAdmin;
 import org.openqa.selenium.By;
-
-import java.sql.SQLException;
 
 import static org.apache.commons.lang.StringUtils.replaceChars;
 import static org.hamcrest.CoreMatchers.is;
@@ -33,7 +30,7 @@ public class UserAdminTest extends DbTest {
 	private String username;
 	
 	@Before
-	public void setUp() throws SQLException, DataSetException {
+	public void setUp() throws Exception {
 		initBasicPageObjects();
 		userAdmin = new UserAdmin(driver);
 		header = new HeaderPage(driver);
