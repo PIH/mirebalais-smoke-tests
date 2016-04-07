@@ -94,7 +94,11 @@ public class VisitNote extends AbstractPageObject {
 	public boolean verifyIfSuccessfulMessageIsDisplayed() {
 		return (driver.findElement(By.className("icon-ok")) != null);
 	}
-	
+
+    public void waitUntilVisitNoteOpen() {
+        wait15seconds.until(visibilityOfElementLocated(By.id("visit-app")));
+    }
+
 	public boolean hasActiveVisit() {
         if (!driver.findElement(By.className("active")).isDisplayed()) {
             return false;

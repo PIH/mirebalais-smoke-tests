@@ -55,6 +55,7 @@ public class NonCodedDiagnosesTest extends DbTest {
     @Test
     public void shouldShowNonCodedDiagnosesPageUsingConsultNote() throws Exception {
         createConsultNote();
+        visitNote.waitUntilVisitNoteOpen();
         header.home();
         appDashboard.openReportApp();
         reportsHomePage.openNonCodedDiagnosesReport(NON_CODED_DIAGNOSIS);
@@ -69,6 +70,8 @@ public class NonCodedDiagnosesTest extends DbTest {
     @Test
     public void shouldShowNonCodedDiagnosesPageUsingEdNote() throws Exception {
         createEDNote();
+        visitNote.waitUntilVisitNoteOpen();
+        header.home();
         appDashboard.openReportApp();
         reportsHomePage.openNonCodedDiagnosesReport(NON_CODED_DIAGNOSIS);
         NonCodedDiagnosesList nonCodedDiagnosesList = new NonCodedDiagnosesList(driver);
@@ -80,6 +83,8 @@ public class NonCodedDiagnosesTest extends DbTest {
     @Test
     public void shouldNotShowNonCodedDiagnosisAfterReplaceforExistingCodesForConsultNote() throws Exception {
         createConsultNote();
+        visitNote.waitUntilVisitNoteOpen();
+        header.home();
         appDashboard.openReportApp();
         reportsHomePage.openNonCodedDiagnosesReport(NON_CODED_DIAGNOSIS);
         NonCodedDiagnosesList nonCodedDiagnosesList = new NonCodedDiagnosesList(driver);
