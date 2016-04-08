@@ -15,6 +15,7 @@ public class AppointmentTypeDatabaseHandler extends BaseDatabaseHandler {
     private static void defineAppointmentTypeToDelete() throws AmbiguousTableNameException {
         appointmentTypeDataToDelete = new QueryDataSet(connection);
         appointmentTypeDataToDelete.addTable("appointmentscheduling_appointment_type", "select * from appointmentscheduling_appointment_type where name like 'TEST%'");
+        appointmentTypeDataToDelete.addTable("appointmentscheduling_appointment_request", "select * from appointmentscheduling_appointment_request where appointment_type_id in (select appointment_type_id from appointmentscheduling_appointment_type where name like 'TEST%')");
     }
 
     public static void deleteAppointmentTypes() throws DatabaseUnitException, SQLException {

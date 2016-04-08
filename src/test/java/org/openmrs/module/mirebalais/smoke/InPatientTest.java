@@ -53,6 +53,7 @@ public class InPatientTest extends DbTest {
 		appDashboard.goToClinicianFacingDashboard(testPatient2.getId());
 		clinicianDashboard.startVisit();
 		visitNote.addConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS, 3);
+		visitNote.waitUntilVisitNoteOpen();
 		
 		appDashboard.openInPatientApp();
 		inPatientList.filterBy(transferPlace);
