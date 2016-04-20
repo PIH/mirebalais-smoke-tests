@@ -43,7 +43,7 @@ public class DispensingTest extends DbTest {
         dispensingForm.fillFirstMedication(paracetamol, THREE_TIMES_A_DAY , "5", doseUnit, "7", DAYS, "20");
 		dispensingForm.submit();
 
-		patientDashboard.clickFirstEncounterDetails();
+		//patientDashboard.clickFirstEncounterDetails();
 
         assertThat("Medication was dispensed.", patientDashboard.countEncountersOfType("Medikaman Ki Distribye"), is(1));
 

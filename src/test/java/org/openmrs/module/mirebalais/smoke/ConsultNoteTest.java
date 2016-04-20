@@ -61,7 +61,7 @@ public class ConsultNoteTest extends DbTest {
 
         assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(1));
 
-        visitNote.viewConsultationDetails();
+        //visitNote.viewConsultationDetails();
         new WebDriverWait(driver, 5).until(visibilityOfElementLocated(VisitNote.diagnosisDetails));
         assertThat(visitNote.containsText(EDITED_PRIMARY_DIAGNOSIS), is(true));
         assertThat(visitNote.containsText(PRIMARY_DIAGNOSIS), is(false));
