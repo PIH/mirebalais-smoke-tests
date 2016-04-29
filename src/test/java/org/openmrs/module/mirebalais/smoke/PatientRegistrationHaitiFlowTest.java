@@ -40,7 +40,7 @@ public class PatientRegistrationHaitiFlowTest extends PatientRegistrationFlowTes
     protected Boolean automaticallyEnterIdentifier() { return true; }
 
     @Override
-    protected Integer getPrintIdCardOption() { return 1; }
+    protected Integer getPrintIdCardOption() { return null; }
 
     @Override
     protected By getSuccessElement() {
