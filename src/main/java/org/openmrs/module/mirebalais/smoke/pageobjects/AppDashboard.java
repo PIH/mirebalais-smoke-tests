@@ -18,6 +18,7 @@ import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -172,7 +173,15 @@ public class AppDashboard extends AbstractPageObject {
 
     public void goToVisitNoteVisitListAndSelectFirstVisit(BigInteger patientId) {
         goToVisitNoteVisitList(patientId);
-        driver.findElements(By.className("list-element")).get(0).click();
+
+        // hack: if there is a stale element exception, just try to fetch again; see if this helps at all
+        // http://docs.seleniumhq.org/exceptions/stale_element_reference.jsp
+        try {
+            driver.findElements(By.className("list-element")).get(0).click();
+        }
+        catch (StaleElementReferenceException e) {
+            driver.findElements(By.className("list-element")).get(0).click();
+        }
     }
 
     public void goToClinicianFacingDashboard(BigInteger patientId) {
