@@ -11,5 +11,5 @@ public class CheckInTestMirebalais extends CheckInTest {
     }
 
     @Override
-    protected Boolean getPaperRecordEnabled() { return false; }
+    protected Boolean getPaperRecordEnabled() { return true; }
 }
