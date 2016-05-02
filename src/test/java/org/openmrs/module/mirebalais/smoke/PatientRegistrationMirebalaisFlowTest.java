@@ -10,4 +10,8 @@ public class PatientRegistrationMirebalaisFlowTest extends PatientRegistrationHa
         return new MirebalaisLoginPage(driver);
     }
 
+
+    @Override
+    protected Integer getPrintIdCardOption() { return 1; }
+
 }

@@ -86,7 +86,7 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
 
     protected Boolean automaticallyEnterIdentifier() { return true; }
 
-    protected Integer getPrintIdCardOption() { return 1; }
+    protected Integer getPrintIdCardOption() { return null; }
 
     protected By getSuccessElement() {
         return By.id("register-patient-button");
