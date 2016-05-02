@@ -24,6 +24,11 @@ public class CheckInFormPage extends AbstractPageObject {
 		super(driver);
 	}
 
+    public void findPatientAndClickOnCheckIn(String patientIdentifier) throws Exception {
+        findPatient(patientIdentifier);
+        clickOnCheckIn();
+    }
+
     public void enterInfo() {
         selectThirdOptionFor("typeOfVisit");
         selectSecondOptionFor("paymentAmount");
@@ -49,9 +54,7 @@ public class CheckInFormPage extends AbstractPageObject {
 
     }
 
-	public void enterInfoFillingTheFormTwice(String patientIdentifier) throws Exception {
-		findPatient(patientIdentifier);
-		clickOnCheckIn();
+	public void enterInfoFillingTheFormTwice(Boolean paperRecordEnabled) throws Exception {
         selectThirdOptionFor("typeOfVisit");
         selectSecondOptionFor("paymentAmount");
         findInputInsideSpan("receiptNumber").sendKeys("receipt #" + Keys.RETURN);
@@ -62,7 +65,9 @@ public class CheckInFormPage extends AbstractPageObject {
         findInputInsideSpan("receiptNumber").sendKeys("receipt #" + Keys.RETURN);
         selectNotToPrintWristbandIfQuestionPresent();
 		confirmData();
-		confirmPopup();
+        if (paperRecordEnabled) {
+            confirmPaperRecordPopup();
+        }
 	}
 
 	private void findPatient(String patientIdentifier) throws Exception {
@@ -95,7 +100,7 @@ public class CheckInFormPage extends AbstractPageObject {
 	    }
 	}
 	
-	private void confirmPopup() {
+	private void confirmPaperRecordPopup() {
         new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(By.id("create-paper-record-dialog")));
         clickOn(By.cssSelector("#create-paper-record-dialog button"));
 	}

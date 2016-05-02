@@ -4,17 +4,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class VitalsApp extends AbstractPageObject {
 
-    private static final String SEARCH_PATIENT_FIELD_ID = "patient-search";
+	public static final String SEARCH_PATIENT_FIELD_ID = "patient-search";
+
 	private static final By CONFIRM_PATIENT_BUTTON = By.className("icon-arrow-right");
 	private static final By HEIGHT_INCHES_FIELD = By.id("height_inches");
-	private static final By SEARCH_PATIENT_FIELD = By.id(SEARCH_PATIENT_FIELD_ID);
 	private static final By WEIGHT_INCHES_FIELD = By.id("weight_lbs");
-	
+
 	public VitalsApp(WebDriver driver) {
 		super(driver);
 	}
@@ -62,21 +60,4 @@ public class VitalsApp extends AbstractPageObject {
     private void hitEnterOnInchesField() {
         driver.findElement(HEIGHT_INCHES_FIELD).sendKeys(Keys.RETURN);
     }
-
-	public void captureVitalsForPatient(String identifier) {
-		enterPatientIdentifier(identifier);
-		confirmPatient();
-		enterVitals();
-	}
-	
-	public boolean isSearchPatientDisplayed() {
-        try {
-            new WebDriverWait(driver, 20).until(ExpectedConditions.visibilityOfElementLocated(SEARCH_PATIENT_FIELD));
-            return true;
-        } catch (Exception e) {
-        	e.printStackTrace();
-        	return false;
-        }
-	}
-	
 }

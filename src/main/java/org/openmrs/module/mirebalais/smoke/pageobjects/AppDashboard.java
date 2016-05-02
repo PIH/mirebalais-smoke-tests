@@ -188,6 +188,11 @@ public class AppDashboard extends AbstractPageObject {
         driver.get(properties.getWebAppUrl() + "/coreapps/clinicianfacing/patient.page?patientId=" + patientId);
     }
 
+    public void openApp(String appIdentifier) {
+        driver.get(properties.getWebAppUrl());
+        clickAppButton(appIdentifier);
+    }
+
   /*  public void goToPatientDashboard(BigInteger patientId) {
         driver.get(properties.getWebAppUrl() + "/coreapps/patientdashboard/patientDashboard.page?patientId=" + patientId);
     }*/
@@ -203,11 +208,6 @@ public class AppDashboard extends AbstractPageObject {
         } catch (Exception ex) {
             return false;
         }
-    }
-
-    private void openApp(String appIdentifier) {
-        driver.get(properties.getWebAppUrl());
-        clickAppButton(appIdentifier);
     }
 
 }

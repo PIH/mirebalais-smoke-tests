@@ -15,11 +15,11 @@
 package org.openmrs.module.mirebalais.smoke;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.CheckInFormPage;
+import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -32,15 +32,14 @@ public class CheckInTest extends DbTest {
     public CheckInFormPage newCheckIn;
     public Patient testPatient;
 
-    @BeforeClass
-    public static void prepare() throws Exception {
-        logInAsAdmin();
-    }
-
     @Before
     public void setUp() throws Exception {
         testPatient = PatientDatabaseHandler.insertNewTestPatient();
         initBasicPageObjects();
+
+        setLoginPage(getLoginPage());
+        logInAsAdmin();
+
         newCheckIn = new CheckInFormPage(driver);
         appDashboard.startClinicVisit();
 
@@ -49,7 +48,8 @@ public class CheckInTest extends DbTest {
 	@Test
 	public void createCheckInAndRemoveIt() throws Exception {
 
-        newCheckIn.enterInfoFillingTheFormTwice(testPatient.getIdentifier());
+        newCheckIn.findPatientAndClickOnCheckIn(testPatient.getIdentifier());
+        newCheckIn.enterInfoFillingTheFormTwice(getPaperRecordEnabled());
 
 		assertThat(newCheckIn.isPatientSearchDisplayed(), is(true));
 		
@@ -63,4 +63,7 @@ public class CheckInTest extends DbTest {
 		assertTrue(visitNote.hasActiveVisit());
 	}
 
+    protected LoginPage getLoginPage() { return new GeneralLoginPage(driver); }
+
+    protected Boolean getPaperRecordEnabled() { return false; }
 }
