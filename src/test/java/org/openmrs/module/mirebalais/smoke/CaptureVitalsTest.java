@@ -6,6 +6,7 @@ import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.CheckInFormPage;
+import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote;
 import org.openmrs.module.mirebalais.smoke.pageobjects.VitalsApp;
@@ -27,6 +28,7 @@ public class CaptureVitalsTest extends DbTest {
         initBasicPageObjects();
         vitals = new VitalsApp(driver);
         CheckInFormPage newCheckIn = new CheckInFormPage(driver);
+        HeaderPage header = new HeaderPage(driver);
 
         setLoginPage(getLoginPage());
         login();
@@ -35,6 +37,7 @@ public class CaptureVitalsTest extends DbTest {
         newCheckIn.findPatientAndClickOnCheckIn(testPatient.getIdentifier());
         newCheckIn.enterInfo(getPaperRecordEnabled());
 
+        header.home();
         appDashboard.openApp(getVitalsAppIdentifier());
         findPatient(testPatient.getIdentifier());
 
