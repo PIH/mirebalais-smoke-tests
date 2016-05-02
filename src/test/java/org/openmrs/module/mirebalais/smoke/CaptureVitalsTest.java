@@ -33,7 +33,7 @@ public class CaptureVitalsTest extends DbTest {
 
         appDashboard.startClinicVisit();
         newCheckIn.findPatientAndClickOnCheckIn(testPatient.getIdentifier());
-        newCheckIn.enterInfo();
+        newCheckIn.enterInfo(getPaperRecordEnabled());
 
         appDashboard.openApp(getVitalsAppIdentifier());
         findPatient(testPatient.getIdentifier());
@@ -64,6 +64,8 @@ public class CaptureVitalsTest extends DbTest {
             return false;
         }
     }
+
+    protected Boolean getPaperRecordEnabled() { return false; }
 
 }
 

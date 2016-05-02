@@ -71,10 +71,6 @@ public class AppDashboard extends AbstractPageObject {
         openApp(replaceChars(CustomAppLoaderConstants.Apps.SYSTEM_ADMINISTRATION, ".", "-") + APP_LINK_SUFFIX);
 	}
 
-    public void openUhmCaptureVitalsApp() {
-        openApp(replaceChars(CustomAppLoaderConstants.Apps.UHM_VITALS, ".", "-") + APP_LINK_SUFFIX);
-    }
-
     public void openReportApp() {
     	 openApp(replaceChars(CustomAppLoaderConstants.Apps.REPORTS, ".", "-") + APP_LINK_SUFFIX);
 	}
@@ -93,6 +89,10 @@ public class AppDashboard extends AbstractPageObject {
 
     public void openCheckinApp() {
         openApp(replaceChars(CustomAppLoaderConstants.Apps.CHECK_IN, ".", "-") + APP_LINK_SUFFIX);
+    }
+
+    public void openWaitingForConsultApp() {
+        openApp(replaceChars(CustomAppLoaderConstants.Apps.WAITING_FOR_CONSULT, ".", "-") + APP_LINK_SUFFIX);
     }
 
     public boolean isPatientRegistrationAppPresented() {

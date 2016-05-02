@@ -12,7 +12,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
 
 import static org.openqa.selenium.Keys.RETURN;
-import static org.openqa.selenium.support.ui.ExpectedConditions.stalenessOf;
 
 public class CheckInFormPage extends AbstractPageObject {
 	
@@ -29,16 +28,15 @@ public class CheckInFormPage extends AbstractPageObject {
         clickOnCheckIn();
     }
 
-    public void enterInfo() {
+    public void enterInfo(Boolean paperRecordEnabled) {
         selectThirdOptionFor("typeOfVisit");
         selectSecondOptionFor("paymentAmount");
         findInputInsideSpan("receiptNumber").sendKeys("receipt #" + Keys.RETURN);
         selectNotToPrintWristbandIfQuestionPresent();
-
-        WebElement confirmButton = driver.findElement(By.id("confirmationQuestion")).findElement(By.className("confirm"));
-        confirmButton.click();
-
-        new WebDriverWait(driver, 20).until(stalenessOf(confirmButton));
+        confirmData();
+        if (paperRecordEnabled) {
+            confirmPaperRecordPopup();
+        }
     }
 
     public void enterInfoWithMultipleEnterKeystrokesOnSubmit()  {

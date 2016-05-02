@@ -21,7 +21,7 @@ public class CheckInPatientFlow {
     }
 
     public void checkIn() {
-        checkinFormPage.enterInfo();
+        checkinFormPage.enterInfo(false);
 
         // click on the confirm button of either the request or create dialog (whichever one opens)
         driver.findElement(By.cssSelector("#request-paper-record-dialog .confirm, #create-paper-record-dialog .confirm")).click();
