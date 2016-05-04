@@ -21,6 +21,7 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.forms.DispenseMedicationF
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.EmergencyDepartmentNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.RetroConsultNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.XRayForm;
+import org.openmrs.module.mirebalais.smoke.pageobjects.sections.AllergiesSection;
 import org.openmrs.module.mirebalais.smoke.pageobjects.sections.VaccinationsSection;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -83,6 +84,8 @@ public class VisitNote extends AbstractPageObject {
 	private XRayForm xRayForm;
 
     private VaccinationsSection vaccinationsSection;
+
+    private AllergiesSection allergiesSection;
 	
 	private HashMap<String, By> formList;
 
@@ -95,6 +98,7 @@ public class VisitNote extends AbstractPageObject {
 		xRayForm = new XRayForm(driver);
         admissionNoteForm = new AdmissionNoteForm(driver);
         vaccinationsSection = new VaccinationsSection(driver);
+        allergiesSection = new AllergiesSection(driver);
 		createFormsMap();
 	}
 	
@@ -124,7 +128,7 @@ public class VisitNote extends AbstractPageObject {
 	public Integer countEncountersOfType(String encounterName) {
 
         try {
-            wait5seconds.until(presenceOfElementLocated(By.className("encounter-name")));
+            wait15seconds.until(presenceOfElementLocated(By.className("encounter-name")));
         }
         catch (TimeoutException e) {
             // for the case when there are no encounters of *any* type
@@ -259,8 +263,33 @@ public class VisitNote extends AbstractPageObject {
         vaccinationsSection.deleteVaccination(row, column);
     }
 
+    public void openAllergiesSection() {
+        allergiesSection.openAllergiesSection();
+    }
+
+    public void expandAllergiesSection() {
+        allergiesSection.expandAllergiesSection();
+    }
+
+    public void addAllergy(Integer typesIndex, Integer reactionsIndex, Integer severitiesIndex) {
+        allergiesSection.addAllergy(typesIndex, reactionsIndex, severitiesIndex);
+    }
+
+    public void removeAllergy(Integer index) {
+        allergiesSection.removeAllergy(index);
+    }
+
+    public void returnFromAllergiesPage() {
+        allergiesSection.returnFromAllergiesPage();
+    }
+
+    public Integer countOfAllergies() {
+        return allergiesSection.countOfAllergies();
+    }
+
 	public void viewConsultationDetails() {
 		clickFirstEncounterDetails();
+        wait15seconds.until(visibilityOfElementLocated(encounterDetails));
 	}
 	
 	public Boolean containsText(String text) {
@@ -295,7 +324,6 @@ public class VisitNote extends AbstractPageObject {
 
 	public void clickFirstEncounterDetails() {
         clickOn(firstEncounterDetails);
-        wait15seconds.until(visibilityOfElementLocated(encounterDetails));
     }
 
     public void gotoAppDashboard() {

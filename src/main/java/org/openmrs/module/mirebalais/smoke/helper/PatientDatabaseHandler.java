@@ -129,6 +129,7 @@ public class PatientDatabaseHandler extends BaseDatabaseHandler {
         secondToDelete.put("visit", "select * from visit where patient_id = %d");
 		secondToDelete.put("encounter", "select * from encounter where patient_id = %d");
 		secondToDelete.put("orders", "select * from orders where patient_id = %d");
+		secondToDelete.put("allergy", "select * from allergy where patient_id = %d");
 		secondToDelete.put("test_order",
 		    "select * from test_order where order_id in (select order_id from orders where patient_id = %d)");
 		secondToDelete.put("emr_radiology_order",

@@ -30,7 +30,7 @@ public class VaccinationsSection extends AbstractPageObject {
 
     // TODO currently assumes only one vaccination section on the page
     public void clickOnVaccinationSection() {
-        driver.findElement(By.className("vaccinations-section")).click();
+        clickOn(By.className("vaccinations-section"));
     }
 
 }
