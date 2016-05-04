@@ -50,7 +50,7 @@ public class VisitNoteTest extends DbTest {
         visitNote.addAndRemoveVaccine(2,2);
 
         // TODO: hack, figure out why this is neceesary
-        Thread.sleep(1000);
+        Thread.sleep(5000);
 
         // allergies section
         visitNote.openAllergiesSection();
