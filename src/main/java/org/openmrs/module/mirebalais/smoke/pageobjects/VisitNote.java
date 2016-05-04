@@ -100,9 +100,7 @@ public class VisitNote extends AbstractPageObject {
     }
 
 	public boolean hasActiveVisit() {
-        if (!driver.findElement(By.className("active")).isDisplayed()) {
-            return false;
-        }
+        wait5seconds.until(visibilityOfElementLocated(By.className("active")));
         return driver.findElement(By.className("active")).getText().toLowerCase().contains(ACTIVE_VISIT_CREOLE_MESSAGE);
 	}
 
