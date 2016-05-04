@@ -22,7 +22,6 @@ public class AllergiesSection extends AbstractPageObject {
     }
 
     public void openAllergiesSection() {
-        wait15seconds.until(visibilityOfElementLocated(By.className("edit-allergies")));
         clickOn(By.className("edit-allergies"));
         wait15seconds.until(visibilityOfElementLocated(By.id("allergies")));
     }
