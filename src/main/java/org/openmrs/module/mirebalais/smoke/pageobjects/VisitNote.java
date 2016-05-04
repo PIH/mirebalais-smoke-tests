@@ -21,6 +21,7 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.forms.DispenseMedicationF
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.EmergencyDepartmentNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.RetroConsultNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.XRayForm;
+import org.openmrs.module.mirebalais.smoke.pageobjects.sections.VaccinationsSection;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -52,6 +53,9 @@ public class VisitNote extends AbstractPageObject {
 
 	public static final String ACTIVE_VISIT_CREOLE_MESSAGE = "aktif";
 
+    // TODO change all these when the translations come through
+    public static final String ADULT_INITIAL_OUTPATIENT_CREOLE_NAME = "Adult Initial Outpatient";
+
     private static final By home = By.className("logo");
 
     private static final By encounterDetails = By.className("encounter-summary-long");
@@ -77,6 +81,8 @@ public class VisitNote extends AbstractPageObject {
     private AdmissionNoteForm admissionNoteForm;
 	
 	private XRayForm xRayForm;
+
+    private VaccinationsSection vaccinationsSection;
 	
 	private HashMap<String, By> formList;
 
@@ -88,6 +94,7 @@ public class VisitNote extends AbstractPageObject {
 		retroConsultNoteForm = new RetroConsultNoteForm(driver);
 		xRayForm = new XRayForm(driver);
         admissionNoteForm = new AdmissionNoteForm(driver);
+        vaccinationsSection = new VaccinationsSection(driver);
 		createFormsMap();
 	}
 	
@@ -219,6 +226,22 @@ public class VisitNote extends AbstractPageObject {
         admissionNoteForm.confirmData();
     }
 
+    public void addAdultInitialOutpatient() throws Exception {
+        openForm(formList.get("Adult Initial Outpatient"));
+    }
+
+    public void addAdultFollowupOutpatient() throws Exception {
+        openForm(formList.get("Adult Followup Outpatient"));
+    }
+
+    public void addPedsInitialOutpatient() throws Exception {
+        openForm(formList.get("Peds Initial Outpatient"));
+    }
+
+    public void addPedsFollowupOutpatient() throws Exception {
+        openForm(formList.get("Peds Followup Outpatient"));
+    }
+
     public void orderXRay(String study1, String study2) throws Exception {
         openForm(formList.get("Order X-Ray"));
         xRayForm.fillForm(study1, study2);
@@ -229,7 +252,13 @@ public class VisitNote extends AbstractPageObject {
         clickOn(By.id("visit-actions-button"));
 		clickOn(formIdentification);
 	}
-	
+
+    public void addAndRemoveVaccine(Integer row, Integer column) {
+        vaccinationsSection.clickOnVaccinationSection();
+        vaccinationsSection.addVaccination(row, column);
+        vaccinationsSection.deleteVaccination(row, column);
+    }
+
 	public void viewConsultationDetails() {
 		clickFirstEncounterDetails();
 	}
@@ -280,7 +309,11 @@ public class VisitNote extends AbstractPageObject {
 		formList.put("Order X-Ray", By.id(CustomAppLoaderConstants.Extensions.ORDER_XRAY_VISIT_ACTION));
 		formList.put("ED Note", By.id(CustomAppLoaderConstants.Extensions.ED_CONSULT_NOTE_VISIT_ACTION));
         formList.put("Admission Note", By.id(CustomAppLoaderConstants.Extensions.ADMISSION_NOTE_VISIT_ACTION));
-	}
+        formList.put("Adult Initial Outpatient", By.id(CustomAppLoaderConstants.Extensions.PRIMARY_CARE_ADULT_INITIAL_VISIT_ACTION));
+        formList.put("Adult Followup Outpatient", By.id(CustomAppLoaderConstants.Extensions.PRIMARY_CARE_ADULT_FOLLOWUP_VISIT_ACTION));
+        formList.put("Peds Initial Outpatient", By.id(CustomAppLoaderConstants.Extensions.PRIMARY_CARE_PEDS_INITIAL_VISIT_ACTION));
+        formList.put("Peds Followup Outpatient", By.id(CustomAppLoaderConstants.Extensions.PRIMARY_CARE_PEDS_FOLLOWUP_VISIT_ACTION));
+    }
 
     public ConsultNoteForm getConsultNoteForm() {
         return consultNoteForm;
