@@ -46,12 +46,6 @@ public class VisitNoteTest extends DbTest {
         visitNote.addAdultInitialOutpatient();
         assertThat(visitNote.countEncountersOfType(VisitNote.ADULT_INITIAL_OUTPATIENT_CREOLE_NAME), is(1));
 
-        // vaccine section
-        visitNote.addAndRemoveVaccine(2,2);
-
-        // TODO: hack, figure out why this is neceesary
-        Thread.sleep(5000);
-
         // allergies section
         visitNote.openAllergiesSection();
         visitNote.addAllergy(1,1,1);
@@ -61,8 +55,11 @@ public class VisitNoteTest extends DbTest {
         visitNote.removeAllergy(1);
         assertThat(visitNote.countOfAllergies(), is(1));
         visitNote.returnFromAllergiesPage();
-        visitNote.expandAllergiesSection();
         visitNote.clickFirstEncounterDetails();
+        visitNote.expandAllergiesSection();
+
+        // vaccine section
+        visitNote.addAndRemoveVaccine(2,2);
 
     }
 
