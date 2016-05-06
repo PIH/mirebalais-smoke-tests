@@ -22,9 +22,11 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.forms.DispenseMedicationF
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.DispositionForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.EmergencyDepartmentNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.ExamForm;
+import org.openmrs.module.mirebalais.smoke.pageobjects.forms.FeedingForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.HistoryForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.PlanForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.RetroConsultNoteForm;
+import org.openmrs.module.mirebalais.smoke.pageobjects.forms.SupplementsForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.XRayForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.sections.AllergiesSection;
 import org.openmrs.module.mirebalais.smoke.pageobjects.sections.VaccinationsSection;
@@ -61,6 +63,12 @@ public class VisitNote extends AbstractPageObject {
 
     // TODO change all these when the translations come through
     public static final String ADULT_INITIAL_OUTPATIENT_CREOLE_NAME = "Adult Initial Outpatient";
+
+    public static final String ADULT_FOLLOWUP_OUTPATIENT_CREOLE_NAME = "Adult Followup Outpatient";
+
+    public static final String PEDS_INITIAL_OUTPATIENT_CREOLE_NAME = "Peds Initial Outpatient";
+
+    public static final String PEDS_FOLLOWUP_OUTPATIENT_CREOLE_NAME = "Peds Followup Outpatient";
 
     private static final By home = By.className("logo");
 
@@ -100,6 +108,10 @@ public class VisitNote extends AbstractPageObject {
 
     private PlanForm planForm;
 
+    private SupplementsForm supplementsForm;
+
+    private FeedingForm feedingForm;
+
     private VaccinationsSection vaccinationsSection;
 
     private AllergiesSection allergiesSection;
@@ -121,6 +133,8 @@ public class VisitNote extends AbstractPageObject {
         dispositionForm = new DispositionForm(driver);
         examForm = new ExamForm(driver);
         planForm = new PlanForm(driver);
+        supplementsForm = new SupplementsForm(driver);
+        feedingForm = new FeedingForm(driver);
 		createFormsMap();
 	}
 	
@@ -342,6 +356,14 @@ public class VisitNote extends AbstractPageObject {
 
     public void fillOutDispositionForm(String dispositionText) throws Exception {
         dispositionForm.fillFormWithBasicInfo(dispositionText);
+    }
+
+    public void fillOutSupplementsForm() throws Exception {
+        supplementsForm.fillFormWithBasicInfo();
+    }
+
+    public void fillOutFeedingForm() throws Exception {
+        feedingForm.fillFormWithBasicInfo();
     }
 
 	public Boolean containsText(String text) {

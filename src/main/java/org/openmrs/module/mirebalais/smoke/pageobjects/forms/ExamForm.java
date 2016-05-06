@@ -14,9 +14,9 @@ public class ExamForm extends BaseHtmlForm {
         WebElement history = driver.findElement(By.cssSelector("#general-exam-comments textarea"));
         history.sendKeys(comments);
 
-        // just tab to the end of the form
+        // hack: just hit tab many times to make it to the end of the form
         int i = 0;
-        while (i < 50) {
+        while (i < 70) {
             hitTabKey();
             i++;
         }
