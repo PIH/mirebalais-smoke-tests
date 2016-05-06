@@ -163,10 +163,11 @@ public class VisitNote extends AbstractPageObject {
 		wait5seconds.until(invisibilityOfElementLocated(By.className("delete-encounter-dialog")));
 	}
 	
-	public Integer countEncountersOfType(String encounterName) {
+	public Integer countEncountersOfType(String encounterName) throws Exception {
 
         try {
             wait15seconds.until(presenceOfElementLocated(By.className("encounter-name")));
+            Thread.sleep(2000);  // hack, sleep 2 seconds to let *all* encounter names load
         }
         catch (TimeoutException e) {
             // for the case when there are no encounters of *any* type
