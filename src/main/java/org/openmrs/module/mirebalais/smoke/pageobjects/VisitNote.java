@@ -32,6 +32,7 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.sections.AllergiesSection
 import org.openmrs.module.mirebalais.smoke.pageobjects.sections.VaccinationsSection;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -327,7 +328,13 @@ public class VisitNote extends AbstractPageObject {
     }
 
     public void expandSection(String id) {
-        clickOn(By.cssSelector("#" + id + " .expand-encounter"));
+        try {
+            clickOn(By.cssSelector("#" + id + " .expand-encounter"));
+        }
+        // HACK just try twice in case of stale element exception, which I think may be caused by interaction with angular?
+        catch (StaleElementReferenceException e) {
+            clickOn(By.cssSelector("#" + id + " .expand-encounter"));
+        }
     }
 
     public void editSection(String id) {
