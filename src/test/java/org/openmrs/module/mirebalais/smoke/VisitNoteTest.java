@@ -23,6 +23,9 @@ public class VisitNoteTest extends DbTest {
     @Test
     public void testCreateAdultInitialOutpatientEncounter() throws Exception{
 
+        // make sure we are logged out to start with
+        logout();
+
         Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
         initBasicPageObjects();
         VitalsApp vitals = new VitalsApp(driver);
@@ -32,78 +35,75 @@ public class VisitNoteTest extends DbTest {
         setLoginPage(getLoginPage());
         login();
 
-        try {
-            appDashboard.startClinicVisit();
-            newCheckIn.findPatientAndClickOnCheckIn(testPatient.getIdentifier());
-            newCheckIn.enterInfo(getPaperRecordEnabled());
+        appDashboard.startClinicVisit();
+        newCheckIn.findPatientAndClickOnCheckIn(testPatient.getIdentifier());
+        newCheckIn.enterInfo(getPaperRecordEnabled());
 
-            header.home();
-            appDashboard.openApp(getVitalsAppIdentifier());
-            findPatient(testPatient.getIdentifier());
-            vitals.enterVitals();
+        header.home();
+        appDashboard.openApp(getVitalsAppIdentifier());
+        findPatient(testPatient.getIdentifier());
+        vitals.enterVitals();
 
-            header.home();
-            appDashboard.openWaitingForConsultApp();
-            findPatient(testPatient.getIdentifier());
+        header.home();
+        appDashboard.openWaitingForConsultApp();
+        findPatient(testPatient.getIdentifier());
 
-            visitNote.addAdultInitialOutpatient();
-            assertThat(visitNote.countEncountersOfType(VisitNote.ADULT_INITIAL_OUTPATIENT_CREOLE_NAME), is(1));
+        visitNote.addAdultInitialOutpatient();
+        assertThat(visitNote.countEncountersOfType(VisitNote.ADULT_INITIAL_OUTPATIENT_CREOLE_NAME), is(1));
 
-            // vaccine section
-            visitNote.addAndRemoveVaccine(2, 2);
+        // vaccine section
+        visitNote.addAndRemoveVaccine(2, 2);
 
-            // allergies section
-            visitNote.openAllergiesSection();
-            visitNote.addAllergy(1, 1, 1);
-            assertThat(visitNote.countOfAllergies(), is(1));
-            visitNote.addAllergy(2, 2, 2);
-            assertThat(visitNote.countOfAllergies(), is(2));
-            visitNote.removeAllergy(1);
-            assertThat(visitNote.countOfAllergies(), is(1));
-            visitNote.returnFromAllergiesPage();
-            visitNote.clickFirstEncounterDetails();
-            visitNote.expandAllergiesSection();
+        // allergies section
+        visitNote.openAllergiesSection();
+        visitNote.addAllergy(1, 1, 1);
+        assertThat(visitNote.countOfAllergies(), is(1));
+        visitNote.addAllergy(2, 2, 2);
+        assertThat(visitNote.countOfAllergies(), is(2));
+        visitNote.removeAllergy(1);
+        assertThat(visitNote.countOfAllergies(), is(1));
+        visitNote.returnFromAllergiesPage();
+        visitNote.waitUntilVisitNoteOpen();
+        Thread.sleep(2000);  // hack, seems to be needed for some reason,
+        visitNote.expandFirstEncounter();
 
-            visitNote.expandFirstEncounter();
+        // history section
+        visitNote.editSection("pihcore-history");
+        visitNote.fillOutHistoryForm("Some history");
+        visitNote.expandSection("pihcore-history");
+        assertTrue(visitNote.containsText("Some history"));
 
-            // history section
-            visitNote.editSection("pihcore-history");
-            visitNote.fillOutHistoryForm("Some history");
-            visitNote.expandSection("pihcore-history");
-            assertTrue(visitNote.containsText("Some history"));
+        // exam section
+        visitNote.editSection("pihcore-exam");
+        visitNote.fillOutExamForm("Some comment");
+        visitNote.expandSection("pihcore-exam");
+        assertTrue(visitNote.containsText("Some comment"));
 
-            // exam section
-            visitNote.editSection("pihcore-exam");
-            visitNote.fillOutExamForm("Some comment");
-            visitNote.expandSection("pihcore-exam");
-            assertTrue(visitNote.containsText("Some comment"));
+        // diagnosis section
+        visitNote.editSection("pihcore-diagnosis");
+        visitNote.fillOutDiagnosisForm("IGU");
+        visitNote.expandSection("pihcore-diagnosis");
+        assertTrue(visitNote.containsText("Douleur"));
 
-            // diagnosis section
-            visitNote.editSection("pihcore-diagnosis");
-            visitNote.fillOutDiagnosisForm("IGU");
-            visitNote.expandSection("pihcore-diagnosis");
-            assertTrue(visitNote.containsText("Douleur"));
+        // plan section
+        visitNote.editSection("pihcore-plan");
+        visitNote.fillOutPlanForm("Some plan");
+        visitNote.expandSection("pihcore-plan");
+        assertTrue(visitNote.containsText("Some plan"));
 
-            // plan section
-            visitNote.editSection("pihcore-plan");
-            visitNote.fillOutPlanForm("Some plan");
-            visitNote.expandSection("pihcore-plan");
-            assertTrue(visitNote.containsText("Some plan"));
-
-            // disposition section
-            visitNote.editSection("pihcore-disposition");
-            visitNote.fillOutDispositionForm(BaseHtmlForm.DISCHARGE);
-            visitNote.expandSection("pihcore-disposition");
-            assertTrue(visitNote.containsText(BaseHtmlForm.DISCHARGE));
-        }
-        finally {
-            logout();
-        };
+        // disposition section
+        visitNote.editSection("pihcore-disposition");
+        visitNote.fillOutDispositionForm(BaseHtmlForm.DISCHARGE);
+        visitNote.expandSection("pihcore-disposition");
+        assertTrue(visitNote.containsText(BaseHtmlForm.DISCHARGE));
     }
 
     @Test
     public void testCreateAdultFollowupOutpatientEncounter() throws Exception{
 
+        // make sure we are logged out to start with
+        logout();
+
         Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
         initBasicPageObjects();
         VitalsApp vitals = new VitalsApp(driver);
@@ -113,72 +113,70 @@ public class VisitNoteTest extends DbTest {
         setLoginPage(getLoginPage());
         login();
 
-        try {
-            appDashboard.startClinicVisit();
-            newCheckIn.findPatientAndClickOnCheckIn(testPatient.getIdentifier());
-            newCheckIn.enterInfo(getPaperRecordEnabled());
+        appDashboard.startClinicVisit();
+        newCheckIn.findPatientAndClickOnCheckIn(testPatient.getIdentifier());
+        newCheckIn.enterInfo(getPaperRecordEnabled());
 
-            header.home();
-            appDashboard.openApp(getVitalsAppIdentifier());
-            findPatient(testPatient.getIdentifier());
-            vitals.enterVitals();
+        header.home();
+        appDashboard.openApp(getVitalsAppIdentifier());
+        findPatient(testPatient.getIdentifier());
+        vitals.enterVitals();
 
-            header.home();
-            appDashboard.openWaitingForConsultApp();
-            findPatient(testPatient.getIdentifier());
+        header.home();
+        appDashboard.openWaitingForConsultApp();
+        findPatient(testPatient.getIdentifier());
 
-            visitNote.addAdultFollowupOutpatient();
-            assertThat(visitNote.countEncountersOfType(VisitNote.ADULT_FOLLOWUP_OUTPATIENT_CREOLE_NAME), is(1));
+        visitNote.addAdultFollowupOutpatient();
+        assertThat(visitNote.countEncountersOfType(VisitNote.ADULT_FOLLOWUP_OUTPATIENT_CREOLE_NAME), is(1));
 
-            // vaccine section
-            visitNote.addAndRemoveVaccine(2,2);
+        // vaccine section
+        visitNote.addAndRemoveVaccine(2,2);
 
-            // allergies section
-            visitNote.openAllergiesSection();
-            visitNote.addAllergy(1,1,1);
-            assertThat(visitNote.countOfAllergies(), is(1));
-            visitNote.addAllergy(2,2,2);
-            assertThat(visitNote.countOfAllergies(), is(2));
-            visitNote.removeAllergy(1);
-            assertThat(visitNote.countOfAllergies(), is(1));
-            visitNote.returnFromAllergiesPage();
-            visitNote.clickFirstEncounterDetails();
-            visitNote.expandAllergiesSection();
+        // allergies section
+        visitNote.openAllergiesSection();
+        visitNote.addAllergy(1,1,1);
+        assertThat(visitNote.countOfAllergies(), is(1));
+        visitNote.addAllergy(2,2,2);
+        assertThat(visitNote.countOfAllergies(), is(2));
+        visitNote.removeAllergy(1);
+        assertThat(visitNote.countOfAllergies(), is(1));
+        visitNote.returnFromAllergiesPage();
+        visitNote.waitUntilVisitNoteOpen();
+        Thread.sleep(2000);  // hack, seems to be needed for some reason,
+        visitNote.expandFirstEncounter();
 
-            visitNote.expandFirstEncounter();
+        // exam section
+        visitNote.editSection("pihcore-exam");
+        visitNote.fillOutExamForm("Some comment");
+        visitNote.expandSection("pihcore-exam");
+        assertTrue(visitNote.containsText("Some comment"));
 
-            // exam section
-            visitNote.editSection("pihcore-exam");
-            visitNote.fillOutExamForm("Some comment");
-            visitNote.expandSection("pihcore-exam");
-            assertTrue(visitNote.containsText("Some comment"));
+        // diagnosis section
+        visitNote.editSection("pihcore-diagnosis");
+        visitNote.fillOutDiagnosisForm("IGU");
+        visitNote.expandSection("pihcore-diagnosis");
+        assertTrue(visitNote.containsText("Douleur"));
 
-            // diagnosis section
-            visitNote.editSection("pihcore-diagnosis");
-            visitNote.fillOutDiagnosisForm("IGU");
-            visitNote.expandSection("pihcore-diagnosis");
-            assertTrue(visitNote.containsText("Douleur"));
+        // plan section
+        visitNote.editSection("pihcore-plan");
+        visitNote.fillOutPlanForm("Some plan");
+        visitNote.expandSection("pihcore-plan");
+        assertTrue(visitNote.containsText("Some plan"));
 
-            // plan section
-            visitNote.editSection("pihcore-plan");
-            visitNote.fillOutPlanForm("Some plan");
-            visitNote.expandSection("pihcore-plan");
-            assertTrue(visitNote.containsText("Some plan"));
+        // disposition section
+        visitNote.editSection("pihcore-disposition");
+        visitNote.fillOutDispositionForm(BaseHtmlForm.DISCHARGE);
+        visitNote.expandSection("pihcore-disposition");
+        assertTrue(visitNote.containsText(BaseHtmlForm.DISCHARGE));
 
-            // disposition section
-            visitNote.editSection("pihcore-disposition");
-            visitNote.fillOutDispositionForm(BaseHtmlForm.DISCHARGE);
-            visitNote.expandSection("pihcore-disposition");
-            assertTrue(visitNote.containsText(BaseHtmlForm.DISCHARGE));
-        }
-        finally {
-            logout();
-        }
     }
 
     @Test
     public void testCreatePedsInitialOutpatientEncounter() throws Exception{
 
+        // make sure we are logged out to start with
+        logout();
+
         Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
         initBasicPageObjects();
         VitalsApp vitals = new VitalsApp(driver);
@@ -188,90 +186,88 @@ public class VisitNoteTest extends DbTest {
         setLoginPage(getLoginPage());
         login();
 
-        try {
-            appDashboard.startClinicVisit();
-            newCheckIn.findPatientAndClickOnCheckIn(testPatient.getIdentifier());
-            newCheckIn.enterInfo(getPaperRecordEnabled());
+        appDashboard.startClinicVisit();
+        newCheckIn.findPatientAndClickOnCheckIn(testPatient.getIdentifier());
+        newCheckIn.enterInfo(getPaperRecordEnabled());
 
-            header.home();
-            appDashboard.openApp(getVitalsAppIdentifier());
-            findPatient(testPatient.getIdentifier());
-            vitals.enterVitals();
+        header.home();
+        appDashboard.openApp(getVitalsAppIdentifier());
+        findPatient(testPatient.getIdentifier());
+        vitals.enterVitals();
 
-            header.home();
-            appDashboard.openWaitingForConsultApp();
-            findPatient(testPatient.getIdentifier());
+        header.home();
+        appDashboard.openWaitingForConsultApp();
+        findPatient(testPatient.getIdentifier());
 
-            visitNote.addPedsInitialOutpatient();
-            assertThat(visitNote.countEncountersOfType(VisitNote.PEDS_INITIAL_OUTPATIENT_CREOLE_NAME), is(1));
+        visitNote.addPedsInitialOutpatient();
+        assertThat(visitNote.countEncountersOfType(VisitNote.PEDS_INITIAL_OUTPATIENT_CREOLE_NAME), is(1));
 
-            // vaccine section
-            visitNote.addAndRemoveVaccine(2,2);
+        // vaccine section
+        visitNote.addAndRemoveVaccine(2,2);
 
-            // allergies section
-            visitNote.openAllergiesSection();
-            visitNote.addAllergy(1,1,1);
-            assertThat(visitNote.countOfAllergies(), is(1));
-            visitNote.addAllergy(2,2,2);
-            assertThat(visitNote.countOfAllergies(), is(2));
-            visitNote.removeAllergy(1);
-            assertThat(visitNote.countOfAllergies(), is(1));
-            visitNote.returnFromAllergiesPage();
-            visitNote.clickFirstEncounterDetails();
-            visitNote.expandAllergiesSection();
+        // allergies section
+        visitNote.openAllergiesSection();
+        visitNote.addAllergy(1,1,1);
+        assertThat(visitNote.countOfAllergies(), is(1));
+        visitNote.addAllergy(2,2,2);
+        assertThat(visitNote.countOfAllergies(), is(2));
+        visitNote.removeAllergy(1);
+        assertThat(visitNote.countOfAllergies(), is(1));
+        visitNote.returnFromAllergiesPage();
+        visitNote.waitUntilVisitNoteOpen();
+        Thread.sleep(2000);  // hack, seems to be needed for some reason,
+        visitNote.expandFirstEncounter();
 
-            visitNote.expandFirstEncounter();
+        // supplements section
+        visitNote.editSection("pihcore-supplements");
+        visitNote.fillOutSupplementsForm();
+        visitNote.expandSection("pihcore-supplements");
+        assertTrue(visitNote.containsText("[X]"));  // bit of a hack
 
-            // supplements section
-            visitNote.editSection("pihcore-supplements");
-            visitNote.fillOutSupplementsForm();
-            visitNote.expandSection("pihcore-supplements");
-            assertTrue(visitNote.containsText("[X]"));  // bit of a hack
+        // history section
+        visitNote.editSection("pihcore-history");
+        visitNote.fillOutHistoryForm("Some history");
+        visitNote.expandSection("pihcore-history");
+        assertTrue(visitNote.containsText("Some history"));
 
-            // history section
-            visitNote.editSection("pihcore-history");
-            visitNote.fillOutHistoryForm("Some history");
-            visitNote.expandSection("pihcore-history");
-            assertTrue(visitNote.containsText("Some history"));
+        // feeding section
+        visitNote.editSection("pihcore-feeding");
+        visitNote.fillOutFeedingForm();
+        visitNote.expandSection("pihcore-feeding");
+        assertTrue(visitNote.containsText("[X]"));  // bit of a hack
 
-            // feeding section
-            visitNote.editSection("pihcore-feeding");
-            visitNote.fillOutFeedingForm();
-            visitNote.expandSection("pihcore-feeding");
-            assertTrue(visitNote.containsText("[X]"));  // bit of a hack
+        // exam section
+        visitNote.editSection("pihcore-exam");
+        visitNote.fillOutExamForm("Some comment");
+        visitNote.expandSection("pihcore-exam");
+        assertTrue(visitNote.containsText("Some comment"));
 
-            // exam section
-            visitNote.editSection("pihcore-exam");
-            visitNote.fillOutExamForm("Some comment");
-            visitNote.expandSection("pihcore-exam");
-            assertTrue(visitNote.containsText("Some comment"));
+        // diagnosis section
+        visitNote.editSection("pihcore-diagnosis");
+        visitNote.fillOutDiagnosisForm("IGU");
+        visitNote.expandSection("pihcore-diagnosis");
+        assertTrue(visitNote.containsText("Douleur"));
 
-            // diagnosis section
-            visitNote.editSection("pihcore-diagnosis");
-            visitNote.fillOutDiagnosisForm("IGU");
-            visitNote.expandSection("pihcore-diagnosis");
-            assertTrue(visitNote.containsText("Douleur"));
+        // plan section
+        visitNote.editSection("pihcore-plan");
+        visitNote.fillOutPlanForm("Some plan");
+        visitNote.expandSection("pihcore-plan");
+        assertTrue(visitNote.containsText("Some plan"));
 
-            // plan section
-            visitNote.editSection("pihcore-plan");
-            visitNote.fillOutPlanForm("Some plan");
-            visitNote.expandSection("pihcore-plan");
-            assertTrue(visitNote.containsText("Some plan"));
+        // disposition section
+        visitNote.editSection("pihcore-disposition");
+        visitNote.fillOutDispositionForm(BaseHtmlForm.DISCHARGE);
+        visitNote.expandSection("pihcore-disposition");
+        assertTrue(visitNote.containsText(BaseHtmlForm.DISCHARGE));
 
-            // disposition section
-            visitNote.editSection("pihcore-disposition");
-            visitNote.fillOutDispositionForm(BaseHtmlForm.DISCHARGE);
-            visitNote.expandSection("pihcore-disposition");
-            assertTrue(visitNote.containsText(BaseHtmlForm.DISCHARGE));
-        }
-        finally {
-            logout();
-        }
     }
 
     @Test
     public void testCreatePedsFollowupOutpatientEncounter() throws Exception{
 
+        // make sure we are logged out to start with
+        logout();
+
         Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
         initBasicPageObjects();
         VitalsApp vitals = new VitalsApp(driver);
@@ -281,79 +277,73 @@ public class VisitNoteTest extends DbTest {
         setLoginPage(getLoginPage());
         login();
 
-        try {
-            appDashboard.startClinicVisit();
-            newCheckIn.findPatientAndClickOnCheckIn(testPatient.getIdentifier());
-            newCheckIn.enterInfo(getPaperRecordEnabled());
+        appDashboard.startClinicVisit();
+        newCheckIn.findPatientAndClickOnCheckIn(testPatient.getIdentifier());
+        newCheckIn.enterInfo(getPaperRecordEnabled());
 
-            header.home();
-            appDashboard.openApp(getVitalsAppIdentifier());
-            findPatient(testPatient.getIdentifier());
-            vitals.enterVitals();
+        header.home();
+        appDashboard.openApp(getVitalsAppIdentifier());
+        findPatient(testPatient.getIdentifier());
+        vitals.enterVitals();
 
-            header.home();
-            appDashboard.openWaitingForConsultApp();
-            findPatient(testPatient.getIdentifier());
+        header.home();
+        appDashboard.openWaitingForConsultApp();
+        findPatient(testPatient.getIdentifier());
 
-            visitNote.addPedsFollowupOutpatient();
-            assertThat(visitNote.countEncountersOfType(VisitNote.PEDS_FOLLOWUP_OUTPATIENT_CREOLE_NAME), is(1));
+        visitNote.addPedsFollowupOutpatient();
+        assertThat(visitNote.countEncountersOfType(VisitNote.PEDS_FOLLOWUP_OUTPATIENT_CREOLE_NAME), is(1));
 
-            // vaccine section
-            visitNote.addAndRemoveVaccine(2, 2);
+        // vaccine section
+        visitNote.addAndRemoveVaccine(2, 2);
 
-            // allergies section
-            visitNote.openAllergiesSection();
-            visitNote.addAllergy(1, 1, 1);
-            assertThat(visitNote.countOfAllergies(), is(1));
-            visitNote.addAllergy(2, 2, 2);
-            assertThat(visitNote.countOfAllergies(), is(2));
-            visitNote.removeAllergy(1);
-            assertThat(visitNote.countOfAllergies(), is(1));
-            visitNote.returnFromAllergiesPage();
-            visitNote.clickFirstEncounterDetails();
-            visitNote.expandAllergiesSection();
+        // allergies section
+        visitNote.openAllergiesSection();
+        visitNote.addAllergy(1, 1, 1);
+        assertThat(visitNote.countOfAllergies(), is(1));
+        visitNote.addAllergy(2, 2, 2);
+        assertThat(visitNote.countOfAllergies(), is(2));
+        visitNote.removeAllergy(1);
+        assertThat(visitNote.countOfAllergies(), is(1));
+        visitNote.returnFromAllergiesPage();
+        visitNote.waitUntilVisitNoteOpen();
+        Thread.sleep(2000);  // hack, seems to be needed for some reason,
+        visitNote.expandFirstEncounter();
 
-            visitNote.expandFirstEncounter();
+        // supplements section
+        visitNote.editSection("pihcore-supplements");
+        visitNote.fillOutSupplementsForm();
+        visitNote.expandSection("pihcore-supplements");
+        assertTrue(visitNote.containsText("[X]"));  // bit of a hack
 
-            // supplements section
-            visitNote.editSection("pihcore-supplements");
-            visitNote.fillOutSupplementsForm();
-            visitNote.expandSection("pihcore-supplements");
-            assertTrue(visitNote.containsText("[X]"));  // bit of a hack
+        // feeding section
+        visitNote.editSection("pihcore-feeding");
+        visitNote.fillOutFeedingForm();
+        visitNote.expandSection("pihcore-feeding");
+        assertTrue(visitNote.containsText("[X]"));  // bit of a hack
 
-            // feeding section
-            visitNote.editSection("pihcore-feeding");
-            visitNote.fillOutFeedingForm();
-            visitNote.expandSection("pihcore-feeding");
-            assertTrue(visitNote.containsText("[X]"));  // bit of a hack
+        // exam section
+        visitNote.editSection("pihcore-exam");
+        visitNote.fillOutExamForm("Some comment");
+        visitNote.expandSection("pihcore-exam");
+        assertTrue(visitNote.containsText("Some comment"));
 
-            // exam section
-            visitNote.editSection("pihcore-exam");
-            visitNote.fillOutExamForm("Some comment");
-            visitNote.expandSection("pihcore-exam");
-            assertTrue(visitNote.containsText("Some comment"));
+        // diagnosis section
+        visitNote.editSection("pihcore-diagnosis");
+        visitNote.fillOutDiagnosisForm("IGU");
+        visitNote.expandSection("pihcore-diagnosis");
+        assertTrue(visitNote.containsText("Douleur"));
 
-            // diagnosis section
-            visitNote.editSection("pihcore-diagnosis");
-            visitNote.fillOutDiagnosisForm("IGU");
-            visitNote.expandSection("pihcore-diagnosis");
-            assertTrue(visitNote.containsText("Douleur"));
+        // plan section
+        visitNote.editSection("pihcore-plan");
+        visitNote.fillOutPlanForm("Some plan");
+        visitNote.expandSection("pihcore-plan");
+        assertTrue(visitNote.containsText("Some plan"));
 
-            // plan section
-            visitNote.editSection("pihcore-plan");
-            visitNote.fillOutPlanForm("Some plan");
-            visitNote.expandSection("pihcore-plan");
-            assertTrue(visitNote.containsText("Some plan"));
-
-            // disposition section
-            visitNote.editSection("pihcore-disposition");
-            visitNote.fillOutDispositionForm(BaseHtmlForm.DISCHARGE);
-            visitNote.expandSection("pihcore-disposition");
-            assertTrue(visitNote.containsText(BaseHtmlForm.DISCHARGE));
-        }
-        finally {
-            logout();
-        }
+        // disposition section
+        visitNote.editSection("pihcore-disposition");
+        visitNote.fillOutDispositionForm(BaseHtmlForm.DISCHARGE);
+        visitNote.expandSection("pihcore-disposition");
+        assertTrue(visitNote.containsText(BaseHtmlForm.DISCHARGE));
 
     }
 
