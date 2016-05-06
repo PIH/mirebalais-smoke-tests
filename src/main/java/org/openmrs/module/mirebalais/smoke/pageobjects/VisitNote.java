@@ -17,8 +17,13 @@ package org.openmrs.module.mirebalais.smoke.pageobjects;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.AdmissionNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.ConsultNoteForm;
+import org.openmrs.module.mirebalais.smoke.pageobjects.forms.DiagnosisForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.DispenseMedicationForm;
+import org.openmrs.module.mirebalais.smoke.pageobjects.forms.DispositionForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.EmergencyDepartmentNoteForm;
+import org.openmrs.module.mirebalais.smoke.pageobjects.forms.ExamForm;
+import org.openmrs.module.mirebalais.smoke.pageobjects.forms.HistoryForm;
+import org.openmrs.module.mirebalais.smoke.pageobjects.forms.PlanForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.RetroConsultNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.XRayForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.sections.AllergiesSection;
@@ -63,6 +68,8 @@ public class VisitNote extends AbstractPageObject {
 
     public static final By diagnosisDetails = By.className("diagnosisLongClass");
 
+    private static final By expandEncounter = By.className("expand-encounter");
+
     private static final By editEncounter = By.className("edit-encounter");
 
     private static final By deleteEncounter = By.className("delete-encounter");
@@ -70,8 +77,8 @@ public class VisitNote extends AbstractPageObject {
     private static final By goToAnotherVisit = By.cssSelector("#choose-another-visit button");
 
     private static final By firstEncounterDetails = By.className("expand-encounter");
-    private static final By firstEncounterContractDetails = By.className("contract-encounter");
 
+    private static final By firstEncounterContractDetails = By.className("contract-encounter");
 
     private ConsultNoteForm consultNoteForm;
 	
@@ -82,6 +89,16 @@ public class VisitNote extends AbstractPageObject {
     private AdmissionNoteForm admissionNoteForm;
 	
 	private XRayForm xRayForm;
+
+    private HistoryForm historyForm;
+
+    private DiagnosisForm diagnosisForm;
+
+    private DispositionForm dispositionForm;
+
+    private ExamForm examForm;
+
+    private PlanForm planForm;
 
     private VaccinationsSection vaccinationsSection;
 
@@ -99,6 +116,11 @@ public class VisitNote extends AbstractPageObject {
         admissionNoteForm = new AdmissionNoteForm(driver);
         vaccinationsSection = new VaccinationsSection(driver);
         allergiesSection = new AllergiesSection(driver);
+        historyForm = new HistoryForm(driver);
+        diagnosisForm = new DiagnosisForm(driver);
+        dispositionForm = new DispositionForm(driver);
+        examForm = new ExamForm(driver);
+        planForm = new PlanForm(driver);
 		createFormsMap();
 	}
 	
@@ -114,6 +136,8 @@ public class VisitNote extends AbstractPageObject {
         wait5seconds.until(visibilityOfElementLocated(By.className("active")));
         return driver.findElement(By.className("active")).getText().toLowerCase().contains(ACTIVE_VISIT_CREOLE_MESSAGE);
 	}
+
+    public void expandFirstEncounter() {clickOn(expandEncounter);}
 
     public void editFirstEncounter() {
         clickOn(editEncounter);
@@ -287,13 +311,42 @@ public class VisitNote extends AbstractPageObject {
         return allergiesSection.countOfAllergies();
     }
 
-	public void viewConsultationDetails() {
+    public void expandSection(String id) {
+        clickOn(By.cssSelector("#" + id + " .expand-encounter"));
+    }
+
+    public void editSection(String id) {
+        clickOn(By.cssSelector("#" + id + " .edit-encounter"));
+    }
+
+    public void viewConsultationDetails() {
 		clickFirstEncounterDetails();
         wait15seconds.until(visibilityOfElementLocated(encounterDetails));
 	}
-	
+
+    public void fillOutHistoryForm(String historyText) {
+        historyForm.fillFormWithBasicInfo(historyText);
+    }
+
+    public void fillOutExamForm(String comment) {
+        examForm.fillFormWithBasicInfo(comment);
+    }
+
+    public void fillOutDiagnosisForm(String diagnosis) {
+        diagnosisForm.fillFormWithBasicInfo(diagnosis);
+    }
+
+    public void fillOutPlanForm(String planText) {
+        planForm.fillFormWithBasicInfo(planText);
+    }
+
+    public void fillOutDispositionForm(String dispositionText) throws Exception {
+        dispositionForm.fillFormWithBasicInfo(dispositionText);
+    }
+
 	public Boolean containsText(String text) {
-		return driver.getPageSource().contains(text);
+		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'" + text + "')]"));
+        return list.size() > 0;
 	}
 	
 	public List<WebElement> getVisits() {

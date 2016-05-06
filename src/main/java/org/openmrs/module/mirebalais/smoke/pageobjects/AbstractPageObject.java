@@ -74,9 +74,18 @@ public abstract class AbstractPageObject {
     	setText(findTextFieldInsideSpan(spanId), text);
 	}
 
+    public void hitTabKey() {
+        driver.switchTo().activeElement().sendKeys(Keys.TAB);
+    }
+
     public void hitTabKey(By elementId) {
         driver.findElement(elementId).sendKeys(Keys.TAB);
     }
+
+    public void hitEnterKey() {
+        driver.switchTo().activeElement().sendKeys(Keys.ENTER);
+    }
+
 
     public void hitEnterKey(By elementId) {
         driver.findElement(elementId).sendKeys(Keys.ENTER);

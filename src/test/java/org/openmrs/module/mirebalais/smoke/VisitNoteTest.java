@@ -10,11 +10,13 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote;
 import org.openmrs.module.mirebalais.smoke.pageobjects.VitalsApp;
+import org.openmrs.module.mirebalais.smoke.pageobjects.forms.BaseHtmlForm;
 import org.openqa.selenium.By;
 
 import static org.apache.commons.lang.StringUtils.replaceChars;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class VisitNoteTest extends DbTest {
 
@@ -46,6 +48,9 @@ public class VisitNoteTest extends DbTest {
         visitNote.addAdultInitialOutpatient();
         assertThat(visitNote.countEncountersOfType(VisitNote.ADULT_INITIAL_OUTPATIENT_CREOLE_NAME), is(1));
 
+        // vaccine section
+        visitNote.addAndRemoveVaccine(2,2);
+
         // allergies section
         visitNote.openAllergiesSection();
         visitNote.addAllergy(1,1,1);
@@ -58,8 +63,37 @@ public class VisitNoteTest extends DbTest {
         visitNote.clickFirstEncounterDetails();
         visitNote.expandAllergiesSection();
 
-        // vaccine section
-        visitNote.addAndRemoveVaccine(2,2);
+        visitNote.expandFirstEncounter();
+
+        // history section
+        visitNote.editSection("pihcore-history");
+        visitNote.fillOutHistoryForm("Some history");
+        visitNote.expandSection("pihcore-history");
+        assertTrue(visitNote.containsText("Some history"));
+
+        // exam section
+        visitNote.editSection("pihcore-exam");
+        visitNote.fillOutExamForm("Some comment");
+        visitNote.expandSection("pihcore-exam");
+        assertTrue(visitNote.containsText("Some comment"));
+
+        // diagnosis section
+        visitNote.editSection("pihcore-diagnosis");
+        visitNote.fillOutDiagnosisForm("IGU");
+        visitNote.expandSection("pihcore-diagnosis");
+        assertTrue(visitNote.containsText("Douleur"));
+
+        // plan section
+        visitNote.editSection("pihcore-plan");
+        visitNote.fillOutPlanForm("Some plan");
+        visitNote.expandSection("pihcore-plan");
+        assertTrue(visitNote.containsText("Some plan"));
+
+        // disposition section
+        visitNote.editSection("pihcore-disposition");
+        visitNote.fillOutDispositionForm(BaseHtmlForm.DISCHARGE);
+        visitNote.expandSection("pihcore-disposition");
+        assertTrue(visitNote.containsText(BaseHtmlForm.DISCHARGE));
 
     }
 

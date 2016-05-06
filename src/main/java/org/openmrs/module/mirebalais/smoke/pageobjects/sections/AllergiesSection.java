@@ -2,6 +2,7 @@ package org.openmrs.module.mirebalais.smoke.pageobjects.sections;
 
 import org.openmrs.module.mirebalais.smoke.pageobjects.AbstractPageObject;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -23,7 +24,14 @@ public class AllergiesSection extends AbstractPageObject {
 
     public void openAllergiesSection() {
         clickOn(By.className("edit-allergies"));
-        wait15seconds.until(visibilityOfElementLocated(By.id("allergies")));
+        // HACK: for some reason the first click does not work, perhaps because angular is not "ready"?
+        try {
+            wait5seconds.until(visibilityOfElementLocated(By.id("allergies")));
+        }
+        catch (TimeoutException e) {
+            clickOn(By.className("edit-allergies"));
+            wait15seconds.until(visibilityOfElementLocated(By.id("allergies")));
+        }
     }
 
     public void addAllergy(Integer allergensIndex, Integer reactionsIndex, Integer severitiesIndex) {

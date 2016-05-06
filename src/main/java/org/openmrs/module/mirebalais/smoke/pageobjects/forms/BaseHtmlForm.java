@@ -4,8 +4,15 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.AbstractPageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 public abstract class BaseHtmlForm extends AbstractPageObject {
+
+    // TODO key on something other than text
+    public static final String ADMISSION = "Admisyon";
+    public static final String DEATH = "Mouri";
+    public static final String DISCHARGE = "Egzeyat";
+    public static final String TRANSFER = "Transfè anndan lopital la";
 
     private final By providerDropDown = By.cssSelector("#who select");
 
@@ -44,6 +51,10 @@ public abstract class BaseHtmlForm extends AbstractPageObject {
         clickOn(By.cssSelector("#display-encounter-diagnoses-container .delete-item"));
     }
 
+    protected void chooseDisposition(String dispositionText) throws Exception {
+        Select dispositions = new Select(driver.findElement(By.cssSelector("span[id^='disposition'] select:nth-of-type(1)")));  // find the first select that is child of the span whose id starts with "disposition"
+        dispositions.selectByVisibleText(dispositionText);
+    }
 
     public void selectProvider(int providerOption) {
         WebElement provider = driver.findElement(providerDropDown).findElements(options).get(providerOption);

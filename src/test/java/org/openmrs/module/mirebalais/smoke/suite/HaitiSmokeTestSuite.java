@@ -8,6 +8,7 @@ import org.openmrs.module.mirebalais.smoke.BasicMirebalaisSmokeTest;
 import org.openmrs.module.mirebalais.smoke.CaptureVitalsTest;
 import org.openmrs.module.mirebalais.smoke.CheckInTest;
 import org.openmrs.module.mirebalais.smoke.PatientRegistrationHaitiFlowTest;
+import org.openmrs.module.mirebalais.smoke.VisitNoteTest;
 import org.openmrs.module.mirebalais.smoke.helper.SmokeTestDriver;
 import org.openqa.selenium.WebDriver;
 
@@ -15,8 +16,8 @@ import org.openqa.selenium.WebDriver;
 @Suite.SuiteClasses({
         CaptureVitalsTest.class,
         CheckInTest.class,
-        PatientRegistrationHaitiFlowTest.class//,
-       // VisitNoteTest.class
+        PatientRegistrationHaitiFlowTest.class,
+        VisitNoteTest.class
                     })
 public class HaitiSmokeTestSuite {
 

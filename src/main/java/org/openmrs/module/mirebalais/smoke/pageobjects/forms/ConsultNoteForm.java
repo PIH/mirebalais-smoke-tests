@@ -18,19 +18,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class ConsultNoteForm extends BaseHtmlForm {
-
-    // TODO key on something other than text
-	public static final String ADMISSION = "Admisyon";
-	public static final String DEATH = "Mouri";
-	public static final String DISCHARGE = "Egzeyat";
-	public static final String TRANSFER = "Transfè anndan lopital la";
 
     private By locationsForTransferWithinHospital = By.cssSelector("#transferInternalLocation option");
     private By locationsForAdmission = By.cssSelector("#admissionLocation option");
@@ -92,9 +85,5 @@ public class ConsultNoteForm extends BaseHtmlForm {
 		return location.getText();
 	}
 
-	protected void chooseDisposition(String dispositionText) throws Exception {
-        Select dispositions = new Select(driver.findElement(By.cssSelector("span[id^='disposition'] select:nth-of-type(1)")));  // find the first select that is child of the span whose id starts with "disposition"
-        dispositions.selectByVisibleText(dispositionText);
-    }
 
 }
