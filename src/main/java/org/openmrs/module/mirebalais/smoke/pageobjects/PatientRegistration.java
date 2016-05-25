@@ -172,7 +172,7 @@ public class PatientRegistration extends AbstractPageObject {
     }
 
     public void printIdCard(Integer option) {
-        if (option != null && option != 0) {   // this field not present in Liberia, so option set to null
+        if (option != null && option != 0) {
             selectFromDropdown(By.name("obs.PIH:ID Card Printing Requested"), option);
             hitEnterKey(By.name("obs.PIH:ID Card Printing Requested"));
         }
