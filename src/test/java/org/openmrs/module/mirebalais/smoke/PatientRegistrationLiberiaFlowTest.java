@@ -40,7 +40,7 @@ public class PatientRegistrationLiberiaFlowTest extends PatientRegistrationFlowT
     protected Boolean automaticallyEnterIdentifier() { return null; }
 
     @Override
-    protected Integer getPrintIdCardOption() { return 0; }
+    protected Integer getPrintIdCardOption() { return 1; }
 
     protected By getSuccessElement() {
         return By.className("register-patient-button");  // Liberia redirects to registration home page
