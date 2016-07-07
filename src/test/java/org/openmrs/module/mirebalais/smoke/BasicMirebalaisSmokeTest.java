@@ -83,12 +83,17 @@ public abstract class BasicMirebalaisSmokeTest {
 
     @AfterClass
     public static void after() {
+
+        if (header == null) {
+            header = new HeaderPage(driver);
+        }
+
         // back to home page
-        driver.get(new SmokeTestProperties().getWebAppUrl());
+        header.home();
 
         // log out if necessary
         try {
-            new HeaderPage(driver).logOut();
+            header.logOut();
         }
         catch (TimeoutException ex) {
             // do nothing, assume we are already logged out

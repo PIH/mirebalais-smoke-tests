@@ -189,7 +189,7 @@ public class AppDashboard extends AbstractPageObject {
     }
 
     public void openApp(String appIdentifier) {
-        driver.get(properties.getWebAppUrl());
+        new HeaderPage(driver).home();
         clickAppButton(appIdentifier);
     }
 
