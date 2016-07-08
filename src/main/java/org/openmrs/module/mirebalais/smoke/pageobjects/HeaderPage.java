@@ -16,6 +16,7 @@ package org.openmrs.module.mirebalais.smoke.pageobjects;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class HeaderPage extends AbstractPageObject {
 
@@ -29,6 +30,7 @@ public class HeaderPage extends AbstractPageObject {
     }
 
     public void home() {
+        wait5seconds.until(ExpectedConditions.elementToBeClickable(By.className("logo")));
         driver.findElement(By.className("logo")).click();
     }
 
