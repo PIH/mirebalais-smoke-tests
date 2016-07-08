@@ -30,7 +30,7 @@ public class HeaderPage extends AbstractPageObject {
     }
 
     public void home() {
-        wait5seconds.until(ExpectedConditions.elementToBeClickable(By.className("logo")));
+        wait15seconds.until(ExpectedConditions.elementToBeClickable(By.className("logo")));
         driver.findElement(By.className("logo")).click();
     }
 
