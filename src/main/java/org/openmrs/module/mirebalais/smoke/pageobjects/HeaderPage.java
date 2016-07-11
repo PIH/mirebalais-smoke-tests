@@ -16,7 +16,6 @@ package org.openmrs.module.mirebalais.smoke.pageobjects;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class HeaderPage extends AbstractPageObject {
 
@@ -30,8 +29,8 @@ public class HeaderPage extends AbstractPageObject {
     }
 
     public void home() {
-        wait15seconds.until(ExpectedConditions.elementToBeClickable(By.className("logo")));
-        driver.findElement(By.className("logo")).click();
+        // hack, just go to the logout url since the we are having trouble with the toast message overlapping the home button
+        driver.get(properties.getWebAppUrl() + "/index.htm");
     }
 
 	public By location() {
