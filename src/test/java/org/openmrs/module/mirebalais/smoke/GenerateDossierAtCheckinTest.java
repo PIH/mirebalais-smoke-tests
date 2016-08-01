@@ -24,14 +24,14 @@ public class GenerateDossierAtCheckinTest extends DbTest {
 		dashboard.openCheckinApp();
 		
 		ClinicianDashboard clinicianDashboard = new ClinicianDashboard(driver);
-		
+
+		// check the patient in, create identifier
 		CheckInPatientFlow checkInPatientFlow = new CheckInPatientFlow(driver);
 		checkInPatientFlow.checkInAndCreateLocalDossierFor(testPatient.getIdentifier());
-		checkInPatientFlow.confirmPatient(testPatient.getIdentifier());
-		
+
+		checkInPatientFlow.findPatientAndSelectContinue(testPatient.getIdentifier());
+
 		assertThat(clinicianDashboard.getDossierNumber().matches("A\\d{6}"), is(true));
-		
-		checkInPatientFlow.checkIn();
 		
 		dashboard.openArchivesRoomApp();
 		ArchivesRoomApp archives = new ArchivesRoomApp(driver);
