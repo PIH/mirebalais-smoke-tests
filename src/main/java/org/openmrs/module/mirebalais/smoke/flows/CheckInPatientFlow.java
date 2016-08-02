@@ -31,17 +31,14 @@ public class CheckInPatientFlow {
         driver.findElement(By.cssSelector("#request-paper-record-dialog .confirm, #create-paper-record-dialog .confirm")).click();
     }
 
-    public void confirmPatient(String patientId) {
-        enterPatientIdentifier(patientId);
-    }
-
     public void findPatientAndSelectContinue(String patientId) {
         enterPatientIdentifier(patientId);
         driver.findElement(CONTINUE_BUTTON).click();
     }
 
     public void checkInWithMultipleEnterKeystrokesOnSubmit(String patientId) {
-        confirmPatient(patientId);
+        enterPatientIdentifier(patientId);
+        driver.findElement(CHECK_IN_PATIENT_BUTTON).click();
         checkinFormPage.enterInfoWithMultipleEnterKeystrokesOnSubmit();
     }
 
