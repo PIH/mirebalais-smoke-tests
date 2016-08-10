@@ -30,7 +30,7 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         //click on the Register Patient button
         driver.findElement(By.id("register-patient-button")).click();
 
-        registration.registerPatient(givenName, familyName, nickname, PatientRegistration.Gender.MALE, 22, 4, 1975, "louise", getPlaceOfBirthString(), getPersonAddressString(), "123-4567"
+        registration.registerPatient(givenName, familyName, nickname, PatientRegistration.Gender.MALE, 22, 4, 1975, "louise", getPlaceOfBirthString(), getPersonAddressString(), "123-4567", getInsuranceName(),getInsuranceNumberString()
                 , 1, 1, getReligion(), "dan", "cousin", getContactAddressString(), placeOfBirthAndContactAddressUseHierarchy(), "4312533", automaticallyEnterIdentifier(), getPrintIdCardOption(),
                 getSuccessElement());
 
@@ -83,6 +83,12 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
     protected Boolean placeOfBirthAndContactAddressUseHierarchy() { return true; }
 
     protected Integer getReligion() { return null; }
+
+    protected Integer getInsuranceName() { return null; }
+
+    protected String getInsuranceNumberString() {
+        return "";
+    }
 
     protected Boolean automaticallyEnterIdentifier() { return true; }
 
