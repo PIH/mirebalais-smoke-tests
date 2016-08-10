@@ -14,14 +14,14 @@ public class SmokeTestProperties {
 
     public String getWebAppUrl() {
         if (webAppUrl == null) {
-            webAppUrl = envOrDefault("WEBAPP_URL", "http://localhost:8084/openmrs");
+            webAppUrl = envOrDefault("WEBAPP_URL", "http://localhost:8080/openmrs");
         }
 
         return webAppUrl;
     }
 
     public String getDatabaseUrl() {
-        return envOrDefault("DATABASE_URL", "jdbc:mysql://localhost:3306/hum_aug_2015");
+        return envOrDefault("DATABASE_URL", "jdbc:mysql://localhost:3306/openmrs");
 
     }
 
