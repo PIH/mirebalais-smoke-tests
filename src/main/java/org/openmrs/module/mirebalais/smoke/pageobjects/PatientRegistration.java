@@ -175,7 +175,6 @@ public class PatientRegistration extends AbstractPageObject {
     public void enterInsuranceNumberAsFreeText(String insuranceNumber) {
         if (StringUtils.isNotBlank(insuranceNumber)) {
             setTextToField(By.name("obsgroup.PIH:Insurance CONSTRUCT.obs.PIH:Insurance policy number"), insuranceNumber);
-            hitTabKey(By.name("obsgroup.PIH:Insurance CONSTRUCT.obs.PIH:Insurance policy number"));
         }
     }
 
