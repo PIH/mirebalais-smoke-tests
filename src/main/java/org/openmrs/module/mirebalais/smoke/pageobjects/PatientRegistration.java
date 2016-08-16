@@ -21,7 +21,7 @@ public class PatientRegistration extends AbstractPageObject {
     }
 
     public void registerPatient(String givenName, String familyName, String nickname, Gender gender, Integer birthDay, Integer birthMonth,
-                                Integer birthYear, String mothersFirstName, String birthplace, String addressSearchValue, String phoneNumber, Integer insuranceName, String insuranceNumber,
+                                Integer birthYear, String mothersFirstName, String birthplace, String addressSearchValue, String phoneNumber, Integer insuranceName, String insuranceNumber, String otherInsurance,
                                 Integer martialStatus, Integer occupation, Integer religion, String contact, String relationship, String contactAddress,
                                 Boolean addressUsesHierarchy, String contactPhoneNumber,
                                 Boolean automaticallyEnterIdentifier, Integer printIdCard, By successElement) throws Exception{
@@ -36,6 +36,7 @@ public class PatientRegistration extends AbstractPageObject {
         enterPhoneNumber(phoneNumber);
         selectInsuranceName(insuranceName);
         enterInsuranceNumberAsFreeText(insuranceNumber);
+        enterOtherInsuranceNameAsFreeText(otherInsurance);
 
         if (addressUsesHierarchy) {
             enterBirthplaceViaShortcut(birthplace);
@@ -175,6 +176,14 @@ public class PatientRegistration extends AbstractPageObject {
     public void enterInsuranceNumberAsFreeText(String insuranceNumber) {
         if (StringUtils.isNotBlank(insuranceNumber)) {
             setTextToField(By.name("obsgroup.PIH:Insurance CONSTRUCT.obs.PIH:Insurance policy number"), insuranceNumber);
+        }
+    }
+
+    public void enterOtherInsuranceNameAsFreeText(String otherInsurance) {
+        if (StringUtils.isNotBlank(otherInsurance)) {
+            setTextToField(By.name("obsgroup.PIH:Insurance CONSTRUCT.obs.PIH:Insurance company name (text)"), otherInsurance);
+        } else {
+            hitEnterKey(By.name("obsgroup.PIH:Insurance CONSTRUCT.obs.PIH:Insurance company name (text)"));
         }
     }
 
