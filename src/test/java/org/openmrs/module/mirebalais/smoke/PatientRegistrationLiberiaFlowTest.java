@@ -44,6 +44,11 @@ public class PatientRegistrationLiberiaFlowTest extends PatientRegistrationFlowT
     }
 
     @Override
+    protected String getOtherInsuranceNameString() {
+        return null;
+    }
+
+    @Override
     protected Integer getReligion() { return null; }
 
     @Override

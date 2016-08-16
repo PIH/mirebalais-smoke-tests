@@ -22,4 +22,9 @@ public class PatientRegistrationMentalHealthFlowTest extends PatientRegistration
     protected String getInsuranceNumberString() {
         return "";
     }
+
+    @Override
+    protected String getOtherInsuranceNameString() {
+        return null;
+    }
 }

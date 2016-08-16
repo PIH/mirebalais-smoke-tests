@@ -23,4 +23,9 @@ public class PatientRegistrationMirebalaisFlowTest extends PatientRegistrationHa
     protected String getInsuranceNumberString() {
         return "";
     }
+
+    @Override
+    protected String getOtherInsuranceNameString() {
+        return null;
+    }
 }
