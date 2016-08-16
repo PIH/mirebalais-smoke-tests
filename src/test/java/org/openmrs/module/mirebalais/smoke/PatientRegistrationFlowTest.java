@@ -87,7 +87,7 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
     protected Integer getInsuranceName() { return null; }
 
     protected String getOtherInsuranceNameString() {
-        return "";
+        return null;
     }
 
     protected String getInsuranceNumberString() {

@@ -182,8 +182,6 @@ public class PatientRegistration extends AbstractPageObject {
     public void enterOtherInsuranceNameAsFreeText(String otherInsurance) {
         if (StringUtils.isNotBlank(otherInsurance)) {
             setTextToField(By.name("obsgroup.PIH:Insurance CONSTRUCT.obs.PIH:Insurance company name (text)"), otherInsurance);
-        } else {
-            hitEnterKey(By.name("obsgroup.PIH:Insurance CONSTRUCT.obs.PIH:Insurance company name (text)"));
         }
     }
 

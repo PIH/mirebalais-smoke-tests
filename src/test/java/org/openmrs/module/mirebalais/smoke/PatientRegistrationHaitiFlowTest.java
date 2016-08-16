@@ -41,6 +41,11 @@ public class PatientRegistrationHaitiFlowTest extends PatientRegistrationFlowTes
     }
 
     @Override
+    protected String getOtherInsuranceNameString() {
+        return "non-coded insurance";
+    }
+
+    @Override
     protected Boolean placeOfBirthAndContactAddressUseHierarchy() { return true; }
 
     @Override
