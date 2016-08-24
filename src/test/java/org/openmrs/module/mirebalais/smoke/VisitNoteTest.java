@@ -51,9 +51,6 @@ public class VisitNoteTest extends DbTest {
         visitNote.addAdultInitialOutpatient();
         assertThat(visitNote.countEncountersOfType(VisitNote.ADULT_INITIAL_OUTPATIENT_CREOLE_NAME), is(1));
 
-        // vaccine section
-        visitNote.addAndRemoveVaccine(2, 2);
-
         // allergies section
         visitNote.openAllergiesSection();
         visitNote.addAllergy(1, 1, 1);
@@ -128,9 +125,6 @@ public class VisitNoteTest extends DbTest {
 
         visitNote.addAdultFollowupOutpatient();
         assertThat(visitNote.countEncountersOfType(VisitNote.ADULT_FOLLOWUP_OUTPATIENT_CREOLE_NAME), is(1));
-
-        // vaccine section
-        visitNote.addAndRemoveVaccine(2,2);
 
         // allergies section
         visitNote.openAllergiesSection();
