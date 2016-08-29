@@ -13,4 +13,18 @@ public class PatientRegistrationMentalHealthFlowTest extends PatientRegistration
     @Override
     protected Boolean automaticallyEnterIdentifier() { return null; }
 
+    @Override
+    protected Integer getInsuranceName() {
+        return null;
+    }
+
+    @Override
+    protected String getInsuranceNumberString() {
+        return "";
+    }
+
+    @Override
+    protected String getOtherInsuranceNameString() {
+        return null;
+    }
 }

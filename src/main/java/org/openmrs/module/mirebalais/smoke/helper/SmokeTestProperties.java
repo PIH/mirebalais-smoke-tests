@@ -21,11 +21,8 @@ public class SmokeTestProperties {
     }
 
     public String getDatabaseUrl() {
-        if (databaseUrl == null) {
-            databaseUrl = envOrDefault("DATABASE_URL", "jdbc:mysql://localhost:3306/openmrs");
-        }
+        return envOrDefault("DATABASE_URL", "jdbc:mysql://localhost:3306/openmrs");
 
-        return databaseUrl;
     }
 
     public String getDatabaseUsername() {

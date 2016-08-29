@@ -31,6 +31,21 @@ public class PatientRegistrationHaitiFlowTest extends PatientRegistrationFlowTes
     }
 
     @Override
+    protected Integer getInsuranceName() {
+        return 2;
+    }
+
+    @Override
+    protected String getInsuranceNumberString() {
+        return "076-098765";
+    }
+
+    @Override
+    protected String getOtherInsuranceNameString() {
+        return "non-coded insurance";
+    }
+
+    @Override
     protected Boolean placeOfBirthAndContactAddressUseHierarchy() { return true; }
 
     @Override

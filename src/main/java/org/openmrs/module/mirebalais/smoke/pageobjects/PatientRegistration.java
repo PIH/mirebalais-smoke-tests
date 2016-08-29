@@ -1,5 +1,6 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -20,7 +21,7 @@ public class PatientRegistration extends AbstractPageObject {
     }
 
     public void registerPatient(String givenName, String familyName, String nickname, Gender gender, Integer birthDay, Integer birthMonth,
-                                Integer birthYear, String mothersFirstName, String birthplace, String addressSearchValue, String phoneNumber,
+                                Integer birthYear, String mothersFirstName, String birthplace, String addressSearchValue, String phoneNumber, Integer insuranceName, String insuranceNumber, String otherInsurance,
                                 Integer martialStatus, Integer occupation, Integer religion, String contact, String relationship, String contactAddress,
                                 Boolean addressUsesHierarchy, String contactPhoneNumber,
                                 Boolean automaticallyEnterIdentifier, Integer printIdCard, By successElement) throws Exception{
@@ -33,6 +34,9 @@ public class PatientRegistration extends AbstractPageObject {
         enterMothersFirstName(mothersFirstName);
         enterPersonAddressViaShortcut(addressSearchValue);
         enterPhoneNumber(phoneNumber);
+        selectInsuranceName(insuranceName);
+        enterInsuranceNumberAsFreeText(insuranceNumber);
+        enterOtherInsuranceNameAsFreeText(otherInsurance);
 
         if (addressUsesHierarchy) {
             enterBirthplaceViaShortcut(birthplace);
@@ -159,6 +163,25 @@ public class PatientRegistration extends AbstractPageObject {
         if (option != null) {
             selectFromDropdown(By.name("obs.PIH:Religion"), option);
             hitEnterKey(By.name("obs.PIH:Religion"));
+        }
+    }
+
+    public void selectInsuranceName(Integer option) {
+        if (option != null) {
+            selectFromDropdown(By.name("obsgroup.PIH:Insurance CONSTRUCT.obs.PIH:Haiti insurance company name"), option);
+            hitEnterKey(By.name("obsgroup.PIH:Insurance CONSTRUCT.obs.PIH:Haiti insurance company name"));
+        }
+    }
+
+    public void enterInsuranceNumberAsFreeText(String insuranceNumber) {
+        if (StringUtils.isNotBlank(insuranceNumber)) {
+            setTextToField(By.name("obsgroup.PIH:Insurance CONSTRUCT.obs.PIH:Insurance policy number"), insuranceNumber);
+        }
+    }
+
+    public void enterOtherInsuranceNameAsFreeText(String otherInsurance) {
+        if (StringUtils.isNotBlank(otherInsurance)) {
+            setTextToField(By.name("obsgroup.PIH:Insurance CONSTRUCT.obs.PIH:Insurance company name (text)"), otherInsurance);
         }
     }
 
