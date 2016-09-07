@@ -16,16 +16,17 @@ public class PatientRegistrationMirebalaisFlowTest extends PatientRegistrationHa
 
     @Override
     protected Integer getInsuranceName() {
-        return null;
+        return 2;
     }
 
     @Override
     protected String getInsuranceNumberString() {
-        return "";
+        return "076-098765";
     }
 
     @Override
     protected String getOtherInsuranceNameString() {
-        return null;
+        return "non-coded insurance";
     }
+
 }
