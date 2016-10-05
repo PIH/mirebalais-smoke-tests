@@ -148,6 +148,7 @@ public class AppDashboard extends AbstractPageObject {
     public void findPatientByName(Patient patient) {
         WebElement searchField = driver.findElement(SEARCH_FIELD);
         searchField.sendKeys(patient.getName()); // search on patient name
+        searchField.sendKeys(Keys.RETURN);
 
         // patient should be in results list
         WebElement searchResults = driver.findElement(SEARCH_RESULTS_TABLE);
@@ -158,6 +159,7 @@ public class AppDashboard extends AbstractPageObject {
     public void findPatientByGivenAndFamilyName(String givenName, String familyName) {
         WebElement searchField = driver.findElement(SEARCH_FIELD);
         searchField.sendKeys(givenName + " " + familyName);
+        searchField.sendKeys(Keys.RETURN);
 
         // patient should be in results list
         WebElement searchResults = driver.findElement(SEARCH_RESULTS_TABLE);
