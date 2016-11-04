@@ -106,12 +106,12 @@ public class UserAdminTest extends DbTest {
         turnOffImplicitWaits(); // once we've found one element, assume that all are present
         assertThat(appDashboard.isPatientRegistrationAppPresented(), is(true));
         assertThat(appDashboard.isStartClinicVisitAppPresented(), is(true));
+		assertThat(appDashboard.isReportsAppPresented(), is(true));
 
         assertThat(appDashboard.isSchedulingAppPresented(), is(false));
 		assertThat(appDashboard.isUhmCaptureVitalsAppPresented(), is(false));
         assertThat(appDashboard.isActiveVisitsAppPresented(), is(false));
 		assertThat(appDashboard.isSystemAdministrationAppPresented(), is(false));
-		assertThat(appDashboard.isReportsAppPresented(), is(false));
 		assertThat(appDashboard.isLegacyAppPresented(), is(false));
         assertThat(appDashboard.isAwaitingAdmissionAppPresented(), is(false));
         assertThat(appDashboard.isInpatientsAppPresented(), is(false));
