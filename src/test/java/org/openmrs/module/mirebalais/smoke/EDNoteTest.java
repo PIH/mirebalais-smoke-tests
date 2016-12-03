@@ -42,6 +42,7 @@ public class EDNoteTest extends DbTest {
     public void editEDNote() throws Exception {
 
         visitNote.addEDNote(PRIMARY_DIAGNOSIS);
+        new WebDriverWait(driver, 5).until(visibilityOfElementLocated(VisitNote.consultNoteSectionHeader));
         visitNote.editExistingEDNote(EDITED_PRIMARY_DIAGNOSIS);
 
         assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(1));
