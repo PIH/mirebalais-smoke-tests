@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
 
 import static org.openqa.selenium.Keys.RETURN;
+import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
 
 public class CheckInFormPage extends AbstractPageObject {
 	
@@ -37,6 +38,7 @@ public class CheckInFormPage extends AbstractPageObject {
         if (paperRecordEnabled) {
             confirmPaperRecordPopup();
         }
+        wait15seconds.until(invisibilityOfElementLocated(By.className("submitButton")));  // make sure the submit is complete
     }
 
     public void enterInfoWithMultipleEnterKeystrokesOnSubmit()  {
@@ -66,6 +68,7 @@ public class CheckInFormPage extends AbstractPageObject {
         if (paperRecordEnabled) {
             confirmPaperRecordPopup();
         }
+        wait15seconds.until(invisibilityOfElementLocated(By.className("submitButton")));  // make sure the submit is complete
 	}
 
 	private void findPatient(String patientIdentifier) throws Exception {
