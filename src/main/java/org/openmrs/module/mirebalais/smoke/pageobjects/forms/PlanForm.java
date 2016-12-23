@@ -10,9 +10,10 @@ public class PlanForm extends BaseHtmlForm {
         super(driver);
     }
 
-    public void fillFormWithBasicInfo(String planText) {
+    public void fillFormWithBasicInfo(String planText, String dispositionText) throws Exception {
         WebElement history = driver.findElement(By.cssSelector("#clinical-management-plan textarea"));
         history.sendKeys(planText);
+        chooseDisposition(dispositionText);
         confirmData();
     }
 }

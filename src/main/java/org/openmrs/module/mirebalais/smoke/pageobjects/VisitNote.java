@@ -19,7 +19,6 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.forms.AdmissionNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.ConsultNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.DiagnosisForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.DispenseMedicationForm;
-import org.openmrs.module.mirebalais.smoke.pageobjects.forms.DispositionForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.EmergencyDepartmentNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.ExamForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.FeedingForm;
@@ -103,8 +102,6 @@ public class VisitNote extends AbstractPageObject {
 
     private DiagnosisForm diagnosisForm;
 
-    private DispositionForm dispositionForm;
-
     private ExamForm examForm;
 
     private PlanForm planForm;
@@ -131,7 +128,6 @@ public class VisitNote extends AbstractPageObject {
         allergiesSection = new AllergiesSection(driver);
         historyForm = new HistoryForm(driver);
         diagnosisForm = new DiagnosisForm(driver);
-        dispositionForm = new DispositionForm(driver);
         examForm = new ExamForm(driver);
         planForm = new PlanForm(driver);
         supplementsForm = new SupplementsForm(driver);
@@ -358,12 +354,8 @@ public class VisitNote extends AbstractPageObject {
         diagnosisForm.fillFormWithBasicInfo(diagnosis);
     }
 
-    public void fillOutPlanForm(String planText) {
-        planForm.fillFormWithBasicInfo(planText);
-    }
-
-    public void fillOutDispositionForm(String dispositionText) throws Exception {
-        dispositionForm.fillFormWithBasicInfo(dispositionText);
+    public void fillOutPlanForm(String planText, String dispositionText) throws Exception {
+        planForm.fillFormWithBasicInfo(planText, dispositionText);
     }
 
     public void fillOutSupplementsForm() throws Exception {
