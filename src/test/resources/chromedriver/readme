@@ -1,7 +1,7 @@
-run ./chromedriver to determine what version is currently installed (it is 2.18 as of this writing)
+run ./chromedriver to determine what version is currently installed (it is 2.26 as of this writing)
 
 go here to see what browser versions this version of the driver supports:
-http://chromedriver.storage.googleapis.com/2.18/notes.txt
+http://chromedriver.storage.googleapis.com/2.26/notes.txt
 
 you can see what version of chrome is running on bamboo by running:
 chromium-browser --version
