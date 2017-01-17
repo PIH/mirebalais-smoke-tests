@@ -51,6 +51,12 @@ public class VisitNoteTest extends DbTest {
         visitNote.addAdultInitialOutpatient();
         assertThat(visitNote.countEncountersOfType(VisitNote.ADULT_INITIAL_OUTPATIENT_CREOLE_NAME), is(1));
 
+        // chief complaint section
+        visitNote.editSection("pihcore-chief-complaint");
+        visitNote.fillOutChiefComplaint("some complaint");
+        visitNote.expandSection("pihcore-chief-complaint");
+        assertTrue(visitNote.containsText("some complaint"));
+
         // allergies section
         visitNote.openAllergiesSection();
         visitNote.addAllergy(1, 1, 1);
@@ -120,6 +126,12 @@ public class VisitNoteTest extends DbTest {
         visitNote.addAdultFollowupOutpatient();
         assertThat(visitNote.countEncountersOfType(VisitNote.ADULT_FOLLOWUP_OUTPATIENT_CREOLE_NAME), is(1));
 
+        // chief complaint section
+        visitNote.editSection("pihcore-chief-complaint");
+        visitNote.fillOutChiefComplaint("some complaint");
+        visitNote.expandSection("pihcore-chief-complaint");
+        assertTrue(visitNote.containsText("some complaint"));
+
         // allergies section
         visitNote.openAllergiesSection();
         visitNote.addAllergy(1,1,1);
@@ -183,6 +195,12 @@ public class VisitNoteTest extends DbTest {
 
         visitNote.addPedsInitialOutpatient();
         assertThat(visitNote.countEncountersOfType(VisitNote.PEDS_INITIAL_OUTPATIENT_CREOLE_NAME), is(1));
+
+        // chief complaint section
+        visitNote.editSection("pihcore-chief-complaint");
+        visitNote.fillOutChiefComplaint("some complaint");
+        visitNote.expandSection("pihcore-chief-complaint");
+        assertTrue(visitNote.containsText("some complaint"));
 
         // vaccine section
         visitNote.addAndRemoveVaccine(2,2);
@@ -268,6 +286,12 @@ public class VisitNoteTest extends DbTest {
 
         visitNote.addPedsFollowupOutpatient();
         assertThat(visitNote.countEncountersOfType(VisitNote.PEDS_FOLLOWUP_OUTPATIENT_CREOLE_NAME), is(1));
+
+        // chief complaint section
+        visitNote.editSection("pihcore-chief-complaint");
+        visitNote.fillOutChiefComplaint("some complaint");
+        visitNote.expandSection("pihcore-chief-complaint");
+        assertTrue(visitNote.containsText("some complaint"));
 
         // vaccine section
         visitNote.addAndRemoveVaccine(2, 2);

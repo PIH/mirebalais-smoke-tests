@@ -21,7 +21,7 @@ public class ExamForm extends BaseHtmlForm {
             i++;
         }
 
-        clickOn(By.cssSelector("#confirmation .confirm"));
+        clickOn(driver.findElements(By.cssSelector("#confirmation .confirm")).get(1));  // click submit button, not next button
     }
 
 }

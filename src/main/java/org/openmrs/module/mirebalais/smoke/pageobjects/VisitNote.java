@@ -16,6 +16,7 @@ package org.openmrs.module.mirebalais.smoke.pageobjects;
 
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.AdmissionNoteForm;
+import org.openmrs.module.mirebalais.smoke.pageobjects.forms.ChiefComplaintForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.ConsultNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.DiagnosisForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.DispenseMedicationForm;
@@ -98,6 +99,8 @@ public class VisitNote extends AbstractPageObject {
 	
 	private XRayForm xRayForm;
 
+    private ChiefComplaintForm chiefComplaintForm;
+
     private HistoryForm historyForm;
 
     private DiagnosisForm diagnosisForm;
@@ -120,6 +123,7 @@ public class VisitNote extends AbstractPageObject {
 	public VisitNote(WebDriver driver) {
 		super(driver);
 		consultNoteForm = new ConsultNoteForm(driver);
+        chiefComplaintForm = new ChiefComplaintForm(driver);
 		eDNoteForm = new EmergencyDepartmentNoteForm(driver);
 		retroConsultNoteForm = new RetroConsultNoteForm(driver);
 		xRayForm = new XRayForm(driver);
@@ -341,6 +345,10 @@ public class VisitNote extends AbstractPageObject {
 		clickFirstEncounterDetails();
         wait15seconds.until(visibilityOfElementLocated(encounterDetails));
 	}
+
+	public void fillOutChiefComplaint(String chiefComplaintText) {
+	    chiefComplaintForm.fillFormWithBasicInfo(chiefComplaintText);
+    }
 
     public void fillOutHistoryForm(String historyText) {
         historyForm.fillFormWithBasicInfo(historyText);

@@ -35,7 +35,7 @@ public class AllergiesSection extends AbstractPageObject {
     }
 
     public void addAllergy(Integer allergensIndex, Integer reactionsIndex, Integer severitiesIndex) {
-        driver.findElements(By.cssSelector("#allergies ~ button")).get(1).click();
+        driver.findElement(By.cssSelector("#allergyui-addNewAllergy")).click();
         wait15seconds.until(visibilityOfElementLocated(By.id("allergy")));
         driver.findElement(By.id("allergens")).findElement(By.xpath("//ul/li["+ allergensIndex + "]/input")).click();
         // TODO this doesn't seem to be selectiong a reaction?

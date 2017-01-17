@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import java.util.List;
+
 public abstract class BaseHtmlForm extends AbstractPageObject {
 
     // TODO key on something other than text
@@ -40,7 +42,16 @@ public abstract class BaseHtmlForm extends AbstractPageObject {
     }
 
     public void confirmData() {
-        clickOn(By.cssSelector("#buttons #submit"));
+        List<WebElement>  elements = driver.findElements(By.cssSelector("#buttons .confirm"));
+
+        for (WebElement element : elements) {
+            if (!element.getAttribute("id").equals("next")) {
+                clickOn(element);
+                break;
+            }
+        }
+
+      //  clickOn(elements.get(elements.size() -1 ));  // our visit notes have "next" and "confirm" buttons--hack to make sure we click "next", not confirm
     }
 
     public boolean submitButtonIsEnabled() {
