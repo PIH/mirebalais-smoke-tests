@@ -40,7 +40,7 @@ public abstract class BaseHtmlForm extends AbstractPageObject {
     }
 
     public void confirmData() {
-        clickOn(By.cssSelector("#buttons .confirm"));
+        clickOn(By.cssSelector("#buttons #submit"));
     }
 
     public boolean submitButtonIsEnabled() {
