@@ -58,7 +58,7 @@ public class VisitNoteTest extends DbTest {
         assertTrue(visitNote.containsText("some complaint"));
 
         // allergies section
-        visitNote.openAllergiesSection();
+/*        visitNote.openAllergiesSection();
         visitNote.addAllergy(1, 1, 1);
         assertThat(visitNote.countOfAllergies(), is(1));
         visitNote.addAllergy(2, 2, 2);
@@ -68,7 +68,7 @@ public class VisitNoteTest extends DbTest {
         visitNote.returnFromAllergiesPage();
         visitNote.waitUntilVisitNoteOpen();
         Thread.sleep(2000);  // hack, seems to be needed for some reason,
-        visitNote.expandFirstEncounter();
+        visitNote.expandFirstEncounter();*/
 
         // history section
         visitNote.editSection("pihcore-history");
@@ -132,7 +132,7 @@ public class VisitNoteTest extends DbTest {
         visitNote.expandSection("pihcore-chief-complaint");
         assertTrue(visitNote.containsText("some complaint"));
 
-        // allergies section
+/*        // allergies section
         visitNote.openAllergiesSection();
         visitNote.addAllergy(1,1,1);
         assertThat(visitNote.countOfAllergies(), is(1));
@@ -143,7 +143,7 @@ public class VisitNoteTest extends DbTest {
         visitNote.returnFromAllergiesPage();
         visitNote.waitUntilVisitNoteOpen();
         Thread.sleep(2000);  // hack, seems to be needed for some reason,
-        visitNote.expandFirstEncounter();
+        visitNote.expandFirstEncounter();*/
 
         // exam section
         visitNote.editSection("pihcore-exam");
@@ -206,7 +206,7 @@ public class VisitNoteTest extends DbTest {
         visitNote.addAndRemoveVaccine(2,2);
 
         // allergies section
-        visitNote.openAllergiesSection();
+       /* visitNote.openAllergiesSection();
         visitNote.addAllergy(1,1,1);
         assertThat(visitNote.countOfAllergies(), is(1));
         visitNote.addAllergy(2,2,2);
@@ -216,7 +216,7 @@ public class VisitNoteTest extends DbTest {
         visitNote.returnFromAllergiesPage();
         visitNote.waitUntilVisitNoteOpen();
         Thread.sleep(2000);  // hack, seems to be needed for some reason,
-        visitNote.expandFirstEncounter();
+        visitNote.expandFirstEncounter();*/
 
         // supplements section
         visitNote.editSection("pihcore-supplements");
@@ -296,7 +296,7 @@ public class VisitNoteTest extends DbTest {
         // vaccine section
         visitNote.addAndRemoveVaccine(2, 2);
 
-        // allergies section
+      /*  // allergies section
         visitNote.openAllergiesSection();
         visitNote.addAllergy(1, 1, 1);
         assertThat(visitNote.countOfAllergies(), is(1));
@@ -307,7 +307,7 @@ public class VisitNoteTest extends DbTest {
         visitNote.returnFromAllergiesPage();
         visitNote.waitUntilVisitNoteOpen();
         Thread.sleep(2000);  // hack, seems to be needed for some reason,
-        visitNote.expandFirstEncounter();
+        visitNote.expandFirstEncounter();*/
 
         // supplements section
         visitNote.editSection("pihcore-supplements");
