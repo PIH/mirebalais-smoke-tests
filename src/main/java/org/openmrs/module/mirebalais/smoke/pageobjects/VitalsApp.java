@@ -44,9 +44,11 @@ public class VitalsApp extends AbstractPageObject {
 	}
 
 	private void hitEnterOnBMI() {
-		JavascriptExecutor jse = (JavascriptExecutor)driver;
-		jse.executeScript("document.getElementById('hidden-calculated-bmi').setAttribute('type', 'text');");
-		driver.findElement(By.id("hidden-calculated-bmi")).sendKeys(Keys.RETURN);
+		if (driver.findElements(By.id("hidden-calculated-bmi")).size() > 0) {   // BMI option will not be present if patient is an infant
+			JavascriptExecutor jse = (JavascriptExecutor) driver;
+			jse.executeScript("document.getElementById('hidden-calculated-bmi').setAttribute('type', 'text');");
+			driver.findElement(By.id("hidden-calculated-bmi")).sendKeys(Keys.RETURN);
+		}
 	}
 
     private void hitEnterOnFahrenheitField() {
