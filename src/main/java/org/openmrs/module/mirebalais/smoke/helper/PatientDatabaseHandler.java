@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -44,19 +46,27 @@ public class PatientDatabaseHandler extends BaseDatabaseHandler {
 
 	public static void addTestPatientForDelete(BigInteger patientId) throws IOException, DataSetException, SQLException {
 		Patient patient = new Patient("123", null, null, patientId, -1, new BigInteger("-1"), new BigInteger("-1"),
-                new BigInteger("-1"), new BigInteger("-1"), -1, null, null, null, null, null);
+                new BigInteger("-1"), new BigInteger("-1"), -1, null, null, null, null, null, null);
 		
 		datasets.put(patient, createDataset(patient));
 	}
-	
-	public static Patient insertNewTestPatient() throws Exception {
+
+	public static Patient insertAdultTestPatient() throws Exception {
+    	return insertTestPatient("1934-02-12");
+	}
+
+	public static Patient insertNewbornTestPatient() throws Exception {
+    	return insertTestPatient(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+	}
+
+	private static Patient insertTestPatient(String birthdate) throws Exception {
 		try {
 			Patient patient = new Patient(getNextValidPatientIdentifier(), "Crash Test", "Dummy",
 			        getNextAutoIncrementFor("person"), getPatientIdentifierTypeId(),
 			        getNextAutoIncrementFor("person_name"), getNextAutoIncrementFor("person_address"),
 			        getNextAutoIncrementFor("patient_identifier"), getNextAutoIncrementFor("encounter"),
 			        getEncounterTypeId(), UUID.randomUUID().toString(), UUID.randomUUID().toString(), UUID.randomUUID().toString(),
-					UUID.randomUUID().toString(), UUID.randomUUID().toString());
+					UUID.randomUUID().toString(), UUID.randomUUID().toString(), birthdate);
 			
 			IDataSet dataset = createDataset(patient);
 			datasets.put(patient, dataset);

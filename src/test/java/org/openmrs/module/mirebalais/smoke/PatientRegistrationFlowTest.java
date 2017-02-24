@@ -44,7 +44,7 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
 
     public void editExistingPatient() throws Exception {
 
-        Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
+        Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();
 
         initBasicPageObjects();
         setLoginPage(getLoginPage());

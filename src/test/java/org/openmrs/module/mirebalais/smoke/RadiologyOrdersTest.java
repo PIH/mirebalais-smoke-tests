@@ -27,7 +27,7 @@ public class RadiologyOrdersTest extends DbTest {
 
     @Before
     public void setUp() throws Exception {
-        Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
+        Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();
         initBasicPageObjects();
         login();
         appDashboard.goToClinicianFacingDashboard(testPatient.getId());

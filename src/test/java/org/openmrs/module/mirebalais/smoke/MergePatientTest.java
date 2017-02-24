@@ -1,12 +1,12 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.MergeFlow;
 import org.openmrs.module.mirebalais.smoke.pageobjects.SysAdminPage;
+
+import static org.junit.Assert.assertTrue;
 
 public class MergePatientTest extends DbTest {
 	
@@ -18,8 +18,8 @@ public class MergePatientTest extends DbTest {
 		
 		login();
 		
-		Patient firstPatient = PatientDatabaseHandler.insertNewTestPatient();
-		Patient secondPatient = PatientDatabaseHandler.insertNewTestPatient();
+		Patient firstPatient = PatientDatabaseHandler.insertAdultTestPatient();
+		Patient secondPatient = PatientDatabaseHandler.insertAdultTestPatient();
 		
 		appDashboard.openSysAdminApp();
 		sysAdminPage.openMergePatients();

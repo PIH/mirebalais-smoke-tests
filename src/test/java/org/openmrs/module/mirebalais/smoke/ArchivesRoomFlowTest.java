@@ -12,7 +12,7 @@ public class ArchivesRoomFlowTest extends DbTest {
 	
 	@Test
 	public void requestRecord() throws Exception {
-        Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
+        Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();
         initBasicPageObjects();
         ArchivesRoomApp archivesRoomApp = new ArchivesRoomApp(driver);
 

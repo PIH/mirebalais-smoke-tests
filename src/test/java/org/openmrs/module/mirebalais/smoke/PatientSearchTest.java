@@ -12,7 +12,7 @@ public class PatientSearchTest extends DbTest {
     @Test
     public void loadPatientDashboardByPatientIdentifier() throws Exception {
 
-        Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
+        Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();
         initBasicPageObjects();
         login();
 
@@ -26,7 +26,7 @@ public class PatientSearchTest extends DbTest {
     @Test
     public void loadPatientDashboardByPatientName() throws Exception {
 
-        Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
+        Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();
         initBasicPageObjects();
         login();
 

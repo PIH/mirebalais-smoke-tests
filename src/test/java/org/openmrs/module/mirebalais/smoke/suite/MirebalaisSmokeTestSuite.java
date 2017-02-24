@@ -32,6 +32,7 @@ import org.openmrs.module.mirebalais.smoke.RequestAppointmentsTest;
 import org.openmrs.module.mirebalais.smoke.RetroConsultNoteTest;
 import org.openmrs.module.mirebalais.smoke.RetroVisitTest;
 import org.openmrs.module.mirebalais.smoke.UserAdminTest;
+import org.openmrs.module.mirebalais.smoke.VisitNoteTest;
 import org.openmrs.module.mirebalais.smoke.helper.SmokeTestDriver;
 import org.openqa.selenium.WebDriver;
 
@@ -62,7 +63,8 @@ import org.openqa.selenium.WebDriver;
                         RequestAppointmentsTest.class,
                         RetroConsultNoteTest.class,
                         RetroVisitTest.class,
-                        UserAdminTest.class } )
+                        UserAdminTest.class,
+                        VisitNoteTest.class } )
 public class MirebalaisSmokeTestSuite {
 
     private static WebDriver driver;

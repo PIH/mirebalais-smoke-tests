@@ -27,7 +27,7 @@ public class ActiveVisitsTest extends DbTest {
 	
 	@Test
 	public void shouldShowActiveVisitAfterStartVisit() throws Exception {
-        Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
+        Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();
         initBasicPageObjects();
 
 		login();

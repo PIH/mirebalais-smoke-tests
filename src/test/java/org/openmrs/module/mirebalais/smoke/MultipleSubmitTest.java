@@ -19,7 +19,7 @@ public class MultipleSubmitTest extends DbTest {
     @Test
     public void testMultipleEnterClicksOnCheckInForm() throws Exception {
         logInAsAdmin();
-        Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
+        Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();
 
         appDashboard = new AppDashboard(driver);
         appDashboard.openCheckinApp();

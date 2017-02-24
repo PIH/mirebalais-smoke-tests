@@ -19,11 +19,12 @@ public class Patient {
     private String person_address_uuid;
     private String patient_identifier_uuid;
     private String encounter_uuid;
+    private String birthdate;
 
 
     public Patient(String identifier, String given_name, String family_name, BigInteger id, Integer identifier_id,
                    BigInteger person_name_id, BigInteger person_address_id, BigInteger patient_identifier_id, BigInteger encounterId, Integer encounterTypeId,
-                   String person_uuid, String person_name_uuid, String person_address_uuid, String patient_identifier_uuid, String encounter_uuid) {
+                   String person_uuid, String person_name_uuid, String person_address_uuid, String patient_identifier_uuid, String encounter_uuid, String birthdate) {
 
         this.given_name = given_name;
 		this.family_name = family_name;
@@ -40,6 +41,7 @@ public class Patient {
         this.person_address_uuid = person_address_uuid;
         this.patient_identifier_uuid = patient_identifier_uuid;
         this.encounter_uuid = encounter_uuid;
+        this.birthdate = birthdate;
     }
 
 	public String getName() {

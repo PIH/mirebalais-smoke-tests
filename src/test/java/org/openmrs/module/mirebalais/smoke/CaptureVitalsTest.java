@@ -24,7 +24,7 @@ public class CaptureVitalsTest extends DbTest {
 
     @Test
     public void checkInAndCaptureVitalsThruVitalsApp() throws Exception {
-        Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
+        Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();
         initBasicPageObjects();
         vitals = new VitalsApp(driver);
         CheckInFormPage newCheckIn = new CheckInFormPage(driver);

@@ -34,7 +34,7 @@ public class CheckInTest extends DbTest {
 
     @Before
     public void setUp() throws Exception {
-        testPatient = PatientDatabaseHandler.insertNewTestPatient();
+        testPatient = PatientDatabaseHandler.insertAdultTestPatient();
         initBasicPageObjects();
 
         setLoginPage(getLoginPage());

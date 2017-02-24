@@ -27,7 +27,7 @@ public class ConsultNoteTest extends DbTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
+		Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();
 		initBasicPageObjects();
         deathCertificateForm = new DeathCertificateFormPage(driver);
 

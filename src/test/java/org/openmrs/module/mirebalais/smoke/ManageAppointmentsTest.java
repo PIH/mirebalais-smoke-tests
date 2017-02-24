@@ -17,7 +17,7 @@ public class ManageAppointmentsTest extends DbTest {
         AppDashboard appDashboard = new AppDashboard(driver);
         AppointmentSchedulingApp appointmentSchedulingApp = new AppointmentSchedulingApp(driver);
         ManageAppointments manageAppointments = new ManageAppointments(driver);
-        Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
+        Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();
 
         logInAsAdmin();
         appDashboard.openAppointmentSchedulingApp();

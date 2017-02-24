@@ -26,7 +26,7 @@ public class VisitNoteTest extends DbTest {
         // make sure we are logged out to start with
         logout();
 
-        Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
+        Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();
         initBasicPageObjects();
         VitalsApp vitals = new VitalsApp(driver);
         CheckInFormPage newCheckIn = new CheckInFormPage(driver);
@@ -101,7 +101,7 @@ public class VisitNoteTest extends DbTest {
         // make sure we are logged out to start with
         logout();
 
-        Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
+        Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();
         initBasicPageObjects();
         VitalsApp vitals = new VitalsApp(driver);
         CheckInFormPage newCheckIn = new CheckInFormPage(driver);
@@ -171,7 +171,7 @@ public class VisitNoteTest extends DbTest {
         // make sure we are logged out to start with
         logout();
 
-        Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
+        Patient testPatient = PatientDatabaseHandler.insertNewbornTestPatient();
         initBasicPageObjects();
         VitalsApp vitals = new VitalsApp(driver);
         CheckInFormPage newCheckIn = new CheckInFormPage(driver);
@@ -262,7 +262,7 @@ public class VisitNoteTest extends DbTest {
         // make sure we are logged out to start with
         logout();
 
-        Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
+        Patient testPatient = PatientDatabaseHandler.insertNewbornTestPatient();
         initBasicPageObjects();
         VitalsApp vitals = new VitalsApp(driver);
         CheckInFormPage newCheckIn = new CheckInFormPage(driver);

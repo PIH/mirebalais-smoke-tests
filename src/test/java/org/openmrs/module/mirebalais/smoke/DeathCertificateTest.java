@@ -19,7 +19,7 @@ public class DeathCertificateTest extends DbTest {
         VisitNote patientDashboard = new VisitNote(driver);
         ClinicianDashboard clinicianDashboard = new ClinicianDashboard(driver);
 
-        Patient patient = PatientDatabaseHandler.insertNewTestPatient();
+        Patient patient = PatientDatabaseHandler.insertAdultTestPatient();
 
         logInAsPhysicianUser();
         appDashboard.goToClinicianFacingDashboard(patient.getId());

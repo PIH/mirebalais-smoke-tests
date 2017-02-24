@@ -11,7 +11,7 @@ public class RetroVisitTest extends DbTest {
 
     @Test
     public void shouldAddRetroVisit() throws Exception {
-        Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
+        Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();
         initBasicPageObjects();
 
         login();

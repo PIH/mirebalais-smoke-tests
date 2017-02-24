@@ -24,7 +24,7 @@ public class RetroConsultNoteTest extends DbTest {
 
     @Before
     public void setUp() throws Exception {
-        Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
+        Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();
         initBasicPageObjects();
 
         appDashboard.goToClinicianFacingDashboard(testPatient.getId());

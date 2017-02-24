@@ -20,7 +20,7 @@ public class RequestAppointmentsTest extends DbTest {
     @Test
     public void requestAppointment() throws Exception {
 
-        Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
+        Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();
         initBasicPageObjects();
         
         AppDashboard appDashboard = new AppDashboard(driver);

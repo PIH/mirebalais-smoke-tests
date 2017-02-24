@@ -20,8 +20,8 @@ public class InPatientTest extends DbTest {
 	
 	@Test
 	public void admitPatientTransferInsideHospitalAndFilterWard() throws Exception {
-		Patient testPatient = PatientDatabaseHandler.insertNewTestPatient();
-		Patient testPatient2 = PatientDatabaseHandler.insertNewTestPatient();
+		Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();
+		Patient testPatient2 = PatientDatabaseHandler.insertAdultTestPatient();
 		initBasicPageObjects();
 
 		inPatientList = new InPatientList(driver);
