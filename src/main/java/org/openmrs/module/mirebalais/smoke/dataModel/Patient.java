@@ -112,4 +112,6 @@ public class Patient {
     public String getEncounter_uuid() {
         return encounter_uuid;
     }
+
+    public String getBirthdate() { return  birthdate; }
 }
