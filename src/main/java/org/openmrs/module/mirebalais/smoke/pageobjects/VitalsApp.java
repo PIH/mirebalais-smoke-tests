@@ -71,7 +71,7 @@ public class VitalsApp extends AbstractPageObject {
 	private void hitEnterOnCalculatedRatio() {
 		JavascriptExecutor jse = (JavascriptExecutor)driver;
 		jse.executeScript("document.getElementById('hidden-calculated-ratio').setAttribute('type', 'text');");
-		driver.findElement(By.id("hidden-calculated-rato")).sendKeys(Keys.RETURN);
+		driver.findElement(By.id("hidden-calculated-ratio")).sendKeys(Keys.RETURN);
 	}
 
     private void hitEnterOnFahrenheitField() {
