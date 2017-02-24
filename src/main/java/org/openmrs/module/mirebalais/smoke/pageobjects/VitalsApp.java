@@ -38,7 +38,7 @@ public class VitalsApp extends AbstractPageObject {
 		setClearTextToFieldThruSpan("bp_systolic", "120");
 		setClearTextToFieldThruSpan("bp_diastolic", "80");
 		setClearTextToFieldThruSpan("o2_sat", "50");
-        //setClearTextToFieldThruSpan("chief_complaint", "headache");
+        setClearTextToFieldThruSpan("chief_complaint", "headache");
 		driver.findElement(By.id("confirmationQuestion")).findElement(By.className("confirm")).click();
 	}
 
@@ -58,7 +58,7 @@ public class VitalsApp extends AbstractPageObject {
 		setClearTextToFieldThruSpan("muac_mm", "100");
 		setClearTextToFieldThruSpan("head_cm", "100");
 		hitEnterOnCalculatedRatio();
-		//setClearTextToFieldThruSpan("chief_complaint", "headache");
+		setClearTextToFieldThruSpan("chief_complaint", "headache");
 		driver.findElement(By.id("confirmationQuestion")).findElement(By.className("confirm")).click();
 	}
 

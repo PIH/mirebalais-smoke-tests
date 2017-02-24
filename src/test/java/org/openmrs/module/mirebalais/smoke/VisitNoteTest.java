@@ -187,7 +187,7 @@ public class VisitNoteTest extends DbTest {
         header.home();
         appDashboard.openApp(getVitalsAppIdentifier());
         findPatient(testPatient.getIdentifier());
-        vitals.enterVitals();
+        vitals.enterVitalsForInfant();
 
         header.home();
         appDashboard.openWaitingForConsultApp();
@@ -278,7 +278,7 @@ public class VisitNoteTest extends DbTest {
         header.home();
         appDashboard.openApp(getVitalsAppIdentifier());
         findPatient(testPatient.getIdentifier());
-        vitals.enterVitals();
+        vitals.enterVitalsForInfant();
 
         header.home();
         appDashboard.openWaitingForConsultApp();
