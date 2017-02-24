@@ -38,17 +38,40 @@ public class VitalsApp extends AbstractPageObject {
 		setClearTextToFieldThruSpan("bp_systolic", "120");
 		setClearTextToFieldThruSpan("bp_diastolic", "80");
 		setClearTextToFieldThruSpan("o2_sat", "50");
-        setClearTextToFieldThruSpan("chief_complaint", "headache");
-		
+        //setClearTextToFieldThruSpan("chief_complaint", "headache");
+		driver.findElement(By.id("confirmationQuestion")).findElement(By.className("confirm")).click();
+	}
+
+	public void enterVitalsForInfant() {
+		hitEnterOnInchesField();
+		setClearTextToFieldThruSpan("height_cm", "15");
+		hitEnterOnLbsField();
+		setClearTextToFieldThruSpan("weight_kg", "50");
+		hitEnterOnFahrenheitField();
+		setClearTextToFieldThruSpan("temperature_c", "36");
+		setClearTextToFieldThruSpan("heart_rate", "50");
+		setClearTextToFieldThruSpan("respiratory_rate", "50");
+		setClearTextToFieldThruSpan("bp_systolic", "120");
+		setClearTextToFieldThruSpan("bp_diastolic", "80");
+		setClearTextToFieldThruSpan("o2_sat", "50");
+		hitEnterOnCmField();
+		setClearTextToFieldThruSpan("muac_mm", "100");
+		setClearTextToFieldThruSpan("head_cm", "100");
+		hitEnterOnCalculatedRatio();
+		//setClearTextToFieldThruSpan("chief_complaint", "headache");
 		driver.findElement(By.id("confirmationQuestion")).findElement(By.className("confirm")).click();
 	}
 
 	private void hitEnterOnBMI() {
-		if (driver.findElements(By.id("hidden-calculated-bmi")).size() > 0) {   // BMI option will not be present if patient is an infant
-			JavascriptExecutor jse = (JavascriptExecutor) driver;
-			jse.executeScript("document.getElementById('hidden-calculated-bmi').setAttribute('type', 'text');");
-			driver.findElement(By.id("hidden-calculated-bmi")).sendKeys(Keys.RETURN);
-		}
+		JavascriptExecutor jse = (JavascriptExecutor)driver;
+		jse.executeScript("document.getElementById('hidden-calculated-bmi').setAttribute('type', 'text');");
+		driver.findElement(By.id("hidden-calculated-bmi")).sendKeys(Keys.RETURN);
+	}
+
+	private void hitEnterOnCalculatedRatio() {
+		JavascriptExecutor jse = (JavascriptExecutor)driver;
+		jse.executeScript("document.getElementById('hidden-calculated-ratio').setAttribute('type', 'text');");
+		driver.findElement(By.id("hidden-calculated-rato")).sendKeys(Keys.RETURN);
 	}
 
     private void hitEnterOnFahrenheitField() {
@@ -62,4 +85,6 @@ public class VitalsApp extends AbstractPageObject {
     private void hitEnterOnInchesField() {
         driver.findElement(HEIGHT_INCHES_FIELD).sendKeys(Keys.RETURN);
     }
+
+    private void hitEnterOnCmField() { driver.findElement(By.id("muac_cm")).sendKeys(Keys.RETURN); }
 }
