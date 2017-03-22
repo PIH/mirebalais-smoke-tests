@@ -48,6 +48,7 @@ public class PatientRegistration extends AbstractPageObject {
         selectMartialStatus(martialStatus);
         selectOccupation(occupation);
         selectReligion(religion);
+        skipRelationshipSection();
         enterContactPerson(contact);
         enterContactRelationship(relationship);
 
@@ -136,6 +137,13 @@ public class PatientRegistration extends AbstractPageObject {
     public void selectOccupation(int option) {
         selectFromDropdown(By.name("obs.PIH:Occupation"), option);
         hitEnterKey(By.name("obs.PIH:Occupation"));
+    }
+
+    public void skipRelationshipSection() {
+        // TODO might want to implement this, but would depend on having another patient being set up
+        hitTabKey(By.name("relationship_type"));
+        hitTabKey(By.name("relationship_type"));
+
     }
 
     public void enterContactPerson(String contact) {
