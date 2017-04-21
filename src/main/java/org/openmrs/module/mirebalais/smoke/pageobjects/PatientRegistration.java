@@ -24,7 +24,7 @@ public class PatientRegistration extends AbstractPageObject {
                                 Integer birthYear, String mothersFirstName, String birthplace, String addressSearchValue, String phoneNumber, Integer insuranceName, String insuranceNumber, String otherInsurance,
                                 Integer martialStatus, Integer occupation, Integer religion, String contact, String relationship, String contactAddress,
                                 Boolean addressUsesHierarchy, String contactPhoneNumber,
-                                Boolean automaticallyEnterIdentifier, Integer printIdCard, By successElement) throws Exception{
+                                Boolean automaticallyEnterIdentifier, Boolean relationshipsEnabled, Integer printIdCard, By successElement) throws Exception{
 
         wait15seconds.until(visibilityOfElementLocated(By.id("checkbox-enable-registration-date")));
         keepCurrentRegistrationDate();
@@ -48,7 +48,9 @@ public class PatientRegistration extends AbstractPageObject {
         selectMartialStatus(martialStatus);
         selectOccupation(occupation);
         selectReligion(religion);
-        skipRelationshipSection();
+        if (relationshipsEnabled) {
+            skipRelationshipSection();
+        }
         enterContactPerson(contact);
         enterContactRelationship(relationship);
 

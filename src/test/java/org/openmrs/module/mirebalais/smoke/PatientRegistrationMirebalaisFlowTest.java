@@ -29,4 +29,9 @@ public class PatientRegistrationMirebalaisFlowTest extends PatientRegistrationHa
         return "non-coded insurance";
     }
 
+    @Override
+    protected Boolean getRelationshipsEnabled() {
+        return true;
+    }
+
 }
