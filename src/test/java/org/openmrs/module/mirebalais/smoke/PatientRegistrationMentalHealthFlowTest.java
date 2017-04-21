@@ -27,4 +27,6 @@ public class PatientRegistrationMentalHealthFlowTest extends PatientRegistration
     protected String getOtherInsuranceNameString() {
         return null;
     }
+
+    protected Boolean getRelationshipsEnabled() { return false; }
 }
