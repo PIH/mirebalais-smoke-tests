@@ -56,7 +56,7 @@ public class PatientRegistrationHaitiFlowTest extends PatientRegistrationFlowTes
 
     @Override
     protected Boolean getRelationshipsEnabled() {
-        return true;
+        return false;
     }
 
     @Override

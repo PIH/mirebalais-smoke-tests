@@ -31,7 +31,7 @@ public class PatientRegistrationMirebalaisFlowTest extends PatientRegistrationHa
 
     @Override
     protected Boolean getRelationshipsEnabled() {
-        return true;
+        return false;
     }
 
 }
