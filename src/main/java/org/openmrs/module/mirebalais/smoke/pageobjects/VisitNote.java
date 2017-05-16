@@ -155,6 +155,7 @@ public class VisitNote extends AbstractPageObject {
     public void expandFirstEncounter() {clickOn(expandEncounter);}
 
     public void editFirstEncounter() {
+	    wait15seconds.until(visibilityOfElementLocated(editEncounter));
         clickOn(editEncounter);
     }
 
