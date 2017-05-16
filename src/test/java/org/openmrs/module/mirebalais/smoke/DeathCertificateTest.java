@@ -33,7 +33,7 @@ public class DeathCertificateTest extends DbTest {
         deathCertificateForm.enterFieldByKeyboard("n"); // No maternal death
         deathCertificateForm.enterFieldsByKeyboard("7", "f", "2014", "", "", ""); // Enter 6 times for default date + time
         deathCertificateForm.enterFieldsByKeyboard("", "d"); // Default provider, Doctor
-        deathCertificateForm.enterFieldByKeyboard("h"); // died in hospital
+        deathCertificateForm.enterFieldByKeyboard("l"); // died in hospital
         deathCertificateForm.enterFieldsByKeyboard("ijans", "1"); // died in ER, hospitalized 1 day
         deathCertificateForm.enterFieldByKeyboard("w"); // yes, received care
         deathCertificateForm.enterFieldsByKeyboardWithWait(1000, "hemorragie intracerebrale", "AVC", "k76.6"); // three death causes
@@ -48,7 +48,7 @@ public class DeathCertificateTest extends DbTest {
         assertTrue(text.contains("Software Tester"));
         // Lanmò matènèl: Non
         assertTrue(text.contains("(Doktè)")); // captured by role
-        assertTrue(text.contains("Hôpital"));
+        assertTrue(text.contains("Lopital"));
         assertTrue(text.contains("Ijans, 1"));
         // te resevwa swen: Wi
         assertTrue(text.contains("Hémorragie intracérébrale"));
