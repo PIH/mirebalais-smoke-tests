@@ -40,6 +40,7 @@ import org.openqa.selenium.WebElement;
 import java.util.HashMap;
 import java.util.List;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
@@ -155,7 +156,7 @@ public class VisitNote extends AbstractPageObject {
     public void expandFirstEncounter() {clickOn(expandEncounter);}
 
     public void editFirstEncounter() {
-	    wait15seconds.until(visibilityOfElementLocated(editEncounter));
+	    wait15seconds.until(elementToBeClickable(editEncounter));
         clickOn(editEncounter);
     }
 
