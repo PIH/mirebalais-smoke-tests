@@ -34,4 +34,9 @@ public class PatientRegistrationMirebalaisFlowTest extends PatientRegistrationHa
         return false;
     }
 
+    @Override
+    protected Boolean getBiometricsEnabled() {
+        return true;
+    }
+
 }

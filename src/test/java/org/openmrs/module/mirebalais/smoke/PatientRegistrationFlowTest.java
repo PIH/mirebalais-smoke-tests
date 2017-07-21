@@ -31,7 +31,7 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         driver.findElement(By.id("register-patient-button")).click();
 
         registration.registerPatient(givenName, familyName, nickname, PatientRegistration.Gender.MALE, 22, 4, 1975, "louise", getPlaceOfBirthString(), getPersonAddressString(), "123-4567", getInsuranceName(),getInsuranceNumberString(), getOtherInsuranceNameString()
-                , 1, 1, getReligion(), "dan", "cousin", getContactAddressString(), placeOfBirthAndContactAddressUseHierarchy(), "4312533", automaticallyEnterIdentifier(), getRelationshipsEnabled(), getPrintIdCardOption(),
+                , 1, 1, getReligion(), "dan", "cousin", getContactAddressString(), placeOfBirthAndContactAddressUseHierarchy(), "4312533", automaticallyEnterIdentifier(), getRelationshipsEnabled(), getBiometricsEnabled(), getPrintIdCardOption(),
                 getSuccessElement());
 
         appDashboard.goToAppDashboard();
@@ -99,6 +99,8 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
     protected Boolean getRelationshipsEnabled() { return false; }
 
     protected Integer getPrintIdCardOption() { return null; }
+
+    protected Boolean getBiometricsEnabled() { return false; }
 
     protected By getSuccessElement() {
         return By.id("register-patient-button");
