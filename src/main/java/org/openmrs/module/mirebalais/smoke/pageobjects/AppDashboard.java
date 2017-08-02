@@ -44,7 +44,7 @@ public class AppDashboard extends AbstractPageObject {
     }
 
     public void openActiveVisitsApp() {
-        openApp(replaceChars(CustomAppLoaderConstants.Apps.ACTIVE_VISITS, ".", "-") + APP_LINK_SUFFIX);
+        openApp(replaceChars(CustomAppLoaderConstants.Apps.ACTIVE_VISITS_LIST, ".", "-") + APP_LINK_SUFFIX);
 	}
 
     public void openAppointmentSchedulingApp() {
@@ -108,7 +108,7 @@ public class AppDashboard extends AbstractPageObject {
     }
 
     public boolean isActiveVisitsAppPresented() {
-		return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.Apps.ACTIVE_VISITS, ".", "-") + APP_LINK_SUFFIX);
+		return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.Apps.ACTIVE_VISITS_LIST, ".", "-") + APP_LINK_SUFFIX);
 	}
 
 	public boolean isUhmCaptureVitalsAppPresented() {
