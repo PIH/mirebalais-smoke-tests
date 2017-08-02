@@ -8,6 +8,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import java.util.List;
+
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class PatientRegistration extends AbstractPageObject {
@@ -75,7 +77,14 @@ public class PatientRegistration extends AbstractPageObject {
         hitEnterKey(By.id("checkbox-enable-registration-date"));
     }
 
-    public void skipBiometricsSection() { hitEnterKey(By.id("fingerprint-enrollment-section"));}
+    public void skipBiometricsSection() {
+        List<WebElement> fingerprintSections = driver.findElements(By.className("fingerprints-field"));
+        if (fingerprintSections != null) {
+            for (WebElement section : fingerprintSections) {
+                hitEnterKey();
+            }
+        }
+    }
 
     public void enterPatientName(String familyName, String givenName, String nickname) {
         setTextToField(By.name("familyName"), familyName);
