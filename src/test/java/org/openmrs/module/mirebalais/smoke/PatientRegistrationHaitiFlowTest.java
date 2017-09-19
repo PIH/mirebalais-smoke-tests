@@ -59,6 +59,8 @@ public class PatientRegistrationHaitiFlowTest extends PatientRegistrationFlowTes
         return false;
     }
 
+    protected Boolean getAdditionalIdentifiersEnabled() { return true; }
+
     @Override
     protected By getSuccessElement() {
         return By.id("register-patient-button");    // Haiti redirects to Register Patient search page

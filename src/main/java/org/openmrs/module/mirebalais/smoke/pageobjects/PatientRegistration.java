@@ -26,7 +26,9 @@ public class PatientRegistration extends AbstractPageObject {
                                 Integer birthYear, String mothersFirstName, String birthplace, String addressSearchValue, String phoneNumber, Integer insuranceName, String insuranceNumber, String otherInsurance,
                                 Integer martialStatus, Integer occupation, Integer religion, String contact, String relationship, String contactAddress,
                                 Boolean addressUsesHierarchy, String contactPhoneNumber,
-                                Boolean automaticallyEnterIdentifier, Boolean relationshipsEnabled, Boolean biometricsEnabled, Integer printIdCard, By successElement) throws Exception{
+                                Boolean automaticallyEnterIdentifier, Boolean relationshipsEnabled, Boolean biometricsEnabled, Integer printIdCard,
+                                Boolean additionalIdentifiersEnabled,
+                                By successElement) throws Exception{
 
         wait15seconds.until(visibilityOfElementLocated(By.id("checkbox-enable-registration-date")));
         keepCurrentRegistrationDate();
@@ -68,6 +70,11 @@ public class PatientRegistration extends AbstractPageObject {
 
         enterContactPhoneNumber(contactPhoneNumber);
         automaticallyEnterIdentifier(automaticallyEnterIdentifier);
+
+        if (additionalIdentifiersEnabled) {
+            enterAdditionalIdentifiers();
+        }
+
         printIdCard(printIdCard);
 
         confirm(successElement);
@@ -216,6 +223,12 @@ public class PatientRegistration extends AbstractPageObject {
         else {
             // handle manual entry case
         }
+    }
+
+    public void enterAdditionalIdentifiers() {
+        // just skip both for now
+        hitTabKey();
+        hitTabKey();
     }
 
     public void printIdCard(Integer option) {
