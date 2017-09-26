@@ -226,7 +226,8 @@ public class PatientRegistration extends AbstractPageObject {
     }
 
     public void enterAdditionalIdentifiers() {
-        // just skip both for now
+        // TODO: actually test adding the identifiers instead of just skipping
+        hitTabKey();
         hitTabKey();
         hitTabKey();
     }
