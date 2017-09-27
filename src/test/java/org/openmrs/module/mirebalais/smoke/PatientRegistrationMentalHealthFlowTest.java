@@ -28,5 +28,9 @@ public class PatientRegistrationMentalHealthFlowTest extends PatientRegistration
         return null;
     }
 
+    @Override
     protected Boolean getRelationshipsEnabled() { return false; }
+
+    @Override
+    protected Boolean getAdditionalIdentifiersEnabled() { return false; }
 }

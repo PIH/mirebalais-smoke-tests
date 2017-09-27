@@ -59,6 +59,7 @@ public class PatientRegistrationHaitiFlowTest extends PatientRegistrationFlowTes
         return false;
     }
 
+    @Override
     protected Boolean getAdditionalIdentifiersEnabled() { return true; }
 
     @Override
