@@ -230,6 +230,7 @@ public class PatientRegistration extends AbstractPageObject {
         hitTabKey();
         hitTabKey();
         hitTabKey();
+        hitTabKey();
     }
 
     public void printIdCard(Integer option) {
