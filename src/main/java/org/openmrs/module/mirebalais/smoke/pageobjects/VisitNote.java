@@ -341,7 +341,6 @@ public class VisitNote extends AbstractPageObject {
 
     public void editSection(String id) {
         clickOn(By.cssSelector("#" + id + " .edit-encounter"));
-        wait15seconds.until(visibilityOfElementLocated(By.cssSelector("#" + id)));
     }
 
     public void viewConsultationDetails() {
