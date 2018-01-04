@@ -3,6 +3,8 @@ package org.openmrs.module.mirebalais.smoke.pageobjects.forms;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
+
 public class SupplementsForm extends BaseHtmlForm {
 
     public SupplementsForm(WebDriver driver) {
@@ -10,6 +12,7 @@ public class SupplementsForm extends BaseHtmlForm {
     }
 
     public void fillFormWithBasicInfo() throws Exception {
+        wait5seconds.until(visibilityOfElementLocated(By.cssSelector("#vitamin-a input")));
         clickOn(By.cssSelector("#vitamin-a input"));
         confirmData();
     }
