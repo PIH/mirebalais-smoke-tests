@@ -12,7 +12,7 @@ public class SupplementsForm extends BaseHtmlForm {
     }
 
     public void fillFormWithBasicInfo() throws Exception {
-        wait5seconds.until(visibilityOfElementLocated(By.cssSelector("#vitamin-a input")));
+        wait15seconds.until(visibilityOfElementLocated(By.cssSelector("#vitamin-a input")));
         clickOn(By.cssSelector("#vitamin-a input"));
         confirmData();
     }
