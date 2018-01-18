@@ -145,12 +145,14 @@ public abstract class BasicMirebalaisSmokeTest {
 
 	protected void login() throws Exception{
         loginPage.logInAsAdmin();
+        updateLuceneIndex();
 	}
 
 	protected void updateLuceneIndex() throws Exception {
         driver.get(properties.getWebAppUrl() + "/admin/maintenance/searchIndex.htm");
         driver.findElement(By.id("rebuildButton")).click();
         Thread.sleep(10000);
+        header.home();
     }
 
 	protected void logout() {
