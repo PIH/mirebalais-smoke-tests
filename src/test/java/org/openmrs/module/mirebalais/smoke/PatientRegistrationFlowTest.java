@@ -55,6 +55,8 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         String nickname = "Bob";
 
         login();
+        updateLuceneIndex();
+        header.home();
         appDashboard.openPatientRegistrationApp();
 
         registration.editExistingPatient(testPatient, givenName, familyName, nickname, PatientRegistration.Gender.FEMALE, 10, 10, 1950, "Mary",

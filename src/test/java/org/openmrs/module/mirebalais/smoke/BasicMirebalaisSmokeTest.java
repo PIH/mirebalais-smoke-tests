@@ -17,6 +17,7 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.LegacyRegistration;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.MirebalaisLoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote;
+import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.TimeoutException;
@@ -27,7 +28,9 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public abstract class BasicMirebalaisSmokeTest {
-	
+
+    protected SmokeTestProperties properties = new SmokeTestProperties();
+
 	protected static LoginPage loginPage;
 	
 	protected static HeaderPage header;
@@ -143,7 +146,13 @@ public abstract class BasicMirebalaisSmokeTest {
 	protected void login() throws Exception{
         loginPage.logInAsAdmin();
 	}
-	
+
+	protected void updateLuceneIndex() throws Exception {
+        driver.get(properties.getWebAppUrl() + "/admin/maintenance/searchIndex.htm");
+        driver.findElement(By.id("rebuildButton")).click();
+        Thread.sleep(10000);
+    }
+
 	protected void logout() {
 		new HeaderPage(driver).logOut();
 	}
