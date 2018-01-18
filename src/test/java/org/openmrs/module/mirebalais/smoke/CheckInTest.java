@@ -39,6 +39,7 @@ public class CheckInTest extends DbTest {
 
         setLoginPage(getLoginPage());
         logInAsAdmin();
+        updateLuceneIndex();
 
         newCheckIn = new CheckInFormPage(driver);
         appDashboard.startClinicVisit();
