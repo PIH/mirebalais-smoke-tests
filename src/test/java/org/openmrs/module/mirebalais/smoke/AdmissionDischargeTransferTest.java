@@ -29,6 +29,7 @@ public class AdmissionDischargeTransferTest extends DbTest {
     @Before
     public void setUp() throws Exception {
         testPatient = PatientDatabaseHandler.insertAdultTestPatient();
+        adminPage.updateLuceneIndex();
         initBasicPageObjects();
 
         appDashboard.goToClinicianFacingDashboard(testPatient.getId());

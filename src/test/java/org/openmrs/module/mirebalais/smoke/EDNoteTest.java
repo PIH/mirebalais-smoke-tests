@@ -25,6 +25,7 @@ public class EDNoteTest extends DbTest {
     @Before
     public void setUp() throws Exception {
         Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();
+        adminPage.updateLuceneIndex();
         initBasicPageObjects();
 
         appDashboard.goToClinicianFacingDashboard(testPatient.getId());

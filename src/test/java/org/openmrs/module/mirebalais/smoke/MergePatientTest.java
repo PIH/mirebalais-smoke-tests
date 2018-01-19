@@ -15,12 +15,12 @@ public class MergePatientTest extends DbTest {
 		initBasicPageObjects();
 		SysAdminPage sysAdminPage = new SysAdminPage(driver);
 		MergeFlow mergeFlow = new MergeFlow(driver);
-		
-		login();
-		
+
 		Patient firstPatient = PatientDatabaseHandler.insertAdultTestPatient();
 		Patient secondPatient = PatientDatabaseHandler.insertAdultTestPatient();
-		
+
+		login();
+
 		appDashboard.openSysAdminApp();
 		sysAdminPage.openMergePatients();
 		
