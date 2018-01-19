@@ -9,6 +9,7 @@ import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 import org.openmrs.module.mirebalais.smoke.helper.SmokeTestDriver;
 import org.openmrs.module.mirebalais.smoke.helper.SmokeTestProperties;
+import org.openmrs.module.mirebalais.smoke.pageobjects.AdminPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.ClinicianDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
@@ -17,7 +18,6 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.LegacyRegistration;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.MirebalaisLoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote;
-import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.TimeoutException;
@@ -34,6 +34,8 @@ public abstract class BasicMirebalaisSmokeTest {
 	protected static LoginPage loginPage;
 	
 	protected static HeaderPage header;
+
+	protected static AdminPage adminPage;
 	
 	protected static WebDriver driver;
 	
@@ -82,6 +84,10 @@ public abstract class BasicMirebalaisSmokeTest {
         if (loginPage == null) {
             loginPage = new MirebalaisLoginPage(driver);
         }
+
+        if (adminPage == null) {
+            adminPage = new AdminPage(driver);
+        }
 	}
 
     @AfterClass
@@ -109,31 +115,50 @@ public abstract class BasicMirebalaisSmokeTest {
 	
 	protected static void logInAsPhysicianUser() throws Exception {
 		loginPage.logInAsPhysicianUser();
+		adminPage.updateLuceneIndex();
+		header.home();
 	}
 
     protected static void logInAsPhysicianUser(String location) throws Exception {
         loginPage.logInAsPhysicianUser(location);
+        adminPage.updateLuceneIndex();
+        header.home();
     }
 	
 	protected static void logInAsPharmacyManagerUser() throws Exception {
         loginPage.logInAsPharmacyManagerUser();
+        adminPage.updateLuceneIndex();
+        header.home();
 	}
 
     protected static void logInAsArchivist() throws Exception{
         loginPage.logInAsArchivistUser();
+        adminPage.updateLuceneIndex();
+        header.home();
     }
 
     protected static void logInAsAdmin() throws Exception {
         loginPage.logInAsAdmin();
+        adminPage.updateLuceneIndex();
+        header.home();
     }
 
     protected static void logInAsAdmin(String location) throws Exception {
         loginPage.logInAsAdmin(location);
+        adminPage.updateLuceneIndex();
+        header.home();
+    }
+
+    protected void login() throws Exception{
+        loginPage.logInAsAdmin();
+        adminPage.updateLuceneIndex();
+        header.home();
     }
 
     protected void setLoginPageObject(LoginPage loginPage) {
         this.loginPage = loginPage;
 	}
+
 
     protected void initBasicPageObjects() {
         legacyRegistration = new LegacyRegistration(driver);
@@ -143,17 +168,7 @@ public abstract class BasicMirebalaisSmokeTest {
         clinicianDashboard = new ClinicianDashboard(driver);
     }
 
-	protected void login() throws Exception{
-        loginPage.logInAsAdmin();
-        updateLuceneIndex();
-	}
 
-	protected void updateLuceneIndex() throws Exception {
-        driver.get(properties.getWebAppUrl() + "/admin/maintenance/searchIndex.htm");
-        driver.findElement(By.id("rebuildButton")).click();
-        Thread.sleep(10000);
-        header.home();
-    }
 
 	protected void logout() {
 		new HeaderPage(driver).logOut();
