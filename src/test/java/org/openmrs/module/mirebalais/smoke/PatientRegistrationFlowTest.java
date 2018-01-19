@@ -55,7 +55,6 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         String nickname = "Bob";
 
         login();
-        updateLuceneIndex();
         header.home();
         appDashboard.openPatientRegistrationApp();
 
