@@ -17,7 +17,8 @@ public class GenerateDossierAtCheckinTest extends DbTest {
 	@Test
 	public void shouldCreateDossierLocallyAtCheckinWhenDossierIsMissing() throws Exception {
 		Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();
-		
+		adminPage.updateLuceneIndex();
+
 		new MirebalaisLoginPage(driver).logIn("admin", "Admin123", "Chimyoterapi");
 		
 		AppDashboard dashboard = new AppDashboard(driver);
