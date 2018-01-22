@@ -17,10 +17,11 @@ public class GenerateDossierAtCheckinTest extends DbTest {
 	@Test
 	public void shouldCreateDossierLocallyAtCheckinWhenDossierIsMissing() throws Exception {
 		Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();
+
+		// TODO fix this to use standard log-in page methods that take care of hitting the button that update lucene?
+		new MirebalaisLoginPage(driver).logIn("admin", "Admin123", "Chimyoterapi");
 		adminPage.updateLuceneIndex();
 
-		new MirebalaisLoginPage(driver).logIn("admin", "Admin123", "Chimyoterapi");
-		
 		AppDashboard dashboard = new AppDashboard(driver);
 		dashboard.openCheckinApp();
 		
