@@ -91,7 +91,7 @@ public abstract class BasicMirebalaisSmokeTest {
 	}
 
     @AfterClass
-    public static void after() {
+    public static void after() throws Exception {
 
         if (header == null) {
             header = new HeaderPage(driver);
