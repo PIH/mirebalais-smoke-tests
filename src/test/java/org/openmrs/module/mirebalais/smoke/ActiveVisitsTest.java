@@ -33,13 +33,13 @@ public class ActiveVisitsTest extends DbTest {
 		login();
 		
 		appDashboard.openActiveVisitsApp();
-		assertFalse(driver.findElement(By.id("content")).getText().contains(testPatient.getIdentifier()));
+		assertFalse(driver.findElement(By.id("activeVisitsGrid")).getText().contains(testPatient.getIdentifier()));
 
 		appDashboard.goToClinicianFacingDashboard(testPatient.getId());
 		clinicianDashboard.startVisit();
 		
 		appDashboard.openActiveVisitsApp();
-		String contentText = driver.findElement(By.id("content")).getText();
+		String contentText = driver.findElement(By.id("activeVisitsGrid")).getText();
 		assertThat(contentText, containsString(testPatient.getNameLastNameFirst()));
 		assertThat(contentText, containsString(testPatient.getIdentifier()));
 	}
