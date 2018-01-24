@@ -12,6 +12,6 @@ public class AdminPage extends AbstractPageObject {
     public void updateLuceneIndex() throws Exception {
         driver.get(properties.getWebAppUrl() + "/admin/maintenance/searchIndex.htm");
         driver.findElement(By.id("rebuildButton")).click();
-        Thread.sleep(10000);
+        Thread.sleep(20000);
     }
 }
