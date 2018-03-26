@@ -77,9 +77,9 @@ public class VisitNoteTest extends DbTest {
         assertTrue(visitNote.containsText("Some history"));
 
         // exam section
-        visitNote.editSection("pihcore-exam");
+        visitNote.editSection("physical-exam");
         visitNote.fillOutExamForm("Some comment");
-        visitNote.expandSection("pihcore-exam");
+        visitNote.expandSection("physical-exam");
         assertTrue(visitNote.containsText("Some comment"));
 
         // diagnosis section
@@ -146,9 +146,9 @@ public class VisitNoteTest extends DbTest {
         visitNote.expandFirstEncounter();*/
 
         // exam section
-        visitNote.editSection("pihcore-exam");
+        visitNote.editSection("physical-exam");
         visitNote.fillOutExamForm("Some comment");
-        visitNote.expandSection("pihcore-exam");
+        visitNote.expandSection("physical-exam");
         assertTrue(visitNote.containsText("Some comment"));
 
         // diagnosis section
@@ -237,9 +237,9 @@ public class VisitNoteTest extends DbTest {
         assertTrue(visitNote.containsText("[X]"));  // bit of a hack
 
         // exam section
-        visitNote.editSection("pihcore-exam");
+        visitNote.editSection("physical-exam");
         visitNote.fillOutExamForm("Some comment");
-        visitNote.expandSection("pihcore-exam");
+        visitNote.expandSection("physical-exam");
         assertTrue(visitNote.containsText("Some comment"));
 
         // diagnosis section
@@ -322,9 +322,9 @@ public class VisitNoteTest extends DbTest {
         assertTrue(visitNote.containsText("[X]"));  // bit of a hack
 
         // exam section
-        visitNote.editSection("pihcore-exam");
+        visitNote.editSection("physical-exam");
         visitNote.fillOutExamForm("Some comment");
-        visitNote.expandSection("pihcore-exam");
+        visitNote.expandSection("physical-exam");
         assertTrue(visitNote.containsText("Some comment"));
 
         // diagnosis section
