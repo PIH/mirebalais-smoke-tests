@@ -369,8 +369,7 @@ public class VisitNote extends AbstractPageObject {
     }
 
     public void fillOutSupplementsForm() throws Exception {
-        // TODO commenting this out for now because it's been very flaky and we haven't been able to fix it--skipping it seems the lesser of two evils
-	    //supplementsForm.fillFormWithBasicInfo();
+         supplementsForm.fillFormWithBasicInfo();
     }
 
     public void fillOutFeedingForm() throws Exception {
