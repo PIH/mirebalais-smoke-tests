@@ -4,7 +4,7 @@ go here to see what browser versions this version of the driver supports:
 http://chromedriver.storage.googleapis.com/2.32/notes.txt
 
 you can see what version of chrome is running on bamboo by running:
-chromium-browser --version
+google-chrome --version
 
 all versions of chromedriver are available here:
 https://chromedriver.storage.googleapis.com/index.html
