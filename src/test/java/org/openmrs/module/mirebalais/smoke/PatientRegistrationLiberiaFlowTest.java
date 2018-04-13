@@ -54,6 +54,11 @@ public class PatientRegistrationLiberiaFlowTest extends PatientRegistrationFlowT
     @Override
     protected Boolean automaticallyEnterIdentifier() { return null; }
 
+    @Override
+    protected Boolean getBiometricsEnabled() {
+        return true;
+    }
+
     protected By getSuccessElement() {
         return By.id("register-patient-button");  // Liberia redirects to registration home page
     }
