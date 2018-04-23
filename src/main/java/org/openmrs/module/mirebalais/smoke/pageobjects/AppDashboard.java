@@ -95,6 +95,14 @@ public class AppDashboard extends AbstractPageObject {
         openApp(replaceChars(CustomAppLoaderConstants.Apps.WAITING_FOR_CONSULT, ".", "-") + APP_LINK_SUFFIX);
     }
 
+    public void openEDTriageApp() {
+        openApp(replaceChars(CustomAppLoaderConstants.Apps.ED_TRIAGE, ".", "-") + APP_LINK_SUFFIX);
+    }
+
+    public void openEDTriageQueueApp() {
+        openApp(replaceChars(CustomAppLoaderConstants.Apps.ED_TRIAGE_QUEUE, ".", "-") + APP_LINK_SUFFIX);
+    }
+
     public boolean isPatientRegistrationAppPresented() {
 		return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION, ".", "-") + APP_LINK_SUFFIX);
 	}
