@@ -1,5 +1,6 @@
 package org.openmrs.module.mirebalais.smoke;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
@@ -7,11 +8,11 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.EDTriageEditPatientPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.EDTriageQueuePage;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
 
 public class EDTriageTest extends DbTest {
 
     @Test
+    @Ignore
     public void addPatientToQueue() throws Exception {
         String chiefComplaint = "bruises";
 
