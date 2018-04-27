@@ -12,6 +12,7 @@ import static org.junit.Assert.assertTrue;
 public class EDTriageTest extends DbTest {
 
     @Test
+    @Ignore
     public void addPatientToQueue() throws Exception {
         String chiefComplaint = "bruises";
 
