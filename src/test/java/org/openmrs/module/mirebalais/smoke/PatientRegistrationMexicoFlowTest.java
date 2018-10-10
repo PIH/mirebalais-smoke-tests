@@ -1,6 +1,8 @@
 package org.openmrs.module.mirebalais.smoke;
 
 import org.junit.Test;
+import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
+import org.openmrs.module.mirebalais.smoke.pageobjects.MexicoLoginPage;
 
 public class PatientRegistrationMexicoFlowTest extends PatientRegistrationFlowTest {
 
@@ -14,6 +16,11 @@ public class PatientRegistrationMexicoFlowTest extends PatientRegistrationFlowTe
     @Override
     public void editExistingPatient() throws Exception {
         super.editExistingPatient();
+    }
+
+    @Override
+    protected LoginPage getLoginPage() {
+        return new MexicoLoginPage(driver);
     }
 
     @Override
