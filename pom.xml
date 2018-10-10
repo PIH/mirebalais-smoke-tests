@@ -57,6 +57,12 @@
                 <suite>MentalHealth</suite>
             </properties>
         </profile>
+        <profile>
+            <id>mexico</id>
+            <properties>
+                <suite>Mexico</suite>
+            </properties>
+        </profile>
     </profiles>
 
     <build>
