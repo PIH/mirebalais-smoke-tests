@@ -193,7 +193,7 @@ public class PatientDatabaseHandler extends BaseDatabaseHandler {
 	
 	private static Integer getPatientIdentifierTypeId() throws Exception {
 
-        // bit of a hack--search for ZL EMR ID type first, if this fails, go for Pleebo EMR ID
+        // bit of a hack--search for ZL EMR ID type first, if this fails, go for Pleebo EMR ID, then Mexico
         ITable patientIdentifierType = connection.createQueryTable("identifier_source",
 		    "select * from patient_identifier_type where uuid = 'a541af1e-105c-40bf-b345-ba1fd6a59b85'"); // ZL EMR ID
 
@@ -205,6 +205,16 @@ public class PatientDatabaseHandler extends BaseDatabaseHandler {
 
         patientIdentifierType = connection.createQueryTable("identifier_source",
                     "select * from patient_identifier_type where uuid = '0bc545e0-f401-11e4-b939-0800200c9a66'"); // Pleebo EMR ID
+
+		try {
+			return (Integer) patientIdentifierType.getValue(0, "patient_identifier_type_id");
+		}
+		catch (RowOutOfBoundsException e) {
+		}
+
+		patientIdentifierType = connection.createQueryTable("identifier_source",
+				"select * from patient_identifier_type where uuid = '506add39-794f-11e8-9bcd-74e5f916c5ec'"); // Mexico EMR ID
+
         return (Integer) patientIdentifierType.getValue(0, "patient_identifier_type_id");
 
 	}
