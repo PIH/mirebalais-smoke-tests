@@ -127,6 +127,7 @@ public class PatientDatabaseHandler extends BaseDatabaseHandler {
         firstToDelete
                 .put("name_phonetics",
                         "select * from name_phonetics where person_name_id in (select person_name_id from person_name where person_id = %d)");
+        firstToDelete.put("encounter_diagnosis", "select * from encounter_diagnosis where patient_id = %d");
         patientTablesToDelete.add(firstToDelete);
 		
 		Map<String, String> secondToDelete = new LinkedHashMap<String, String>();
