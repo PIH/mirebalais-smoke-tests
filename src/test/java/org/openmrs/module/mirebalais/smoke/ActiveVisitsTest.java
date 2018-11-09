@@ -39,6 +39,7 @@ public class ActiveVisitsTest extends DbTest {
 		clinicianDashboard.startVisit();
 		
 		appDashboard.openActiveVisitsApp();
+		Thread.sleep(2000); // hack delay
 		String contentText = driver.findElement(By.id("activeVisitsGrid")).getText();
 		assertThat(contentText, containsString(testPatient.getNameLastNameFirst()));
 		assertThat(contentText, containsString(testPatient.getIdentifier()));

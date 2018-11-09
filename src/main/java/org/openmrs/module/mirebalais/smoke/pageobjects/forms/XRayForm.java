@@ -27,7 +27,7 @@ public class XRayForm extends AbstractPageObject {
 
 	public void fillForm(String study1, String study2) throws Exception {
 
-        chooseProvider("Super User");
+        chooseProvider("User, Super");
         chooseLocation("Ijans");
 
         driver.findElement(By.name("clinicalHistory")).sendKeys("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eu neque ut mi auctor pulvinar. Mauris in orci non sem consequat posuere.");

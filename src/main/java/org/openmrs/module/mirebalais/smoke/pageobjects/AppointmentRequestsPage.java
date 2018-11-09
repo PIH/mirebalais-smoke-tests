@@ -16,7 +16,7 @@ public class AppointmentRequestsPage extends AbstractPageObject{
     }
 
     public Boolean containsRequestFor(Patient patient) {
-        return containsRequestFor(patient.getName());
+        return containsRequestFor(patient.getNameLastNameFirst());
     }
 
     public Boolean containsRequestFor(String patientName) {
