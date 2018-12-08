@@ -30,8 +30,9 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         //click on the Register Patient button
         driver.findElement(By.id("register-patient-button")).click();
 
-        registration.registerPatient(givenName, familyName, nickname, PatientRegistration.Gender.MALE, 22, 4, 1975, "louise", getPlaceOfBirthString(), getPersonAddressString(), "123-4567", getInsuranceName(),getInsuranceNumberString(), getOtherInsuranceNameString()
-                , 1, 1, getReligion(), "dan", "cousin", getContactAddressString(), placeOfBirthAndContactAddressUseHierarchy(), "4312533", automaticallyEnterIdentifier(), getRelationshipsEnabled(), getBiometricsEnabled(), getPrintIdCardOption(),
+        registration.registerPatient(givenName, familyName, nickname, PatientRegistration.Gender.MALE, 22, 4, 1975, "louise", getPlaceOfBirthString(),
+                getPersonAddressString(), getContactPhoneNumber(), getInsuranceName(),getInsuranceNumberString(), getOtherInsuranceNameString(), getMaritalStatus(), getOccupation(), getReligion(),
+                getContact(), getRelationship(), getContactAddressString(), placeOfBirthAndContactAddressUseHierarchy(), "4312533", automaticallyEnterIdentifier(), getRelationshipsEnabled(), getBiometricsEnabled(), getPrintIdCardOption(),
                 getAdditionalIdentifiersEnabled(), getSuccessElement());
 
         appDashboard.goToAppDashboard();
@@ -77,11 +78,29 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
 
     protected String getPlaceOfBirthString() { return ""; }
 
+    protected Integer getMaritalStatus() {
+        return 1;
+    }
+
+    protected String getContact() {
+        return "dan";
+    }
+
+    protected String getRelationship() {
+        return "cousin";
+    }
+
     protected String getContactAddressString() {
         return "";
     }
 
+    protected String getContactPhoneNumber() {
+        return "4312533";
+    }
+
     protected Boolean placeOfBirthAndContactAddressUseHierarchy() { return true; }
+
+    protected Integer getOccupation() { return 1; }
 
     protected Integer getReligion() { return null; }
 

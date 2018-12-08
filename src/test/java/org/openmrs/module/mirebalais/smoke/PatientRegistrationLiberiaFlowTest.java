@@ -26,8 +26,8 @@ public class PatientRegistrationLiberiaFlowTest extends PatientRegistrationFlowT
     protected String getPlaceOfBirthString() { return "Zeno"; }
 
     @Override
-    protected String getContactAddressString() {
-        return "Zeno";
+    protected String getContact() {
+        return null;
     }
 
     @Override
@@ -47,6 +47,14 @@ public class PatientRegistrationLiberiaFlowTest extends PatientRegistrationFlowT
     protected String getOtherInsuranceNameString() {
         return null;
     }
+
+    @Override
+    protected Integer getMaritalStatus() {
+        return null;
+    }
+
+    @Override
+    protected Integer getOccupation() { return null; }
 
     @Override
     protected Integer getReligion() { return null; }

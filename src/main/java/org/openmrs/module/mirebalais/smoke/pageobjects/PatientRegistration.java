@@ -52,23 +52,26 @@ public class PatientRegistration extends AbstractPageObject {
             enterBirthplaceAsFreeText(birthplace);
         }
 
-        selectMartialStatus(martialStatus);
+        selectMaritalStatus(martialStatus);
         selectOccupation(occupation);
         selectReligion(religion);
         if (relationshipsEnabled) {
             skipRelationshipSection();
         }
-        enterContactPerson(contact);
-        enterContactRelationship(relationship);
 
-        if (addressUsesHierarchy) {
-            enterContactAddressViaShortcut(contactAddress);
-        }
-        else {
-            enterContactAddressAsFreeText(contact);
-        }
+        if (StringUtils.isNotBlank(contact)) {
+            enterContactPerson(contact);
+            enterContactRelationship(relationship);
 
-        enterContactPhoneNumber(contactPhoneNumber);
+            if (addressUsesHierarchy) {
+                enterContactAddressViaShortcut(contactAddress);
+            }
+            else {
+                enterContactAddressAsFreeText(contact);
+            }
+
+            enterContactPhoneNumber(contactPhoneNumber);
+        }
         automaticallyEnterIdentifier(automaticallyEnterIdentifier);
 
         if (additionalIdentifiersEnabled) {
@@ -152,14 +155,18 @@ public class PatientRegistration extends AbstractPageObject {
         setTextToField(By.name("obs.PIH:PLACE OF BIRTH"), birthplace);
     }
 
-    public void selectMartialStatus(int option) {
-        selectFromDropdown(By.name("obs.PIH:CIVIL STATUS"), option);
-        hitEnterKey(By.name("obs.PIH:CIVIL STATUS"));
+    public void selectMaritalStatus(Integer option) {
+        if (option != null) {
+            selectFromDropdown(By.name("obs.PIH:CIVIL STATUS"), option);
+            hitEnterKey(By.name("obs.PIH:CIVIL STATUS"));
+        }
     }
 
-    public void selectOccupation(int option) {
-        selectFromDropdown(By.name("obs.PIH:Occupation"), option);
-        hitEnterKey(By.name("obs.PIH:Occupation"));
+    public void selectOccupation(Integer option) {
+        if (option != null) {
+            selectFromDropdown(By.name("obs.PIH:Occupation"), option);
+            hitEnterKey(By.name("obs.PIH:Occupation"));
+        }
     }
 
     public void skipRelationshipSection() {
@@ -170,24 +177,34 @@ public class PatientRegistration extends AbstractPageObject {
     }
 
     public void enterContactPerson(String contact) {
-        setTextToField(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:NAMES AND FIRSTNAMES OF CONTACT"), contact);
+        if (StringUtils.isNotEmpty(contact)) {
+            setTextToField(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:NAMES AND FIRSTNAMES OF CONTACT"), contact);
+        }
     }
 
     public void enterContactRelationship(String relationship) {
-        setTextToField(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:RELATIONSHIPS OF CONTACT"), relationship);
+        if (StringUtils.isNotEmpty(relationship)) {
+            setTextToField(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:RELATIONSHIPS OF CONTACT"), relationship);
+        }
     }
 
     public void enterContactAddressViaShortcut(String searchValue) {
-        enterAddressViaShortcut(searchValue, 2);  // index=2 because contact is the third address in the registration form
+        if (StringUtils.isNotEmpty(searchValue)) {
+            enterAddressViaShortcut(searchValue, 2);  // index=2 because contact is the third address in the registration form
+        }
     }
 
     public void enterContactAddressAsFreeText(String searchValue) {
-        setTextToField(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:ADDRESS OF PATIENT CONTACT"), searchValue);
-        hitTabKey(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:ADDRESS OF PATIENT CONTACT"));
+        if (StringUtils.isNotEmpty(searchValue)) {
+            setTextToField(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:ADDRESS OF PATIENT CONTACT"), searchValue);
+            hitTabKey(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:ADDRESS OF PATIENT CONTACT"));
+        }
     }
 
     public void enterContactPhoneNumber(String phoneNumber) {
-        setTextToField(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:TELEPHONE NUMBER OF CONTACT"), phoneNumber);
+        if (StringUtils.isNotEmpty(phoneNumber)) {
+            setTextToField(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:TELEPHONE NUMBER OF CONTACT"), phoneNumber);
+        }
     }
 
     public void selectReligion(Integer option) {
