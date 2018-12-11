@@ -22,7 +22,7 @@ public class ConsultNoteTest extends DbTest {
 
 	@BeforeClass
 	public static void prepare() throws Exception {
-        logInAsPhysicianUser("Klinik Ekstèn");
+        logInAsPhysicianUser("Sal Gason");
     }
 	
 	@Before
