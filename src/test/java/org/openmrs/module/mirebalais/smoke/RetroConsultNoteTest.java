@@ -19,7 +19,7 @@ public class RetroConsultNoteTest extends DbTest {
 
     @BeforeClass
     public static void prepare() throws Exception {
-        logInAsAdmin();
+        logInAsAdmin("Klinik Ekstèn");
     }
 
     @Before
