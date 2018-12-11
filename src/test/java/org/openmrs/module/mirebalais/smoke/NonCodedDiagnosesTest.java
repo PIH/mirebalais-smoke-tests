@@ -39,7 +39,7 @@ public class NonCodedDiagnosesTest extends DbTest {
 
     @BeforeClass
     public static void prepare() throws Exception {
-        logInAsAdmin();
+        logInAsAdmin("Sal Gason");
     }
 
     @Before
