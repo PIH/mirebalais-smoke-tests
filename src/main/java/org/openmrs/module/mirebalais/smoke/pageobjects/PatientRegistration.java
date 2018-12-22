@@ -270,8 +270,9 @@ public class PatientRegistration extends AbstractPageObject {
     public void editExistingPatient(Patient patient, String givenName, String familyName,
                                     String nickname, Gender gender, Integer birthDay, Integer birthMonth,
                                     Integer birthYear, String mothersFirstName, String addressSearchValue,
+                                    String contact, String relationship,
                                     Boolean placeOfBirthAndContactAddressUseHierarchy,
-                                    String phoneNumber, Integer religion) throws Exception {
+                                    String phoneNumber) throws Exception {
 
         // find the existing patient
         findExistingPatient(patient);
@@ -279,7 +280,10 @@ public class PatientRegistration extends AbstractPageObject {
         editContactInfo(addressSearchValue, phoneNumber);
         editRegistration();
         //editSocial(addressSearchValue, religion, placeOfBirthAndContactAddressUseHierarchy);
-        editContactPerson(addressSearchValue, placeOfBirthAndContactAddressUseHierarchy);
+
+        if (StringUtils.isNotEmpty(contact)) {
+            editContactPerson(contact, relationship, addressSearchValue, placeOfBirthAndContactAddressUseHierarchy);
+        }
     }
 
     public void findExistingPatient(Patient patient) {
@@ -340,11 +344,11 @@ public class PatientRegistration extends AbstractPageObject {
         confirm(By.id("demographics-edit-link")); // edit-link is success element to confirm back on edit page
     }
 
-    public void editContactPerson(String addressSearchValue, Boolean userHierarchyForContactPersonAddress) {
+    public void editContactPerson(String contact, String relationship, String addressSearchValue, Boolean userHierarchyForContactPersonAddress) {
         clickOn(By.cssSelector("#coreapps-mostRecentRegistrationContact .edit-action"));
 
-        setTextToField(By.cssSelector("#contactName input"), "Yogi Bear");
-        setTextToField(By.cssSelector("#contactRelationship input"), "Father");
+        setTextToField(By.cssSelector("#contactName input"), contact);
+        setTextToField(By.cssSelector("#contactRelationship input"), relationship);
 
         if (userHierarchyForContactPersonAddress) {
             enterAddressViaShortcut(addressSearchValue, 0);

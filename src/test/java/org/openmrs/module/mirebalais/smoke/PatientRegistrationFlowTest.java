@@ -60,7 +60,7 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         appDashboard.openPatientRegistrationApp();
 
         registration.editExistingPatient(testPatient, givenName, familyName, nickname, PatientRegistration.Gender.FEMALE, 10, 10, 1950, "Mary",
-                getPersonAddressString(), placeOfBirthAndContactAddressUseHierarchy(), "987-6543", getReligion());
+                getPersonAddressString(), getContact(), getRelationship(), placeOfBirthAndContactAddressUseHierarchy(), "987-6543");
 
         appDashboard.goToAppDashboard();
         appDashboard.findPatientByGivenAndFamilyName(givenName, familyName);
