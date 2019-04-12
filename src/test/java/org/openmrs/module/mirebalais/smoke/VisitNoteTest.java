@@ -52,11 +52,11 @@ public class VisitNoteTest extends DbTest {
         assertThat(visitNote.countEncountersOfType(VisitNote.ADULT_INITIAL_OUTPATIENT_CREOLE_NAME), is(1));
 
         // chief complaint section
-        visitNote.editSection("pihcore-chief-complaint");
+     /*   visitNote.editSection("pihcore-chief-complaint");
         visitNote.fillOutChiefComplaint("some complaint");
         visitNote.expandSection("pihcore-chief-complaint");
         assertTrue(visitNote.containsText("some complaint"));
-
+*/
         // allergies section
 /*        visitNote.openAllergiesSection();
         visitNote.addAllergy(1, 1, 1);
@@ -197,10 +197,10 @@ public class VisitNoteTest extends DbTest {
         assertThat(visitNote.countEncountersOfType(VisitNote.PEDS_INITIAL_OUTPATIENT_CREOLE_NAME), is(1));
 
         // chief complaint section
-        visitNote.editSection("pihcore-chief-complaint");
+    /*    visitNote.editSection("pihcore-chief-complaint");
         visitNote.fillOutChiefComplaint("some complaint");
         visitNote.expandSection("pihcore-chief-complaint");
-        assertTrue(visitNote.containsText("some complaint"));
+        assertTrue(visitNote.containsText("some complaint"));*/
 
         // vaccine section
         visitNote.addAndRemoveVaccine(2,2);
@@ -232,10 +232,10 @@ public class VisitNoteTest extends DbTest {
         assertTrue(visitNote.containsText("Some history"));
 
         // feeding section
-        visitNote.editSection("pihcore-feeding");
+/*        visitNote.editSection("pihcore-feeding");
         visitNote.fillOutFeedingForm();
         visitNote.expandSection("pihcore-feeding");
-        assertTrue(visitNote.containsText("[X]"));  // bit of a hack
+        assertTrue(visitNote.containsText("[X]"));  // bit of a hack*/
 
         // exam section
         visitNote.editSection("physical-exam");
@@ -318,10 +318,10 @@ public class VisitNoteTest extends DbTest {
         assertTrue(visitNote.containsText("[X]"));  */// bit of a hack
 
         // feeding section
-        visitNote.editSection("pihcore-feeding");
+/*        visitNote.editSection("pihcore-feeding");
         visitNote.fillOutFeedingForm();
         visitNote.expandSection("pihcore-feeding");
-        assertTrue(visitNote.containsText("[X]"));  // bit of a hack
+        assertTrue(visitNote.containsText("[X]"));  // bit of a hack*/
 
         // exam section
         visitNote.editSection("physical-exam");
