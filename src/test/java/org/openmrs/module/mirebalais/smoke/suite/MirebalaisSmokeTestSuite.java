@@ -11,18 +11,17 @@ import org.openqa.selenium.WebDriver;
 @RunWith(Suite.class)
 @Suite.SuiteClasses( {  ActiveVisitsTest.class,
                         AdmissionDischargeTransferRetroTest.class,
-                       /* AdmissionDischargeTransferTest.class,
+                        AdmissionDischargeTransferTest.class,
                         ArchivesRoomFlowTest.class,
                         CaptureVitalsMirebalaisTest.class,
-                        CheckInTestMirebalais.class, */
-          /*              ConsultNoteTest.class,
+                        CheckInTestMirebalais.class,
+                        ConsultNoteTest.class,
                         DailyAppointmentsTest.class,
                         DeathCertificateTest.class,
                         DispensingTest.class,
                         EDNoteTest.class,
                         EDTriageTest.class,
-                        GenerateDossierAtCheckinTest.class, */
-        /*
+                        GenerateDossierAtCheckinTest.class,
                         HeaderTest.class,
                         InPatientTest.class,
                         ManageAppointmentsTest.class,
@@ -38,7 +37,6 @@ import org.openqa.selenium.WebDriver;
                         RetroConsultNoteTest.class,
                         RetroVisitTest.class,
                         UserAdminTest.class,
-    */
 
                     //    VisitNoteMirebalaisTest.class
                     } )
