@@ -15,13 +15,13 @@ import org.openqa.selenium.WebDriver;
                         ArchivesRoomFlowTest.class,
                         CaptureVitalsMirebalaisTest.class,
                         CheckInTestMirebalais.class,
-                        ConsultNoteTest.class,
+          /*              ConsultNoteTest.class,
                         DailyAppointmentsTest.class,
                         DeathCertificateTest.class,
                         DispensingTest.class,
                         EDNoteTest.class,
                         EDTriageTest.class,
-                        GenerateDossierAtCheckinTest.class,
+                        GenerateDossierAtCheckinTest.class, */
         /*
                         HeaderTest.class,
                         InPatientTest.class,
