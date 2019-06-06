@@ -11,10 +11,10 @@ import org.openqa.selenium.WebDriver;
 @RunWith(Suite.class)
 @Suite.SuiteClasses( {  ActiveVisitsTest.class,
                         AdmissionDischargeTransferRetroTest.class,
-                        AdmissionDischargeTransferTest.class,
+                       /* AdmissionDischargeTransferTest.class,
                         ArchivesRoomFlowTest.class,
                         CaptureVitalsMirebalaisTest.class,
-                        CheckInTestMirebalais.class,
+                        CheckInTestMirebalais.class, */
           /*              ConsultNoteTest.class,
                         DailyAppointmentsTest.class,
                         DeathCertificateTest.class,
