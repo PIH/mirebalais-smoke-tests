@@ -17,7 +17,7 @@ import static org.openmrs.module.mirebalais.smoke.pageobjects.selects.TypeOfPres
 
 public class DispensingTest extends DbTest {
 	
-	private String paracetamol = "Paracetamol, 500mg, tablet";
+	private String paracetamol = "Paracetamol, 500mg tablet";
     private String prescriptionLocation = "Sal Fanm";
     private String doseUnit = "Milligramme (mg)";
 
