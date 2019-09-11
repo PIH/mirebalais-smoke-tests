@@ -53,7 +53,7 @@ public class DispensingTest extends DbTest {
 
         assertThat("Prescription location is right",  medicationDispensed.getDischargeLocation(), is(prescriptionLocation));
 
-        assertThat("Medication name is right.", medicationDispensed.getName(), is(("Paracetamol, 500mg, tablet")));
+        assertThat("Medication name is right.", medicationDispensed.getName(), is(paracetamol));
 
         assertThat("Medication dose is right.", medicationDispensed.getDose(), is("5"));
 
