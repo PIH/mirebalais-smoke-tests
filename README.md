@@ -38,7 +38,7 @@ You need to set the following environmental varaiables to tell the smoke tests w
 Check ou SmokeTestProperties.java for the format and default values of these variables.  I also often just hack the values I want into a local copy of SmokeTestProperties rather than setting up global properties.
 
 
-# Requirements for running
+# Requirements for running Haiti tests
 
 * Make sure that your "admin" user has their default locale set to "Kreyol"
 * Make sure that all locations have default wristband, label and ID card printers assigned
