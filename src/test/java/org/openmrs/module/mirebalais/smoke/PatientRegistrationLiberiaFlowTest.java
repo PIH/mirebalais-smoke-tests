@@ -67,6 +67,11 @@ public class PatientRegistrationLiberiaFlowTest extends PatientRegistrationFlowT
         return true;
     }
 
+    @Override
+    protected String getContactPhoneNumber() {
+        return "+231881112233";
+    }
+
     protected By getSuccessElement() {
         return By.id("register-patient-button");  // Liberia redirects to registration home page
     }
