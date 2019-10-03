@@ -128,7 +128,7 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         return By.id("register-patient-button");
     }
 
-    private void populateTestPatientForTearDown() throws Exception {
+    protected void populateTestPatientForTearDown() throws Exception {
         String patientId = ((Long) ((JavascriptExecutor) driver).executeScript("return patient.id")).toString();
         PatientDatabaseHandler.addTestPatientForDelete(new BigInteger(patientId));
     }
