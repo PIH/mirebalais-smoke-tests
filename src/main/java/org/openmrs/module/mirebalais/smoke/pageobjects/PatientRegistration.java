@@ -234,7 +234,7 @@ public class PatientRegistration extends AbstractPageObject {
     }
 
     public void automaticallyEnterIdentifier(Boolean automaticallyEnterIdentifier) {
-        if (automaticallyEnterIdentifier != null && automaticallyEnterIdentifier) {   // this field not present in Liberia, so automaticallyEnterIdentifier set to null
+        if (automaticallyEnterIdentifier != null && automaticallyEnterIdentifier) {
             driver.findElement(By.id("checkbox-autogenerate-identifier")).sendKeys(Keys.ENTER);
         }
         else {
