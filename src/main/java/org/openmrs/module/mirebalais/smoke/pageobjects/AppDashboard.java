@@ -40,7 +40,7 @@ public class AppDashboard extends AbstractPageObject {
     }
 
     public void goToAppDashboard() {
-        clickOn(By.className("icon-home"));
+        clickOn(By.className("logo"));
     }
 
     public void openActiveVisitsApp() {
