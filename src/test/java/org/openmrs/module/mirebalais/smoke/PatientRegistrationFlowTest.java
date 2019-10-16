@@ -32,7 +32,7 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
 
         registration.registerPatient(givenName, familyName, nickname, PatientRegistration.Gender.MALE, 22, 4, 1975, "louise", getPlaceOfBirthString(),
                 getPersonAddressString(), getContactPhoneNumber(), getInsuranceName(),getInsuranceNumberString(), getOtherInsuranceNameString(), getMaritalStatus(), getOccupation(), getReligion(),
-                getContact(), getRelationship(), getContactAddressString(), placeOfBirthAndContactAddressUseHierarchy(), "4312533", automaticallyEnterIdentifier(), getRelationshipsEnabled(), getBiometricsEnabled(), getPrintIdCardOption(),
+                getContact(), getRelationship(), getContactAddressString(), placeOfBirthAndContactAddressUseHierarchy(), getContactPhoneNumber(), automaticallyEnterIdentifier(), getRelationshipsEnabled(), getBiometricsEnabled(), getPrintIdCardOption(),
                 getAdditionalIdentifiersEnabled(), getSuccessElement());
 
         appDashboard.goToAppDashboard();
@@ -60,7 +60,7 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         appDashboard.openPatientRegistrationApp();
 
         registration.editExistingPatient(testPatient, givenName, familyName, nickname, PatientRegistration.Gender.FEMALE, 10, 10, 1950, "Mary",
-                getPersonAddressString(), getContact(), getRelationship(), placeOfBirthAndContactAddressUseHierarchy(), "987-6543");
+                getPersonAddressString(), getContact(), getRelationship(), placeOfBirthAndContactAddressUseHierarchy(), getContactPhoneNumber());
 
         appDashboard.goToAppDashboard();
         appDashboard.findPatientByGivenAndFamilyName(givenName, familyName);
