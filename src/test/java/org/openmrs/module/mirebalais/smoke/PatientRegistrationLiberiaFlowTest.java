@@ -126,7 +126,7 @@ public class PatientRegistrationLiberiaFlowTest extends PatientRegistrationFlowT
     }
 
     protected By getSuccessElement() {
-        return By.id("register-patient-button");  // Liberia redirects to registration home page
+        return By.id("checkin");  // Liberia redirects to the check-in page
     }
 
 }
