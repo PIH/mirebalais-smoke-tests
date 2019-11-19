@@ -25,7 +25,7 @@ public class HeaderPage extends AbstractPageObject {
 
 	public void logOut() {
         // hack, just go to the logout url since the we are having so much trouble with the toast message overlapping the logout button
-        driver.get(properties.getWebAppUrl() + "/appui/header/logout.action?successUrl=openmrs");
+        driver.get(properties.getWebAppUrl() + "/appui/header/logout.action?successUrl=" + properties.getWebAppName());
     }
 
     public void home() {
