@@ -41,6 +41,10 @@ public class SmokeTestProperties {
         return databasePassword;
     }
 
+    public String getWebAppName() {
+        return envOrDefault("WEBAPP_NAME", "openmrs");
+    }
+
     public String getDatabaseDriverClass() {
         return "com.mysql.jdbc.Driver";
     }
