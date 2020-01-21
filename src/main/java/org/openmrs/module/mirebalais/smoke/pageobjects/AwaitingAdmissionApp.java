@@ -12,9 +12,9 @@ public class AwaitingAdmissionApp extends AbstractPageObject {
 
     private By awaitingAdmissionTable = By.id("awaiting-admission");
 
-    private By admitButtons = By.cssSelector(".icon-h-sign");
+    private By admitButtons = By.cssSelector(".fa-hospital-symbol");
 
-    private By cancelButtons = By.cssSelector(".icon-remove");
+    private By cancelButtons = By.cssSelector(".fa-user-minus");
 
     private By cancelReasonSelector = By.id("cancel-reason");
 
