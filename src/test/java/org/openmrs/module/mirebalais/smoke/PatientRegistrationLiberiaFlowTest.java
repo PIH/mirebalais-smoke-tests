@@ -1,6 +1,8 @@
 package org.openmrs.module.mirebalais.smoke;
 
 import org.junit.Test;
+import org.openmrs.module.mirebalais.smoke.pageobjects.LiberiaLoginPage;
+import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openqa.selenium.By;
 
 public class PatientRegistrationLiberiaFlowTest extends PatientRegistrationFlowTest {
@@ -16,6 +18,9 @@ public class PatientRegistrationLiberiaFlowTest extends PatientRegistrationFlowT
     public void editExistingPatient() throws Exception {
         super.editExistingPatient();
     }
+
+    @Override
+    protected LoginPage getLoginPage() { return new LiberiaLoginPage(driver); }
 
     @Override
     protected String getPersonAddressString() {
