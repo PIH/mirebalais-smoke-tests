@@ -56,7 +56,11 @@ Where the database name, `<server_name>`, is the SDK server name.
 
 ## Additional setup
 
-* Create a provider for the "admin" user using Admin -> Manage Users. 
+* The "admin" user must be a provider and have all roles.
+  
+  Go to the legacy Admin UI --> Manage Users --> admin. Check the box for
+  "Create a provider...". Then check every role box (try using Tab
+  and Spacebar).
 
 ### For Haiti
 
