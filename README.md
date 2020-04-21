@@ -2,44 +2,66 @@
 PIH-EMR Smoke Tests
 =======================
 
-The smoke tests can be run the same way regular tests are run, either through your IDE (in IntelliJ select a test class and then click on the Run or Debug icon) or Maven ("mvn run install" to build the module and run the tests).
+The smoke tests can be run the same way regular tests are run, either through your IDE (in IntelliJ select a test 
+class and then click on the Run or Debug icon) or Maven ("mvn run install" to build the module and run the tests).
 
-However, there are few configuration steps required:
+These are the test suites available. Each suite expects to be run against a server that is using a
+particular configuration repo and PIH Config.
 
-# Chromedriver
+| Suite                                                             | Config Repo                                                    | PIH Config                                  |
+|-------------------------------------------------------------------|----------------------------------------------------------------|---------------------------------------------|
+| [mirebalais](https://bamboo.pih-emr.org/browse/MIREBALAIS-STHC)   | [zl](https://github.com/PIH/openmrs-config-zl)                 | mirebalais,mirebalais-humci                 |
+| [haiti](https://bamboo.pih-emr.org/browse/MIREBALAIS-STC)         | [zl](https://github.com/PIH/openmrs-config-zl)                 | haiti,haiti-thomonde,haiti-thomonde-ci      |
+| [liberia](https://bamboo.pih-emr.org/browse/MIREBALAIS-STP)       | [pihliberia](https://github.com/PIH/openmrs-config-pihliberia) | liberia,liberia-harper,liberia-harper-kouka |
+| [mentalHealth](https://bamboo.pih-emr.org/browse/MIREBALAIS-STMH) | [zl](https://github.com/PIH/openmrs-config-zl)                 | haiti-mentalhealth                          |
+| [mexico](https://bamboo.pih-emr.org/browse/MIREBALAIS-STM)        | [ces](https://github.com/PIH/openmrs-config-ces)               | *not written yet*                           |
 
-Make sure the version of Chrome installed on your system is compatible with the version of Chromedriver bundled with the tests. Chromedriver for Linux, Mac, and Windows is bundled in this repor in /src/test/resources/chromedriver
+# Setup
 
-You can run chromedriver (ie in Linux execute ./chromedriver from /src/test/resources/chromedriver/linux) to determine what version is currently installed (it is 2.37 as of this writing)
+## Chromedriver
 
-Go here to see what browser versions this version of the driver supports:
-http://chromedriver.storage.googleapis.com/2.37/notes.txt
+Chromedriver is bundled with this repo in `/src/test/resources/chromedriver`. It is presently at version 2.37.
+You must have a [compatible version](http://chromedriver.storage.googleapis.com/2.37/notes.txt) of Chrome installed.
 
-You can see what version of Chrome you are running:
-google-chrome --version
+To check your Chrome version in Linux, execute `google-chrome --version`. 
+To upgrade Chrome on Ubuntu (including on the [Bamboo server](https://bamboo.pih-emr.org/allPlans.action))
+you should be able to use `sudo apt install google-chrome-stable`.
 
-You should be able to upgrade with:
-sudo apt-get install google-chrome-stable
+Other versions of Chromedriver can be found [here](https://chromedriver.storage.googleapis.com/index.html).
 
-Note that the above two steps can also be used to update the version of Chrome running on Bamboo, which is necessary when running the tests as part of the CI pipelein
+## Config
 
-All versions of chromedriver are available here:
-https://chromedriver.storage.googleapis.com/index.html
+The following environment variables configure connections to the server and database.
 
-# Config
+* WEBAPP_URL (default `http://localhost:8080/openmrs`)
+* DATABASE_URL (default `jdbc:mysql://localhost:3306/openmrs`)
+* DATABASE_USERNAME (default `openmrs`)
+* DATABASE_PASSWORD (default `openmrs`)
+* WEBAPP_NAME (default `openmrs`)
 
-You need to set the following environmental varaiables to tell the smoke tests what server and database to connect to:
+These variables are parsed by
+[SmokeTestProperties.java](https://github.com/PIH/mirebalais-smoke-tests/blob/master/src/main/java/org/openmrs/module/mirebalais/smoke/helper/SmokeTestProperties.java),
+which also provides their defaults. It may sometimes be more convenient to just change these default values locally
+in lieu of setting the environment variables.
 
-* webAppUrl
-* databaseUrl
-* databaseUsername
-* databasePassword
+### Dockerized MySQL
 
-Check ou SmokeTestProperties.java for the format and default values of these variables.  I also often just hack the values I want into a local copy of SmokeTestProperties rather than setting up global properties.
+If using the MySQL container used by the OpenMRS SDK, use the following settings.
 
+* DATABASE_URL (default `jdbc:mysql://localhost:3308/<server_name>`)
+* DATABASE_USERNAME (default `root`)
+* DATABASE_PASSWORD (default `Admin123`)
 
-# Requirements for running Haiti tests
+Where the database name, `<server_name>`, is the SDK server name.
 
-* Make sure that your "admin" user has their default locale set to "Kreyol"
+## Additional setup for the Haiti suite
+
+* The locale must be "ht"/"Kreyol", at least for the "admin" user.
 * Make sure that all locations have default wristband, label and ID card printers assigned
+
+# Running Tests
+
+Tests can be run using `mvn clean verify -U -P<suite>`, where `<suite>` is one of the values in the
+table above. The tests must be configured to use a server that is compatible with the suite being run;
+see the "Configuration" section below.
 
