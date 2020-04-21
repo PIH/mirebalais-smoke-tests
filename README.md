@@ -54,10 +54,14 @@ If using the MySQL container used by the OpenMRS SDK, use the following settings
 
 Where the database name, `<server_name>`, is the SDK server name.
 
-## Additional setup for the Haiti suite
+## Additional setup
+
+* Create a provider for the "admin" user using Admin -> Manage Users. 
+
+### For Haiti
 
 * The locale must be "ht"/"Kreyol", at least for the "admin" user.
-* Make sure that all locations have default wristband, label and ID card printers assigned
+* Make sure that all locations have default wristband, label and ID card printers assigned.
 
 # Running Tests
 
