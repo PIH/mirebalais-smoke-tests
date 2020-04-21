@@ -62,6 +62,15 @@ Where the database name, `<server_name>`, is the SDK server name.
 # Running Tests
 
 Tests can be run using `mvn clean verify -U -P<suite>`, where `<suite>` is one of the values in the
-table above. The tests must be configured to use a server that is compatible with the suite being run;
-see the "Configuration" section below.
+table above. It should also be possible to run the tests by navigating to them in IntelliJ and clicking on
+the "Run" buttons in the left margin.
 
+The tests must be configured to use a server that is compatible with the suite being run.
+
+# Writing tests
+
+These smoke tests use Selenium to drive the browser through tests. The trick to using Selenium is that
+after each "action" (such as clicking a button or link), you need to
+"[wait](https://www.softwaretestingmaterial.com/webdriverwait-selenium-webdriver/)" before you can "assert" that
+something has changed. If your tests are failing intermittently, it's a sure sign that there's somewhere
+you've forgotten a `new WebDriverWait(driver, 5).until(...);`.
