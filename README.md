@@ -65,6 +65,8 @@ Where the database name, `<server_name>`, is the SDK server name.
 ### For Haiti
 
 * The locale must be "ht"/"Kreyol", at least for the "admin" user.
+* Patient Identifier Sources for ZL EMR ID must be configured as described in
+    the [Mirebalais README](https://github.com/PIH/openmrs-module-mirebalais#step-7-create-a-local-identifier-source).
 * Make sure that all locations have default wristband, label and ID card printers assigned.
 
 # Running Tests
@@ -74,11 +76,3 @@ table above. It should also be possible to run the tests by navigating to them i
 the "Run" buttons in the left margin.
 
 The tests must be configured to use a server that is compatible with the suite being run.
-
-# Writing tests
-
-These smoke tests use Selenium to drive the browser through tests. The trick to using Selenium is that
-after each "action" (such as clicking a button or link), you need to
-"[wait](https://www.softwaretestingmaterial.com/webdriverwait-selenium-webdriver/)" before you can "assert" that
-something has changed. If your tests are failing intermittently, it's a sure sign that there's somewhere
-you've forgotten a `new WebDriverWait(driver, 5).until(...);`.
