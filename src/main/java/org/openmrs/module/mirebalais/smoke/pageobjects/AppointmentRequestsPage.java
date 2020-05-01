@@ -21,7 +21,8 @@ public class AppointmentRequestsPage extends AbstractPageObject{
 
     public Boolean containsRequestFor(String patientName) {
         try {
-            wait5seconds.until(ExpectedConditions.textToBePresentInElement(By.cssSelector("body"), patientName));
+            WebElement body = driver.findElement(By.cssSelector("body"));
+            wait5seconds.until(ExpectedConditions.textToBePresentInElement(body, patientName));
         }
         catch (TimeoutException e) {
             return false;

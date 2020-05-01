@@ -14,9 +14,9 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
-import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import org.openmrs.module.mirebalais.smoke.helper.UserDatabaseHandler;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -121,7 +121,7 @@ public class UserAdmin extends AbstractPageObject {
                 return element;
 			}
 		}
-		throw new ElementNotFoundException(role, role, role);
+		throw new ElementNotVisibleException("No element with name 'capabilities' where value contains role '" + role + "'");
 	}
 	
 }
