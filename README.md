@@ -48,9 +48,11 @@ in lieu of setting the environment variables.
 
 If using the MySQL container used by the OpenMRS SDK, use the following settings.
 
-* DATABASE_URL (default `jdbc:mysql://localhost:3308/<server_name>`)
-* DATABASE_USERNAME (default `root`)
-* DATABASE_PASSWORD (default `Admin123`)
+```
+DATABASE_URL=jdbc:mysql://localhost:3308/<server_name>
+DATABASE_USERNAME=root
+DATABASE_PASSWORD=Admin123
+```
 
 Where the database name, `<server_name>`, is the SDK server name.
 
