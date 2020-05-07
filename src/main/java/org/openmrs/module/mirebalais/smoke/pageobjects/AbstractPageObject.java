@@ -21,6 +21,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
@@ -146,12 +147,25 @@ public abstract class AbstractPageObject {
     }
 
     public void clickOn(WebElement element) {
-        Actions actions = new Actions(driver);
-        actions.moveToElement(element).click().perform();
+        // Tricky ways to try to get deterministic click behavior in Selenium
+        //   see https://stackoverflow.com/questions/31725033/selenium-click-not-always-working/31725102#31725102
+        // Simple
+//        element.click();
+        // Trick #2
+//        Actions actions = new Actions(driver);
+//        actions.moveToElement(element).click().build().perform();
+        // Trick #3
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", element);
+        // Trick #4 (from comments)
+//        element.sendKeys(Keys.ENTER);
     }
 
-    public void clickOn(By elementId) {
-        clickOn(driver.findElement(elementId));
+    public void clickOn(By byClause) {
+        // see https://stackoverflow.com/questions/31725033/selenium-click-not-always-working/31725102#31725102
+        // Trick #1
+        WebElement element = wait15seconds.until(ExpectedConditions.elementToBeClickable(byClause));
+        clickOn(element);
 	}
 
     public void clickOnFirst(By elementId) {
