@@ -16,11 +16,7 @@ package org.openmrs.module.mirebalais.smoke.pageobjects;
 
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 
 import java.math.BigInteger;
 
@@ -160,7 +156,7 @@ public class AppDashboard extends AbstractPageObject {
 
         // patient should be in results list
         WebElement searchResults = driver.findElement(SEARCH_RESULTS_TABLE);
-        searchResults.findElement(By.xpath("//*[contains(text(), '" + patient.getIdentifier() + "')]")).click();
+        clickOn(searchResults.findElement(By.xpath("//*[contains(text(), '" + patient.getIdentifier() + "')]")));
     }
 
 
@@ -171,8 +167,8 @@ public class AppDashboard extends AbstractPageObject {
 
         // patient should be in results list
         WebElement searchResults = driver.findElement(SEARCH_RESULTS_TABLE);
-        searchResults.findElement(By.xpath("//*[contains(text(), '" + familyName + ", "
-                + givenName + "')]")).click();
+        clickOn(searchResults.findElement(By.xpath("//*[contains(text(), '" + familyName + ", "
+                + givenName + "')]")));
     }
 
     public void goToVisitNoteVisitList(BigInteger patientId) {
@@ -187,10 +183,10 @@ public class AppDashboard extends AbstractPageObject {
         // hack: if there is a stale element exception, just try to fetch again; see if this helps at all
         // http://docs.seleniumhq.org/exceptions/stale_element_reference.jsp
         try {
-            driver.findElements(By.className("list-element")).get(0).click();
+            clickOn(driver.findElements(By.className("list-element")).get(0));
         }
         catch (StaleElementReferenceException e) {
-            driver.findElements(By.className("list-element")).get(0).click();
+            clickOn(driver.findElements(By.className("list-element")).get(0));
         }
     }
 
@@ -200,17 +196,8 @@ public class AppDashboard extends AbstractPageObject {
 
     public void openApp(String appIdentifier) {
         new HeaderPage(driver).home();
-        clickAppButton(appIdentifier);
+        clickOn(By.id(appIdentifier));
     }
-
-  /*  public void goToPatientDashboard(BigInteger patientId) {
-        driver.get(properties.getWebAppUrl() + "/coreapps/patientdashboard/patientDashboard.page?patientId=" + patientId);
-    }*/
-
-	private void clickAppButton(String appId) {
-        wait15seconds.until(visibilityOfElementLocated(By.id(appId)));
-        driver.findElement(By.id(appId)).click();
-	}
 
     private boolean isAppButtonPresent(String appId) {
         try {

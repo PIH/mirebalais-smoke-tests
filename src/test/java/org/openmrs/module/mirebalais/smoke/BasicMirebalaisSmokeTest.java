@@ -18,10 +18,7 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.LegacyRegistration;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.MirebalaisLoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -167,8 +164,6 @@ public abstract class BasicMirebalaisSmokeTest {
         appDashboard = new AppDashboard(driver);
         clinicianDashboard = new ClinicianDashboard(driver);
     }
-
-
 
 	protected void logout() {
 		new HeaderPage(driver).logOut();
