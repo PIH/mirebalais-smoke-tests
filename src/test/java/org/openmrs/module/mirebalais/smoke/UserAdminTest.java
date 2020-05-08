@@ -2,6 +2,7 @@ package org.openmrs.module.mirebalais.smoke;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.mirebalais.smoke.helper.NameGenerator;
@@ -43,6 +44,9 @@ public class UserAdminTest extends DbTest {
 	}
 	
 	@Test
+	@Ignore
+	// OpenMRS does not support deleting a user that has changed their password due to FOREIGN KEY self-reference
+	// See https://issues.openmrs.org/browse/TRUNK-5736
 	public void createUserWithPhysicianRoleAndUserChangesOwnPassword() throws Exception {
 
         userAdmin.createPhysicianAccount(NameGenerator.getUserFirstName(), NameGenerator.getUserLastName(), username,
