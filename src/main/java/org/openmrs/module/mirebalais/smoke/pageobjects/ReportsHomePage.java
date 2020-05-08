@@ -27,16 +27,11 @@ public class ReportsHomePage extends AbstractPageObject {
     }
 
     public void openBasicStatisticsReport() {
-        clickLink(BASIC_STATISTICS_REPORT);
+        clickOn(By.id(BASIC_STATISTICS_REPORT));
 	}
 
     public void openNonCodedDiagnosesReport(String diagnosis) {
-        clickLink(NONCODED_DIAGNOSES_REPORT);
-        setTextToField("nonCodedField-display", diagnosis);
-        clickOn(By.cssSelector("#submit"));
+        clickOn(By.id(NONCODED_DIAGNOSES_REPORT));
+        setTextToField("nonCodedField-display", diagnosis);  // hits RETURN
     }
-
-	private void clickLink(String id) {
-        driver.findElement(By.id(id)).click();
-	}
 }
