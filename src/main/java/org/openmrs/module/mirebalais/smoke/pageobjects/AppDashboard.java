@@ -40,7 +40,7 @@ public class AppDashboard extends AbstractPageObject {
     }
 
     public void goToAppDashboard() {
-        clickOn(By.className("logo"));
+        driver.findElement(By.className("logo")).click();
     }
 
     public void openActiveVisitsApp() {
