@@ -51,8 +51,9 @@ public class UserAdminTest extends DbTest {
 		
 		appDashboard.openMyAccountApp();
 		myAccountApp.openChangePassword();
-		myAccountApp.changePassword(DEFAULT_PASSWORD, DEFAULT_PASSWORD);
-		logOutAndLogInWithNewUser(username);
+		String newPassword = "something else!";
+		myAccountApp.changePassword(DEFAULT_PASSWORD, newPassword);
+		logOutAndLogInWithNewUser(username, newPassword);
 		
 		assertThat(appDashboard.isActiveVisitsAppPresented(), is(true));
 
@@ -155,11 +156,15 @@ public class UserAdminTest extends DbTest {
 	private String createUser() {
 		return new String("user" + System.currentTimeMillis());
 	}
-	
+
 	private void logOutAndLogInWithNewUser(String username) throws InterruptedException {
+		logOutAndLogInWithNewUser(username, DEFAULT_PASSWORD);
+	}
+
+	private void logOutAndLogInWithNewUser(String username, String password) throws InterruptedException {
 		Thread.sleep(5000);
         header.logOut();
-		loginPage.logIn(username, DEFAULT_PASSWORD);
+		loginPage.logIn(username, password);
 	}
 	
 }
