@@ -69,6 +69,12 @@ Where the database name, `<server_name>`, is the SDK server name.
 * The locale must be "ht"/"Kreyol", at least for the "admin" user.
 * Patient Identifier Sources for ZL EMR ID must be configured as described in
     the [Mirebalais README](https://github.com/PIH/openmrs-module-mirebalais#step-7-create-a-local-identifier-source).
+
+### For Mirebalais
+
+* The locale must be "ht"/"Kreyol", at least for the "admin" user.
+* Patient Identifier Sources for ZL EMR ID must be configured as described in
+    the [Mirebalais README](https://github.com/PIH/openmrs-module-mirebalais#step-7-create-a-local-identifier-source).
 * Make sure that all locations have default wristband, label and ID card printers assigned.
 
 # Running Tests
