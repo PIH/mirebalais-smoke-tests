@@ -20,7 +20,7 @@ import static org.junit.Assert.assertTrue;
 
 public class VisitNoteTest extends DbTest {
 
-    @Test
+    //@Test
     public void testCreateAdultInitialOutpatientEncounter() throws Exception{
 
         // make sure we are logged out to start with
@@ -95,7 +95,7 @@ public class VisitNoteTest extends DbTest {
         assertTrue(visitNote.containsText("Some plan"));
     }
 
-    @Test
+    //@Test
     public void testCreateAdultFollowupOutpatientEncounter() throws Exception{
 
         // make sure we are logged out to start with
@@ -165,7 +165,7 @@ public class VisitNoteTest extends DbTest {
 
     }
 
-    @Test
+    //@Test
     public void testCreatePedsInitialOutpatientEncounter() throws Exception{
 
         // make sure we are logged out to start with
@@ -257,7 +257,7 @@ public class VisitNoteTest extends DbTest {
 
     }
 
-    @Test
+    //@Test
     public void testCreatePedsFollowupOutpatientEncounter() throws Exception{
 
         // make sure we are logged out to start with

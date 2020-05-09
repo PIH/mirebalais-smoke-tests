@@ -21,7 +21,7 @@ public class DispensingTest extends DbTest {
     private String prescriptionLocation = "Sal Fanm";
     private String doseUnit = "Milligramme (mg)";
 
-    @Test
+    //@Test
 	public void pharmacyManagerCanDispenseMedicationForAnExistingActiveVisit() throws Exception {
 		AppDashboard appDashboard = new AppDashboard(driver);
 		VisitNote patientDashboard = new VisitNote(driver);

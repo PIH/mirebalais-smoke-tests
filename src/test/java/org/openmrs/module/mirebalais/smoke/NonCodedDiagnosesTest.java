@@ -53,7 +53,7 @@ public class NonCodedDiagnosesTest extends DbTest {
         reportsHomePage = new ReportsHomePage(driver);
     }
 
-    @Test
+    //@Test
     public void shouldShowNonCodedDiagnosesPageUsingConsultNote() throws Exception {
         createConsultNote();
         visitNote.waitUntilVisitNoteOpen();
@@ -68,7 +68,7 @@ public class NonCodedDiagnosesTest extends DbTest {
 
     // TODO add something here to change location to ED, since we can't enter a ED note anywhere but the ED
     @Ignore
-    @Test
+    //@Test
     public void shouldShowNonCodedDiagnosesPageUsingEdNote() throws Exception {
         createEDNote();
         visitNote.waitUntilVisitNoteOpen();
@@ -81,7 +81,7 @@ public class NonCodedDiagnosesTest extends DbTest {
         Assert.assertTrue(nonCodedDiagnoses.contains(NON_CODED_DIAGNOSIS));
     }
 
-    @Test
+    //@Test
     public void shouldNotShowNonCodedDiagnosisAfterReplaceforExistingCodesForConsultNote() throws Exception {
         createConsultNote();
         visitNote.waitUntilVisitNoteOpen();
@@ -101,7 +101,7 @@ public class NonCodedDiagnosesTest extends DbTest {
 
     // TODO add something here to change location to ED, since we can't enter a ED note anywhere but the ED
     @Ignore
-    @Test
+    //@Test
     public void shouldNotShowNonCodedDiagnosisAfterReplaceforExistingCodesforEDNote() throws Exception {
         createEDNote();
         appDashboard.openReportApp();

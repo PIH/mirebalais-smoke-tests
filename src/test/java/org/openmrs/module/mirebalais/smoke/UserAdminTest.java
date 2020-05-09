@@ -42,7 +42,7 @@ public class UserAdminTest extends DbTest {
 		login();
 		appDashboard.openSysAdminApp();
 	}
-	
+
 	@Test
 	@Ignore
 	// OpenMRS does not support deleting a user that has changed their password due to FOREIGN KEY self-reference
@@ -76,7 +76,7 @@ public class UserAdminTest extends DbTest {
         turnOnImplicitWait();
 	}
 	
-	@Test
+	//@Test
 	public void createUserWithScheduleManagerRole() throws Exception {
 		userAdmin.createScheduleManagerAccount(NameGenerator.getUserFirstName(), NameGenerator.getUserLastName(), username,
                 DEFAULT_PASSWORD);
@@ -100,7 +100,7 @@ public class UserAdminTest extends DbTest {
         turnOnImplicitWait();
 	}
 	
-	@Test
+	//@Test
 	public void createUserWithArchivistClerkRole() throws Exception {
 		userAdmin.createArchivistClerkAccount(NameGenerator.getUserFirstName(), NameGenerator.getUserLastName(), username,
                 DEFAULT_PASSWORD);
@@ -123,7 +123,7 @@ public class UserAdminTest extends DbTest {
         turnOnImplicitWait();
 	}
 	
-	@Test
+	//@Test
 	public void createUserWithSysAdminRoleWithEnglishAsDesiredLanguage() throws Exception {
 		userAdmin.createSysAdminAccount(NameGenerator.getUserFirstName(), NameGenerator.getUserLastName(), username,
 		    DEFAULT_PASSWORD, "en");

@@ -6,13 +6,13 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.MexicoLoginPage;
 
 public class PatientRegistrationMexicoFlowTest extends PatientRegistrationFlowTest {
 
-    @Test
+    //@Test
     @Override
     public void registerNewPatient() throws Exception {
         super.registerNewPatient();
     }
 
-    @Test
+    //@Test
     @Override
     public void editExistingPatient() throws Exception {
         super.editExistingPatient();

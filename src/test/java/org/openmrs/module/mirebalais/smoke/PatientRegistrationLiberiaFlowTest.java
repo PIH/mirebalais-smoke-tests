@@ -7,13 +7,13 @@ import org.openqa.selenium.By;
 
 public class PatientRegistrationLiberiaFlowTest extends PatientRegistrationFlowTest {
 
-    @Test
+    //@Test
     @Override
     public void registerNewPatient() throws Exception {
         super.registerNewPatient();
     }
 
-    @Test
+    //@Test
     @Override
     public void editExistingPatient() throws Exception {
         super.editExistingPatient();

@@ -45,7 +45,7 @@ public class CheckInTest extends DbTest {
 
     }
 	
-	@Test
+	//@Test
 	public void createCheckInAndRemoveIt() throws Exception {
 
         newCheckIn.findPatientAndClickOnCheckIn(testPatient.getIdentifier());

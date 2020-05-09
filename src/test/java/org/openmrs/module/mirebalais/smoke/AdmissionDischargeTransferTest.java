@@ -36,7 +36,7 @@ public class AdmissionDischargeTransferTest extends DbTest {
         clinicianDashboard.startVisit();
     }
 
-    @Test
+    //@Test
     public void shouldEnterAndEditAnAdmissionNoteAsClinicalUser() throws Exception {
 
         visitNote.addAdmissionNote(malaria);
@@ -47,7 +47,7 @@ public class AdmissionDischargeTransferTest extends DbTest {
 
     }
 
-	@Test
+	//@Test
 	public void shouldCreateTransferNote() throws Exception {
 
         visitNote.addAdmissionNote(malaria);
@@ -58,7 +58,7 @@ public class AdmissionDischargeTransferTest extends DbTest {
 		
 	}
 	
-	@Test
+	//@Test
 	public void shouldCreateDischargeNote() throws Exception {
 
         visitNote.addAdmissionNote(malaria);
@@ -68,7 +68,7 @@ public class AdmissionDischargeTransferTest extends DbTest {
 
 	}
 
-    @Test
+    //@Test
     public void shouldAdmitPatientViaAwaitingAdmissionApp() throws Exception {
 
         visitNote.addConsultNoteWithAdmissionToLocation(malaria, 6);
@@ -87,7 +87,7 @@ public class AdmissionDischargeTransferTest extends DbTest {
         app.assertPatientNotInAwaitingAdmissionTable(testPatient);
     }
 
-    @Test
+    //@Test
     public void shouldCancelPatientFromAwaitingAdmissionApp() throws Exception {
 
         visitNote.addConsultNoteWithAdmissionToLocation(malaria, 6);

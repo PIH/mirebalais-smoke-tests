@@ -16,7 +16,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
 public class MultipleSubmitTest extends DbTest {
 
 
-    @Test
+    //@Test
     public void testMultipleEnterClicksOnCheckInForm() throws Exception {
 
         Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();

@@ -10,7 +10,7 @@ import static org.junit.Assert.assertTrue;
 
 public class MergePatientTest extends DbTest {
 	
-	@Test
+	//@Test
 	public void mergePatientsByName() throws Exception {
 		initBasicPageObjects();
 		SysAdminPage sysAdminPage = new SysAdminPage(driver);

@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 @Ignore
 public class DeathCertificateTest extends DbTest {
 
-    @Test
+    //@Test
     public void testEnteringDeathNote() throws Exception {
         AppDashboard appDashboard = new AppDashboard(driver);
         VisitNote patientDashboard = new VisitNote(driver);
