@@ -12,7 +12,7 @@ import static junit.framework.Assert.assertEquals;
 
 public class ManageServiceTypesTest extends DbTest {
 
-    //@Test
+    @Test
     public void systemAdminCanAddServiceType() throws Exception {
         AppDashboard appDashboard = new AppDashboard(driver);
         AppointmentSchedulingApp appointmentSchedulingApp = new AppointmentSchedulingApp(driver);

@@ -11,7 +11,7 @@ public class HeaderTest extends BasicMirebalaisSmokeTest {
 
 	private final WebDriverWait wait5Seconds = new WebDriverWait(driver, 5);
 
-	//@Test
+	@Test
 	public void shouldChangeLocation() throws Exception {
 		login();
 		HeaderPage headerPage = new HeaderPage(driver);

@@ -9,7 +9,7 @@ import static org.junit.Assert.assertTrue;
 public class PatientSearchTest extends DbTest {
 
 
-    //@Test
+    @Test
     public void loadPatientDashboardByPatientIdentifier() throws Exception {
 
         Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();
@@ -23,7 +23,7 @@ public class PatientSearchTest extends DbTest {
         logout();
     }
 
-    //@Test
+    @Test
     public void loadPatientDashboardByPatientName() throws Exception {
 
         Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();

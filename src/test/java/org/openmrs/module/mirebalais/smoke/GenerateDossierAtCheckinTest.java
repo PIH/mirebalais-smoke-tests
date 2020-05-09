@@ -17,7 +17,7 @@ import static org.junit.Assert.assertThat;
 @Ignore
 public class GenerateDossierAtCheckinTest extends DbTest {
 	
-	//@Test
+	@Test
 	public void shouldCreateDossierLocallyAtCheckinWhenDossierIsMissing() throws Exception {
 		Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();
 

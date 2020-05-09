@@ -18,7 +18,7 @@ public class InPatientTest extends DbTest {
 
     private AwaitingAdmissionApp awaitingAdmissionApp;
 	
-	//@Test
+	@Test
 	public void admitPatientTransferInsideHospitalAndFilterWard() throws Exception {
 		Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();
 		Patient testPatient2 = PatientDatabaseHandler.insertAdultTestPatient();

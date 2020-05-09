@@ -31,21 +31,21 @@ public class RetroConsultNoteTest extends DbTest {
         appDashboard.goToClinicianFacingDashboard(testPatient.getId());
     }
 
-    //@Test
+    @Test
     public void addConsultationToAnActiveVisit() throws Exception {
         clinicianDashboard.startVisit();
         visitNote.addRetroConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS,2);
         assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(1));
     }
 
-    //@Test
+    @Test
     public void addConsultationToARetroVisit() throws Exception {
         clinicianDashboard.addRetroVisit();
         visitNote.addRetroConsultNoteWithDischarge(PRIMARY_DIAGNOSIS);
         assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(1));
     }
 
-    //@Test
+    @Test
     public void editRetroConsultationNote() throws Exception {
         clinicianDashboard.addRetroVisit();
         visitNote.addRetroConsultNoteWithDischarge(PRIMARY_DIAGNOSIS);

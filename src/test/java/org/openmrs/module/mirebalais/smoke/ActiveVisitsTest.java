@@ -25,7 +25,7 @@ import static org.junit.matchers.JUnitMatchers.containsString;
 
 public class ActiveVisitsTest extends DbTest {
 	
-	//@Test
+	@Test
 	public void shouldShowActiveVisitAfterStartVisit() throws Exception {
         Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();
         initBasicPageObjects();

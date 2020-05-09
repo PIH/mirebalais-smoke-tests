@@ -33,7 +33,7 @@ public class AdmissionDischargeTransferRetroTest extends DbTest {
         clinicianDashboard.startVisit();
     }
 
-    //@Test
+    @Test
     public void shouldEnterAndEditAnAdmissionNoteAsAdminUser() throws Exception {
 
         visitNote.addAdmissionNoteAsAdminUser(malaria);

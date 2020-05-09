@@ -13,7 +13,7 @@ public class MasterPatientIndexTest extends BasicMirebalaisSmokeTest {
 
     // TODO find a new server for this to work off of
 
-	//@Test
+	@Test
     @Ignore
 	public void searchForAPatientOnLacollineServer() throws Exception {
 		initBasicPageObjects();

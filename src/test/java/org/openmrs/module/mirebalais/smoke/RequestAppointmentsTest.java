@@ -17,7 +17,7 @@ import static org.junit.Assert.assertTrue;
 
 public class RequestAppointmentsTest extends DbTest {
 
-    //@Test
+    @Test
     public void requestAppointment() throws Exception {
 
         Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();

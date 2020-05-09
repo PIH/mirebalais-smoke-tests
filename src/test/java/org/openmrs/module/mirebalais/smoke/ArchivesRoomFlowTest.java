@@ -14,7 +14,7 @@ import static org.junit.Assert.assertThat;
 @Ignore
 public class ArchivesRoomFlowTest extends DbTest {
 	
-	//@Test
+	@Test
 	public void requestRecord() throws Exception {
         Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();
         initBasicPageObjects();

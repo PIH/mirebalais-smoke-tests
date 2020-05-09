@@ -32,14 +32,14 @@ public class EDNoteTest extends DbTest {
         clinicianDashboard.startVisit();
     }
 
-    //@Test
+    @Test
     public void addEDNote() throws Exception {
         visitNote.addEDNote(PRIMARY_DIAGNOSIS);
 
         assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(1));
     }
 
-    //@Test
+    @Test
     public void editEDNote() throws Exception {
 
         visitNote.addEDNote(PRIMARY_DIAGNOSIS);

@@ -10,7 +10,7 @@ import static org.junit.Assert.assertThat;
 
 public class DailyAppointmentsTest extends DbTest{
 
-    //@Test
+    @Test
     public void schedulerAdminLaunchDailyAppointments() throws Exception {
         AppDashboard appDashboard = new AppDashboard(driver);
         AppointmentSchedulingApp appointmentSchedulingApp = new AppointmentSchedulingApp(driver);

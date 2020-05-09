@@ -36,14 +36,14 @@ public class ConsultNoteTest extends DbTest {
 		clinicianDashboard.startVisit();
 	}
 	
-	//@Test
+	@Test
 	public void addConsultationToAVisitWithoutCheckin() throws Exception {
 		visitNote.addConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS, 2);
 		
 		assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(1));
 	}
 	
-	//@Test
+	@Test
 	public void addConsultationNoteWithDeathAsDispositionDoesNotCloseVisit() throws Exception {
 		visitNote.addConsultNoteWithDeath(PRIMARY_DIAGNOSIS);
         deathCertificateForm.waitToLoad();
@@ -54,7 +54,7 @@ public class ConsultNoteTest extends DbTest {
 	}
 
 
-    //@Test
+    @Test
     public void editConsultationNote() throws Exception {
 
         visitNote.addConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS, 2);

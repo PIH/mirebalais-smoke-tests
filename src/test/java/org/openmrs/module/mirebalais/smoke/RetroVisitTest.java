@@ -9,7 +9,7 @@ import static org.junit.Assert.assertThat;
 
 public class RetroVisitTest extends DbTest {
 
-    //@Test
+    @Test
     public void shouldAddRetroVisit() throws Exception {
         Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();
         initBasicPageObjects();
