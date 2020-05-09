@@ -3,8 +3,10 @@ package org.openmrs.module.mirebalais.smoke.pageobjects;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -34,7 +36,7 @@ public class CheckInFormPage extends AbstractPageObject {
         selectSecondOptionFor("paymentAmount");
         findInputInsideSpan("receiptNumber").sendKeys("receipt #" + Keys.RETURN);
         selectNotToPrintWristbandIfQuestionPresent();
-        confirmData();
+        clickConfirm();
         if (paperRecordEnabled) {
             confirmPaperRecordPopup();
         }
@@ -64,7 +66,7 @@ public class CheckInFormPage extends AbstractPageObject {
         selectSecondOptionFor("paymentAmount");
         findInputInsideSpan("receiptNumber").sendKeys("receipt #" + Keys.RETURN);
         selectNotToPrintWristbandIfQuestionPresent();
-		confirmData();
+		clickConfirm();
         if (paperRecordEnabled) {
             confirmPaperRecordPopup();
         }
@@ -79,8 +81,14 @@ public class CheckInFormPage extends AbstractPageObject {
 		clickOn(By.id("pih.checkin.registrationAction"));
 	}
 
-	private void confirmData() {
-		clickOn(By.cssSelector("#confirmationQuestion .confirm"));
+	private void clickConfirm() {
+        driver.findElement(By.cssSelector("#confirmationQuestion .confirm")).click();
+        try {
+            (new WebDriverWait(driver, 3)).until(
+                    ExpectedConditions.visibilityOfElementLocated(By.className("icon-spinner")));
+        } catch (TimeoutException e) {
+            clickOn(By.cssSelector("#confirmationQuestion .confirm"));
+        }
 	}
 
     private void confirmDataForScheduleAppointment() {
