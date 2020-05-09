@@ -18,6 +18,7 @@ import org.openmrs.module.mirebalais.smoke.helper.SmokeTestProperties;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -25,6 +26,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
+import java.util.function.Function;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
@@ -167,6 +169,20 @@ public abstract class AbstractPageObject {
         WebElement element = wait15seconds.until(ExpectedConditions.elementToBeClickable(byClause));
         clickOn(element);
 	}
+
+	public <V> V clickUntil(WebElement element, Function<? super WebDriver, V> isTrue, int timeout) {
+        long startMillis = System.currentTimeMillis();
+        while (true) {
+            element.click();
+            try {
+                return (new WebDriverWait(driver, 1)).until(isTrue);
+            } catch (TimeoutException e) {
+                if ((System.currentTimeMillis() - startMillis) / 1000 > timeout) {
+                    throw e;
+                }
+            }
+        }
+    }
 
     public void clickOnFirst(By elementId) {
         List<WebElement> elements = driver.findElements(elementId);
