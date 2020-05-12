@@ -83,8 +83,7 @@ public class CheckInFormPage extends AbstractPageObject {
 
 	private void clickConfirm() {
         clickUntil(driver.findElement(By.cssSelector("#confirmationQuestion .confirm")),
-                ExpectedConditions.visibilityOfElementLocated(By.className("icon-spinner")),
-                15);
+                ExpectedConditions.visibilityOfElementLocated(By.className("icon-spinner")));
 	}
 
     private void confirmDataForScheduleAppointment() {

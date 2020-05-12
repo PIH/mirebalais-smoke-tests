@@ -170,6 +170,10 @@ public abstract class AbstractPageObject {
         clickOn(element);
 	}
 
+    public <V> V clickUntil(WebElement element, Function<? super WebDriver, V> isTrue) {
+        return clickUntil(element, isTrue, 15);
+    }
+
 	public <V> V clickUntil(WebElement element, Function<? super WebDriver, V> isTrue, int timeout) {
         long startMillis = System.currentTimeMillis();
         while (true) {
