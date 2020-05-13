@@ -42,7 +42,7 @@ public class UserAdminTest extends DbTest {
 		login();
 		appDashboard.openSysAdminApp();
 	}
-	
+
 	@Test
 	@Ignore
 	// OpenMRS does not support deleting a user that has changed their password due to FOREIGN KEY self-reference

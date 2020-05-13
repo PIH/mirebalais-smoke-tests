@@ -36,6 +36,7 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.HashMap;
 import java.util.List;
@@ -340,7 +341,8 @@ public class VisitNote extends AbstractPageObject {
     }
 
     public void editSection(String id) {
-        clickOn(By.cssSelector("#" + id + " .edit-encounter"));
+        clickUntil(driver.findElement(By.cssSelector("#" + id + " .edit-encounter")),
+                ExpectedConditions.visibilityOfElementLocated(By.id("htmlform")));
     }
 
     public void viewConsultationDetails() {
