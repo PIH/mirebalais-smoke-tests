@@ -18,6 +18,7 @@ import org.openmrs.module.mirebalais.smoke.helper.SmokeTestProperties;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -177,7 +178,9 @@ public abstract class AbstractPageObject {
 	public <V> V clickUntil(WebElement element, Function<? super WebDriver, V> isTrue, int timeout) {
         long startMillis = System.currentTimeMillis();
         while (true) {
-            element.click();
+            try {
+                element.click();
+            } catch (StaleElementReferenceException e) {}
             try {
                 return (new WebDriverWait(driver, 1)).until(isTrue);
             } catch (TimeoutException e) {
