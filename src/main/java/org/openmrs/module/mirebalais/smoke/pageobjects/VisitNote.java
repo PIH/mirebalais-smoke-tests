@@ -332,7 +332,7 @@ public class VisitNote extends AbstractPageObject {
 
     public void expandSection(String id) {
 	    clickUntil(driver.findElement(By.cssSelector("#" + id + " .expand-encounter")),
-                ExpectedConditions.visibilityOfElementLocated(By.className("encounter-summary-long")));
+                ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#" + id + " .icon-caret-down")));
     }
 
     public void editSection(String id) {
