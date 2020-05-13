@@ -331,13 +331,8 @@ public class VisitNote extends AbstractPageObject {
     }
 
     public void expandSection(String id) {
-        try {
-            clickOn(By.cssSelector("#" + id + " .expand-encounter"));
-        }
-        // HACK just try twice in case of stale element exception, which I think may be caused by interaction with angular?
-        catch (StaleElementReferenceException e) {
-            clickOn(By.cssSelector("#" + id + " .expand-encounter"));
-        }
+	    clickUntil(driver.findElement(By.cssSelector("#" + id + " .expand-encounter")),
+                ExpectedConditions.visibilityOfElementLocated(By.className("encounter-summary-long")));
     }
 
     public void editSection(String id) {
