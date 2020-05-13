@@ -177,15 +177,30 @@ public abstract class AbstractPageObject {
 
 	public <V> V clickUntil(WebElement element, Function<? super WebDriver, V> isTrue, int timeout) {
         long startMillis = System.currentTimeMillis();
+        int attempt = 0;
         while (true) {
+            attempt++;
             try {
-                element.click();
+                switch (attempt % 4) {
+                    case 0:
+                        Actions actions = new Actions(driver);
+                        actions.moveToElement(element).click().build().perform();
+                    case 1:
+                        JavascriptExecutor js = (JavascriptExecutor) driver;
+                        js.executeScript("arguments[0].click();", element);
+                    case 2:
+                        element.click();
+                    case 3:
+                        element.sendKeys(Keys.ENTER);
+                }
             } catch (StaleElementReferenceException e) {}
             try {
                 return (new WebDriverWait(driver, 1)).until(isTrue);
             } catch (TimeoutException e) {
                 if ((System.currentTimeMillis() - startMillis) / 1000 > timeout) {
-                    throw e;
+                    throw new TimeoutException(
+                            String.format("Kept clicking for %s seconds and never succeeded", timeout),
+                            e);
                 }
             }
         }
