@@ -16,6 +16,7 @@ package org.openmrs.module.mirebalais.smoke.pageobjects;
 
 import org.openmrs.module.mirebalais.smoke.helper.SmokeTestProperties;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -193,7 +194,7 @@ public abstract class AbstractPageObject {
                     case 3:
                         element.sendKeys(Keys.ENTER);
                 }
-            } catch (StaleElementReferenceException e) {}
+            } catch (StaleElementReferenceException | ElementNotInteractableException e) {}
             try {
                 return (new WebDriverWait(driver, 1)).until(isTrue);
             } catch (TimeoutException e) {
