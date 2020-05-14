@@ -332,12 +332,12 @@ public class VisitNote extends AbstractPageObject {
 
     public void expandSection(String id) {
         // the header loses its id immediately when expanded
-	    clickUntil(driver.findElement(By.cssSelector("#" + id + " .expand-encounter")),
+	    clickUntil(By.cssSelector("#" + id + " .expand-encounter"),
                 ExpectedConditions.invisibilityOfElementLocated(By.id(id)));
     }
 
     public void editSection(String id) {
-        clickUntil(driver.findElement(By.cssSelector("#" + id + " .edit-encounter")),
+        clickUntil(By.cssSelector("#" + id + " .edit-encounter"),
                 ExpectedConditions.visibilityOfElementLocated(By.id("htmlform")));
     }
 

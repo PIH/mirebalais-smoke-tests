@@ -172,11 +172,11 @@ public abstract class AbstractPageObject {
         clickOn(element);
 	}
 
-    public <V> V clickUntil(WebElement element, Function<? super WebDriver, V> isTrue) {
-        return clickUntil(element, isTrue, 15);
+    public <V> V clickUntil(By byClause, Function<? super WebDriver, V> isTrue) {
+        return clickUntil(byClause, isTrue, 15);
     }
 
-	public <V> V clickUntil(WebElement element, Function<? super WebDriver, V> isTrue, int timeout) {
+	public <V> V clickUntil(By byClause, Function<? super WebDriver, V> isTrue, int timeout) {
         long startMillis = System.currentTimeMillis();
         int attempt = 0;
         while (true) {
@@ -185,6 +185,7 @@ public abstract class AbstractPageObject {
                 if (attempt > 1) {
                     System.out.println(String.format("Click attempt %d", attempt));
                 }
+                WebElement element = driver.findElement(byClause);
                 switch (attempt % 4) {
                     case 0:
                         Actions actions = new Actions(driver);
