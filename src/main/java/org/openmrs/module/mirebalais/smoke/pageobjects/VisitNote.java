@@ -331,8 +331,9 @@ public class VisitNote extends AbstractPageObject {
     }
 
     public void expandSection(String id) {
+        // the header loses its id immediately when expanded
 	    clickUntil(driver.findElement(By.cssSelector("#" + id + " .expand-encounter")),
-                ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#" + id + " .icon-caret-down")));
+                ExpectedConditions.invisibilityOfElementLocated(By.id(id)));
     }
 
     public void editSection(String id) {

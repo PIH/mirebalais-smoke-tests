@@ -182,6 +182,9 @@ public abstract class AbstractPageObject {
         while (true) {
             attempt++;
             try {
+                if (attempt > 1) {
+                    System.out.println(String.format("Click attempt %d", attempt));
+                }
                 switch (attempt % 4) {
                     case 0:
                         Actions actions = new Actions(driver);
@@ -194,7 +197,9 @@ public abstract class AbstractPageObject {
                     case 3:
                         element.sendKeys(Keys.ENTER);
                 }
-            } catch (StaleElementReferenceException | ElementNotInteractableException e) {}
+            } catch (StaleElementReferenceException | ElementNotInteractableException e) {
+                System.out.println(String.format("Ignoring exception %s", e.getMessage()));
+            }
             try {
                 return (new WebDriverWait(driver, 1)).until(isTrue);
             } catch (TimeoutException e) {
