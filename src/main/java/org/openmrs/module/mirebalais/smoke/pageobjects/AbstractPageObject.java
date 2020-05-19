@@ -16,10 +16,8 @@ package org.openmrs.module.mirebalais.smoke.pageobjects;
 
 import org.openmrs.module.mirebalais.smoke.helper.SmokeTestProperties;
 import org.openqa.selenium.By;
-import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -172,42 +170,15 @@ public abstract class AbstractPageObject {
         clickOn(element);
 	}
 
-    public <V> V clickUntil(By byClause, Function<? super WebDriver, V> isTrue) {
-        return clickUntil(byClause, isTrue, 15);
-    }
-
-	public <V> V clickUntil(By byClause, Function<? super WebDriver, V> isTrue, int timeout) {
+	public <V> V clickUntil(WebElement element, Function<? super WebDriver, V> isTrue, int timeout) {
         long startMillis = System.currentTimeMillis();
-        int attempt = 0;
         while (true) {
-            attempt++;
-            try {
-                if (attempt > 1) {
-                    System.out.println(String.format("Click attempt %d", attempt));
-                }
-                WebElement element = driver.findElement(byClause);
-                switch (attempt % 4) {
-                    case 0:
-                        Actions actions = new Actions(driver);
-                        actions.moveToElement(element).click().build().perform();
-                    case 1:
-                        JavascriptExecutor js = (JavascriptExecutor) driver;
-                        js.executeScript("arguments[0].click();", element);
-                    case 2:
-                        element.click();
-                    case 3:
-                        element.sendKeys(Keys.ENTER);
-                }
-            } catch (StaleElementReferenceException | ElementNotInteractableException e) {
-                System.out.println(String.format("Ignoring exception %s", e.getMessage()));
-            }
+            element.click();
             try {
                 return (new WebDriverWait(driver, 1)).until(isTrue);
             } catch (TimeoutException e) {
                 if ((System.currentTimeMillis() - startMillis) / 1000 > timeout) {
-                    throw new TimeoutException(
-                            String.format("Kept clicking for %s seconds and never succeeded", timeout),
-                            e);
+                    throw e;
                 }
             }
         }
