@@ -331,14 +331,17 @@ public class VisitNote extends AbstractPageObject {
     }
 
     public void expandSection(String id) {
-        // the header loses its id immediately when expanded
-	    clickUntil(By.cssSelector("#" + id + " .expand-encounter"),
-                ExpectedConditions.invisibilityOfElementLocated(By.id(id)));
+        try {
+            clickOn(By.cssSelector("#" + id + " .expand-encounter"));
+        }
+        // try twice in case of stale element exception, which may be caused by interaction with angular?
+        catch (StaleElementReferenceException e) {
+            clickOn(By.cssSelector("#" + id + " .expand-encounter"));
+        }
     }
 
     public void editSection(String id) {
-        clickUntil(By.cssSelector("#" + id + " .edit-encounter"),
-                ExpectedConditions.visibilityOfElementLocated(By.id("htmlform")));
+        clickOn(By.cssSelector("#" + id + " .edit-encounter"));
     }
 
     public void viewConsultationDetails() {
