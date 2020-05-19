@@ -1,11 +1,8 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,9 +11,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.File;
-import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.openqa.selenium.Keys.RETURN;
@@ -47,16 +41,6 @@ public class CheckInFormPage extends AbstractPageObject {
             confirmPaperRecordPopup();
         }
         wait15seconds.until(invisibilityOfElementLocated(By.className("submitButton")));  // make sure the submit is complete
-        File tempFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        LocalDateTime now = LocalDateTime.now();
-        int hour = now.getHour();
-        int minute = now.getMinute();
-        int second = now.getSecond();
-        try {
-            String pathname = String.format("screenshots/checkin-%02d:%02d:%02d.png", hour, minute, second);
-            FileUtils.copyFile(tempFile, new File(pathname));
-        }
-        catch (IOException e) {}
     }
 
     public void enterInfoWithMultipleEnterKeystrokesOnSubmit()  {
