@@ -18,6 +18,7 @@ public class AdmissionNoteForm extends BaseHtmlForm {
         choosePrimaryDiagnosis(primaryDiagnosis);
         assertThat(submitButtonIsEnabled(),is(true));
         confirmData();
+        // note that a wristband printer must be set for this location on the server the tests are run against
         chooseNotToPrintWristband();
     }
 
@@ -27,6 +28,7 @@ public class AdmissionNoteForm extends BaseHtmlForm {
         choosePrimaryDiagnosis(primaryDiagnosis);
         assertThat(submitButtonIsEnabled(),is(true));
         confirmData();
+        // note that a wristband printer must be set for this location on the server the tests are run against
         chooseNotToPrintWristband();
     }
 
@@ -38,6 +40,7 @@ public class AdmissionNoteForm extends BaseHtmlForm {
         choosePrimaryDiagnosis(primaryDiagnosis);
         assertThat(submitButtonIsEnabled(),is(true));
         confirmData();
+        // note that a wristband printer must be set for this location on the server the tests are run against
         chooseNotToPrintWristband();
     }
 
