@@ -43,6 +43,9 @@ public class UserAdminTest extends DbTest {
 	}
 
 	@Test
+	@Ignore
+	// OpenMRS does not support deleting a user that has changed their password due to FOREIGN KEY self-reference
+	// See https://issues.openmrs.org/browse/TRUNK-5736
 	public void createUserWithPhysicianRoleAndUserChangesOwnPassword() throws Exception {
 
         userAdmin.createPhysicianAccount(NameGenerator.getUserFirstName(), NameGenerator.getUserLastName(), username,
@@ -51,8 +54,9 @@ public class UserAdminTest extends DbTest {
 
 		appDashboard.openMyAccountApp();
 		myAccountApp.openChangePassword();
-		myAccountApp.changePassword(DEFAULT_PASSWORD, DEFAULT_PASSWORD);
-		logOutAndLogInWithNewUser(username);
+		String newPassword = "something else!";
+		myAccountApp.changePassword(DEFAULT_PASSWORD, newPassword);
+		logOutAndLogInWithNewUser(username, newPassword);
 
 		assertThat(appDashboard.isActiveVisitsAppPresented(), is(true));
 
@@ -157,9 +161,13 @@ public class UserAdminTest extends DbTest {
 	}
 
 	private void logOutAndLogInWithNewUser(String username) throws InterruptedException {
+		logOutAndLogInWithNewUser(username, DEFAULT_PASSWORD);
+	}
+
+	private void logOutAndLogInWithNewUser(String username, String password) throws InterruptedException {
 		Thread.sleep(5000);
         header.logOut();
-		loginPage.logIn(username, DEFAULT_PASSWORD);
+		loginPage.logIn(username, password);
 	}
 
 }

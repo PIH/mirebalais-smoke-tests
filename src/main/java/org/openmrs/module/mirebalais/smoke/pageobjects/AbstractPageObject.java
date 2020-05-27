@@ -18,12 +18,16 @@ import org.openmrs.module.mirebalais.smoke.helper.SmokeTestProperties;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
+import java.util.function.Function;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
@@ -146,13 +150,46 @@ public abstract class AbstractPageObject {
     }
 
     public void clickOn(WebElement element) {
-        Actions actions = new Actions(driver);
-        actions.moveToElement(element).click().perform();
+        // Tricky ways to try to get deterministic click behavior in Selenium
+        //   see https://stackoverflow.com/questions/31725033/selenium-click-not-always-working/31725102#31725102
+        // Simple
+//        element.click();
+        // Trick #2
+//        Actions actions = new Actions(driver);
+//        actions.moveToElement(element).click().build().perform();
+        // Trick #3
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", element);
+        // Trick #4 (from comments)
+//        element.sendKeys(Keys.ENTER);
     }
 
-    public void clickOn(By elementId) {
-        clickOn(driver.findElement(elementId));
+    public void clickOn(By byClause) {
+        // see https://stackoverflow.com/questions/31725033/selenium-click-not-always-working/31725102#31725102
+        // Trick #1
+        WebElement element = wait15seconds.until(ExpectedConditions.elementToBeClickable(byClause));
+        clickOn(element);
 	}
+
+    public <V> V clickUntil(WebElement element, Function<? super WebDriver, V> isTrue) {
+        return clickUntil(element, isTrue, 15);
+    }
+
+	public <V> V clickUntil(WebElement element, Function<? super WebDriver, V> isTrue, int timeout) {
+        long startMillis = System.currentTimeMillis();
+        while (true) {
+            try {
+                element.click();
+            } catch (StaleElementReferenceException e) {}
+            try {
+                return (new WebDriverWait(driver, 1)).until(isTrue);
+            } catch (TimeoutException e) {
+                if ((System.currentTimeMillis() - startMillis) / 1000 > timeout) {
+                    throw e;
+                }
+            }
+        }
+    }
 
     public void clickOnFirst(By elementId) {
         List<WebElement> elements = driver.findElements(elementId);

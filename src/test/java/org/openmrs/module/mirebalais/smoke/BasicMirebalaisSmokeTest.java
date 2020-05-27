@@ -168,8 +168,6 @@ public abstract class BasicMirebalaisSmokeTest {
         clinicianDashboard = new ClinicianDashboard(driver);
     }
 
-
-
 	protected void logout() {
 		new HeaderPage(driver).logOut();
 	}

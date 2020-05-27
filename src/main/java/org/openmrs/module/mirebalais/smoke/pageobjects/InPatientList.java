@@ -6,9 +6,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 public class InPatientList extends AbstractPageObject {
 	
@@ -44,13 +44,7 @@ public class InPatientList extends AbstractPageObject {
 	
 	public void waitUntilInpatientListIsFilteredBy(final String ward) {
 		//wait5seconds.until(stalenessOf(driver.findElement(By.className("inpatient-count"))));
-		wait5seconds.until(new Predicate<WebDriver>() {
-
-			@Override
-			public boolean apply(@Nullable WebDriver webDriver) {
-				return isListFilteredBy(ward);
-			}
-		});
+		wait5seconds.until((WebDriver webDriver) -> isListFilteredBy(ward));
 	}
 	
 	private boolean isListFilteredBy(String ward) {
