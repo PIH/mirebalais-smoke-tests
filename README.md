@@ -20,8 +20,8 @@ particular configuration repo and PIH Config.
 
 ## Chromedriver
 
-Chromedriver is bundled with this repo in `/src/test/resources/chromedriver`. It is presently at version 2.37.
-You must have a [compatible version](http://chromedriver.storage.googleapis.com/2.37/notes.txt) of Chrome installed.
+Chromedriver is bundled with this repo in `/src/test/resources/chromedriver`. It is presently at version 81.
+You should use a version of Chrome with the matching version number.
 
 To check your Chrome version in Linux, execute `google-chrome --version`. 
 To upgrade Chrome on Ubuntu (including on the [Bamboo server](https://bamboo.pih-emr.org/allPlans.action))
