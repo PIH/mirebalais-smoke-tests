@@ -12,11 +12,11 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 public class AdmissionDischargeTransferTest extends DbTest {
-	
+
 	private final String anemia = "D64.9";
-	
+
 	private final String malaria = "B54";
-	
+
 	private final String rubella = "B06.9";
 
     private Patient testPatient;
@@ -51,13 +51,13 @@ public class AdmissionDischargeTransferTest extends DbTest {
 	public void shouldCreateTransferNote() throws Exception {
 
         visitNote.addAdmissionNote(malaria);
-		visitNote.addConsultNoteWithTransferToLocation(rubella, 3);
+		visitNote.addConsultNoteWithTransferToLocation(rubella, 5);  // location 5 = Ijans
 
         assertThat(visitNote.countEncountersOfType(VisitNote.TRANSFER_CREOLE_NAME), is(1));
 
-		
+
 	}
-	
+
 	@Test
 	public void shouldCreateDischargeNote() throws Exception {
 
@@ -71,7 +71,7 @@ public class AdmissionDischargeTransferTest extends DbTest {
     @Test
     public void shouldAdmitPatientViaAwaitingAdmissionApp() throws Exception {
 
-        visitNote.addConsultNoteWithAdmissionToLocation(malaria, 6);
+        visitNote.addConsultNoteWithAdmissionToLocation(malaria, 8);  // location 8 = Sal Gason, where this user logs in
         assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(1));
 
         header.home();
@@ -90,7 +90,7 @@ public class AdmissionDischargeTransferTest extends DbTest {
     @Test
     public void shouldCancelPatientFromAwaitingAdmissionApp() throws Exception {
 
-        visitNote.addConsultNoteWithAdmissionToLocation(malaria, 6);
+        visitNote.addConsultNoteWithAdmissionToLocation(malaria, 8);  // location 8 = Sal Gason, where this user logs in
         assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(1));
 
         header.home();
