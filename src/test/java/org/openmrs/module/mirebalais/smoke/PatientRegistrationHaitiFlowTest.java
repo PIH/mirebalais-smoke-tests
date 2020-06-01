@@ -18,38 +18,54 @@ public class PatientRegistrationHaitiFlowTest extends PatientRegistrationFlowTes
     }
 
     @Override
+    protected String getMothersFirstName() {
+        return null; // not enabled on HSN
+    }
+
+    @Override
     protected String getPersonAddressString() {
         return "Cange";
     }
 
     @Override
-    protected String getPlaceOfBirthString() { return "Cange"; }
+    protected String getPlaceOfBirthString() { return null; }
 
-    @Override
-    protected String getContactAddressString() {
-        return "Hinche";
-    }
-
-    @Override
-    protected Integer getInsuranceName() {
-        return 2;
-    }
-
-    @Override
-    protected String getInsuranceNumberString() {
-        return "076-098765";
-    }
-
-    @Override
-    protected String getOtherInsuranceNameString() {
-        return "non-coded insurance";
-    }
 
     @Override
     protected Boolean placeOfBirthAndContactAddressUseHierarchy() { return true; }
 
     @Override
-    protected Integer getReligion() { return 1; }
+    protected Integer getOccupation() {
+        return null;
+    }
+
+    @Override
+    protected Integer getReligion() { return null; }
+
+    @Override
+    protected String getRelationship() {
+        return null;
+    }
+
+    @Override
+    protected String getContact() {
+        return null;
+    }
+
+    @Override
+    protected String getContactAddressString() {
+        return null;
+    }
+
+    @Override
+    protected String getContactPhoneNumber() {
+        return null;
+    }
+
+    @Override
+    protected Integer getMaritalStatus() {
+        return null;
+    }
 
     @Override
     protected Boolean automaticallyEnterIdentifier() { return true; }
@@ -60,7 +76,7 @@ public class PatientRegistrationHaitiFlowTest extends PatientRegistrationFlowTes
     }
 
     @Override
-    protected Boolean getAdditionalIdentifiersEnabled() { return true; }
+    protected Boolean getAdditionalIdentifiersEnabled() { return false; }
 
     @Override
     protected Boolean getBiometricsEnabled() {

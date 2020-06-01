@@ -30,8 +30,8 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         //click on the Register Patient button
         driver.findElement(By.id("register-patient-button")).click();
 
-        registration.registerPatient(givenName, familyName, nickname, PatientRegistration.Gender.MALE, 22, 4, 1975, "louise", getPlaceOfBirthString(),
-                getPersonAddressString(), getContactPhoneNumber(), getInsuranceName(),getInsuranceNumberString(), getOtherInsuranceNameString(), getMaritalStatus(), getOccupation(), getReligion(),
+        registration.registerPatient(givenName, familyName, nickname, PatientRegistration.Gender.MALE, 22, 4, 1975, getMothersFirstName(), getPlaceOfBirthString(),
+                getPersonAddressString(), "1234", getInsuranceName(),getInsuranceNumberString(), getOtherInsuranceNameString(), getMaritalStatus(), getOccupation(), getReligion(),
                 getContact(), getRelationship(), getContactAddressString(), placeOfBirthAndContactAddressUseHierarchy(), getContactPhoneNumber(), automaticallyEnterIdentifier(), getRelationshipsEnabled(), getBiometricsEnabled(), getPrintIdCardOption(),
                 getAdditionalIdentifiersEnabled(), getSuccessElement());
 
@@ -59,7 +59,7 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         header.home();
         appDashboard.openPatientRegistrationApp();
 
-        registration.editExistingPatient(testPatient, givenName, familyName, nickname, PatientRegistration.Gender.FEMALE, 10, 10, 1950, "Mary",
+        registration.editExistingPatient(testPatient, givenName, familyName, nickname, PatientRegistration.Gender.FEMALE, 10, 10, 1950, getMothersFirstName(),
                 getPersonAddressString(), getContact(), getRelationship(), placeOfBirthAndContactAddressUseHierarchy(), getContactPhoneNumber());
 
         appDashboard.goToAppDashboard();
@@ -71,6 +71,8 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
     }
 
     protected LoginPage getLoginPage() { return new GeneralLoginPage(driver); }
+
+    protected String getMothersFirstName() { return "Mary"; }
 
     protected String getPersonAddressString() {
         return "";

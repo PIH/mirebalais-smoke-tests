@@ -122,7 +122,9 @@ public class PatientRegistration extends AbstractPageObject {
     }
 
     public void enterMothersFirstName(String mothersFirstName) {
-        setTextToField(By.name("mothersFirstName"), mothersFirstName);
+        if (StringUtils.isNotBlank(mothersFirstName)) {
+            setTextToField(By.name("mothersFirstName"), mothersFirstName);
+        }
     }
 
     public void enterPersonAddressViaShortcut(String searchValue) {
@@ -148,11 +150,15 @@ public class PatientRegistration extends AbstractPageObject {
     }
 
     public void enterBirthplaceViaShortcut(String searchValue) {
-        enterAddressViaShortcut(searchValue, 1);  // index=1 because place of birth is the second address in the registration form
+        if (StringUtils.isNotBlank(searchValue)) {
+            enterAddressViaShortcut(searchValue, 1);  // index=1 because place of birth is the second address in the registration form
+        }
     }
 
     public void enterBirthplaceAsFreeText(String birthplace) {
-        setTextToField(By.name("obs.PIH:PLACE OF BIRTH"), birthplace);
+        if (StringUtils.isNotBlank(birthplace)) {
+            setTextToField(By.name("obs.PIH:PLACE OF BIRTH"), birthplace);
+        }
     }
 
     public void selectMaritalStatus(Integer option) {
