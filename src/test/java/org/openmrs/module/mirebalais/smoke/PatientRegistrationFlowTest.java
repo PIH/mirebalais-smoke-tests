@@ -59,8 +59,8 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         header.home();
         appDashboard.openPatientRegistrationApp();
 
-        registration.editExistingPatient(testPatient, givenName, familyName, nickname, PatientRegistration.Gender.FEMALE, 10, 10, 1950, getMothersFirstName(),
-                getPersonAddressString(), getContact(), getRelationship(), placeOfBirthAndContactAddressUseHierarchy(), getContactPhoneNumber());
+        registration.editExistingPatient(testPatient, givenName, familyName, nickname, PatientRegistration.Gender.FEMALE, 10, 10, 1950, getMothersFirstNameForEdit(),
+                getPersonAddressString(), getContact(), getRelationship(), placeOfBirthAndContactAddressUseHierarchy(), "4567");
 
         appDashboard.goToAppDashboard();
         appDashboard.findPatientByGivenAndFamilyName(givenName, familyName);
@@ -73,6 +73,10 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
     protected LoginPage getLoginPage() { return new GeneralLoginPage(driver); }
 
     protected String getMothersFirstName() { return "Mary"; }
+
+    protected String getMothersFirstNameForEdit() {
+        return "Cathy";
+    }
 
     protected String getPersonAddressString() {
         return "";

@@ -23,6 +23,11 @@ public class PatientRegistrationHaitiFlowTest extends PatientRegistrationFlowTes
     }
 
     @Override
+    protected String getMothersFirstNameForEdit() {
+        return "Cathy";
+    }
+
+    @Override
     protected String getPersonAddressString() {
         return "Cange";
     }
