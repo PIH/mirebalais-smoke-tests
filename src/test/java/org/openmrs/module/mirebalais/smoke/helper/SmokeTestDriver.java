@@ -1,6 +1,7 @@
 package org.openmrs.module.mirebalais.smoke.helper;
 
 import org.apache.commons.lang.SystemUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.openmrs.module.mirebalais.smoke.BasicMirebalaisSmokeTest;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -12,6 +13,9 @@ import java.util.Arrays;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class SmokeTestDriver {
+
+    private SmokeTestProperties properties = new SmokeTestProperties();
+
     private final WebDriver driver;
 
     public SmokeTestDriver() {
@@ -26,17 +30,23 @@ public class SmokeTestDriver {
 
     }
 
-    private static void setupChromeDriver() {
+    private void setupChromeDriver() {
         URL resource = null;
         ClassLoader classLoader = BasicMirebalaisSmokeTest.class.getClassLoader();
 
-        if(SystemUtils.IS_OS_MAC_OSX) {
-            resource = classLoader.getResource("chromedriver/mac/chromedriver");
-        } else if(SystemUtils.IS_OS_LINUX) {
-            resource = classLoader.getResource("chromedriver/linux/chromedriver");
-        } else if(SystemUtils.IS_OS_WINDOWS) {
-            resource = classLoader.getResource("chromedriver/windows/chromedriver.exe");
+        if (StringUtils.isBlank(properties.getChromeDriverExecutable())) {
+            if(SystemUtils.IS_OS_MAC_OSX) {
+                resource = classLoader.getResource("chromedriver/mac/chromedriver");
+            } else if(SystemUtils.IS_OS_LINUX) {
+                resource = classLoader.getResource("chromedriver/linux/chromedriver");
+            } else if(SystemUtils.IS_OS_WINDOWS) {
+                resource = classLoader.getResource("chromedriver/windows/chromedriver.exe");
+            }
         }
+        else {
+            resource = classLoader.getResource(properties.getChromeDriverExecutable());
+        }
+
         System.setProperty("webdriver.chrome.driver", resource.getPath());
     }
 

@@ -45,6 +45,11 @@ public class SmokeTestProperties {
         return envOrDefault("WEBAPP_NAME", "openmrs");
     }
 
+    public String getChromeDriverExecutable() {
+        // if none specified, defaults to logic in SmokeTestDriver, see SmokeTestDriver:37
+        return envOrDefault("CHROME_DRIVER_EXECUTABLE", "");
+    }
+
     public String getDatabaseDriverClass() {
         return "com.mysql.jdbc.Driver";
     }
