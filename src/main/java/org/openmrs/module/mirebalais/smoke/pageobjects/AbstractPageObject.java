@@ -14,21 +14,24 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
-import org.openmrs.module.mirebalais.smoke.helper.SmokeTestProperties;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 import java.util.List;
 import java.util.function.Function;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
+import org.openmrs.module.mirebalais.smoke.helper.SmokeTestProperties;
+import org.openqa.selenium.By;
+import org.openqa.selenium.InvalidElementStateException;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class AbstractPageObject {
 
@@ -184,9 +187,30 @@ public abstract class AbstractPageObject {
         }
     }
 
-    public void clickOnFirst(By elementId) {
-        List<WebElement> elements = driver.findElements(elementId);
-        clickOn(elements.get(0));
+	/**
+	 * This implementation was necessary as some pages had elements on the page that were disconnected from the dom,
+	 * or which were hidden as templates.  The behavior desired for several use cases is to click on the first element
+	 * matching a given selector that you find, usually by class.  This will first wait for any element to be available
+	 * on the page that is in a clickable state, and then iterate across all elements found and click on the first one
+	 * that is actually clickable.
+	 */
+	public void clickOnFirst(By elementId) {
+	    wait15seconds.until(anyClickable(elementId));
+	    boolean clicked = false;
+	    for (WebElement webElement : driver.findElements(elementId)) {
+		    try {
+			    if (webElement.isEnabled() && webElement.isDisplayed()) {
+				    clickOn(webElement);
+				    clicked = true;
+			    }
+		    }
+		    catch (StaleElementReferenceException e) {
+			    // Do nothing here, this means that this is not attached to the DOM and we want to skip it
+		    }
+	    }
+	    if (!clicked) {
+	    	throw new InvalidElementStateException(elementId + " is unable to be clicked");
+	    }
     }
 
     public void clickOnLast(By elementId) {
@@ -225,4 +249,29 @@ public abstract class AbstractPageObject {
         return null;
     }
 
+    // Additional Expected Conditions
+
+	/**
+	 * This returns true condition if any clickable element identified by the locator is found
+	 */
+	public static ExpectedCondition<Boolean> anyClickable(final By locator) {
+		return new ExpectedCondition<Boolean>() {
+			public Boolean apply(WebDriver driver) {
+				try {
+					for (WebElement webElement : driver.findElements(locator)) {
+						if (webElement.isEnabled() && webElement.isDisplayed()) {
+							return true;
+						}
+					}
+				} catch (StaleElementReferenceException e) {
+					// Do nothing,
+				}
+				return false;
+			}
+
+			public String toString() {
+				return "at least one element clickable: " + locator;
+			}
+		};
+	}
 }

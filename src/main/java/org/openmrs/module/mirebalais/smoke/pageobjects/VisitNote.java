@@ -14,6 +14,13 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
+import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
+
+import java.util.HashMap;
+import java.util.List;
+
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.AdmissionNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.ChiefComplaintForm;
@@ -36,15 +43,6 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-
-import java.util.HashMap;
-import java.util.List;
-
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
-import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
-import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class VisitNote extends AbstractPageObject {
 	
@@ -157,12 +155,11 @@ public class VisitNote extends AbstractPageObject {
     public void expandFirstEncounter() {clickOn(expandEncounter);}
 
     public void editFirstEncounter() {
-	    wait15seconds.until(elementToBeClickable(editEncounter));
-        clickOn(editEncounter);
+	    clickOnFirst(editEncounter);
     }
 
 	public void deleteFirstEncounter() {
-		clickOn(deleteEncounter);
+		clickOnFirst(deleteEncounter);
 		clickOn(By.className("delete-encounter-button") );
 		wait5seconds.until(invisibilityOfElementLocated(By.className("delete-encounter-dialog")));
 	}
