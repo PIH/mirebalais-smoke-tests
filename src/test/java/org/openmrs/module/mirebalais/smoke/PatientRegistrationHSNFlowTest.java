@@ -3,7 +3,7 @@ package org.openmrs.module.mirebalais.smoke;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
-public class PatientRegistrationHaitiFlowTest extends PatientRegistrationFlowTest {
+public class PatientRegistrationHSNFlowTest extends PatientRegistrationHaitiFlowTest {
 
     @Test
     @Override
@@ -18,22 +18,59 @@ public class PatientRegistrationHaitiFlowTest extends PatientRegistrationFlowTes
     }
 
     @Override
+    protected String getMothersFirstName() {
+        return null; // not enabled on HSN
+    }
+
+    @Override
+    protected String getMothersFirstNameForEdit() {
+        return "Cathy";
+    }
+
+    @Override
     protected String getPersonAddressString() {
         return "Cange";
     }
 
     @Override
-    protected String getPlaceOfBirthString() { return "Cange"; }
+    protected String getPlaceOfBirthString() { return null; }
 
-    protected String getContactAddressString() {
-        return "Cange";
-    }
 
     @Override
     protected Boolean placeOfBirthAndContactAddressUseHierarchy() { return true; }
 
     @Override
-    protected Integer getReligion() { return 1; }
+    protected Integer getOccupation() {
+        return null;
+    }
+
+    @Override
+    protected Integer getReligion() { return null; }
+
+    @Override
+    protected String getRelationship() {
+        return null;
+    }
+
+    @Override
+    protected String getContact() {
+        return null;
+    }
+
+    @Override
+    protected String getContactAddressString() {
+        return null;
+    }
+
+    @Override
+    protected String getContactPhoneNumber() {
+        return null;
+    }
+
+    @Override
+    protected Integer getMaritalStatus() {
+        return null;
+    }
 
     @Override
     protected Boolean automaticallyEnterIdentifier() { return true; }
@@ -55,5 +92,6 @@ public class PatientRegistrationHaitiFlowTest extends PatientRegistrationFlowTes
     protected By getSuccessElement() {
         return By.id("register-patient-button");    // Haiti redirects to Register Patient search page
     }
+
 
 }

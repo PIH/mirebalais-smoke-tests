@@ -1,9 +1,22 @@
 package org.openmrs.module.mirebalais.smoke;
 
+import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.MirebalaisLoginPage;
 
 public class PatientRegistrationMirebalaisFlowTest extends PatientRegistrationHaitiFlowTest {
+
+    @Test
+    @Override
+    public void registerNewPatient() throws Exception {
+        super.registerNewPatient();
+    }
+
+    @Test
+    @Override
+    public void editExistingPatient() throws Exception {
+        super.editExistingPatient();
+    }
 
     @Override
     protected LoginPage getLoginPage() {
@@ -27,16 +40,6 @@ public class PatientRegistrationMirebalaisFlowTest extends PatientRegistrationHa
     @Override
     protected String getOtherInsuranceNameString() {
         return "non-coded insurance";
-    }
-
-    @Override
-    protected Boolean getRelationshipsEnabled() {
-        return false;
-    }
-
-    @Override
-    protected Boolean getBiometricsEnabled() {
-        return true;
     }
 
 }
