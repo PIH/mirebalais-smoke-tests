@@ -31,7 +31,7 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         driver.findElement(By.id("register-patient-button")).click();
 
         registration.registerPatient(givenName, familyName, nickname, PatientRegistration.Gender.MALE, 22, 4, 1975, getMothersFirstName(), getPlaceOfBirthString(),
-                getPersonAddressString(), "4312533", getInsuranceName(),getInsuranceNumberString(), getOtherInsuranceNameString(), getMaritalStatus(), getOccupation(), getReligion(),
+                getPersonAddressString(), getPhoneNumber(), getInsuranceName(),getInsuranceNumberString(), getOtherInsuranceNameString(), getMaritalStatus(), getOccupation(), getReligion(),
                 getContact(), getRelationship(), getContactAddressString(), placeOfBirthAndContactAddressUseHierarchy(), getContactPhoneNumber(), automaticallyEnterIdentifier(), getRelationshipsEnabled(), getBiometricsEnabled(), getPrintIdCardOption(),
                 getAdditionalIdentifiersEnabled(), getSuccessElement());
 
@@ -60,7 +60,7 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         appDashboard.openPatientRegistrationApp();
 
         registration.editExistingPatient(testPatient, givenName, familyName, nickname, PatientRegistration.Gender.FEMALE, 10, 10, 1950, getMothersFirstNameForEdit(),
-                getPersonAddressString(), getContact(), getRelationship(), placeOfBirthAndContactAddressUseHierarchy(), "4312533");
+                getPersonAddressString(), getContact(), getRelationship(), placeOfBirthAndContactAddressUseHierarchy(), getPhoneNumber());
 
         appDashboard.goToAppDashboard();
         appDashboard.findPatientByGivenAndFamilyName(givenName, familyName);
@@ -83,6 +83,8 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
     }
 
     protected String getPlaceOfBirthString() { return ""; }
+
+    protected String getPhoneNumber() { return "12341111";};
 
     protected Integer getMaritalStatus() {
         return 1;
