@@ -30,8 +30,8 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         //click on the Register Patient button
         driver.findElement(By.id("register-patient-button")).click();
 
-        registration.registerPatient(givenName, familyName, nickname, PatientRegistration.Gender.MALE, 22, 4, 1975, "louise", getPlaceOfBirthString(),
-                getPersonAddressString(), getContactPhoneNumber(), getInsuranceName(),getInsuranceNumberString(), getOtherInsuranceNameString(), getMaritalStatus(), getOccupation(), getReligion(),
+        registration.registerPatient(givenName, familyName, nickname, PatientRegistration.Gender.MALE, 22, 4, 1975, getMothersFirstName(), getPlaceOfBirthString(),
+                getPersonAddressString(), getPhoneNumber(), getInsuranceName(),getInsuranceNumberString(), getOtherInsuranceNameString(), getMaritalStatus(), getOccupation(), getReligion(),
                 getContact(), getRelationship(), getContactAddressString(), placeOfBirthAndContactAddressUseHierarchy(), getContactPhoneNumber(), automaticallyEnterIdentifier(), getRelationshipsEnabled(), getBiometricsEnabled(), getPrintIdCardOption(),
                 getAdditionalIdentifiersEnabled(), getSuccessElement());
 
@@ -59,8 +59,8 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         header.home();
         appDashboard.openPatientRegistrationApp();
 
-        registration.editExistingPatient(testPatient, givenName, familyName, nickname, PatientRegistration.Gender.FEMALE, 10, 10, 1950, "Mary",
-                getPersonAddressString(), getContact(), getRelationship(), placeOfBirthAndContactAddressUseHierarchy(), getContactPhoneNumber());
+        registration.editExistingPatient(testPatient, givenName, familyName, nickname, PatientRegistration.Gender.FEMALE, 10, 10, 1950, getMothersFirstNameForEdit(),
+                getPersonAddressString(), getContact(), getRelationship(), placeOfBirthAndContactAddressUseHierarchy(), getPhoneNumber());
 
         appDashboard.goToAppDashboard();
         appDashboard.findPatientByGivenAndFamilyName(givenName, familyName);
@@ -72,11 +72,19 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
 
     protected LoginPage getLoginPage() { return new GeneralLoginPage(driver); }
 
+    protected String getMothersFirstName() { return "Mary"; }
+
+    protected String getMothersFirstNameForEdit() {
+        return "Cathy";
+    }
+
     protected String getPersonAddressString() {
         return "";
     }
 
     protected String getPlaceOfBirthString() { return ""; }
+
+    protected String getPhoneNumber() { return "12341111";};
 
     protected Integer getMaritalStatus() {
         return 1;

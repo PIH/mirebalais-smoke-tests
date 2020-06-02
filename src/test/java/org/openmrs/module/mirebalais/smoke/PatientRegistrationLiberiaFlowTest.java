@@ -73,6 +73,11 @@ public class PatientRegistrationLiberiaFlowTest extends PatientRegistrationFlowT
     }
 
     @Override
+    protected String getPhoneNumber() {
+        return "+231881112233";
+    }
+
+    @Override
     protected String getContactPhoneNumber() {
         return "+231881112233";
     }
