@@ -29,6 +29,9 @@ you should be able to use `sudo apt install google-chrome-stable`.
 
 Other versions of Chromedriver can be found [here](https://chromedriver.storage.googleapis.com/index.html).
 
+If you need to use a different version of Chrome driver, you can specify a different exectuable by using the
+CHROME_DRIVER_EXECUTABLE environmental variable (or see SmokeTestProperties).
+
 ## Config
 
 The following environment variables configure connections to the server and database.
