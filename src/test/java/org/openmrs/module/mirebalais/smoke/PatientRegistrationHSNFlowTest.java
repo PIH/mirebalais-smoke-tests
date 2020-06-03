@@ -1,6 +1,8 @@
 package org.openmrs.module.mirebalais.smoke;
 
 import org.junit.Test;
+import org.openmrs.module.mirebalais.smoke.pageobjects.HSNLoginPage;
+import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openqa.selenium.By;
 
 public class PatientRegistrationHSNFlowTest extends PatientRegistrationHaitiFlowTest {
@@ -15,6 +17,11 @@ public class PatientRegistrationHSNFlowTest extends PatientRegistrationHaitiFlow
     @Override
     public void editExistingPatient() throws Exception {
         super.editExistingPatient();
+    }
+
+    @Override
+    protected LoginPage getLoginPage() {
+        return new HSNLoginPage(driver);
     }
 
     @Override

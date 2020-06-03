@@ -14,7 +14,7 @@ import org.openqa.selenium.WebDriver;
                         AdmissionDischargeTransferTest.class,
                         ArchivesRoomFlowTest.class,
                         CaptureVitalsMirebalaisTest.class,
-                        CheckInTestMirebalais.class,
+                        CheckInMirebalaisTest.class,
                         ConsultNoteTest.class,
                         DailyAppointmentsTest.class,
                         DeathCertificateTest.class,
