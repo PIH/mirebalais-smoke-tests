@@ -39,6 +39,9 @@ public class PatientRegistrationLiberiaFlowTest extends PatientRegistrationFlowT
     protected Boolean placeOfBirthAndContactAddressUseHierarchy() { return false; }
 
     @Override
+    protected Integer getPrintIdCardOption() { return 1; }
+
+    @Override
     protected Integer getInsuranceName() {
         return null;
     }
