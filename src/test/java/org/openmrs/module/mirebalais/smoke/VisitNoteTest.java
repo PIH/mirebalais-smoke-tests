@@ -20,6 +20,8 @@ import static org.junit.Assert.assertTrue;
 
 public class VisitNoteTest extends DbTest {
 
+    public static final By SEARCH_FIELD = By.id("patient-search");
+
     @Test
     public void testCreateAdultInitialOutpatientEncounter() throws Exception{
 
@@ -32,7 +34,6 @@ public class VisitNoteTest extends DbTest {
         CheckInFormPage newCheckIn = new CheckInFormPage(driver);
         HeaderPage header = new HeaderPage(driver);
 
-        setLoginPage(getLoginPage());
         login();
 
         appDashboard.startClinicVisit();
@@ -41,12 +42,13 @@ public class VisitNoteTest extends DbTest {
 
         header.home();
         appDashboard.openApp(getVitalsAppIdentifier());
-        findPatient(testPatient.getIdentifier());
+        vitals.findPatientById(testPatient.getIdentifier(), SEARCH_FIELD);
+        Thread.sleep(2000);
+        vitals.hitEnterKey();
         vitals.enterVitals();
 
         header.home();
-        appDashboard.openWaitingForConsultApp();
-        findPatient(testPatient.getIdentifier());
+        appDashboard.goToVisitNoteVisitListAndSelectFirstVisit(testPatient.getId());
 
         visitNote.addAdultInitialOutpatient();
         assertThat(visitNote.countEncountersOfType(VisitNote.ADULT_INITIAL_OUTPATIENT_CREOLE_NAME), is(1));
@@ -116,12 +118,13 @@ public class VisitNoteTest extends DbTest {
 
         header.home();
         appDashboard.openApp(getVitalsAppIdentifier());
-        findPatient(testPatient.getIdentifier());
+        vitals.findPatientById(testPatient.getIdentifier(), SEARCH_FIELD);
+        Thread.sleep(2000);
+        vitals.hitEnterKey();
         vitals.enterVitals();
 
         header.home();
-        appDashboard.openWaitingForConsultApp();
-        findPatient(testPatient.getIdentifier());
+        appDashboard.goToVisitNoteVisitListAndSelectFirstVisit(testPatient.getId());
 
         visitNote.addAdultFollowupOutpatient();
         assertThat(visitNote.countEncountersOfType(VisitNote.ADULT_FOLLOWUP_OUTPATIENT_CREOLE_NAME), is(1));
@@ -186,12 +189,13 @@ public class VisitNoteTest extends DbTest {
 
         header.home();
         appDashboard.openApp(getVitalsAppIdentifier());
-        findPatient(testPatient.getIdentifier());
+        vitals.findPatientById(testPatient.getIdentifier(), SEARCH_FIELD);
+        Thread.sleep(2000);
+        vitals.hitEnterKey();
         vitals.enterVitalsForInfant();
 
         header.home();
-        appDashboard.openWaitingForConsultApp();
-        findPatient(testPatient.getIdentifier());
+        appDashboard.goToVisitNoteVisitListAndSelectFirstVisit(testPatient.getId());
 
         visitNote.addPedsInitialOutpatient();
         assertThat(visitNote.countEncountersOfType(VisitNote.PEDS_INITIAL_OUTPATIENT_CREOLE_NAME), is(1));
@@ -278,12 +282,13 @@ public class VisitNoteTest extends DbTest {
 
         header.home();
         appDashboard.openApp(getVitalsAppIdentifier());
-        findPatient(testPatient.getIdentifier());
+        vitals.findPatientById(testPatient.getIdentifier(), SEARCH_FIELD);
+        Thread.sleep(2000);
+        vitals.hitEnterKey();
         vitals.enterVitalsForInfant();
 
         header.home();
-        appDashboard.openWaitingForConsultApp();
-        findPatient(testPatient.getIdentifier());
+        appDashboard.goToVisitNoteVisitListAndSelectFirstVisit(testPatient.getId());
 
         visitNote.addPedsFollowupOutpatient();
         assertThat(visitNote.countEncountersOfType(VisitNote.PEDS_FOLLOWUP_OUTPATIENT_CREOLE_NAME), is(1));

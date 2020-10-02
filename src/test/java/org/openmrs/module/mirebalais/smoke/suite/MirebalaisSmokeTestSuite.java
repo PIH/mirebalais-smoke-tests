@@ -37,8 +37,7 @@ import org.openqa.selenium.WebDriver;
                         RetroConsultNoteTest.class,
                         RetroVisitTest.class,
                         UserAdminTest.class,
-
-                    //    VisitNoteMirebalaisTest.class
+                        VisitNoteMirebalaisTest.class
                     } )
 public class MirebalaisSmokeTestSuite {
 

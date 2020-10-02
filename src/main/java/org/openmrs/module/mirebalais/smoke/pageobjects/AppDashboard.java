@@ -194,6 +194,10 @@ public class AppDashboard extends AbstractPageObject {
         }
     }
 
+    public void goToWaitingForConsultPage(){
+        driver.get(properties.getWebAppUrl() + "/pihcore/visit/waitingForConsult.page");
+    }
+
     public void goToClinicianFacingDashboard(BigInteger patientId) {
         driver.get(properties.getWebAppUrl() + "/coreapps/clinicianfacing/patient.page?patientId=" + patientId);
     }
