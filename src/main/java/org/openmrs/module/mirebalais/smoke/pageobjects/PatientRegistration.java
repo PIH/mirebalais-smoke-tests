@@ -325,7 +325,7 @@ public class PatientRegistration extends AbstractPageObject {
     public void editRegistration() {
         clickOn(By.cssSelector("#coreapps-mostRecentRegistrationSummary .edit-action"));
         // just edit location  and provider for now to keep it simple--should verify that the edit page opens, can be updated, and saves
-        selectFromDropdown(By.cssSelector("#patientRegistration select:nth-of-type(1)"), 1);  // kind of a hack, should add ID to encounterProviderAndRole tag
+        selectFromDropdown(By.cssSelector("#patientRegistration select:nth-of-type(1)"), 2);  // kind of a hack, should add ID to encounterProviderAndRole tag
         selectFromDropdown(By.cssSelector("#encounterLocationField select"), 1);
         confirm(By.id("demographics-edit-link")); // edit-link is success element to confirm back on edit page
     }
