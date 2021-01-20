@@ -9,7 +9,7 @@ import org.openmrs.module.mirebalais.smoke.helper.SmokeTestDriver;
 import org.openqa.selenium.WebDriver;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses( { /* ActiveVisitsTest.class,
+@Suite.SuiteClasses( {  ActiveVisitsTest.class,
                         AdmissionDischargeTransferRetroTest.class,
                         AdmissionDischargeTransferTest.class,
                         ArchivesRoomFlowTest.class,
@@ -31,13 +31,13 @@ import org.openqa.selenium.WebDriver;
                         MultipleSubmitTest.class,
                         NonCodedDiagnosesTest.class,
                         RadiologyOrdersTest.class,
-                        PatientRegistrationMirebalaisFlowTest.class,*/
-                       // PatientSearchTest.class,
-                       // RequestAppointmentsTest.class,
-                       // RetroConsultNoteTest.class,
+                        PatientRegistrationMirebalaisFlowTest.class,
+                        PatientSearchTest.class,
+                        RequestAppointmentsTest.class,
+                        RetroConsultNoteTest.class,
                         RetroVisitTest.class,
-                       // UserAdminTest.class,
-                     //   VisitNoteMirebalaisTest.class
+                        UserAdminTest.class,
+                        VisitNoteMirebalaisTest.class
                     } )
 public class MirebalaisSmokeTestSuite {
 
