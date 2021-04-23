@@ -169,10 +169,12 @@ public class PatientRegistration extends AbstractPageObject {
     }
 
     public void selectOccupation(Integer option) {
-        if (option != null) {
+        // just skip occupation for now
+        hitTabKey();
+        /*if (option != null) {
             selectFromDropdown(By.name("obs.PIH:Occupation"), option);
             hitEnterKey(By.name("obs.PIH:Occupation"));
-        }
+        }*/
     }
 
     public void skipRelationshipSection() {
