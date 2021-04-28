@@ -2,6 +2,7 @@ package org.openmrs.module.mirebalais.smoke;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
@@ -24,7 +25,7 @@ public class ConsultNoteTest extends DbTest {
 	public static void prepare() throws Exception {
         logInAsPhysicianUser("Sal Gason");
     }
-	
+
 	@Before
 	public void setUp() throws Exception {
 		Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();
@@ -35,15 +36,16 @@ public class ConsultNoteTest extends DbTest {
         appDashboard.goToClinicianFacingDashboard(testPatient.getId());
 		clinicianDashboard.startVisit();
 	}
-	
+
 	@Test
 	public void addConsultationToAVisitWithoutCheckin() throws Exception {
 		visitNote.addConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS, 2);
-		
+
 		assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(1));
 	}
-	
+
 	@Test
+    @Ignore
 	public void addConsultationNoteWithDeathAsDispositionDoesNotCloseVisit() throws Exception {
 		visitNote.addConsultNoteWithDeath(PRIMARY_DIAGNOSIS);
         deathCertificateForm.waitToLoad();
