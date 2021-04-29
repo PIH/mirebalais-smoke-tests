@@ -13,7 +13,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
 
 public class ClinicianDashboard extends AbstractPageObject {
 
-    public static final String ACTIVE_VISIT_CREOLE_MESSAGE = "Aktif";
+    public static final String ACTIVE_VISIT_CREOLE_MESSAGE = "aktif";
 
     private static final By startVisitAction = By.id("coreapps.createVisit");
 
@@ -91,7 +91,7 @@ public class ClinicianDashboard extends AbstractPageObject {
     }
 
     public boolean hasActiveVisit() {
-        return driver.findElements(By.cssSelector(".tag")).get(0).getText().contains(ACTIVE_VISIT_CREOLE_MESSAGE);
+        return driver.findElements(By.cssSelector(".lozenge.active")).get(0).getText().toLowerCase().contains(ACTIVE_VISIT_CREOLE_MESSAGE);
     }
 
     public void startVisit() {

@@ -2,7 +2,6 @@ package org.openmrs.module.mirebalais.smoke;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
@@ -45,11 +44,11 @@ public class ConsultNoteTest extends DbTest {
 	}
 
 	@Test
-    @Ignore
 	public void addConsultationNoteWithDeathAsDispositionDoesNotCloseVisit() throws Exception {
 		visitNote.addConsultNoteWithDeath(PRIMARY_DIAGNOSIS);
-        deathCertificateForm.waitToLoad();
-        deathCertificateForm.cancel();
+
+        //deathCertificateForm.waitToLoad();
+        //deathCertificateForm.cancel();
 
 		assertThat(clinicianDashboard.isDead(), is(true));
 		assertThat(clinicianDashboard.hasActiveVisit(), is(true));
