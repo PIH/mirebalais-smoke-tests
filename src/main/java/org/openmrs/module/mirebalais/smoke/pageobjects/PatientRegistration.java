@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
@@ -55,6 +56,7 @@ public class PatientRegistration extends AbstractPageObject {
         selectMaritalStatus(martialStatus);
         selectOccupation(occupation);
         selectReligion(religion);
+        enterEbolaScreening();
         if (relationshipsEnabled) {
             skipRelationshipSection();
         }
@@ -142,7 +144,32 @@ public class PatientRegistration extends AbstractPageObject {
         searchBox.sendKeys(searchValue);
         wait5seconds.until(visibilityOfElementLocated(By.partialLinkText(searchValue)));
         searchBox.sendKeys(Keys.ENTER);
-        searchBox.sendKeys(Keys.ENTER);
+
+        try {
+            WebElement address1 = driver.findElement(By.name("address1"));
+            if (address1 != null && address1.isDisplayed()) {
+                address1.sendKeys(Keys.TAB);
+            }
+            WebElement cityVillage = driver.findElement(By.name("cityVillage"));
+            if (cityVillage != null && cityVillage.isDisplayed()) {
+                cityVillage.sendKeys(Keys.TAB);
+            }
+            WebElement address2 = driver.findElement(By.name("address2"));
+            if (address2 != null && address2.isDisplayed()) {
+                address2.sendKeys(Keys.TAB);
+            }
+            address2 = driver.findElement(By.name("obsgroup.PIH:Birthplace address construct.obs.PIH:Address2"));
+            if (address2 != null && address2.isDisplayed()) {
+                address2.sendKeys(Keys.TAB);
+            }
+            address2 = driver.findElement(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:Address2"));
+            if (address2 != null && address2.isDisplayed()) {
+                address2.sendKeys(Keys.TAB);
+            }
+        } catch (NoSuchElementException e) {
+            return;
+        }
+
     }
 
     public void enterPhoneNumber(String number) {
@@ -243,6 +270,28 @@ public class PatientRegistration extends AbstractPageObject {
         }
     }
 
+    public void enterEbolaScreening(){
+        try {
+            WebElement fever = driver.findElement(By.name("obs.PIH:12246"));
+            if (fever != null && fever.isDisplayed()) {
+                selectFromDropdown(By.name("obs.PIH:12246"), 1);
+                hitEnterKey(By.name("obs.PIH:12246"));
+            }
+            WebElement bleeding = driver.findElement(By.name("obs.PIH:7102"));
+            if (bleeding != null && bleeding.isDisplayed()) {
+                selectFromDropdown(By.name("obs.PIH:7102"), 1);
+                hitEnterKey(By.name("obs.PIH:7102"));
+            }
+            WebElement clinicalSuspicion = driver.findElement(By.name("obs.CIEL:1690"));
+            if (clinicalSuspicion != null && clinicalSuspicion.isDisplayed()) {
+                selectFromDropdown(By.name("obs.CIEL:1690"), 1);
+                hitEnterKey(By.name("obs.CIEL:1690"));
+            }
+        } catch (NoSuchElementException e) {
+            return;
+        }
+    }
+
     public void automaticallyEnterIdentifier(Boolean automaticallyEnterIdentifier) {
         if (automaticallyEnterIdentifier != null && automaticallyEnterIdentifier) {
             driver.findElement(By.id("checkbox-autogenerate-identifier")).sendKeys(Keys.ENTER);
@@ -253,11 +302,16 @@ public class PatientRegistration extends AbstractPageObject {
     }
 
     public void enterAdditionalIdentifiers() {
-        // TODO: actually test adding the identifiers instead of just skipping
-        hitTabKey();
-        hitTabKey();
-        hitTabKey();
-        hitTabKey();
+        WebElement kghIdentifier = driver.findElement(By.name("patientIdentifierc09a1d24-7162-11eb-8aa6-0242ac110002"));
+        if (kghIdentifier != null ) {
+            kghIdentifier.sendKeys(Keys.TAB);
+        } else {
+            // TODO: actually test adding the identifiers instead of just skipping
+            hitTabKey();
+            hitTabKey();
+            hitTabKey();
+            hitTabKey();
+        }
     }
 
     public void printIdCard(Integer option) {

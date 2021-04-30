@@ -216,8 +216,16 @@ public class PatientDatabaseHandler extends BaseDatabaseHandler {
 		patientIdentifierType = connection.createQueryTable("identifier_source",
 				"select * from patient_identifier_type where uuid = '506add39-794f-11e8-9bcd-74e5f916c5ec'"); // Mexico EMR ID
 
-        return (Integer) patientIdentifierType.getValue(0, "patient_identifier_type_id");
+		try {
+			return (Integer) patientIdentifierType.getValue(0, "patient_identifier_type_id");
+		}
+		catch (RowOutOfBoundsException e) {
+		}
 
+		patientIdentifierType = connection.createQueryTable("identifier_source",
+				"select * from patient_identifier_type where uuid = '1a2acce0-7426-11e5-a837-0800200c9a66'"); // Wellbody EMR ID
+
+		return (Integer) patientIdentifierType.getValue(0, "patient_identifier_type_id");
 	}
 
 	private static void setDateUsedOfPatientIdentifierTo(String identifier, String date) throws Exception {
