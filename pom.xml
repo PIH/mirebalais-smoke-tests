@@ -52,6 +52,18 @@
             </properties>
         </profile>
         <profile>
+            <id>sierraleone</id>
+            <properties>
+                <suite>SierraLeone</suite>
+            </properties>
+        </profile>
+        <profile>
+            <id>peru</id>
+            <properties>
+                <suite>Peru</suite>
+            </properties>
+        </profile>
+        <profile>
             <id>mentalHealth</id>
             <properties>
                 <suite>MentalHealth</suite>

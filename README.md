@@ -13,6 +13,8 @@ particular configuration repo and PIH Config.
 | [mirebalais](https://bamboo.pih-emr.org/browse/MIREBALAIS-STHC)   | [zl](https://github.com/PIH/openmrs-config-zl)                 | mirebalais,mirebalais-humci                 |
 | [haiti](https://bamboo.pih-emr.org/browse/MIREBALAIS-STC)         | [zl](https://github.com/PIH/openmrs-config-zl)                 | haiti,haiti-thomonde,haiti-thomonde-ci      |
 | [liberia](https://bamboo.pih-emr.org/browse/MIREBALAIS-STP)       | [pihliberia](https://github.com/PIH/openmrs-config-pihliberia) | liberia,liberia-harper,liberia-harper-kouka |
+| [sierraleone](https://bamboo.pih-emr.org/browse/MIREBALAIS-STP)   | [pihsl](https://github.com/PIH/openmrs-config-pihsl)           | sierraLeone,sierraLeone-wellbody,sierraLeone-wellbody-gladi |
+| [peru](https://bamboo.pih-emr.org/browse/MIREBALAIS-STMH) | [ses](https://github.com/PIH/openmrs-config-ses)                       | peru                                        |
 | [mentalHealth](https://bamboo.pih-emr.org/browse/MIREBALAIS-STMH) | [zl](https://github.com/PIH/openmrs-config-zl)                 | haiti-mentalhealth                          |
 | [mexico](https://bamboo.pih-emr.org/browse/MIREBALAIS-STM)        | [ces](https://github.com/PIH/openmrs-config-ces)               | *not written yet*                           |
 

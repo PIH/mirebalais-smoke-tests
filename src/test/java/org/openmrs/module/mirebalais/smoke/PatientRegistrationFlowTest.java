@@ -31,7 +31,7 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         driver.findElement(By.id("register-patient-button")).click();
 
         registration.registerPatient(givenName, familyName, nickname, PatientRegistration.Gender.MALE, 22, 4, 1975, getMothersFirstName(), getPlaceOfBirthString(),
-                getPersonAddressString(), getPhoneNumber(), getInsuranceName(),getInsuranceNumberString(), getOtherInsuranceNameString(), getMaritalStatus(), getOccupation(), getReligion(),
+                getPersonAddressString(), getPhoneNumber(), getInsuranceName(),getInsuranceNumberString(), getOtherInsuranceNameString(), getMaritalStatus(), getEducation(), getOccupation(), getReligion(),
                 getContact(), getRelationship(), getContactAddressString(), placeOfBirthAndContactAddressUseHierarchy(), getContactPhoneNumber(), automaticallyEnterIdentifier(), getRelationshipsEnabled(), getBiometricsEnabled(), getPrintIdCardOption(),
                 getAdditionalIdentifiersEnabled(), getSuccessElement());
 
@@ -107,6 +107,8 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
     }
 
     protected Boolean placeOfBirthAndContactAddressUseHierarchy() { return true; }
+
+    protected Integer getEducation() { return null; }
 
     protected Integer getOccupation() { return 1; }
 

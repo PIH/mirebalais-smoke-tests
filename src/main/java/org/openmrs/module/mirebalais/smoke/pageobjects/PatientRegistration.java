@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class PatientRegistration extends AbstractPageObject {
 
     public void registerPatient(String givenName, String familyName, String nickname, Gender gender, Integer birthDay, Integer birthMonth,
                                 Integer birthYear, String mothersFirstName, String birthplace, String addressSearchValue, String phoneNumber, Integer insuranceName, String insuranceNumber, String otherInsurance,
-                                Integer martialStatus, Integer occupation, Integer religion, String contact, String relationship, String contactAddress,
+                                Integer martialStatus, Integer education, Integer occupation, Integer religion, String contact, String relationship, String contactAddress,
                                 Boolean addressUsesHierarchy, String contactPhoneNumber,
                                 Boolean automaticallyEnterIdentifier, Boolean relationshipsEnabled, Boolean biometricsEnabled, Integer printIdCard,
                                 Boolean additionalIdentifiersEnabled,
@@ -53,8 +54,10 @@ public class PatientRegistration extends AbstractPageObject {
         }
 
         selectMaritalStatus(martialStatus);
+        selectLevelOfEducation(education);
         selectOccupation(occupation);
         selectReligion(religion);
+        enterEbolaScreening();
         if (relationshipsEnabled) {
             skipRelationshipSection();
         }
@@ -99,7 +102,15 @@ public class PatientRegistration extends AbstractPageObject {
     public void enterPatientName(String familyName, String givenName, String nickname) {
         setTextToField(By.name("familyName"), familyName);
         setTextToField(By.name("givenName"), givenName);
-        setTextToField(By.name("middleName"), nickname);
+
+        try {
+            WebElement middleName = driver.findElement(By.name("middleName"));
+            if (middleName != null && middleName.isDisplayed()) {
+                setTextToField(By.name("middleName"), nickname);
+            }
+        } catch (NoSuchElementException e) {
+            hitTabKey();
+        }
 
     }
 
@@ -142,7 +153,32 @@ public class PatientRegistration extends AbstractPageObject {
         searchBox.sendKeys(searchValue);
         wait5seconds.until(visibilityOfElementLocated(By.partialLinkText(searchValue)));
         searchBox.sendKeys(Keys.ENTER);
-        searchBox.sendKeys(Keys.ENTER);
+
+        try {
+            WebElement address1 = driver.findElement(By.name("address1"));
+            if (address1 != null && address1.isDisplayed()) {
+                address1.sendKeys(Keys.TAB);
+            }
+            WebElement cityVillage = driver.findElement(By.name("cityVillage"));
+            if (cityVillage != null && cityVillage.isDisplayed()) {
+                cityVillage.sendKeys(Keys.TAB);
+            }
+            WebElement address2 = driver.findElement(By.name("address2"));
+            if (address2 != null && address2.isDisplayed()) {
+                address2.sendKeys(Keys.TAB);
+            }
+            address2 = driver.findElement(By.name("obsgroup.PIH:Birthplace address construct.obs.PIH:Address2"));
+            if (address2 != null && address2.isDisplayed()) {
+                address2.sendKeys(Keys.TAB);
+            }
+            address2 = driver.findElement(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:Address2"));
+            if (address2 != null && address2.isDisplayed()) {
+                address2.sendKeys(Keys.TAB);
+            }
+        } catch (NoSuchElementException e) {
+            return;
+        }
+
     }
 
     public void enterPhoneNumber(String number) {
@@ -165,6 +201,13 @@ public class PatientRegistration extends AbstractPageObject {
         if (option != null) {
             selectFromDropdown(By.name("obs.PIH:CIVIL STATUS"), option);
             hitEnterKey(By.name("obs.PIH:CIVIL STATUS"));
+        }
+    }
+
+    public void selectLevelOfEducation(Integer option) {
+        if(option != null){
+            selectFromDropdown(By.name("obs.PIH:HIGHEST LEVEL OF SCHOOL COMPLETED"), option);
+            hitEnterKey(By.name("obs.PIH:HIGHEST LEVEL OF SCHOOL COMPLETED"));
         }
     }
 
@@ -243,6 +286,28 @@ public class PatientRegistration extends AbstractPageObject {
         }
     }
 
+    public void enterEbolaScreening(){
+        try {
+            WebElement fever = driver.findElement(By.name("obs.PIH:12246"));
+            if (fever != null && fever.isDisplayed()) {
+                selectFromDropdown(By.name("obs.PIH:12246"), 1);
+                hitEnterKey(By.name("obs.PIH:12246"));
+            }
+            WebElement bleeding = driver.findElement(By.name("obs.PIH:7102"));
+            if (bleeding != null && bleeding.isDisplayed()) {
+                selectFromDropdown(By.name("obs.PIH:7102"), 1);
+                hitEnterKey(By.name("obs.PIH:7102"));
+            }
+            WebElement clinicalSuspicion = driver.findElement(By.name("obs.CIEL:1690"));
+            if (clinicalSuspicion != null && clinicalSuspicion.isDisplayed()) {
+                selectFromDropdown(By.name("obs.CIEL:1690"), 1);
+                hitEnterKey(By.name("obs.CIEL:1690"));
+            }
+        } catch (NoSuchElementException e) {
+            return;
+        }
+    }
+
     public void automaticallyEnterIdentifier(Boolean automaticallyEnterIdentifier) {
         if (automaticallyEnterIdentifier != null && automaticallyEnterIdentifier) {
             driver.findElement(By.id("checkbox-autogenerate-identifier")).sendKeys(Keys.ENTER);
@@ -253,11 +318,16 @@ public class PatientRegistration extends AbstractPageObject {
     }
 
     public void enterAdditionalIdentifiers() {
-        // TODO: actually test adding the identifiers instead of just skipping
-        hitTabKey();
-        hitTabKey();
-        hitTabKey();
-        hitTabKey();
+        WebElement kghIdentifier = driver.findElement(By.name("patientIdentifierc09a1d24-7162-11eb-8aa6-0242ac110002"));
+        if (kghIdentifier != null ) {
+            kghIdentifier.sendKeys(Keys.TAB);
+        } else {
+            // TODO: actually test adding the identifiers instead of just skipping
+            hitTabKey();
+            hitTabKey();
+            hitTabKey();
+            hitTabKey();
+        }
     }
 
     public void printIdCard(Integer option) {
@@ -301,11 +371,22 @@ public class PatientRegistration extends AbstractPageObject {
         setTextToField(By.id("patient-search"), patient.getName());
 
         // patient should be in results list
-        WebElement searchResults = driver.findElement(SEARCH_RESULTS_TABLE);
-        searchResults.findElement(By.xpath("/*//*[contains(text(), '" + patient.getFamily_name() + ", "
-                + patient.getGiven_name() + "')]")).click();
-
-
+        try {
+            WebElement searchResults = driver.findElement(SEARCH_RESULTS_TABLE);
+            searchResults.findElement(By.xpath("/*//*[contains(text(), '" + patient.getFamily_name() + ", "
+                    + patient.getGiven_name() + "')]")).click();
+        } catch (NoSuchElementException e) {
+            WebElement table = driver.findElement(SEARCH_RESULTS_TABLE);
+            if (table !=null && table.isEnabled()) {
+                //find the row
+                // Peru does not have a comma between names
+                WebElement row = table.findElement(By.xpath("//tr/td[contains(text(), '" + patient.getFamily_name() + " "
+                        + patient.getGiven_name() + "')]"));
+                if (row != null) {
+                    row.click();
+                }
+            }
+        }
     }
 
     public void editDemographics(String familyName, String givenName, String nickname, Gender gender, Integer birthDay,
