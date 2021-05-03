@@ -25,7 +25,7 @@ public class PatientRegistration extends AbstractPageObject {
 
     public void registerPatient(String givenName, String familyName, String nickname, Gender gender, Integer birthDay, Integer birthMonth,
                                 Integer birthYear, String mothersFirstName, String birthplace, String addressSearchValue, String phoneNumber, Integer insuranceName, String insuranceNumber, String otherInsurance,
-                                Integer martialStatus, Integer occupation, Integer religion, String contact, String relationship, String contactAddress,
+                                Integer martialStatus, Integer education, Integer occupation, Integer religion, String contact, String relationship, String contactAddress,
                                 Boolean addressUsesHierarchy, String contactPhoneNumber,
                                 Boolean automaticallyEnterIdentifier, Boolean relationshipsEnabled, Boolean biometricsEnabled, Integer printIdCard,
                                 Boolean additionalIdentifiersEnabled,
@@ -54,6 +54,7 @@ public class PatientRegistration extends AbstractPageObject {
         }
 
         selectMaritalStatus(martialStatus);
+        selectLevelOfEducation(education);
         selectOccupation(occupation);
         selectReligion(religion);
         enterEbolaScreening();
@@ -101,7 +102,15 @@ public class PatientRegistration extends AbstractPageObject {
     public void enterPatientName(String familyName, String givenName, String nickname) {
         setTextToField(By.name("familyName"), familyName);
         setTextToField(By.name("givenName"), givenName);
-        setTextToField(By.name("middleName"), nickname);
+
+        try {
+            WebElement middleName = driver.findElement(By.name("middleName"));
+            if (middleName != null && middleName.isDisplayed()) {
+                setTextToField(By.name("middleName"), nickname);
+            }
+        } catch (NoSuchElementException e) {
+            hitTabKey();
+        }
 
     }
 
@@ -192,6 +201,13 @@ public class PatientRegistration extends AbstractPageObject {
         if (option != null) {
             selectFromDropdown(By.name("obs.PIH:CIVIL STATUS"), option);
             hitEnterKey(By.name("obs.PIH:CIVIL STATUS"));
+        }
+    }
+
+    public void selectLevelOfEducation(Integer option) {
+        if(option != null){
+            selectFromDropdown(By.name("obs.PIH:HIGHEST LEVEL OF SCHOOL COMPLETED"), option);
+            hitEnterKey(By.name("obs.PIH:HIGHEST LEVEL OF SCHOOL COMPLETED"));
         }
     }
 
@@ -355,11 +371,22 @@ public class PatientRegistration extends AbstractPageObject {
         setTextToField(By.id("patient-search"), patient.getName());
 
         // patient should be in results list
-        WebElement searchResults = driver.findElement(SEARCH_RESULTS_TABLE);
-        searchResults.findElement(By.xpath("/*//*[contains(text(), '" + patient.getFamily_name() + ", "
-                + patient.getGiven_name() + "')]")).click();
-
-
+        try {
+            WebElement searchResults = driver.findElement(SEARCH_RESULTS_TABLE);
+            searchResults.findElement(By.xpath("/*//*[contains(text(), '" + patient.getFamily_name() + ", "
+                    + patient.getGiven_name() + "')]")).click();
+        } catch (NoSuchElementException e) {
+            WebElement table = driver.findElement(SEARCH_RESULTS_TABLE);
+            if (table !=null && table.isEnabled()) {
+                //find the row
+                // Peru does not have a comma between names
+                WebElement row = table.findElement(By.xpath("//tr/td[contains(text(), '" + patient.getFamily_name() + " "
+                        + patient.getGiven_name() + "')]"));
+                if (row != null) {
+                    row.click();
+                }
+            }
+        }
     }
 
     public void editDemographics(String familyName, String givenName, String nickname, Gender gender, Integer birthDay,

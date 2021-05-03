@@ -21,6 +21,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.NoSuchElementException;
 
 import java.math.BigInteger;
 
@@ -170,9 +171,22 @@ public class AppDashboard extends AbstractPageObject {
         searchField.sendKeys(Keys.RETURN);
 
         // patient should be in results list
-        WebElement searchResults = driver.findElement(SEARCH_RESULTS_TABLE);
-        clickOn(searchResults.findElement(By.xpath("//*[contains(text(), '" + familyName + ", "
-                + givenName + "')]")));
+        try {
+            WebElement searchResults = driver.findElement(SEARCH_RESULTS_TABLE);
+            clickOn(searchResults.findElement(By.xpath("//*[contains(text(), '" + familyName + ", "
+                    + givenName + "')]")));
+        } catch (NoSuchElementException e) {
+            WebElement table = driver.findElement(SEARCH_RESULTS_TABLE);
+            if (table !=null && table.isEnabled()) {
+                //find the row
+                // Peru does not have a comma between names
+                WebElement row = table.findElement(By.xpath("//tr/td[contains(text(), '" + familyName + " "
+                        + givenName + "')]"));
+                if (row != null) {
+                    row.click();
+                }
+            }
+        }
     }
 
     public void goToVisitNoteVisitList(BigInteger patientId) {
