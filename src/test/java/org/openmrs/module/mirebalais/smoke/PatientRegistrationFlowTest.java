@@ -33,7 +33,7 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         registration.registerPatient(givenName, familyName, nickname, PatientRegistration.Gender.MALE, 22, 4, 1975, getMothersFirstName(), getPlaceOfBirthString(),
                 getPersonAddressString(), getPhoneNumber(), getInsuranceName(),getInsuranceNumberString(), getOtherInsuranceNameString(), getMaritalStatus(), getEducation(), getOccupation(), getReligion(),
                 getContact(), getRelationship(), getContactAddressString(), placeOfBirthAndContactAddressUseHierarchy(), getContactPhoneNumber(), automaticallyEnterIdentifier(), getRelationshipsEnabled(), getBiometricsEnabled(), getPrintIdCardOption(),
-                getAdditionalIdentifiersEnabled(), getSuccessElement());
+                getAdditionalIdentifiersEnabled(), getNationalId(), getSocioInfoEnabled(),getSuccessElement());
 
         appDashboard.goToAppDashboard();
         appDashboard.findPatientByGivenAndFamilyName(givenName, familyName);
@@ -133,6 +133,12 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
     protected Boolean getBiometricsEnabled() { return false; }
 
     protected Boolean getAdditionalIdentifiersEnabled() { return false; }
+
+    protected Boolean getSocioInfoEnabled() { return false; }
+
+    protected String getNationalId() {
+        return null;
+    }
 
     protected By getSuccessElement() {
         return By.id("register-patient-button");

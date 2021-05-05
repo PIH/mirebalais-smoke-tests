@@ -29,6 +29,8 @@ public class PatientRegistration extends AbstractPageObject {
                                 Boolean addressUsesHierarchy, String contactPhoneNumber,
                                 Boolean automaticallyEnterIdentifier, Boolean relationshipsEnabled, Boolean biometricsEnabled, Integer printIdCard,
                                 Boolean additionalIdentifiersEnabled,
+                                String nationalId,
+                                Boolean socioInfoEnabled,
                                 By successElement) throws Exception{
 
         wait15seconds.until(visibilityOfElementLocated(By.id("checkbox-enable-registration-date")));
@@ -36,6 +38,7 @@ public class PatientRegistration extends AbstractPageObject {
         if (biometricsEnabled) {
             skipBiometricsSection();
         }
+        enterNationalId(nationalId);
         enterPatientName(familyName, givenName, nickname);
         enterGender(gender);
         enterBirthDate(birthDay, birthMonth, birthYear);
@@ -45,6 +48,7 @@ public class PatientRegistration extends AbstractPageObject {
         selectInsuranceName(insuranceName);
         enterInsuranceNumberAsFreeText(insuranceNumber);
         enterOtherInsuranceNameAsFreeText(otherInsurance);
+        enterSocioInfo(socioInfoEnabled);
 
         if (addressUsesHierarchy) {
             enterBirthplaceViaShortcut(birthplace);
@@ -130,6 +134,40 @@ public class PatientRegistration extends AbstractPageObject {
         birthDateMonth.sendKeys(Keys.TAB);
 
         setTextToField(By.name("birthdateYear"), year.toString());
+    }
+
+    public void enterNationalId(String nationalId) {
+        if (StringUtils.isNotBlank(nationalId)) {
+            try {
+                WebElement element = driver.findElement(By.name("patientIdentifierc1fe3790-915a-4f03-861f-5e477f36cec0"));
+                if (element != null && element.isDisplayed()) {
+                    hitEnterKey(By.name("patientIdentifierc1fe3790-915a-4f03-861f-5e477f36cec0"));
+                }
+            }catch(NoSuchElementException e) {}
+        }
+    }
+
+    public void enterSocioInfo(Boolean socioInfoEnabled) {
+        if (socioInfoEnabled) {
+            selectElementFromList("obs.PIH:Immigrant", 1);
+            selectElementFromList("obs.PIH:Indigenous", 1);
+            //Is the patient disabled?
+            selectElementFromList("obs.CIEL:162558", 1);
+            //literate
+            selectElementFromList("obs.CIEL:159400", 1);
+            //casefinding
+            selectElementFromList("obs.PIH:Found through active casefinding", 1);
+        }
+    }
+
+    public void selectElementFromList(String elementName, Integer position) {
+        try {
+            WebElement element = driver.findElement(By.name(elementName));
+            if (element != null && element.isDisplayed()) {
+                selectFromDropdown(By.name(elementName), position);
+                hitEnterKey(By.name(elementName));
+            }
+        }catch(NoSuchElementException e) {}
     }
 
     public void enterMothersFirstName(String mothersFirstName) {
@@ -269,8 +307,19 @@ public class PatientRegistration extends AbstractPageObject {
 
     public void selectInsuranceName(Integer option) {
         if (option != null) {
-            selectFromDropdown(By.name("obsgroup.PIH:Insurance CONSTRUCT.obs.PIH:Haiti insurance company name"), option);
-            hitEnterKey(By.name("obsgroup.PIH:Insurance CONSTRUCT.obs.PIH:Haiti insurance company name"));
+            try {
+                WebElement haitiInsurance = driver.findElement(By.name("obsgroup.PIH:Insurance CONSTRUCT.obs.PIH:Haiti insurance company name"));
+                if (haitiInsurance != null && haitiInsurance.isDisplayed()) {
+                    selectFromDropdown(By.name("obsgroup.PIH:Insurance CONSTRUCT.obs.PIH:Haiti insurance company name"), option);
+                    hitEnterKey(By.name("obsgroup.PIH:Insurance CONSTRUCT.obs.PIH:Haiti insurance company name"));
+                }
+            } catch(NoSuchElementException e) {
+                WebElement mexicoInsurance = driver.findElement(By.name("obsgroup.PIH:Insurance CONSTRUCT.obs.PIH:Mexico Insurance Coded"));
+                if (mexicoInsurance != null && mexicoInsurance.isDisplayed()) {
+                    selectFromDropdown(By.name("obsgroup.PIH:Insurance CONSTRUCT.obs.PIH:Mexico Insurance Coded"), option);
+                    hitEnterKey(By.name("obsgroup.PIH:Insurance CONSTRUCT.obs.PIH:Mexico Insurance Coded"));
+                }
+            }
         }
     }
 

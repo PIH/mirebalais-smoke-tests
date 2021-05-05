@@ -3,6 +3,7 @@ package org.openmrs.module.mirebalais.smoke;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.MexicoLoginPage;
+import org.openqa.selenium.By;
 
 public class PatientRegistrationMexicoFlowTest extends PatientRegistrationFlowTest {
 
@@ -12,11 +13,11 @@ public class PatientRegistrationMexicoFlowTest extends PatientRegistrationFlowTe
         super.registerNewPatient();
     }
 
-    @Test
-    @Override
-    public void editExistingPatient() throws Exception {
-        super.editExistingPatient();
-    }
+//    @Test
+//    @Override
+//    public void editExistingPatient() throws Exception {
+//        //super.editExistingPatient();
+//    }
 
     @Override
     protected LoginPage getLoginPage() {
@@ -25,15 +26,15 @@ public class PatientRegistrationMexicoFlowTest extends PatientRegistrationFlowTe
 
     @Override
     protected String getPersonAddressString() {
-        return "Zeno";
+        return "Chihuilón";
     }
 
     @Override
-    protected String getPlaceOfBirthString() { return "Zeno"; }
+    protected String getPlaceOfBirthString() { return ""; }
 
     @Override
     protected String getContactAddressString() {
-        return "Zeno";
+        return "Chihuilón";
     }
 
     @Override
@@ -41,16 +42,47 @@ public class PatientRegistrationMexicoFlowTest extends PatientRegistrationFlowTe
 
     @Override
     protected Integer getInsuranceName() {
-        return null;
+        return 2;
     }
 
     @Override
     protected String getInsuranceNumberString() {
-        return "";
+        return "43986512";
     }
 
     @Override
     protected String getOtherInsuranceNameString() {
+        return "987321212";
+    }
+
+    @Override
+    protected String getNationalId() {
+        return "MAGH441128MOCTDL02";
+    }
+
+    @Override
+    protected Boolean getSocioInfoEnabled() {
+        return true;
+    }
+
+    @Override
+    protected Integer getMaritalStatus() {
+        return 2;
+    }
+
+
+    @Override
+    protected Integer getOccupation() {
+        return 3;
+    }
+
+    @Override
+    protected String getMothersFirstName() {
+        return null;
+    }
+
+    @Override
+    protected String getMothersFirstNameForEdit() {
         return null;
     }
 
@@ -65,4 +97,23 @@ public class PatientRegistrationMexicoFlowTest extends PatientRegistrationFlowTe
         return false;
     }
 
+    @Override
+    protected String getRelationship() {
+        return "cousin";
+    }
+
+    @Override
+    protected Boolean getRelationshipsEnabled() {
+        return true;
+    }
+
+    @Override
+    protected String getContactPhoneNumber() {
+        return "983642321";
+    }
+
+    @Override
+    protected By getSuccessElement() {
+        return By.className("patient-header");
+    }
 }
