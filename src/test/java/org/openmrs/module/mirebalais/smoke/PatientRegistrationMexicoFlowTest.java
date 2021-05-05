@@ -13,11 +13,11 @@ public class PatientRegistrationMexicoFlowTest extends PatientRegistrationFlowTe
         super.registerNewPatient();
     }
 
-//    @Test
-//    @Override
-//    public void editExistingPatient() throws Exception {
-//        //super.editExistingPatient();
-//    }
+    @Test
+    @Override
+    public void editExistingPatient() throws Exception {
+        super.editExistingPatient();
+    }
 
     @Override
     protected LoginPage getLoginPage() {
