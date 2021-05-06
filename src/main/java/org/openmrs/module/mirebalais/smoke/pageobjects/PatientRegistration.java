@@ -61,7 +61,6 @@ public class PatientRegistration extends AbstractPageObject {
         selectLevelOfEducation(education);
         selectOccupation(occupation);
         selectReligion(religion);
-        enterEbolaScreening();
         if (relationshipsEnabled) {
             skipRelationshipSection();
         }
@@ -332,28 +331,6 @@ public class PatientRegistration extends AbstractPageObject {
     public void enterOtherInsuranceNameAsFreeText(String otherInsurance) {
         if (StringUtils.isNotBlank(otherInsurance)) {
             setTextToField(By.name("obsgroup.PIH:Insurance CONSTRUCT.obs.PIH:Insurance company name (text)"), otherInsurance);
-        }
-    }
-
-    public void enterEbolaScreening(){
-        try {
-            WebElement fever = driver.findElement(By.name("obs.PIH:12246"));
-            if (fever != null && fever.isDisplayed()) {
-                selectFromDropdown(By.name("obs.PIH:12246"), 1);
-                hitEnterKey(By.name("obs.PIH:12246"));
-            }
-            WebElement bleeding = driver.findElement(By.name("obs.PIH:7102"));
-            if (bleeding != null && bleeding.isDisplayed()) {
-                selectFromDropdown(By.name("obs.PIH:7102"), 1);
-                hitEnterKey(By.name("obs.PIH:7102"));
-            }
-            WebElement clinicalSuspicion = driver.findElement(By.name("obs.CIEL:1690"));
-            if (clinicalSuspicion != null && clinicalSuspicion.isDisplayed()) {
-                selectFromDropdown(By.name("obs.CIEL:1690"), 1);
-                hitEnterKey(By.name("obs.CIEL:1690"));
-            }
-        } catch (NoSuchElementException e) {
-            return;
         }
     }
 
