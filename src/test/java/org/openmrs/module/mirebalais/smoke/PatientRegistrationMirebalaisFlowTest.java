@@ -34,7 +34,7 @@ public class PatientRegistrationMirebalaisFlowTest extends PatientRegistrationHa
 
     @Override
     protected String getOccupation() {
-        return "AssistantDriver";
+        return "Chauffeur";
     }
 
     @Override
