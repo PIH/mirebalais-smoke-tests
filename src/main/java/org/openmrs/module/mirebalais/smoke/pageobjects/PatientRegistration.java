@@ -183,31 +183,21 @@ public class PatientRegistration extends AbstractPageObject {
         wait5seconds.until(visibilityOfElementLocated(By.partialLinkText(searchValue)));
         searchBox.sendKeys(Keys.ENTER);
 
-        try {
-            WebElement address1 = driver.findElement(By.name("address1"));
-            if (address1 != null && address1.isDisplayed()) {
-                address1.sendKeys(Keys.TAB);
-            }
-            WebElement cityVillage = driver.findElement(By.name("cityVillage"));
-            if (cityVillage != null && cityVillage.isDisplayed()) {
-                cityVillage.sendKeys(Keys.TAB);
-            }
-            WebElement address2 = driver.findElement(By.name("address2"));
-            if (address2 != null && address2.isDisplayed()) {
-                address2.sendKeys(Keys.TAB);
-            }
-            address2 = driver.findElement(By.name("obsgroup.PIH:Birthplace address construct.obs.PIH:Address2"));
-            if (address2 != null && address2.isDisplayed()) {
-                address2.sendKeys(Keys.TAB);
-            }
-            address2 = driver.findElement(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:Address2"));
-            if (address2 != null && address2.isDisplayed()) {
-                address2.sendKeys(Keys.TAB);
-            }
-        } catch (NoSuchElementException e) {
-            return;
+        if (driver.findElements(By.name("address1")).size() > 0 ) {
+            hitTabKey(By.name("address1"));
         }
-
+        if (driver.findElements(By.name("cityVillage")).size() > 0 ) {
+            hitTabKey(By.name("cityVillage"));
+        }
+        if (driver.findElements(By.name("address2")).size() > 0 ) {
+            hitTabKey(By.name("address2"));
+        }
+        if (driver.findElements(By.name("obsgroup.PIH:Birthplace address construct.obs.PIH:Address2")).size() > 0 ) {
+            hitTabKey(By.name("obsgroup.PIH:Birthplace address construct.obs.PIH:Address2"));
+        }
+        if (driver.findElements(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:Address2")).size() > 0 ) {
+            hitTabKey(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:Address2"));
+        }
     }
 
     public void enterPhoneNumber(String number) {
