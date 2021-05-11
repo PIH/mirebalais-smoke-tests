@@ -183,6 +183,7 @@ public class PatientRegistration extends AbstractPageObject {
         wait5seconds.until(visibilityOfElementLocated(By.partialLinkText(searchValue)));
         searchBox.sendKeys(Keys.ENTER);
 
+        // SierraLeone Registration form has additional address fields that need to be tabbed out
         if (driver.findElements(By.name("address1")).size() > 0 && driver.findElement(By.name("address1")).isDisplayed()) {
             hitTabKey(By.name("address1"));
         }
