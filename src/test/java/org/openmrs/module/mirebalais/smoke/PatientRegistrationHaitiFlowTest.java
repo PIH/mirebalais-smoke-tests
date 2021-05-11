@@ -46,10 +46,6 @@ public class PatientRegistrationHaitiFlowTest extends PatientRegistrationFlowTes
     @Override
     protected Boolean getAdditionalIdentifiersEnabled() { return false; }
 
-    @Override
-    protected String getOccupation() {
-        return "Chauffeur";
-    }
 
     @Override
     protected Boolean getBiometricsEnabled() {

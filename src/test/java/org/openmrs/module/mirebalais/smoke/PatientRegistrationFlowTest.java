@@ -110,7 +110,7 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
 
     protected Integer getEducation() { return null; }
 
-    protected String getOccupation() { return "Driver"; }
+    protected String getOccupation() { return null; }
 
     protected Integer getReligion() { return null; }
 
