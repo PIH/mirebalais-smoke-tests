@@ -61,6 +61,11 @@ public class PatientRegistrationMexicoFlowTest extends PatientRegistrationFlowTe
     }
 
     @Override
+    protected String getNationalIdUuid() {
+        return "c1fe3790-915a-4f03-861f-5e477f36cec0";
+    }
+
+    @Override
     protected Boolean getSocioInfoEnabled() {
         return true;
     }
@@ -72,9 +77,7 @@ public class PatientRegistrationMexicoFlowTest extends PatientRegistrationFlowTe
 
 
     @Override
-    protected Integer getOccupation() {
-        return 3;
-    }
+    protected String getOccupation() { return "Driver"; }
 
     @Override
     protected String getMothersFirstName() {

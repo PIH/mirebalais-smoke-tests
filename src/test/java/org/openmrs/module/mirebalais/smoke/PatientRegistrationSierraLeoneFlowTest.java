@@ -66,7 +66,7 @@ public class PatientRegistrationSierraLeoneFlowTest extends PatientRegistrationF
     }
 
     @Override
-    protected Integer getOccupation() { return 5; }
+    protected String getOccupation() { return "Driver"; }
 
     @Override
     protected Integer getReligion() { return null; }

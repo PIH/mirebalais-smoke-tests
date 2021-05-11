@@ -33,6 +33,11 @@ public class PatientRegistrationMirebalaisFlowTest extends PatientRegistrationHa
     }
 
     @Override
+    protected String getOccupation() {
+        return "AssistantDriver";
+    }
+
+    @Override
     protected String getInsuranceNumberString() {
         return "076-098765";
     }
