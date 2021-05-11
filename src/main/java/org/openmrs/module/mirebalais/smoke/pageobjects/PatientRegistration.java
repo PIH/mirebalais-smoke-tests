@@ -30,7 +30,6 @@ public class PatientRegistration extends AbstractPageObject {
                                 Boolean addressUsesHierarchy, String contactPhoneNumber,
                                 Boolean automaticallyEnterIdentifier, Boolean relationshipsEnabled, Boolean biometricsEnabled, Integer printIdCard,
                                 Boolean additionalIdentifiersEnabled,
-                                String nationalId,
                                 String nationalIdUuid,
                                 Boolean socioInfoEnabled,
                                 By successElement) throws Exception{
@@ -40,7 +39,7 @@ public class PatientRegistration extends AbstractPageObject {
         if (biometricsEnabled) {
             skipBiometricsSection();
         }
-        enterNationalId(nationalId, nationalIdUuid);
+        enterNationalId(nationalIdUuid);
         enterPatientName(familyName, givenName, nickname);
         enterGender(gender);
         enterBirthDate(birthDay, birthMonth, birthYear);
@@ -108,15 +107,9 @@ public class PatientRegistration extends AbstractPageObject {
         setTextToField(By.name("familyName"), familyName);
         setTextToField(By.name("givenName"), givenName);
 
-        try {
-            WebElement middleName = driver.findElement(By.name("middleName"));
-            if (middleName != null && middleName.isDisplayed()) {
-                setTextToField(By.name("middleName"), nickname);
-            }
-        } catch (NoSuchElementException e) {
-            hitTabKey();
+        if (driver.findElements(By.name("middleName")).size() > 0 ) {
+            setTextToField(By.name("middleName"), nickname);
         }
-
     }
 
     public void enterGender(Gender gender) throws Exception {
@@ -137,12 +130,12 @@ public class PatientRegistration extends AbstractPageObject {
         setTextToField(By.name("birthdateYear"), year.toString());
     }
 
-    public void enterNationalId(String nationalId, String nationalIdUuid) {
+    public void enterNationalId(String nationalIdUuid) {
 
-        if (StringUtils.isNotBlank(nationalId) && StringUtils.isNotBlank(nationalIdUuid)) {
-            WebElement element = driver.findElement(By.name("patientIdentifierc" + nationalIdUuid));
+        if (StringUtils.isNotBlank(nationalIdUuid)) {
+            WebElement element = driver.findElement(By.name("patientIdentifier" + nationalIdUuid));
             if (element != null && element.isDisplayed()) {
-                hitEnterKey(By.name("patientIdentifierc1fe3790-915a-4f03-861f-5e477f36cec0"));
+                hitEnterKey(By.name("patientIdentifier" + nationalIdUuid));
             }
         }
     }
@@ -161,13 +154,11 @@ public class PatientRegistration extends AbstractPageObject {
     }
 
     public void selectElementFromList(String elementName, Integer position) {
-        try {
-            WebElement element = driver.findElement(By.name(elementName));
-            if (element != null && element.isDisplayed()) {
-                selectFromDropdown(By.name(elementName), position);
-                hitEnterKey(By.name(elementName));
-            }
-        }catch(NoSuchElementException e) {}
+
+        if (driver.findElements(By.name(elementName)).size() > 0 ) {
+            selectFromDropdown(By.name(elementName), position);
+            hitEnterKey(By.name(elementName));
+        }
     }
 
     public void enterMothersFirstName(String mothersFirstName) {

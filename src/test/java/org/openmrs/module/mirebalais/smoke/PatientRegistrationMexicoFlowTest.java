@@ -56,11 +56,6 @@ public class PatientRegistrationMexicoFlowTest extends PatientRegistrationFlowTe
     }
 
     @Override
-    protected String getNationalId() {
-        return "MAGH441128MOCTDL02";
-    }
-
-    @Override
     protected String getNationalIdUuid() {
         return "c1fe3790-915a-4f03-861f-5e477f36cec0";
     }
@@ -77,7 +72,7 @@ public class PatientRegistrationMexicoFlowTest extends PatientRegistrationFlowTe
 
 
     @Override
-    protected String getOccupation() { return "Driver"; }
+    protected String getOccupation() { return "Pescador"; }
 
     @Override
     protected String getMothersFirstName() {
