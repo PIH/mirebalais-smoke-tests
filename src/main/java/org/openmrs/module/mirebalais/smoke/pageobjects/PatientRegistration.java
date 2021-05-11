@@ -232,7 +232,7 @@ public class PatientRegistration extends AbstractPageObject {
     }
 
     public void selectOccupation(String occupation) {
-        if (occupation != null){
+        if (StringUtils.isNotBlank(occupation)){
             try {
                 wait5seconds.until(visibilityOfElementLocated(By.className("dropdown-field-textbox")));
 
