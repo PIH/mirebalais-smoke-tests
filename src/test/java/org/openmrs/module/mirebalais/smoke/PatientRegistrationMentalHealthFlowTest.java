@@ -24,6 +24,11 @@ public class PatientRegistrationMentalHealthFlowTest extends PatientRegistration
     }
 
     @Override
+    protected String getOccupation() {
+        return "Chauffeur";
+    }
+
+    @Override
     protected Boolean automaticallyEnterIdentifier() { return null; }
 
 
