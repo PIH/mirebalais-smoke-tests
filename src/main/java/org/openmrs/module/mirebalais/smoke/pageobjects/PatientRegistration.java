@@ -7,6 +7,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
@@ -25,11 +26,11 @@ public class PatientRegistration extends AbstractPageObject {
 
     public void registerPatient(String givenName, String familyName, String nickname, Gender gender, Integer birthDay, Integer birthMonth,
                                 Integer birthYear, String mothersFirstName, String birthplace, String addressSearchValue, String phoneNumber, Integer insuranceName, String insuranceNumber, String otherInsurance,
-                                Integer martialStatus, Integer education, Integer occupation, Integer religion, String contact, String relationship, String contactAddress,
+                                Integer martialStatus, Integer education, String occupation, Integer religion, String contact, String relationship, String contactAddress,
                                 Boolean addressUsesHierarchy, String contactPhoneNumber,
                                 Boolean automaticallyEnterIdentifier, Boolean relationshipsEnabled, Boolean biometricsEnabled, Integer printIdCard,
                                 Boolean additionalIdentifiersEnabled,
-                                String nationalId,
+                                String nationalIdUuid,
                                 Boolean socioInfoEnabled,
                                 By successElement) throws Exception{
 
@@ -38,7 +39,7 @@ public class PatientRegistration extends AbstractPageObject {
         if (biometricsEnabled) {
             skipBiometricsSection();
         }
-        enterNationalId(nationalId);
+        enterNationalId(nationalIdUuid);
         enterPatientName(familyName, givenName, nickname);
         enterGender(gender);
         enterBirthDate(birthDay, birthMonth, birthYear);
@@ -106,15 +107,9 @@ public class PatientRegistration extends AbstractPageObject {
         setTextToField(By.name("familyName"), familyName);
         setTextToField(By.name("givenName"), givenName);
 
-        try {
-            WebElement middleName = driver.findElement(By.name("middleName"));
-            if (middleName != null && middleName.isDisplayed()) {
-                setTextToField(By.name("middleName"), nickname);
-            }
-        } catch (NoSuchElementException e) {
-            hitTabKey();
+        if (driver.findElements(By.name("middleName")).size() > 0 ) {
+            setTextToField(By.name("middleName"), nickname);
         }
-
     }
 
     public void enterGender(Gender gender) throws Exception {
@@ -135,14 +130,13 @@ public class PatientRegistration extends AbstractPageObject {
         setTextToField(By.name("birthdateYear"), year.toString());
     }
 
-    public void enterNationalId(String nationalId) {
-        if (StringUtils.isNotBlank(nationalId)) {
-            try {
-                WebElement element = driver.findElement(By.name("patientIdentifierc1fe3790-915a-4f03-861f-5e477f36cec0"));
-                if (element != null && element.isDisplayed()) {
-                    hitEnterKey(By.name("patientIdentifierc1fe3790-915a-4f03-861f-5e477f36cec0"));
-                }
-            }catch(NoSuchElementException e) {}
+    public void enterNationalId(String nationalIdUuid) {
+
+        if (StringUtils.isNotBlank(nationalIdUuid)) {
+            WebElement element = driver.findElement(By.name("patientIdentifier" + nationalIdUuid));
+            if (element != null && element.isDisplayed()) {
+                hitEnterKey(By.name("patientIdentifier" + nationalIdUuid));
+            }
         }
     }
 
@@ -160,13 +154,11 @@ public class PatientRegistration extends AbstractPageObject {
     }
 
     public void selectElementFromList(String elementName, Integer position) {
-        try {
-            WebElement element = driver.findElement(By.name(elementName));
-            if (element != null && element.isDisplayed()) {
-                selectFromDropdown(By.name(elementName), position);
-                hitEnterKey(By.name(elementName));
-            }
-        }catch(NoSuchElementException e) {}
+
+        if (driver.findElements(By.name(elementName)).size() > 0 ) {
+            selectFromDropdown(By.name(elementName), position);
+            hitEnterKey(By.name(elementName));
+        }
     }
 
     public void enterMothersFirstName(String mothersFirstName) {
@@ -191,31 +183,22 @@ public class PatientRegistration extends AbstractPageObject {
         wait5seconds.until(visibilityOfElementLocated(By.partialLinkText(searchValue)));
         searchBox.sendKeys(Keys.ENTER);
 
-        try {
-            WebElement address1 = driver.findElement(By.name("address1"));
-            if (address1 != null && address1.isDisplayed()) {
-                address1.sendKeys(Keys.TAB);
-            }
-            WebElement cityVillage = driver.findElement(By.name("cityVillage"));
-            if (cityVillage != null && cityVillage.isDisplayed()) {
-                cityVillage.sendKeys(Keys.TAB);
-            }
-            WebElement address2 = driver.findElement(By.name("address2"));
-            if (address2 != null && address2.isDisplayed()) {
-                address2.sendKeys(Keys.TAB);
-            }
-            address2 = driver.findElement(By.name("obsgroup.PIH:Birthplace address construct.obs.PIH:Address2"));
-            if (address2 != null && address2.isDisplayed()) {
-                address2.sendKeys(Keys.TAB);
-            }
-            address2 = driver.findElement(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:Address2"));
-            if (address2 != null && address2.isDisplayed()) {
-                address2.sendKeys(Keys.TAB);
-            }
-        } catch (NoSuchElementException e) {
-            return;
+        // SierraLeone Registration form has additional address fields that need to be tabbed out
+        if (driver.findElements(By.name("address1")).size() > 0 && driver.findElement(By.name("address1")).isDisplayed()) {
+            hitTabKey(By.name("address1"));
         }
-
+        if (driver.findElements(By.name("cityVillage")).size() > 0 && driver.findElement(By.name("cityVillage")).isDisplayed()) {
+            hitTabKey(By.name("cityVillage"));
+        }
+        if (driver.findElements(By.name("address2")).size() > 0 && driver.findElement(By.name("address2")).isDisplayed()) {
+            hitTabKey(By.name("address2"));
+        }
+        if (driver.findElements(By.name("obsgroup.PIH:Birthplace address construct.obs.PIH:Address2")).size() > 0 && driver.findElement(By.name("obsgroup.PIH:Birthplace address construct.obs.PIH:Address2")).isDisplayed()) {
+            hitTabKey(By.name("obsgroup.PIH:Birthplace address construct.obs.PIH:Address2"));
+        }
+        if (driver.findElements(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:Address2")).size() > 0 && driver.findElement(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:Address2")).isDisplayed()) {
+            hitTabKey(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:Address2"));
+        }
     }
 
     public void enterPhoneNumber(String number) {
@@ -248,15 +231,23 @@ public class PatientRegistration extends AbstractPageObject {
         }
     }
 
-    public void selectOccupation(Integer option) {
-        if (option != null){
-            // just skip occupation for now
-            hitTabKey();
+    public void selectOccupation(String occupation) {
+        if (occupation != null){
+            try {
+                wait5seconds.until(visibilityOfElementLocated(By.className("dropdown-field-textbox")));
+
+                WebElement searchBox = driver.findElements(By.className("dropdown-field-textbox")).get(0);
+                searchBox.sendKeys(occupation);
+                wait5seconds.until(visibilityOfElementLocated(By.partialLinkText(occupation)));
+                searchBox.findElement(By.xpath("//li/a[contains(text(), '" + occupation + "')]")).click();
+                searchBox.sendKeys(Keys.ENTER);
+            } catch (NoSuchElementException | TimeoutException ex) {
+                // some implementations still use the dropbox list
+                WebElement occupationList = driver.findElement(By.name("obs.PIH:Occupation"));
+                occupationList.findElement(By.xpath("//option[contains(text(), '" + occupation + "')]")).click();
+                hitEnterKey(By.name("obs.PIH:Occupation"));
+            }
         }
-        /*if (option != null) {
-            selectFromDropdown(By.name("obs.PIH:Occupation"), option);
-            hitEnterKey(By.name("obs.PIH:Occupation"));
-        }*/
     }
 
     public void skipRelationshipSection() {

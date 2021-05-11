@@ -47,9 +47,7 @@ public class PatientRegistrationHSNFlowTest extends PatientRegistrationHaitiFlow
     protected Boolean placeOfBirthAndContactAddressUseHierarchy() { return true; }
 
     @Override
-    protected Integer getOccupation() {
-        return null;
-    }
+    protected String getOccupation() { return "Driver"; }
 
     @Override
     protected Integer getReligion() { return null; }

@@ -62,7 +62,7 @@ public class PatientRegistrationLiberiaFlowTest extends PatientRegistrationFlowT
     }
 
     @Override
-    protected Integer getOccupation() { return 5; }
+    protected String getOccupation() { return "Driver"; }
 
     @Override
     protected Integer getReligion() { return null; }
