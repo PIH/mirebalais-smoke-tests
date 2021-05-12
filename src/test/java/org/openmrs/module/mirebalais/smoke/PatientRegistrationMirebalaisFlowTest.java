@@ -23,6 +23,20 @@ public class PatientRegistrationMirebalaisFlowTest extends PatientRegistrationHa
         return new MirebalaisLoginPage(driver);
     }
 
+    @Override
+    protected String getMothersFirstName() {
+        return "Jane";
+    }
+
+    @Override
+    protected String getPlaceOfBirthString() {
+        return "Cange";
+    }
+
+    @Override
+    protected Integer getMaritalStatus() {
+        return 2;
+    }
 
     @Override
     protected Integer getPrintIdCardOption() { return 1; }
@@ -34,7 +48,32 @@ public class PatientRegistrationMirebalaisFlowTest extends PatientRegistrationHa
 
     @Override
     protected String getOccupation() {
-        return "Chauffeur";
+        return "Mechanic";
+    }
+
+    @Override
+    protected String getContact() {
+        return "George";
+    }
+
+    @Override
+    protected String getRelationship() {
+        return "cousin";
+    }
+
+    @Override
+    protected String getContactPhoneNumber() {
+        return "8742332323";
+    }
+
+    @Override
+    protected String getContactAddressString() {
+        return "Cange";
+    }
+
+    @Override
+    protected Integer getReligion() {
+        return 2;
     }
 
     @Override
