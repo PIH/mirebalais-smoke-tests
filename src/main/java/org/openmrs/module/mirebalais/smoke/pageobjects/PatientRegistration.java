@@ -109,6 +109,8 @@ public class PatientRegistration extends AbstractPageObject {
 
         if (driver.findElements(By.name("middleName")).size() > 0 ) {
             setTextToField(By.name("middleName"), nickname);
+        } else {
+            hitTabKey();
         }
     }
 
