@@ -19,6 +19,41 @@ public class PatientRegistrationMentalHealthFlowTest extends PatientRegistration
     }
 
     @Override
+    protected String getMothersFirstName() {
+        return "Jane";
+    }
+
+    @Override
+    protected String getContact() {
+        return "Dan";
+    }
+
+    @Override
+    protected String getRelationship() {
+        return "cousin";
+    }
+
+    @Override
+    protected String getContactAddressString() {
+        return "Cange";
+    }
+
+    @Override
+    protected String getPlaceOfBirthString() {
+        return "Cange";
+    }
+
+    @Override
+    protected Integer getReligion() {
+        return 2;
+    }
+
+    @Override
+    protected Integer getMaritalStatus() {
+        return 2;
+    }
+
+    @Override
     protected LoginPage getLoginPage() {
         return new MentalHealthLoginPage(driver);
     }
