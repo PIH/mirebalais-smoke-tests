@@ -12,7 +12,7 @@ public class VitalsApp extends AbstractPageObject {
 	private static final By CONFIRM_PATIENT_BUTTON = By.className("icon-arrow-right");
 	private static final By HEIGHT_INCHES_FIELD = By.id("height_inches");
 	private static final By WEIGHT_INCHES_FIELD = By.id("weight_lbs");
-    private static final By LOCATION_FIELD = By.id("encounterLocation");
+    private static final By LOCATION_FIELD = By.cssSelector("#encounterLocation select");
 
 	public VitalsApp(WebDriver driver) {
 		super(driver);
