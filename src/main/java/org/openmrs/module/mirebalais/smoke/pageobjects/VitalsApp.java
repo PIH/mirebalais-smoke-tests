@@ -45,6 +45,7 @@ public class VitalsApp extends AbstractPageObject {
 	}
 
 	public void enterVitalsForInfant() {
+        hitEnterOnLocationField();
 		hitEnterOnInchesField();
 		setClearTextToFieldThruSpan("height_cm", "15");
 		hitEnterOnLbsField();
