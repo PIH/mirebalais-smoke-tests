@@ -71,7 +71,7 @@ public class AdmissionDischargeTransferTest extends DbTest {
     @Test
     public void shouldAdmitPatientViaAwaitingAdmissionApp() throws Exception {
 
-        visitNote.addConsultNoteWithAdmissionToLocation(malaria, 8);  // location 8 = Sal Gason, where this user logs in
+        visitNote.addConsultNoteWithAdmissionToLocation(malaria, 9);  // location 9 = Sal Gason, where this user logs in
         assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(1));
 
         header.home();
@@ -90,7 +90,7 @@ public class AdmissionDischargeTransferTest extends DbTest {
     @Test
     public void shouldCancelPatientFromAwaitingAdmissionApp() throws Exception {
 
-        visitNote.addConsultNoteWithAdmissionToLocation(malaria, 8);  // location 8 = Sal Gason, where this user logs in
+        visitNote.addConsultNoteWithAdmissionToLocation(malaria, 9);  // location 9 = Sal Gason, where this user logs in
         assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(1));
 
         header.home();

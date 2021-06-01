@@ -41,7 +41,7 @@ public class AdmissionDischargeTransferRetroTest extends DbTest {
 
         String previousProvider = visitNote.providerForFirstEncounter();
         String previousLocation = visitNote.locationForFirstAdmission();
-        visitNote.editExistingAdmissionNote(anemia, 3, 4);
+        visitNote.editExistingAdmissionNote(anemia, 3, 1);
 
         assertThat(visitNote.countEncountersOfType(VisitNote.ADMISSION_CREOLE_NAME), is(1));
 
