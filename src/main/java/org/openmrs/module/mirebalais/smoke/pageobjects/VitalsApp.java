@@ -12,7 +12,6 @@ public class VitalsApp extends AbstractPageObject {
 	private static final By CONFIRM_PATIENT_BUTTON = By.className("icon-arrow-right");
 	private static final By HEIGHT_INCHES_FIELD = By.id("height_inches");
 	private static final By WEIGHT_INCHES_FIELD = By.id("weight_lbs");
-    private static final By LOCATION_FIELD = By.cssSelector("#encounterLocation select");
 
 	public VitalsApp(WebDriver driver) {
 		super(driver);
@@ -27,7 +26,6 @@ public class VitalsApp extends AbstractPageObject {
 	}
 
 	public void enterVitals() {
-	    hitEnterOnLocationField();
         hitEnterOnInchesField();
         setClearTextToFieldThruSpan("height_cm", "15");
         hitEnterOnLbsField();
@@ -45,7 +43,6 @@ public class VitalsApp extends AbstractPageObject {
 	}
 
 	public void enterVitalsForInfant() {
-        hitEnterOnLocationField();
 		hitEnterOnInchesField();
 		setClearTextToFieldThruSpan("height_cm", "15");
 		hitEnterOnLbsField();
@@ -90,8 +87,4 @@ public class VitalsApp extends AbstractPageObject {
     }
 
     private void hitEnterOnCmField() { driver.findElement(By.id("muac_cm")).sendKeys(Keys.RETURN); }
-
-    private void hitEnterOnLocationField() {
-        driver.findElement(LOCATION_FIELD).sendKeys(Keys.RETURN);
-    }
 }
