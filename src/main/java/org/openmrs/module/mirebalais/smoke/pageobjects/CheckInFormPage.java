@@ -3,10 +3,8 @@ package org.openmrs.module.mirebalais.smoke.pageobjects;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -17,7 +15,7 @@ import static org.openqa.selenium.Keys.RETURN;
 import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
 
 public class CheckInFormPage extends AbstractPageObject {
-	
+
 	private static final String CONFIRM_TEXT = "Konfime";
 
     public static final By SEARCH_FIELD = By.id("patient-search");
@@ -40,7 +38,7 @@ public class CheckInFormPage extends AbstractPageObject {
         if (paperRecordEnabled) {
             confirmPaperRecordPopup();
         }
-        wait15seconds.until(invisibilityOfElementLocated(By.className("submitButton")));  // make sure the submit is complete
+        wait2minutes.until(invisibilityOfElementLocated(By.className("submitButton")));  // make sure the submit is complete
     }
 
     public void enterInfoWithMultipleEnterKeystrokesOnSubmit()  {
@@ -90,12 +88,12 @@ public class CheckInFormPage extends AbstractPageObject {
     private void confirmDataForScheduleAppointment() {
         clickOn(By.cssSelector("#confirmationQuestion .confirm"));
     }
-	
+
 	private void clickOnNoButton() {
 		clickOnConfirmationTab();
 		clickOn(By.cssSelector("#confirmationQuestion input.cancel"));
 	}
-	
+
 	private void clickOnConfirmationTab() {
 		List<WebElement> elements = driver.findElements(By.cssSelector("#formBreadcrumb span"));
 		for (WebElement element : elements) {
@@ -104,7 +102,7 @@ public class CheckInFormPage extends AbstractPageObject {
 	        }
 	    }
 	}
-	
+
 	private void confirmPaperRecordPopup() {
         new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(By.id("create-paper-record-dialog")));
         clickOn(By.cssSelector("#create-paper-record-dialog button"));
@@ -153,4 +151,4 @@ public class CheckInFormPage extends AbstractPageObject {
         }
     }
 
-}	
+}
