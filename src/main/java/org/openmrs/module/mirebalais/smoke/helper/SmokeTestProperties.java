@@ -6,8 +6,6 @@ public class SmokeTestProperties {
 
     private String webAppUrl = null;
 
-    private String databaseUrl = null;
-
     private String databaseUsername = null;
 
     private String databasePassword = null;
@@ -48,6 +46,10 @@ public class SmokeTestProperties {
     public String getChromeDriverExecutable() {
         // if none specified, defaults to logic in SmokeTestDriver, see SmokeTestDriver:37
         return envOrDefault("CHROME_DRIVER_EXECUTABLE", "");
+    }
+
+    public String getAdminUserPassword() {
+        return envOrDefault("ADMIN_USER_PASSWORD", "Admin123");
     }
 
     public String getDatabaseDriverClass() {

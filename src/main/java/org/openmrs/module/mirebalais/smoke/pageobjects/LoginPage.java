@@ -1,13 +1,14 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
 import org.openmrs.module.mirebalais.smoke.dataModel.User;
+import org.openmrs.module.mirebalais.smoke.helper.SmokeTestProperties;
 import org.openmrs.module.mirebalais.smoke.helper.UserDatabaseHandler;
 import org.openqa.selenium.WebDriver;
 
 public abstract class LoginPage {
-	
+
 	protected WebDriver driver;
-	
+
 	public abstract void logIn(String user, String password, String location);
 
 	public void logIn(String user, String password) {
@@ -15,11 +16,11 @@ public abstract class LoginPage {
 	}
 
 	public void logInAsAdmin() {
-		this.logIn("admin", "Admin123");
+		this.logIn("admin", new SmokeTestProperties().getAdminUserPassword());
 	}
 
     public void logInAsAdmin(String location) {
-        this.logIn("admin", "Admin123", location);
+        this.logIn("admin", new SmokeTestProperties().getAdminUserPassword(), location);
     }
 
 	public void logInAsPhysicianUser() throws Exception {
@@ -31,7 +32,7 @@ public abstract class LoginPage {
         User clinical = UserDatabaseHandler.insertNewPhysicianUser();
         this.logIn(clinical.getUsername(), "Admin123", location);
     }
-	
+
 	public void logInAsPharmacyManagerUser() throws Exception {
 		User pharmacist = UserDatabaseHandler.insertNewPharmacyManagerUser();
 		this.logIn(pharmacist.getUsername(), "Admin123", "Klinik Ekstèn Famasi");
