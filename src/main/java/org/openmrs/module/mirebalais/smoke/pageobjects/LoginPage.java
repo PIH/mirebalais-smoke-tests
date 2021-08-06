@@ -16,6 +16,8 @@ public abstract class LoginPage {
 	}
 
 	public void logInAsAdmin() {
+	    String password = new SmokeTestProperties().getAdminUserPassword();
+	    System.out.println("hack test " + password);
 		this.logIn("admin", new SmokeTestProperties().getAdminUserPassword());
 	}
 
