@@ -1,6 +1,5 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
-import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -8,11 +7,6 @@ public class SierraLeoneLoginPage extends LoginPage {
 
     public SierraLeoneLoginPage(WebDriver driver) {
         this.driver = driver;
-    }
-
-    @Override
-    public void logInAsAdmin() {
-        this.logIn("admin", "test");
     }
 
     @Override
