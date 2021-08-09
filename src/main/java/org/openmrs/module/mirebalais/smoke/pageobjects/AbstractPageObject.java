@@ -14,11 +14,6 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
-
-import java.util.List;
-import java.util.function.Function;
-
 import org.openmrs.module.mirebalais.smoke.helper.SmokeTestProperties;
 import org.openqa.selenium.By;
 import org.openqa.selenium.InvalidElementStateException;
@@ -33,6 +28,11 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
+import java.util.function.Function;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
+
 public abstract class AbstractPageObject {
 
     protected SmokeTestProperties properties = new SmokeTestProperties();
@@ -41,6 +41,7 @@ public abstract class AbstractPageObject {
     public WebDriverWait wait5seconds;
     public WebDriverWait wait15seconds;
     public WebDriverWait wait2minutes;
+    public WebDriverWait wait5minutes;
     private String baseServerUrl;
 
     public AbstractPageObject(WebDriver driver) {
@@ -48,6 +49,7 @@ public abstract class AbstractPageObject {
         this.wait5seconds = new WebDriverWait(driver, 5);
         this.wait15seconds = new WebDriverWait(driver,15);
         this.wait2minutes = new WebDriverWait(driver, 120);
+        this.wait5minutes = new WebDriverWait(driver, 600);
 
         setBaseServerUrl();
     }
@@ -60,24 +62,24 @@ public abstract class AbstractPageObject {
         String serverUrl = System.getProperty("baseServerUrl");
         this.baseServerUrl = (serverUrl == null || serverUrl.isEmpty() ? properties.getWebAppUrl() : serverUrl);
     }
-    
+
     public void clickNext() {
         clickOn(By.id("right-arrow-yellow"));
     }
-    
+
     public void clickYellowCheckMark() {
     	clickOn(By.id("checkmark-yellow"));
     }
-    
+
     public void setTextToField(By element, String text) {
         wait5seconds.until(visibilityOfElementLocated(element));  // TODO hack until chromedriver bug is fixed
         setText(driver.findElement(element), text);
     }
-    
+
     public void setTextToField(String textFieldId, String text) {
         setTextToField(By.id(textFieldId), text);
     }
-    
+
     public void setClearTextToFieldThruSpan(String spanId, String text) {
     	setText(findTextFieldInsideSpan(spanId), text);
 	}
@@ -104,11 +106,11 @@ public abstract class AbstractPageObject {
 		element.sendKeys(text);
         element.sendKeys(Keys.RETURN);
     }
-    
+
     private WebElement findTextFieldInsideSpan(String spanId) {
     	return driver.findElement(By.id(spanId)).findElement(By.tagName("input"));
     }
-    
+
     public String format(String patientName) {
 		int index = patientName.indexOf(" ");
 		return new StringBuffer()
@@ -117,28 +119,28 @@ public abstract class AbstractPageObject {
 					.append(patientName.substring(0,index).trim())
 					.toString();
 	}
-    
+
     public void findPatientById(String patientIdentifier, By idField) throws Exception {
 		WebElement element = driver.findElement(idField);
 		element.sendKeys(patientIdentifier);
 		element.sendKeys(Keys.RETURN);
 	}
-    
+
     private void clickOnTheRightPatient(String patientIdentifier) throws Exception {
 	    clickOnOptionLookingForText(patientIdentifier, By.cssSelector("li.ui-menu-item"));
 	}
-    
+
     public void clickOnOptionLookingForText(String text, By by) throws Exception {
 		getOptionBasedOnText(text,by).click();
 	}
-    
+
     public WebElement getOptionBasedOnText(String text, By elementIdentifier) throws Exception {
 		List<WebElement> options = driver.findElements(elementIdentifier);
 		for (WebElement option : options) {
 	        if(option.getText().contains(text)) {
 	            return option;
 	        }
-	    } 
+	    }
 		throw new Exception("Option not found");
     }
 

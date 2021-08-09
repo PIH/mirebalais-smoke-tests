@@ -15,7 +15,7 @@ public class AdminPage extends AbstractPageObject {
         driver.get(properties.getWebAppUrl() + "/admin/maintenance/searchIndex.htm");
         driver.findElement(By.id("rebuildButton")).click();
         Thread.sleep(2000);
-        wait2minutes.until(invisibilityOfElementLocated(By.id("indexing_progress_img")));
+        wait5minutes.until(invisibilityOfElementLocated(By.id("indexing_progress_img")));
 
     }
 }
