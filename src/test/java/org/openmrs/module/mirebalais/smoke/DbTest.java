@@ -2,15 +2,36 @@ package org.openmrs.module.mirebalais.smoke;
 
 import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Before;
+import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.helper.UserDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
 import org.openqa.selenium.TimeoutException;
 
-public abstract class DbTest extends BasicMirebalaisSmokeTest {
-	
-	@After
-	public void deleteData() throws Exception {
+public abstract class DbTest extends BasicSmokeTest {
+
+    Patient adultTestPatient;
+
+    Patient anotherAdultTestPatient;
+
+    Patient newbornTestPatient;
+
+    @Before
+    public void setupTestData() throws Exception {
+        adultTestPatient = PatientDatabaseHandler.insertAdultTestPatient();
+        anotherAdultTestPatient = PatientDatabaseHandler.insertAdultTestPatient();
+        newbornTestPatient = PatientDatabaseHandler.insertNewbornTestPatient();
+        home();
+        logInAsAdmin();
+        adminPage.updateLuceneIndex();
+        logout();
+    }
+
+
+    @After
+	public void deleteTestData() throws Exception {
+
 		try {
 			PatientDatabaseHandler.deleteAllTestPatients();
 		}
@@ -20,7 +41,7 @@ public abstract class DbTest extends BasicMirebalaisSmokeTest {
 		}
 	}
 
-	// overrides "after" defined in BaseMirebalaisSmokeTest
+	// overrides "afterclass" defined in BaseSmokeTest
     @AfterClass
     public static void after() throws Exception{
 
@@ -41,6 +62,8 @@ public abstract class DbTest extends BasicMirebalaisSmokeTest {
 
         // hack to reset the lucene index at the end of tests... fail quietly
         try {
+            header.logOut();
+            logInAsAdmin();
             adminPage.updateLuceneIndex();
         }
         catch (Exception e) {

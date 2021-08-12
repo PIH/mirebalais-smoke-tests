@@ -2,7 +2,7 @@ package org.openmrs.module.mirebalais.smoke.helper;
 
 import org.apache.commons.lang.SystemUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.openmrs.module.mirebalais.smoke.BasicMirebalaisSmokeTest;
+import org.openmrs.module.mirebalais.smoke.BasicSmokeTest;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -23,7 +23,8 @@ public class SmokeTestDriver {
 
         // these options allow us to run chrome as root (which we really shouldn't do) see https://bbs.archlinux.org/viewtopic.php?id=196353
         ChromeOptions options = new ChromeOptions();
-        options.addArguments(Arrays.asList("no-sandbox"));
+        options.addArguments(Arrays.asList("no-sandbox","start-fullscreen"));
+
         driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(SmokeTestProperties.IMPLICIT_WAIT_TIME, SECONDS);
         driver.get(new SmokeTestProperties().getWebAppUrl());
@@ -32,7 +33,7 @@ public class SmokeTestDriver {
 
     private void setupChromeDriver() {
         URL resource = null;
-        ClassLoader classLoader = BasicMirebalaisSmokeTest.class.getClassLoader();
+        ClassLoader classLoader = BasicSmokeTest.class.getClassLoader();
 
         if (StringUtils.isBlank(properties.getChromeDriverExecutable())) {
             if(SystemUtils.IS_OS_MAC_OSX) {

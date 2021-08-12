@@ -1,9 +1,6 @@
 package org.openmrs.module.mirebalais.smoke;
 
 import org.junit.Test;
-import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
-import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
-import org.openmrs.module.mirebalais.smoke.pageobjects.AwaitingAdmissionApp;
 import org.openmrs.module.mirebalais.smoke.pageobjects.InPatientList;
 import org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote;
 
@@ -16,20 +13,14 @@ public class InPatientTest extends DbTest {
 
 	private InPatientList inPatientList;
 
-    private AwaitingAdmissionApp awaitingAdmissionApp;
-	
 	@Test
 	public void admitPatientTransferInsideHospitalAndFilterWard() throws Exception {
-		Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();
-		Patient testPatient2 = PatientDatabaseHandler.insertAdultTestPatient();
-		initBasicPageObjects();
 
 		inPatientList = new InPatientList(driver);
-        awaitingAdmissionApp = new AwaitingAdmissionApp(driver);
 
         logInAsPhysicianUser("Sal Gason");
 
-		appDashboard.goToClinicianFacingDashboard(testPatient.getId());
+		appDashboard.goToClinicianFacingDashboard(adultTestPatient.getId());
 		clinicianDashboard.startVisit();
 
 		String admissionPlace = visitNote.addConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS, 3);
@@ -39,31 +30,31 @@ public class InPatientTest extends DbTest {
         assertThat(visitNote.countEncountersOfType(VisitNote.ADMISSION_CREOLE_NAME), is(1));
 
         visitNote.gotoAppDashboard();
-		assertFirstAdmittedAndCurrentWardAre(testPatient.getIdentifier(), admissionPlace, admissionPlace);
+		assertFirstAdmittedAndCurrentWardAre(adultTestPatient.getIdentifier(), admissionPlace, admissionPlace);
 
-		appDashboard.goToVisitNoteVisitListAndSelectFirstVisit(testPatient.getId());
+		appDashboard.goToVisitNoteVisitListAndSelectFirstVisit(adultTestPatient.getId());
 
 		String transferPlace = visitNote.addConsultNoteWithTransferToLocation(PRIMARY_DIAGNOSIS, 4);
 
 		assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(2));
 		assertThat(visitNote.countEncountersOfType(VisitNote.TRANSFER_CREOLE_NAME), is(1));
         visitNote.gotoAppDashboard();
-		assertFirstAdmittedAndCurrentWardAre(testPatient.getIdentifier(), admissionPlace, transferPlace);
+		assertFirstAdmittedAndCurrentWardAre(adultTestPatient.getIdentifier(), admissionPlace, transferPlace);
 
-		appDashboard.goToClinicianFacingDashboard(testPatient2.getId());
+		appDashboard.goToClinicianFacingDashboard(anotherAdultTestPatient.getId());
 		clinicianDashboard.startVisit();
 		visitNote.addConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS, 3);
 		visitNote.waitUntilVisitNoteOpen();
-		
+
 		appDashboard.openInPatientApp();
 		inPatientList.filterBy(transferPlace);
 		inPatientList.waitUntilInpatientListIsFilteredBy(transferPlace);
 	}
-	
+
 	private void assertFirstAdmittedAndCurrentWardAre(String identifier, String firstAdmitted, String currentWard)
 	        throws Exception {
 		appDashboard.openInPatientApp();
-		
+
 		assertThat(inPatientList.getCurrentWard(identifier), is(currentWard));
 		assertThat(inPatientList.getFirstAdmitted(identifier), is(firstAdmitted));
 	}

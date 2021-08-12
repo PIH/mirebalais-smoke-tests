@@ -13,6 +13,7 @@ import org.openqa.selenium.By;
 import static org.junit.Assert.assertTrue;
 
 @Ignore
+@Deprecated
 public class DeathCertificateTest extends DbTest {
 
     @Test

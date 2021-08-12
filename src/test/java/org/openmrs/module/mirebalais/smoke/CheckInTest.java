@@ -14,10 +14,7 @@
 
 package org.openmrs.module.mirebalais.smoke;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
-import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.CheckInFormPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote;
@@ -30,12 +27,9 @@ import static org.junit.Assert.assertTrue;
 public class CheckInTest extends DbTest {
 
     public CheckInFormPage newCheckIn;
-    public Patient testPatient;
 
-    @Before
-    public void setUp() throws Exception {
-        testPatient = PatientDatabaseHandler.insertAdultTestPatient();
-        initBasicPageObjects();
+	@Test
+	public void createCheckInAndRemoveIt() throws Exception {
 
         setLoginPage(getLoginPage());
         logInAsAdmin();
@@ -43,22 +37,17 @@ public class CheckInTest extends DbTest {
         newCheckIn = new CheckInFormPage(driver);
         appDashboard.startClinicVisit();
 
-    }
-	
-	@Test
-	public void createCheckInAndRemoveIt() throws Exception {
-
-        newCheckIn.findPatientAndClickOnCheckIn(testPatient.getIdentifier());
+        newCheckIn.findPatientAndClickOnCheckIn(adultTestPatient.getIdentifier());
         newCheckIn.enterInfoFillingTheFormTwice(getPaperRecordEnabled());
 
 		assertThat(newCheckIn.isPatientSearchDisplayed(), is(true));
-		
-		appDashboard.goToVisitNoteVisitListAndSelectFirstVisit(testPatient.getId());
+
+		appDashboard.goToVisitNoteVisitListAndSelectFirstVisit(adultTestPatient.getId());
 		assertTrue(visitNote.hasActiveVisit());
 		assertThat(visitNote.countEncountersOfType(VisitNote.CHECKIN_CREOLE_NAME), is(1));
-		
+
 		visitNote.deleteFirstEncounter();
-		
+
 		assertThat(visitNote.countEncountersOfType(VisitNote.CHECKIN_CREOLE_NAME), is(0));
 		assertTrue(visitNote.hasActiveVisit());
 	}

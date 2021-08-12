@@ -1,8 +1,6 @@
 package org.openmrs.module.mirebalais.smoke;
 
 import org.junit.Test;
-import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
-import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.ClinicianDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote;
@@ -16,27 +14,26 @@ import static org.openmrs.module.mirebalais.smoke.pageobjects.selects.TypeOfPres
 
 
 public class DispensingTest extends DbTest {
-	
+
 	private String paracetamol = "Paracetamol, 500mg tablet";
     private String prescriptionLocation = "Sal Fanm";
     private String doseUnit = "Milligramme (mg)";
 
     @Test
 	public void pharmacyManagerCanDispenseMedicationForAnExistingActiveVisit() throws Exception {
-		AppDashboard appDashboard = new AppDashboard(driver);
+
+        AppDashboard appDashboard = new AppDashboard(driver);
 		VisitNote patientDashboard = new VisitNote(driver);
         ClinicianDashboard clinicianDashboard = new ClinicianDashboard(driver);
-		
-		Patient patient = PatientDatabaseHandler.insertAdultTestPatient();
-		
+
 		logInAsPhysicianUser();
-		appDashboard.goToClinicianFacingDashboard(patient.getId());
+		appDashboard.goToClinicianFacingDashboard(adultTestPatient.getId());
 		clinicianDashboard.startVisit();
 		assertThat("Dispense medication.", patientDashboard.canDispenseMedication(), is(false));
 		logout();
-		
+
 		logInAsPharmacyManagerUser();
-		appDashboard.goToVisitNoteVisitListAndSelectFirstVisit(patient.getId());
+		appDashboard.goToVisitNoteVisitListAndSelectFirstVisit(adultTestPatient.getId());
 		assertThat("Dispense medication.", patientDashboard.canDispenseMedication(), is(true));
 		DispenseMedicationForm dispensingForm = patientDashboard.goToDispenseMedicationForm();
         dispensingForm.fillDispensingInformation(DISCHARGE, prescriptionLocation);
@@ -68,5 +65,5 @@ public class DispensingTest extends DbTest {
         assertThat("Medication amount is right.", medicationDispensed.getAmount(), is("20"));
 
     }
-	
+
 }

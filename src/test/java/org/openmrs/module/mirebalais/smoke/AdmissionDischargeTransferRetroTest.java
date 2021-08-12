@@ -1,10 +1,6 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
-import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -17,24 +13,12 @@ public class AdmissionDischargeTransferRetroTest extends DbTest {
 
     private final String malaria = "B54";
 
-
-    @BeforeClass
-    public static void prepare() throws Exception {
-        logInAsAdmin("Sal Gason");
-    }
-
-    @Before
-    public void setUp() throws Exception {
-        Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();
-        adminPage.updateLuceneIndex();
-        initBasicPageObjects();
-
-        appDashboard.goToClinicianFacingDashboard(testPatient.getId());
-        clinicianDashboard.startVisit();
-    }
-
     @Test
     public void shouldEnterAndEditAnAdmissionNoteAsAdminUser() throws Exception {
+
+        logInAsPhysicianUser("Sal Gason");
+        appDashboard.goToClinicianFacingDashboard(adultTestPatient.getId());
+        clinicianDashboard.startVisit();
 
         visitNote.addAdmissionNoteAsAdminUser(malaria);
         assertThat(visitNote.countEncountersOfType(VisitNote.ADMISSION_CREOLE_NAME), is(1));

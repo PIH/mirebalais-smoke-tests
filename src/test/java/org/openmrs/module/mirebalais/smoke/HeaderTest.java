@@ -7,7 +7,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.textToBePresentInElement;
 
-public class HeaderTest extends BasicMirebalaisSmokeTest {
+public class HeaderTest extends BasicSmokeTest {
 
 	private final WebDriverWait wait5Seconds = new WebDriverWait(driver, 5);
 

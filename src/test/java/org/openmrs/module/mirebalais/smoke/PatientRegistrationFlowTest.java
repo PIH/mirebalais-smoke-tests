@@ -1,6 +1,5 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.ClinicianDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
@@ -17,7 +16,6 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
 
     public void registerNewPatient() throws Exception {
 
-        initBasicPageObjects();
         setLoginPage(getLoginPage());
         PatientRegistration registration = new PatientRegistration(driver);
 
@@ -45,9 +43,6 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
 
     public void editExistingPatient() throws Exception {
 
-        Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();
-
-        initBasicPageObjects();
         setLoginPage(getLoginPage());
         PatientRegistration registration = new PatientRegistration(driver);
 
@@ -59,7 +54,7 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         header.home();
         appDashboard.openPatientRegistrationApp();
 
-        registration.editExistingPatient(testPatient, givenName, familyName, nickname, PatientRegistration.Gender.FEMALE, 10, 10, 1950, getMothersFirstNameForEdit(),
+        registration.editExistingPatient(adultTestPatient, givenName, familyName, nickname, PatientRegistration.Gender.FEMALE, 10, 10, 1950, getMothersFirstNameForEdit(),
                 getPersonAddressString(), getContact(), getRelationship(), placeOfBirthAndContactAddressUseHierarchy(), getPhoneNumber());
 
         appDashboard.goToAppDashboard();

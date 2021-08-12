@@ -1,12 +1,8 @@
 package org.openmrs.module.mirebalais.smoke;
 
 import junit.framework.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
-import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.NonCodedDiagnosesList;
 import org.openmrs.module.mirebalais.smoke.pageobjects.ReportsHomePage;
 import org.openqa.selenium.By;
@@ -25,8 +21,6 @@ public class NonCodedDiagnosesTest extends DbTest {
     private By cancelCodeDiagnosis = By.cssSelector("#" + CODE_DIAGNOSIS_DIALOG + " .cancel");
     private By confirmCodeDiagnosis = By.cssSelector("#" + CODE_DIAGNOSIS_DIALOG + " .confirm");
 
-
-    Patient testPatient;
     ReportsHomePage reportsHomePage;
 
     private void createConsultNote() throws Exception {
@@ -37,24 +31,15 @@ public class NonCodedDiagnosesTest extends DbTest {
         visitNote.addEDNote(NON_CODED_DIAGNOSIS);
     }
 
-    @BeforeClass
-    public static void prepare() throws Exception {
-        logInAsAdmin("Sal Gason");
-    }
-
-    @Before
-    public void setUp() throws Exception {
-        testPatient = PatientDatabaseHandler.insertAdultTestPatient();
-        adminPage.updateLuceneIndex();
-        initBasicPageObjects();
-
-        appDashboard.goToClinicianFacingDashboard(testPatient.getId());
-        clinicianDashboard.startVisit();
-        reportsHomePage = new ReportsHomePage(driver);
-    }
-
     @Test
     public void shouldShowNonCodedDiagnosesPageUsingConsultNote() throws Exception {
+
+        logInAsAdmin("Sal Gason");
+
+        appDashboard.goToClinicianFacingDashboard(adultTestPatient.getId());
+        clinicianDashboard.startVisit();
+        reportsHomePage = new ReportsHomePage(driver);
+
         createConsultNote();
         visitNote.waitUntilVisitNoteOpen();
         header.home();
@@ -70,6 +55,13 @@ public class NonCodedDiagnosesTest extends DbTest {
     @Ignore
     @Test
     public void shouldShowNonCodedDiagnosesPageUsingEdNote() throws Exception {
+
+        logInAsAdmin("Sal Gason");
+
+        appDashboard.goToClinicianFacingDashboard(adultTestPatient.getId());
+        clinicianDashboard.startVisit();
+        reportsHomePage = new ReportsHomePage(driver);
+
         createEDNote();
         visitNote.waitUntilVisitNoteOpen();
         header.home();
@@ -83,6 +75,13 @@ public class NonCodedDiagnosesTest extends DbTest {
 
     @Test
     public void shouldNotShowNonCodedDiagnosisAfterReplaceforExistingCodesForConsultNote() throws Exception {
+
+        logInAsAdmin("Sal Gason");
+
+        appDashboard.goToClinicianFacingDashboard(adultTestPatient.getId());
+        clinicianDashboard.startVisit();
+        reportsHomePage = new ReportsHomePage(driver);
+
         createConsultNote();
         visitNote.waitUntilVisitNoteOpen();
         header.home();
@@ -103,6 +102,13 @@ public class NonCodedDiagnosesTest extends DbTest {
     @Ignore
     @Test
     public void shouldNotShowNonCodedDiagnosisAfterReplaceforExistingCodesforEDNote() throws Exception {
+
+        logInAsAdmin("Sal Gason");
+
+        appDashboard.goToClinicianFacingDashboard(adultTestPatient.getId());
+        clinicianDashboard.startVisit();
+        reportsHomePage = new ReportsHomePage(driver);
+
         createEDNote();
         appDashboard.openReportApp();
         reportsHomePage.openNonCodedDiagnosesReport(NON_CODED_DIAGNOSIS);

@@ -1,8 +1,6 @@
 package org.openmrs.module.mirebalais.smoke;
 
 import org.junit.Test;
-import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
-import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppointmentSchedulingApp;
 import org.openmrs.module.mirebalais.smoke.pageobjects.ManageAppointments;
@@ -17,13 +15,12 @@ public class ManageAppointmentsTest extends DbTest {
         AppDashboard appDashboard = new AppDashboard(driver);
         AppointmentSchedulingApp appointmentSchedulingApp = new AppointmentSchedulingApp(driver);
         ManageAppointments manageAppointments = new ManageAppointments(driver);
-        Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();
 
         logInAsAdmin();
         appDashboard.openAppointmentSchedulingApp();
         appointmentSchedulingApp.openManageAppointmentsApp();
 
-        manageAppointments.enterPatientIdentifier(testPatient.getIdentifier());
+        manageAppointments.enterPatientIdentifier(adultTestPatient.getIdentifier());
 
         assertThat(manageAppointments.isSelectServiceTypeDefined(), is(true));
         assertThat(manageAppointments.isDateRangePickerDefined(), is(true));

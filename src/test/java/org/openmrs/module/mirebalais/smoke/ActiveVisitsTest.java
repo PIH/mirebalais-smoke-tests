@@ -15,8 +15,6 @@
 package org.openmrs.module.mirebalais.smoke;
 
 import org.junit.Test;
-import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
-import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openqa.selenium.By;
 
 import static org.junit.Assert.assertFalse;
@@ -24,24 +22,22 @@ import static org.junit.Assert.assertThat;
 import static org.junit.matchers.JUnitMatchers.containsString;
 
 public class ActiveVisitsTest extends DbTest {
-	
+
 	@Test
 	public void shouldShowActiveVisitAfterStartVisit() throws Exception {
-        Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();
-        initBasicPageObjects();
 
 		login();
-		
-		appDashboard.openActiveVisitsApp();
-		assertFalse(driver.findElement(By.id("activeVisitsGrid")).getText().contains(testPatient.getIdentifier()));
 
-		appDashboard.goToClinicianFacingDashboard(testPatient.getId());
+		appDashboard.openActiveVisitsApp();
+		assertFalse(driver.findElement(By.id("activeVisitsGrid")).getText().contains(adultTestPatient.getIdentifier()));
+
+		appDashboard.goToClinicianFacingDashboard(adultTestPatient.getId());
 		clinicianDashboard.startVisit();
-		
+
 		appDashboard.openActiveVisitsApp();
 		Thread.sleep(2000); // hack delay
 		String contentText = driver.findElement(By.id("activeVisitsGrid")).getText();
-		assertThat(contentText, containsString(testPatient.getNameLastNameFirst()));
-		assertThat(contentText, containsString(testPatient.getIdentifier()));
+		assertThat(contentText, containsString(adultTestPatient.getNameLastNameFirst()));
+		assertThat(contentText, containsString(adultTestPatient.getIdentifier()));
 	}
 }

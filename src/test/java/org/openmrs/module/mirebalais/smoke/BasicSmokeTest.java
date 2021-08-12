@@ -1,7 +1,9 @@
 package org.openmrs.module.mirebalais.smoke;
 
 import org.apache.commons.io.FileUtils;
+import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.TestRule;
@@ -27,21 +29,19 @@ import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-public abstract class BasicMirebalaisSmokeTest {
-
-    protected SmokeTestProperties properties = new SmokeTestProperties();
+public abstract class BasicSmokeTest {
 
 	protected static LoginPage loginPage;
-	
+
 	protected static HeaderPage header;
 
 	protected static AdminPage adminPage;
-	
+
 	protected static WebDriver driver;
-	
+
 	@Rule
 	public TestRule testWatcher = new TestWatcher() {
-		
+
 		@Override
 		public void failed(Throwable t, Description test) {
 			File tempFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
@@ -51,19 +51,19 @@ public abstract class BasicMirebalaisSmokeTest {
 			catch (IOException e) {}
 		}
 	};
-	
+
 	protected AppDashboard appDashboard;
-	
+
 	protected LegacyRegistration legacyRegistration;
-	
+
 	protected LegacyPatientRegistrationDashboard patientRegistrationDashboard;
-	
+
 	protected VisitNote visitNote;
 
     protected ClinicianDashboard clinicianDashboard;
 
     protected static boolean createdOwnDriver;
-	
+
 	@BeforeClass
 	public static void getWebDriver() {
 
@@ -90,6 +90,20 @@ public abstract class BasicMirebalaisSmokeTest {
         }
 	}
 
+	@Before
+    public void initPageObjects() {
+        legacyRegistration = new LegacyRegistration(driver);
+        patientRegistrationDashboard = new LegacyPatientRegistrationDashboard(driver);
+        visitNote = new VisitNote(driver);
+        appDashboard = new AppDashboard(driver);
+        clinicianDashboard = new ClinicianDashboard(driver);
+    }
+
+    @After
+    public void teardown() throws Exception {
+        logout();
+    }
+
     @AfterClass
     public static void after() throws Exception {
 
@@ -112,46 +126,39 @@ public abstract class BasicMirebalaisSmokeTest {
             driver.quit();
         }
     }
-	
+
 	protected static void logInAsPhysicianUser() throws Exception {
 		loginPage.logInAsPhysicianUser();
-		adminPage.updateLuceneIndex();
 		header.home();
 	}
 
     protected static void logInAsPhysicianUser(String location) throws Exception {
         loginPage.logInAsPhysicianUser(location);
-        adminPage.updateLuceneIndex();
         header.home();
     }
-	
+
 	protected static void logInAsPharmacyManagerUser() throws Exception {
         loginPage.logInAsPharmacyManagerUser();
-        adminPage.updateLuceneIndex();
         header.home();
 	}
 
     protected static void logInAsArchivist() throws Exception{
         loginPage.logInAsArchivistUser();
-        adminPage.updateLuceneIndex();
         header.home();
     }
 
     protected static void logInAsAdmin() throws Exception {
         loginPage.logInAsAdmin();
-        adminPage.updateLuceneIndex();
         header.home();
     }
 
     protected static void logInAsAdmin(String location) throws Exception {
         loginPage.logInAsAdmin(location);
-        adminPage.updateLuceneIndex();
         header.home();
     }
 
     protected void login() throws Exception{
         loginPage.logInAsAdmin();
-        adminPage.updateLuceneIndex();
         header.home();
     }
 
@@ -159,13 +166,8 @@ public abstract class BasicMirebalaisSmokeTest {
         this.loginPage = loginPage;
 	}
 
-
-    protected void initBasicPageObjects() {
-        legacyRegistration = new LegacyRegistration(driver);
-        patientRegistrationDashboard = new LegacyPatientRegistrationDashboard(driver);
-        visitNote = new VisitNote(driver);
-        appDashboard = new AppDashboard(driver);
-        clinicianDashboard = new ClinicianDashboard(driver);
+    protected void home() {
+	    new HeaderPage(driver).home();
     }
 
 	protected void logout() {
@@ -181,14 +183,14 @@ public abstract class BasicMirebalaisSmokeTest {
     }
 
     public static void setDriver(WebDriver driver) {
-        BasicMirebalaisSmokeTest.driver = driver;
+        BasicSmokeTest.driver = driver;
     }
 
     public static void setLoginPage(LoginPage loginPage) {
-        BasicMirebalaisSmokeTest.loginPage = loginPage;
+        BasicSmokeTest.loginPage = loginPage;
     }
 
     public static void setHeader(HeaderPage header) {
-        BasicMirebalaisSmokeTest.header = header;
+        BasicSmokeTest.header = header;
     }
 }

@@ -4,7 +4,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import org.openmrs.module.mirebalais.smoke.BasicMirebalaisSmokeTest;
+import org.openmrs.module.mirebalais.smoke.BasicSmokeTest;
 import org.openmrs.module.mirebalais.smoke.CaptureVitalsHSNTest;
 import org.openmrs.module.mirebalais.smoke.CheckInTest;
 import org.openmrs.module.mirebalais.smoke.PatientRegistrationHSNFlowTest;
@@ -26,7 +26,7 @@ public class HaitiSmokeTestSuite {
     @BeforeClass
     public static void startWebDriver() {
         driver = new SmokeTestDriver().getDriver();
-        BasicMirebalaisSmokeTest.setDriver(driver);
+        BasicSmokeTest.setDriver(driver);
     }
 
     @AfterClass

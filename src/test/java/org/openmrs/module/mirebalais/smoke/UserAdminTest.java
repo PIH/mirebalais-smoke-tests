@@ -1,6 +1,5 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -18,7 +17,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-public class UserAdminTest extends DbTest {
+public class UserAdminTest extends BasicSmokeTest {
 
 	private static final String DEFAULT_PASSWORD = "Teste123";
 
@@ -32,15 +31,10 @@ public class UserAdminTest extends DbTest {
 
 	@Before
 	public void setUp() throws Exception {
-		initBasicPageObjects();
 		userAdmin = new UserAdmin(driver);
 		header = new HeaderPage(driver);
 		myAccountApp = new MyAccountApp(driver);
-
 		username = createUser();
-
-		login();
-		appDashboard.openSysAdminApp();
 	}
 
 	@Test
@@ -48,6 +42,9 @@ public class UserAdminTest extends DbTest {
 	// OpenMRS does not support deleting a user that has changed their password due to FOREIGN KEY self-reference
 	// See https://issues.openmrs.org/browse/TRUNK-5736
 	public void createUserWithPhysicianRoleAndUserChangesOwnPassword() throws Exception {
+
+        login();
+        appDashboard.openSysAdminApp();
 
         userAdmin.createPhysicianAccount(NameGenerator.getUserFirstName(), NameGenerator.getUserLastName(), username,
                 DEFAULT_PASSWORD);
@@ -74,10 +71,16 @@ public class UserAdminTest extends DbTest {
 		assertThat(appDashboard.isStartClinicVisitAppPresented(), is(false));
 		assertThat(appDashboard.isLegacyAppPresented(), is(false));
         turnOnImplicitWait();
+
+        logout();
 	}
 
 	@Test
 	public void createUserWithScheduleManagerRole() throws Exception {
+
+        login();
+        appDashboard.openSysAdminApp();
+
 		userAdmin.createScheduleManagerAccount(NameGenerator.getUserFirstName(), NameGenerator.getUserLastName(), username,
                 DEFAULT_PASSWORD);
 
@@ -98,10 +101,16 @@ public class UserAdminTest extends DbTest {
         assertThat(appDashboard.isArchivesRoomAppPresented(), is(false));
         assertThat(appDashboard.isLegacyAppPresented(), is(false));
         turnOnImplicitWait();
+
+        logout();
 	}
 
 	@Test
 	public void createUserWithArchivistClerkRole() throws Exception {
+
+        login();
+        appDashboard.openSysAdminApp();
+
 		userAdmin.createArchivistClerkAccount(NameGenerator.getUserFirstName(), NameGenerator.getUserLastName(), username,
                 DEFAULT_PASSWORD);
 
@@ -121,10 +130,17 @@ public class UserAdminTest extends DbTest {
         assertThat(appDashboard.isAwaitingAdmissionAppPresented(), is(false));
         assertThat(appDashboard.isInpatientsAppPresented(), is(false));
         turnOnImplicitWait();
-	}
+
+        logout();
+
+    }
 
 	@Test
 	public void createUserWithSysAdminRoleWithEnglishAsDesiredLanguage() throws Exception {
+
+        login();
+        appDashboard.openSysAdminApp();
+
 		userAdmin.createSysAdminAccount(NameGenerator.getUserFirstName(), NameGenerator.getUserLastName(), username,
 		    DEFAULT_PASSWORD, "en");
 
@@ -150,12 +166,9 @@ public class UserAdminTest extends DbTest {
 		assertFalse(text.contains("Jere Kont"));
 		assertTrue(text.contains("Manage Accounts"));
 
-	}
+        logout();
 
-	@After
-	public void tearDown() {
-		header.logOut();
-	}
+    }
 
 	private String createUser() {
 		return new String("user" + System.currentTimeMillis());

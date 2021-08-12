@@ -2,8 +2,6 @@ package org.openmrs.module.mirebalais.smoke;
 
 import org.junit.Test;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
-import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
-import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.CheckInFormPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
@@ -24,8 +22,7 @@ public class CaptureVitalsTest extends DbTest {
 
     @Test
     public void checkInAndCaptureVitalsThruVitalsApp() throws Exception {
-        Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();
-        initBasicPageObjects();
+
         vitals = new VitalsApp(driver);
         CheckInFormPage newCheckIn = new CheckInFormPage(driver);
         HeaderPage header = new HeaderPage(driver);
@@ -34,17 +31,17 @@ public class CaptureVitalsTest extends DbTest {
         login();
 
         appDashboard.startClinicVisit();
-        newCheckIn.findPatientAndClickOnCheckIn(testPatient.getIdentifier());
+        newCheckIn.findPatientAndClickOnCheckIn(adultTestPatient.getIdentifier());
         newCheckIn.enterInfo(getPaperRecordEnabled());
 
         header.home();
         appDashboard.openApp(getVitalsAppIdentifier());
-        findPatient(testPatient.getIdentifier());
+        findPatient(adultTestPatient.getIdentifier());
 
         vitals.enterVitals();
         assertThat(isVitalsHomePageDisplayed(), is(true));
 
-        appDashboard.goToVisitNoteVisitListAndSelectFirstVisit(testPatient.getId());
+        appDashboard.goToVisitNoteVisitListAndSelectFirstVisit(adultTestPatient.getId());
         assertThat(visitNote.countEncountersOfType(VisitNote.VITALS_CREOLE_NAME), is(1));
     }
 

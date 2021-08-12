@@ -7,8 +7,8 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.LacollineIntegrationFlow;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class MasterPatientIndexTest extends BasicMirebalaisSmokeTest {
-	
+public class MasterPatientIndexTest extends BasicSmokeTest {
+
 	private static final String DEFAULT_NAME = "test";
 
     // TODO find a new server for this to work off of
@@ -16,15 +16,15 @@ public class MasterPatientIndexTest extends BasicMirebalaisSmokeTest {
 	@Test
     @Ignore
 	public void searchForAPatientOnLacollineServer() throws Exception {
-		initBasicPageObjects();
+
         LacollineIntegrationFlow lacollineIntegrationFlow = new LacollineIntegrationFlow(driver);
 
         login();
-		
+
 		appDashboard.openMasterPatientIndexApp();
 		lacollineIntegrationFlow.searchByName(DEFAULT_NAME);
-		
+
 		assertThat(lacollineIntegrationFlow.isImportButtonPresented(), is(true));
 	}
-	
+
 }

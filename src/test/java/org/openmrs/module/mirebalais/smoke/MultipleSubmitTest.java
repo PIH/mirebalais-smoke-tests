@@ -1,9 +1,7 @@
 package org.openmrs.module.mirebalais.smoke;
 
 import org.junit.Test;
-import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
 import org.openmrs.module.mirebalais.smoke.flows.CheckInPatientFlow;
-import org.openmrs.module.mirebalais.smoke.helper.PatientDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote;
 import org.openqa.selenium.By;
@@ -19,8 +17,6 @@ public class MultipleSubmitTest extends DbTest {
     @Test
     public void testMultipleEnterClicksOnCheckInForm() throws Exception {
 
-        Patient testPatient = PatientDatabaseHandler.insertAdultTestPatient();
-
         logInAsAdmin();
         appDashboard = new AppDashboard(driver);
         appDashboard.openCheckinApp();
@@ -28,10 +24,10 @@ public class MultipleSubmitTest extends DbTest {
         VisitNote patientDashboard = new VisitNote(driver);
 
         CheckInPatientFlow checkInPatientFlow = new CheckInPatientFlow(driver);
-        checkInPatientFlow.checkInWithMultipleEnterKeystrokesOnSubmit(testPatient.getIdentifier());
+        checkInPatientFlow.checkInWithMultipleEnterKeystrokesOnSubmit(adultTestPatient.getIdentifier());
 
         new WebDriverWait(driver, 5).until(visibilityOfElementLocated(By.id("create-paper-record-dialog")));
-        appDashboard.goToVisitNoteVisitListAndSelectFirstVisit(testPatient.getId());
+        appDashboard.goToVisitNoteVisitListAndSelectFirstVisit(adultTestPatient.getId());
 
         assertThat(patientDashboard.countEncountersOfType(VisitNote.CHECKIN_CREOLE_NAME), is(1));
     }

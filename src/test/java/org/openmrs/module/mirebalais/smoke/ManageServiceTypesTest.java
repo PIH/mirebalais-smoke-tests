@@ -10,7 +10,7 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.ServiceTypeApp;
 
 import static junit.framework.Assert.assertEquals;
 
-public class ManageServiceTypesTest extends DbTest {
+public class ManageServiceTypesTest extends BasicSmokeTest {
 
     @Test
     public void systemAdminCanAddServiceType() throws Exception {
