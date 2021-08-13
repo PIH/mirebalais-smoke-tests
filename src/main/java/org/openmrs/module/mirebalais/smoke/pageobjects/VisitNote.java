@@ -165,7 +165,7 @@ public class VisitNote extends AbstractPageObject {
 	public Integer countEncountersOfType(String encounterName) throws Exception {
 
         try {
-            wait5seconds.until(presenceOfElementLocated(By.className("encounter-name")));
+            wait15seconds.until(presenceOfElementLocated(By.className("encounter-name")));
             Thread.sleep(2000);  // hack, sleep 2 seconds to let *all* encounter names load
         }
         catch (TimeoutException e) {
