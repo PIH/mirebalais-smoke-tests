@@ -1,5 +1,6 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
+import org.openmrs.module.mirebalais.smoke.helper.SmokeTestProperties;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
@@ -10,7 +11,9 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.openqa.selenium.Keys.RETURN;
 import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
 
@@ -143,11 +146,15 @@ public class CheckInFormPage extends AbstractPageObject {
 
     private void selectNotToPrintWristbandIfQuestionPresent() {
         try {
+            driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
             driver.findElement(By.id("print-wristband-question"));
             selectSecondOptionFor("print-wristband-question");
         }
         catch (NoSuchElementException e) {
             // ignore if question not present
+        }
+        finally {
+            driver.manage().timeouts().implicitlyWait(SmokeTestProperties.IMPLICIT_WAIT_TIME, SECONDS);
         }
     }
 

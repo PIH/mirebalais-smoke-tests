@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.openmrs.module.mirebalais.smoke.BasicSmokeTest;
 import org.openmrs.module.mirebalais.smoke.CaptureVitalsHSNTest;
-import org.openmrs.module.mirebalais.smoke.CheckInTest;
+import org.openmrs.module.mirebalais.smoke.CheckInHSNTest;
 import org.openmrs.module.mirebalais.smoke.PatientRegistrationHSNFlowTest;
 import org.openmrs.module.mirebalais.smoke.helper.SmokeTestDriver;
 import org.openqa.selenium.WebDriver;
@@ -15,7 +15,7 @@ import org.openqa.selenium.WebDriver;
 @Suite.SuiteClasses({
         //CaptureVitalsTest.class,
         CaptureVitalsHSNTest.class,
-        CheckInTest.class,
+        CheckInHSNTest.class,
         PatientRegistrationHSNFlowTest.class,
         //VisitNoteTest.class  // this has been disable since we don't currently have them turned on on HSN
                     })

@@ -2,6 +2,7 @@ package org.openmrs.module.mirebalais.smoke.pageobjects;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
+import org.openmrs.module.mirebalais.smoke.helper.SmokeTestProperties;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -11,7 +12,9 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class PatientRegistration extends AbstractPageObject {
@@ -185,7 +188,8 @@ public class PatientRegistration extends AbstractPageObject {
         wait5seconds.until(visibilityOfElementLocated(By.partialLinkText(searchValue)));
         searchBox.sendKeys(Keys.ENTER);
 
-        // SierraLeone Registration form has additional address fields that need to be tabbed out
+        // Some forms have additional address fields that need to be tabbed out
+        driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         if (driver.findElements(By.name("address1")).size() > 0 && driver.findElement(By.name("address1")).isDisplayed()) {
             hitTabKey(By.name("address1"));
         }
@@ -201,6 +205,7 @@ public class PatientRegistration extends AbstractPageObject {
         if (driver.findElements(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:Address2")).size() > 0 && driver.findElement(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:Address2")).isDisplayed()) {
             hitTabKey(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:Address2"));
         }
+        driver.manage().timeouts().implicitlyWait(SmokeTestProperties.IMPLICIT_WAIT_TIME, SECONDS);
     }
 
     public void enterPhoneNumber(String number) {

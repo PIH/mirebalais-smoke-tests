@@ -75,11 +75,6 @@ public class PatientRegistrationSierraLeoneFlowTest extends PatientRegistrationF
     protected Boolean automaticallyEnterIdentifier() { return false; }
 
     @Override
-    protected Boolean getBiometricsEnabled() {
-        return true;
-    }
-
-    @Override
     protected String getPhoneNumber() {
         return "+231881112233";
     }

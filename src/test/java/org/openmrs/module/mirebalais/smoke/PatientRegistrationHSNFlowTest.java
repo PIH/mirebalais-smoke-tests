@@ -89,11 +89,6 @@ public class PatientRegistrationHSNFlowTest extends PatientRegistrationHaitiFlow
     protected Boolean getAdditionalIdentifiersEnabled() { return false; }
 
     @Override
-    protected Boolean getBiometricsEnabled() {
-        return true;
-    }
-
-    @Override
     protected By getSuccessElement() {
         return By.id("register-patient-button");    // Haiti redirects to Register Patient search page
     }

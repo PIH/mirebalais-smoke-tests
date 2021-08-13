@@ -82,11 +82,6 @@ public class PatientRegistrationPeruFlowTest extends PatientRegistrationFlowTest
     protected Boolean automaticallyEnterIdentifier() { return false; }
 
     @Override
-    protected Boolean getBiometricsEnabled() {
-        return true;
-    }
-
-    @Override
     protected String getPhoneNumber() {
         return "+513216547";
     }

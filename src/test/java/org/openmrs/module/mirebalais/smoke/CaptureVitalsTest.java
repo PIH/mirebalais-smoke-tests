@@ -31,6 +31,7 @@ public class CaptureVitalsTest extends DbTest {
         newCheckIn.enterInfo(getPaperRecordEnabled());
 
         header.home();
+        Thread.sleep(1000);  // hack, sleep 1 second, sometimes if the page is opened to quickly user is not in queue yet
         appDashboard.openApp(getVitalsAppIdentifier());
         findPatient(adultTestPatient.getIdentifier());
 

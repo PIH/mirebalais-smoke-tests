@@ -14,13 +14,6 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
-import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
-
-import java.util.HashMap;
-import java.util.List;
-
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.AdmissionNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.ChiefComplaintForm;
@@ -44,14 +37,20 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.HashMap;
+import java.util.List;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
+
 public class VisitNote extends AbstractPageObject {
-	
+
 	public static final String CHECKIN_CREOLE_NAME = "Tcheke";
-	
+
 	public static final String CONSULTATION_CREOLE_NAME = "Konsiltasyon";
-	
+
 	public static final String VITALS_CREOLE_NAME = "Siy Vito";
-	
+
 	public static final String RADIOLOGY_CREOLE_NAME = "Preskripsyon Radyoloji";
 
     public static final String ADMISSION_CREOLE_NAME = "Admisyon";
@@ -90,13 +89,13 @@ public class VisitNote extends AbstractPageObject {
     private static final By firstEncounterContractDetails = By.className("contract-encounter");
 
     private ConsultNoteForm consultNoteForm;
-	
+
 	private EmergencyDepartmentNoteForm eDNoteForm;
-	
+
 	private RetroConsultNoteForm retroConsultNoteForm;
 
     private AdmissionNoteForm admissionNoteForm;
-	
+
 	private XRayForm xRayForm;
 
     private ChiefComplaintForm chiefComplaintForm;
@@ -116,10 +115,10 @@ public class VisitNote extends AbstractPageObject {
     private VaccinationsSection vaccinationsSection;
 
     private AllergiesSection allergiesSection;
-	
+
 	private HashMap<String, By> formList;
 
-	
+
 	public VisitNote(WebDriver driver) {
 		super(driver);
 		consultNoteForm = new ConsultNoteForm(driver);
@@ -138,7 +137,7 @@ public class VisitNote extends AbstractPageObject {
         feedingForm = new FeedingForm(driver);
 		createFormsMap();
 	}
-	
+
 	public boolean verifyIfSuccessfulMessageIsDisplayed() {
 		return (driver.findElement(By.className("icon-ok")) != null);
 	}
@@ -161,13 +160,12 @@ public class VisitNote extends AbstractPageObject {
 	public void deleteFirstEncounter() {
 		clickOnFirst(deleteEncounter);
 		clickOn(By.className("delete-encounter-button") );
-		wait5seconds.until(invisibilityOfElementLocated(By.className("delete-encounter-dialog")));
 	}
-	
+
 	public Integer countEncountersOfType(String encounterName) throws Exception {
 
         try {
-            wait15seconds.until(presenceOfElementLocated(By.className("encounter-name")));
+            wait5seconds.until(presenceOfElementLocated(By.className("encounter-name")));
             Thread.sleep(2000);  // hack, sleep 2 seconds to let *all* encounter names load
         }
         catch (TimeoutException e) {
@@ -193,48 +191,48 @@ public class VisitNote extends AbstractPageObject {
 		openForm(formList.get("Consult Note"));
 		consultNoteForm.fillFormWithDischarge(primaryDiagnosis);
 	}
-	
+
 	public String addConsultNoteWithAdmissionToLocation(String primaryDiagnosis, int numbered) throws Exception {
 		openForm(formList.get("Consult Note"));
 		return consultNoteForm.fillFormWithAdmissionAndReturnLocation(primaryDiagnosis, numbered);
 	}
-	
+
 	public String addConsultNoteWithTransferToLocation(String primaryDiagnosis, int numbered) throws Exception {
 		openForm(formList.get("Consult Note"));
 		return consultNoteForm.fillFormWithTransferAndReturnLocation(primaryDiagnosis, numbered);
 	}
-	
+
 	public void addConsultNoteWithDeath(String primaryDiagnosis) throws Exception {
 		openForm(formList.get("Consult Note"));
 		consultNoteForm.fillFormWithDeath(primaryDiagnosis);
 	}
-	
+
 	public void editExistingConsultNote(String primaryDiagnosis) throws Exception {
 		editFirstEncounter();
 		consultNoteForm.editPrimaryDiagnosis(primaryDiagnosis);
         consultNoteForm.confirmData();
 	}
-	
+
 	public void addRetroConsultNoteWithDischarge(String primaryDiagnosis) throws Exception {
 		openForm(formList.get("Consult Note"));
 		retroConsultNoteForm.fillFormWithDischarge(primaryDiagnosis);
 	}
-	
+
 	public String addRetroConsultNoteWithAdmissionToLocation(String primaryDiagnosis, int numbered) throws Exception {
 		openForm(formList.get("Consult Note"));
 		return retroConsultNoteForm.fillFormWithAdmissionAndReturnLocation(primaryDiagnosis, numbered);
 	}
-	
+
 	public String addRetroConsultNoteWithTransferToLocation(String primaryDiagnosis, int numbered) throws Exception {
 		openForm(formList.get("Consult Note"));
 		return retroConsultNoteForm.fillFormWithTransferAndReturnLocation(primaryDiagnosis, numbered);
 	}
-	
+
 	public void addEDNote(String primaryDiagnosis) throws Exception {
 		openForm(formList.get("ED Note"));
 		eDNoteForm.fillFormWithDischarge(primaryDiagnosis);
 	}
-	
+
 	public void editExistingEDNote(String primaryDiagnosis) throws Exception {
 		editFirstEncounter();
 		eDNoteForm.editPrimaryDiagnosis(primaryDiagnosis);
@@ -378,7 +376,7 @@ public class VisitNote extends AbstractPageObject {
 		List<WebElement> list = driver.findElements(By.xpath("//*[contains(text(),'" + text + "')]"));
         return list.size() > 0;
 	}
-	
+
 	public List<WebElement> getVisits() {
 		return driver.findElements(By.cssSelector("#visit-list-dropdown .list-element"));
 	}
@@ -400,7 +398,7 @@ public class VisitNote extends AbstractPageObject {
 	public String providerForFirstEncounter() {
 		return driver.findElement(By.className("encounter-provider")).getText();
 	}
-	
+
 	public String locationForFirstAdmission() {
 		return driver.findElement(By.className("admission-location")).getText();
 	}

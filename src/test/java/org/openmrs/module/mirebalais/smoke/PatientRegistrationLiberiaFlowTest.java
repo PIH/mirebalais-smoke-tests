@@ -71,11 +71,6 @@ public class PatientRegistrationLiberiaFlowTest extends PatientRegistrationFlowT
     protected Boolean automaticallyEnterIdentifier() { return true; }
 
     @Override
-    protected Boolean getBiometricsEnabled() {
-        return true;
-    }
-
-    @Override
     protected String getPhoneNumber() {
         return "+231881112233";
     }

@@ -91,11 +91,6 @@ public class PatientRegistrationMexicoFlowTest extends PatientRegistrationFlowTe
     protected Boolean automaticallyEnterIdentifier() { return null; }
 
     @Override
-    protected Boolean getBiometricsEnabled() {
-        return false;
-    }
-
-    @Override
     protected String getRelationship() {
         return "cousin";
     }

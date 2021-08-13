@@ -1,7 +1,6 @@
 package org.openmrs.module.mirebalais.smoke;
 
 import org.junit.Test;
-import org.openmrs.module.mirebalais.smoke.pageobjects.HSNLoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openqa.selenium.By;
 
@@ -66,11 +65,6 @@ public class PatientRegistrationHaitiFlowTest extends PatientRegistrationFlowTes
     @Override
     protected String getRelationship() {
         return null;
-    }
-
-    @Override
-    protected Boolean getBiometricsEnabled() {
-        return true;
     }
 
     @Override
