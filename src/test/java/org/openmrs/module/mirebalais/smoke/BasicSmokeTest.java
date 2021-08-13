@@ -11,6 +11,7 @@ import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 import org.openmrs.module.mirebalais.smoke.helper.SmokeTestDriver;
 import org.openmrs.module.mirebalais.smoke.helper.SmokeTestProperties;
+import org.openmrs.module.mirebalais.smoke.helper.UserDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AdminPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.ClinicianDashboard;
@@ -92,6 +93,14 @@ public abstract class BasicSmokeTest {
 
     @AfterClass
     public static void after() throws Exception {
+
+        try {
+            UserDatabaseHandler.deleteAllTestUsers();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("tear down failed", e);
+        }
 
         if (header == null) {
             header = new HeaderPage(driver);
