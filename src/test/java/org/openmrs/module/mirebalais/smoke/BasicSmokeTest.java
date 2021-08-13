@@ -15,8 +15,6 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.AdminPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.ClinicianDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
-import org.openmrs.module.mirebalais.smoke.pageobjects.LegacyPatientRegistrationDashboard;
-import org.openmrs.module.mirebalais.smoke.pageobjects.LegacyRegistration;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.MirebalaisLoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote;
@@ -39,6 +37,14 @@ public abstract class BasicSmokeTest {
 
 	protected static WebDriver driver;
 
+    protected AppDashboard appDashboard;
+
+    protected VisitNote visitNote;
+
+    protected ClinicianDashboard clinicianDashboard;
+
+    protected static boolean createdOwnDriver;
+
 	@Rule
 	public TestRule testWatcher = new TestWatcher() {
 
@@ -52,18 +58,6 @@ public abstract class BasicSmokeTest {
 		}
 	};
 
-	protected AppDashboard appDashboard;
-
-	protected LegacyRegistration legacyRegistration;
-
-	protected LegacyPatientRegistrationDashboard patientRegistrationDashboard;
-
-	protected VisitNote visitNote;
-
-    protected ClinicianDashboard clinicianDashboard;
-
-    protected static boolean createdOwnDriver;
-
 	@BeforeClass
 	public static void getWebDriver() {
 
@@ -76,28 +70,20 @@ public abstract class BasicSmokeTest {
         else {
             createdOwnDriver = false;
         }
-
-        if (header == null) {
-            header = new HeaderPage(driver);
-        }
-
-        if (loginPage == null) {
-            loginPage = new MirebalaisLoginPage(driver);
-        }
-
-        if (adminPage == null) {
-            adminPage = new AdminPage(driver);
-        }
 	}
 
 	@Before
     public void initPageObjects() {
-        legacyRegistration = new LegacyRegistration(driver);
-        patientRegistrationDashboard = new LegacyPatientRegistrationDashboard(driver);
+        header = new HeaderPage(driver);
+        adminPage = new AdminPage(driver);
+        loginPage = getLoginPage();
         visitNote = new VisitNote(driver);
         appDashboard = new AppDashboard(driver);
         clinicianDashboard = new ClinicianDashboard(driver);
     }
+
+    // most test uses Mirebalais Login Page, must be specifically overridden by non-Mirebalais stesps
+    protected LoginPage getLoginPage() { return new MirebalaisLoginPage(driver); }
 
     @After
     public void teardown() throws Exception {
@@ -162,10 +148,6 @@ public abstract class BasicSmokeTest {
         header.home();
     }
 
-    protected void setLoginPageObject(LoginPage loginPage) {
-        this.loginPage = loginPage;
-	}
-
     protected void home() {
 	    new HeaderPage(driver).home();
     }
@@ -184,10 +166,6 @@ public abstract class BasicSmokeTest {
 
     public static void setDriver(WebDriver driver) {
         BasicSmokeTest.driver = driver;
-    }
-
-    public static void setLoginPage(LoginPage loginPage) {
-        BasicSmokeTest.loginPage = loginPage;
     }
 
     public static void setHeader(HeaderPage header) {

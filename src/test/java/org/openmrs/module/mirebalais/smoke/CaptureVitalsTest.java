@@ -4,8 +4,6 @@ import org.junit.Test;
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.CheckInFormPage;
-import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
-import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote;
 import org.openmrs.module.mirebalais.smoke.pageobjects.VitalsApp;
 import org.openqa.selenium.By;
@@ -25,9 +23,7 @@ public class CaptureVitalsTest extends DbTest {
 
         vitals = new VitalsApp(driver);
         CheckInFormPage newCheckIn = new CheckInFormPage(driver);
-        HeaderPage header = new HeaderPage(driver);
 
-        setLoginPage(getLoginPage());
         login();
 
         appDashboard.startClinicVisit();
@@ -44,8 +40,6 @@ public class CaptureVitalsTest extends DbTest {
         appDashboard.goToVisitNoteVisitListAndSelectFirstVisit(adultTestPatient.getId());
         assertThat(visitNote.countEncountersOfType(VisitNote.VITALS_CREOLE_NAME), is(1));
     }
-
-    protected LoginPage getLoginPage() { return new GeneralLoginPage(driver); }
 
     protected String getVitalsAppIdentifier() {
         return replaceChars(CustomAppLoaderConstants.Apps.VITALS, ".", "-") + AppDashboard.APP_LINK_SUFFIX;

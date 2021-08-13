@@ -16,7 +16,6 @@ package org.openmrs.module.mirebalais.smoke;
 
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.CheckInFormPage;
-import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -31,7 +30,6 @@ public class CheckInTest extends DbTest {
 	@Test
 	public void createCheckInAndRemoveIt() throws Exception {
 
-        setLoginPage(getLoginPage());
         logInAsAdmin();
 
         newCheckIn = new CheckInFormPage(driver);
@@ -51,8 +49,6 @@ public class CheckInTest extends DbTest {
 		assertThat(visitNote.countEncountersOfType(VisitNote.CHECKIN_CREOLE_NAME), is(0));
 		assertTrue(visitNote.hasActiveVisit());
 	}
-
-    protected LoginPage getLoginPage() { return new GeneralLoginPage(driver); }
 
     protected Boolean getPaperRecordEnabled() { return false; }
 }

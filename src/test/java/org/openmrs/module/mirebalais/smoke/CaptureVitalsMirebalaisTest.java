@@ -2,8 +2,6 @@ package org.openmrs.module.mirebalais.smoke;
 
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
-import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
-import org.openmrs.module.mirebalais.smoke.pageobjects.MirebalaisLoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.VitalsApp;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -12,11 +10,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import static org.apache.commons.lang.StringUtils.replaceChars;
 
 public class CaptureVitalsMirebalaisTest extends CaptureVitalsTest {
-
-	@Override
-	protected LoginPage getLoginPage() {
-		return new MirebalaisLoginPage(driver);
-	}
 
 	@Override
 	protected String getVitalsAppIdentifier() {

@@ -32,7 +32,6 @@ public class VisitNoteTest extends DbTest {
     @Test
     public void testCreateAdultInitialOutpatientEncounter() throws Exception{
 
-        setLoginPage(getLoginPage());
         login();
 
         appDashboard.startClinicVisit();
@@ -99,7 +98,6 @@ public class VisitNoteTest extends DbTest {
     @Test
     public void testCreateAdultFollowupOutpatientEncounter() throws Exception{
 
-        setLoginPage(getLoginPage());
         login();
 
         appDashboard.startClinicVisit();
@@ -161,7 +159,6 @@ public class VisitNoteTest extends DbTest {
     @Test
     public void testCreatePedsInitialOutpatientEncounter() throws Exception{
 
-        setLoginPage(getLoginPage());
         login();
 
         appDashboard.startClinicVisit();
@@ -245,7 +242,6 @@ public class VisitNoteTest extends DbTest {
     @Test
     public void testCreatePedsFollowupOutpatientEncounter() throws Exception{
 
-        setLoginPage(getLoginPage());
         login();
 
         appDashboard.startClinicVisit();
