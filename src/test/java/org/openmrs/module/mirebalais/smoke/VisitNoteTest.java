@@ -162,18 +162,18 @@ public class VisitNoteTest extends DbTest {
         login();
 
         appDashboard.startClinicVisit();
-        newCheckIn.findPatientAndClickOnCheckIn(adultTestPatient.getIdentifier());
+        newCheckIn.findPatientAndClickOnCheckIn(newbornTestPatient.getIdentifier());
         newCheckIn.enterInfo(getPaperRecordEnabled());
 
         header.home();
         appDashboard.openApp(getVitalsAppIdentifier());
-        vitals.findPatientById(adultTestPatient.getIdentifier(), SEARCH_FIELD);
+        vitals.findPatientById(newbornTestPatient.getIdentifier(), SEARCH_FIELD);
         Thread.sleep(2000);
         vitals.hitEnterKey();
         vitals.enterVitalsForInfant();
 
         header.home();
-        appDashboard.goToVisitNoteVisitListAndSelectFirstVisit(adultTestPatient.getId());
+        appDashboard.goToVisitNoteVisitListAndSelectFirstVisit(newbornTestPatient.getId());
 
         visitNote.addPedsInitialOutpatient();
         assertThat(visitNote.countEncountersOfType(VisitNote.PEDS_INITIAL_OUTPATIENT_CREOLE_NAME), is(1));
@@ -245,18 +245,18 @@ public class VisitNoteTest extends DbTest {
         login();
 
         appDashboard.startClinicVisit();
-        newCheckIn.findPatientAndClickOnCheckIn(adultTestPatient.getIdentifier());
+        newCheckIn.findPatientAndClickOnCheckIn(newbornTestPatient.getIdentifier());
         newCheckIn.enterInfo(getPaperRecordEnabled());
 
         header.home();
         appDashboard.openApp(getVitalsAppIdentifier());
-        vitals.findPatientById(adultTestPatient.getIdentifier(), SEARCH_FIELD);
+        vitals.findPatientById(newbornTestPatient.getIdentifier(), SEARCH_FIELD);
         Thread.sleep(2000);
         vitals.hitEnterKey();
         vitals.enterVitalsForInfant();
 
         header.home();
-        appDashboard.goToVisitNoteVisitListAndSelectFirstVisit(adultTestPatient.getId());
+        appDashboard.goToVisitNoteVisitListAndSelectFirstVisit(newbornTestPatient.getId());
 
         visitNote.addPedsFollowupOutpatient();
         assertThat(visitNote.countEncountersOfType(VisitNote.PEDS_FOLLOWUP_OUTPATIENT_CREOLE_NAME), is(1));

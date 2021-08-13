@@ -2,6 +2,8 @@ package org.openmrs.module.mirebalais.smoke;
 
 import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
+import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
+import org.openmrs.module.mirebalais.smoke.pageobjects.MirebalaisLoginPage;
 
 import static org.apache.commons.lang.StringUtils.replaceChars;
 
@@ -14,5 +16,8 @@ public class VisitNoteMirebalaisTest extends VisitNoteTest {
     protected String getVitalsAppIdentifier() {
         return replaceChars(CustomAppLoaderConstants.Apps.UHM_VITALS, ".", "-") + AppDashboard.APP_LINK_SUFFIX;
     }
+
+    @Override
+    protected LoginPage getLoginPage() { return new MirebalaisLoginPage(driver); }
 
 }
