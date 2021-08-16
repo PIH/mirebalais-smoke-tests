@@ -45,6 +45,7 @@ public class CheckInTest extends DbTest {
 		assertThat(visitNote.countEncountersOfType(VisitNote.CHECKIN_CREOLE_NAME), is(1));
 
 		visitNote.deleteFirstEncounter();
+        Thread.sleep(2000); // hack, sleep for 2 seconds to see if this stabilitizes this test or if there is something else going on
 
 		assertThat(visitNote.countEncountersOfType(VisitNote.CHECKIN_CREOLE_NAME), is(0));
 		assertTrue(visitNote.hasActiveVisit());
