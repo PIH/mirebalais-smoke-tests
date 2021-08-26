@@ -4,6 +4,11 @@ import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.PeruLoginPage;
 
+import java.util.AbstractMap;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
 public class PatientRegistrationPeruFlowTest extends PatientRegistrationFlowTest {
 
     @Test
@@ -22,11 +27,16 @@ public class PatientRegistrationPeruFlowTest extends PatientRegistrationFlowTest
     protected LoginPage getLoginPage() {
         return new PeruLoginPage(driver);
     }
+
+    @Override
+    protected List<String> getIdUuids() {
+        return Arrays.asList("ffbd60fb-599a-4a57-b2f1-4b55847cd938", "3fa0990e-900d-4a80-a4c1-dcf01a0d4f9c");
+    }
+
     @Override
     protected String getPersonAddressString() {
         return "Yucay";
     }
-
 
     @Override
     protected String getMothersFirstName() {
@@ -82,8 +92,12 @@ public class PatientRegistrationPeruFlowTest extends PatientRegistrationFlowTest
     protected Boolean automaticallyEnterIdentifier() { return false; }
 
     @Override
-    protected String getPhoneNumber() {
-        return "+513216547";
+    protected List<Map.Entry<String, String>> getContactInfo() {
+        return Arrays.asList(
+                new AbstractMap.SimpleEntry("phoneNumber", "+513216547"),
+                new AbstractMap.SimpleEntry("personAttributeTypef0d3a22f-95b5-4054-9c04-31d5abc2edb4", "+513216547"),
+                new AbstractMap.SimpleEntry("personAttributeType404a5a8f-ac7b-448d-bf6a-e78bb6e1b840", "abc@example.com")
+        );
     }
 
     @Override

@@ -14,7 +14,7 @@ particular configuration repo and PIH Config.
 | [haiti](https://bamboo.pih-emr.org/browse/MIREBALAIS-STC)         | [zl](https://github.com/PIH/openmrs-config-zl)                 | haiti,haiti-thomonde,haiti-thomonde-ci      |
 | [liberia](https://bamboo.pih-emr.org/browse/MIREBALAIS-STP)       | [pihliberia](https://github.com/PIH/openmrs-config-pihliberia) | liberia,liberia-harper,liberia-harper-kouka |
 | [sierraleone](https://bamboo.pih-emr.org/browse/MIREBALAIS-STP)   | [pihsl](https://github.com/PIH/openmrs-config-pihsl)           | sierraLeone,sierraLeone-wellbody,sierraLeone-wellbody-gladi |
-| [peru](https://bamboo.pih-emr.org/browse/MIREBALAIS-STMH) | [ses](https://github.com/PIH/openmrs-config-ses)                       | peru                                        |
+| [peru](https://bamboo.pih-emr.org/browse/MIREBALAIS-STMH)         | [ses](https://github.com/PIH/openmrs-config-ses)               | peru                                        |
 | [mentalHealth](https://bamboo.pih-emr.org/browse/MIREBALAIS-STMH) | [zl](https://github.com/PIH/openmrs-config-zl)                 | haiti-mentalhealth                          |
 | [mexico](https://bamboo.pih-emr.org/browse/MIREBALAIS-STM)        | [ces](https://github.com/PIH/openmrs-config-ces)               | *not written yet*                           |
 
@@ -32,7 +32,7 @@ you should be able to use `sudo apt install google-chrome-stable`.
 Other versions of Chromedriver can be found [here](https://chromedriver.storage.googleapis.com/index.html).
 
 If you need to use a different version of Chrome driver, you can specify a different exectuable by using the
-CHROME_DRIVER_EXECUTABLE environmental variable (or see SmokeTestProperties).
+CHROME_DRIVER_EXECUTABLE environment variable (or see SmokeTestProperties).
 
 ## Config
 

@@ -117,9 +117,9 @@ public abstract class BasicSmokeTest {
             // do nothing, assume we are already logged out
         }
 
-        if (createdOwnDriver) {
-            driver.quit();
-        }
+//        if (createdOwnDriver) {
+//            driver.quit();
+//        }
     }
 
 	protected static void logInAsPhysicianUser() throws Exception {

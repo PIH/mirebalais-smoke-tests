@@ -5,6 +5,9 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.MexicoLoginPage;
 import org.openqa.selenium.By;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class PatientRegistrationMexicoFlowTest extends PatientRegistrationFlowTest {
 
     @Test
@@ -56,8 +59,8 @@ public class PatientRegistrationMexicoFlowTest extends PatientRegistrationFlowTe
     }
 
     @Override
-    protected String getNationalIdUuid() {
-        return "c1fe3790-915a-4f03-861f-5e477f36cec0";
+    protected List<String> getIdUuids() {
+        return Arrays.asList("c1fe3790-915a-4f03-861f-5e477f36cec0");
     }
 
     @Override

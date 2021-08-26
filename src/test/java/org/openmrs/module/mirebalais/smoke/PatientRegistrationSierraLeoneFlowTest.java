@@ -4,6 +4,11 @@ import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.SierraLeoneLoginPage;
 
+import java.util.AbstractMap;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
 public class PatientRegistrationSierraLeoneFlowTest extends PatientRegistrationFlowTest{
 
     @Test
@@ -75,8 +80,8 @@ public class PatientRegistrationSierraLeoneFlowTest extends PatientRegistrationF
     protected Boolean automaticallyEnterIdentifier() { return false; }
 
     @Override
-    protected String getPhoneNumber() {
-        return "+231881112233";
+    protected List<Map.Entry<String, String>> getContactInfo() {
+        return Arrays.asList(new AbstractMap.SimpleEntry("phoneNumber", "+231881112233"));
     }
 
     @Override
