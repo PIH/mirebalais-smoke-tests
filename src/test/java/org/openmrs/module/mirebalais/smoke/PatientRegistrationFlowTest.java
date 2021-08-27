@@ -7,6 +7,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 
 import java.math.BigInteger;
+import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import static org.junit.Assert.assertTrue;
@@ -27,9 +32,9 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         driver.findElement(By.id("register-patient-button")).click();
 
         registration.registerPatient(givenName, familyName, nickname, PatientRegistration.Gender.MALE, 22, 4, 1975, getMothersFirstName(), getPlaceOfBirthString(),
-                getPersonAddressString(), getPhoneNumber(), getInsuranceName(),getInsuranceNumberString(), getOtherInsuranceNameString(), getMaritalStatus(), getEducation(), getOccupation(), getReligion(),
+                getPersonAddressString(), getContactInfo(), getInsuranceName(), getInsuranceNumberString(), getOtherInsuranceNameString(), getMaritalStatus(), getEducation(), getOccupation(), getReligion(),
                 getContact(), getRelationship(), getContactAddressString(), placeOfBirthAndContactAddressUseHierarchy(), getContactPhoneNumber(), automaticallyEnterIdentifier(), getRelationshipsEnabled(), getBiometricsEnabled(), getPrintIdCardOption(),
-                getAdditionalIdentifiersEnabled(), getNationalIdUuid(), getSocioInfoEnabled(),getSuccessElement());
+                getAdditionalIdentifiersEnabled(), getIdUuids(), getSocioInfoEnabled(),getSuccessElement());
 
         appDashboard.goToAppDashboard();
         appDashboard.findPatientByGivenAndFamilyName(givenName, familyName);
@@ -52,7 +57,7 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         appDashboard.openPatientRegistrationApp();
 
         registration.editExistingPatient(adultTestPatient, givenName, familyName, nickname, PatientRegistration.Gender.FEMALE, 10, 10, 1950, getMothersFirstNameForEdit(),
-                getPersonAddressString(), getContact(), getRelationship(), placeOfBirthAndContactAddressUseHierarchy(), getPhoneNumber());
+                getPersonAddressString(), getContact(), getRelationship(), placeOfBirthAndContactAddressUseHierarchy(), getContactInfo());
 
         appDashboard.goToAppDashboard();
         appDashboard.findPatientByGivenAndFamilyName(givenName, familyName);
@@ -74,7 +79,9 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
 
     protected String getPlaceOfBirthString() { return ""; }
 
-    protected String getPhoneNumber() { return "12341111";};
+    protected List<Map.Entry<String, String>> getContactInfo() {
+        return Arrays.asList(new AbstractMap.SimpleEntry("phoneNumber", "12341111"));
+    }
 
     protected Integer getMaritalStatus() {
         return 1;
@@ -126,8 +133,8 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
 
     protected Boolean getSocioInfoEnabled() { return false; }
 
-    protected String getNationalIdUuid() {
-        return null;
+    protected List<String> getIdUuids() {
+        return new ArrayList<>();
     }
 
     protected By getSuccessElement() {
