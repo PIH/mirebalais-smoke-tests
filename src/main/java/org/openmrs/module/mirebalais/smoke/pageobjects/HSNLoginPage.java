@@ -14,7 +14,7 @@ public class HSNLoginPage  extends LoginPage {
     public void logIn(String user, String password, String location) {
         driver.findElement(By.id("username")).sendKeys(user);
         driver.findElement(By.id("password")).sendKeys(password);
-        driver.findElement(By.xpath("//*[contains(text(), '" + (StringUtils.isBlank(location) ? "COVID-19 | Izolman" : location) + "')]")).click();
+        driver.findElement(By.xpath("//*[contains(text(), '" + (StringUtils.isBlank(location) ? "Klinik MNT" : location) + "')]")).click();
         driver.findElement(By.id("login-button")).click();
     }
 }
