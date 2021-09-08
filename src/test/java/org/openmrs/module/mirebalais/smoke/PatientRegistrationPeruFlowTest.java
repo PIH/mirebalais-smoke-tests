@@ -83,7 +83,7 @@ public class PatientRegistrationPeruFlowTest extends PatientRegistrationFlowTest
     }
 
     @Override
-    protected String getOccupation() { return "Chofeur"; }
+    protected String getOccupation() { return "Chófer"; }
 
     @Override
     protected Integer getReligion() { return null; }
