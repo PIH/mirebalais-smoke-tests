@@ -1,9 +1,12 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
+import org.openmrs.module.mirebalais.smoke.helper.SmokeTestProperties;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class PeruLoginPage extends LoginPage {
+
+    private SmokeTestProperties properties = new SmokeTestProperties();
 
     public PeruLoginPage(WebDriver driver) {
         this.driver = driver;
@@ -11,7 +14,7 @@ public class PeruLoginPage extends LoginPage {
 
     @Override
     public void logInAsAdmin() {
-        this.logIn("admin", "test");
+        this.logIn("admin", properties.getAdminUserPassword());
     }
 
     @Override

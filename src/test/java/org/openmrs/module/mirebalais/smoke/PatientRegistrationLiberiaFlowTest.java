@@ -5,6 +5,11 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.LiberiaLoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openqa.selenium.By;
 
+import java.util.AbstractMap;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
 public class PatientRegistrationLiberiaFlowTest extends PatientRegistrationFlowTest {
 
     @Test
@@ -71,8 +76,8 @@ public class PatientRegistrationLiberiaFlowTest extends PatientRegistrationFlowT
     protected Boolean automaticallyEnterIdentifier() { return true; }
 
     @Override
-    protected String getPhoneNumber() {
-        return "+231881112233";
+    protected List<Map.Entry<String, String>> getContactInfo() {
+        return Arrays.asList(new AbstractMap.SimpleEntry("phoneNumber", "+231881112233"));
     }
 
     @Override

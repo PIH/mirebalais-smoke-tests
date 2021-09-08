@@ -12,6 +12,7 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -28,12 +29,13 @@ public class PatientRegistration extends AbstractPageObject {
     }
 
     public void registerPatient(String givenName, String familyName, String nickname, Gender gender, Integer birthDay, Integer birthMonth,
-                                Integer birthYear, String mothersFirstName, String birthplace, String addressSearchValue, String phoneNumber, Integer insuranceName, String insuranceNumber, String otherInsurance,
+                                Integer birthYear, String mothersFirstName, String birthplace, String addressSearchValue,
+                                List<Map.Entry<String, String>> contactInfo, Integer insuranceName, String insuranceNumber, String otherInsurance,
                                 Integer martialStatus, Integer education, String occupation, Integer religion, String contact, String relationship, String contactAddress,
                                 Boolean addressUsesHierarchy, String contactPhoneNumber,
                                 Boolean automaticallyEnterIdentifier, Boolean relationshipsEnabled, Boolean biometricsEnabled, Integer printIdCard,
                                 Boolean additionalIdentifiersEnabled,
-                                String nationalIdUuid,
+                                List<String> idUuids,
                                 Boolean socioInfoEnabled,
                                 By successElement) throws Exception{
 
@@ -42,13 +44,13 @@ public class PatientRegistration extends AbstractPageObject {
         if (biometricsEnabled) {
             skipBiometricsSection();
         }
-        enterNationalId(nationalIdUuid);
+        enterIds(idUuids);
         enterPatientName(familyName, givenName, nickname);
         enterGender(gender);
         enterBirthDate(birthDay, birthMonth, birthYear);
         enterMothersFirstName(mothersFirstName);
         enterPersonAddressViaShortcut(addressSearchValue);
-        enterPhoneNumber(phoneNumber);
+        enterContactInfo(contactInfo);
         selectInsuranceName(insuranceName);
         enterInsuranceNumberAsFreeText(insuranceNumber);
         enterOtherInsuranceNameAsFreeText(otherInsurance);
@@ -135,12 +137,13 @@ public class PatientRegistration extends AbstractPageObject {
         setTextToField(By.name("birthdateYear"), year.toString());
     }
 
-    public void enterNationalId(String nationalIdUuid) {
-
-        if (StringUtils.isNotBlank(nationalIdUuid)) {
-            WebElement element = driver.findElement(By.name("patientIdentifier" + nationalIdUuid));
-            if (element != null && element.isDisplayed()) {
-                hitEnterKey(By.name("patientIdentifier" + nationalIdUuid));
+    public void enterIds(List<String> idUuids) {
+        for (String idUuid : idUuids) {
+            if (StringUtils.isNotBlank(idUuid)) {
+                WebElement element = driver.findElement(By.name("patientIdentifier" + idUuid));
+                if (element != null && element.isDisplayed()) {
+                    hitEnterKey(By.name("patientIdentifier" + idUuid));
+                }
             }
         }
     }
@@ -208,8 +211,10 @@ public class PatientRegistration extends AbstractPageObject {
         driver.manage().timeouts().implicitlyWait(SmokeTestProperties.IMPLICIT_WAIT_TIME, SECONDS);
     }
 
-    public void enterPhoneNumber(String number) {
-        setTextToField(By.name("phoneNumber"), number);
+    public void enterContactInfo(List<Map.Entry<String, String>> namesToValues) {
+        for (Map.Entry<String, String> nameAndValue : namesToValues) {
+            setTextToField(By.name(nameAndValue.getKey()), nameAndValue.getValue());
+        }
     }
 
     public void enterBirthplaceViaShortcut(String searchValue) {
@@ -376,12 +381,12 @@ public class PatientRegistration extends AbstractPageObject {
                                     Integer birthYear, String mothersFirstName, String addressSearchValue,
                                     String contact, String relationship,
                                     Boolean placeOfBirthAndContactAddressUseHierarchy,
-                                    String phoneNumber) throws Exception {
+                                    List<Map.Entry<String, String>> contactInfo) throws Exception {
 
         // find the existing patient
         findExistingPatient(patient);
         editDemographics(familyName, givenName,  nickname, gender, birthDay, birthMonth, birthYear, mothersFirstName);
-        editContactInfo(addressSearchValue, phoneNumber);
+        editContactInfo(addressSearchValue, contactInfo);
         editRegistration();
         //editSocial(addressSearchValue, religion, placeOfBirthAndContactAddressUseHierarchy);
 
@@ -424,10 +429,10 @@ public class PatientRegistration extends AbstractPageObject {
         confirm(By.id("demographics-edit-link")); // edit-link is success element to confirm back on edit page
     }
 
-    public void editContactInfo(String searchValue, String phoneNumber) {
+    public void editContactInfo(String searchValue, List<Map.Entry<String, String>> contactInfo) {
         clickOn(By.id("contactInfo-edit-link"));
         enterPersonAddressViaShortcut(searchValue);
-        enterPhoneNumber(phoneNumber);
+        enterContactInfo(contactInfo);
         confirm(By.id("demographics-edit-link")); // edit-link is success element to confirm back on edit page
     }
 
