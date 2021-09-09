@@ -18,28 +18,13 @@ public class PatientRegistrationHaitiFlowTest extends PatientRegistrationFlowTes
         super.editExistingPatient();
     }
 
-    @Override
-    protected String getContact() {
-        return null;
-    }
+	@Override
+	protected Boolean placeOfBirthAndContactAddressUseHierarchy() { return true; }
 
-    @Override
+	@Override
     protected String getPersonAddressString() {
         return "Cange";
     }
-
-    @Override
-    protected String getPlaceOfBirthString() { return null; }
-
-    protected String getContactAddressString() {
-        return "Cange";
-    }
-
-    @Override
-    protected Boolean placeOfBirthAndContactAddressUseHierarchy() { return true; }
-
-    @Override
-    protected Integer getReligion() { return null; }
 
     @Override
     protected Boolean automaticallyEnterIdentifier() { return true; }
@@ -52,20 +37,43 @@ public class PatientRegistrationHaitiFlowTest extends PatientRegistrationFlowTes
     @Override
     protected Boolean getAdditionalIdentifiersEnabled() { return false; }
 
-    @Override
-    protected String getMothersFirstName() {
-        return null;
-    }
+	@Override
+	protected String getMothersFirstName() {
+		return "Jane";
+	}
 
-    @Override
-    protected Integer getMaritalStatus() {
-        return null;
-    }
+	@Override
+	protected String getContact() {
+		return "Dan";
+	}
 
-    @Override
-    protected String getRelationship() {
-        return null;
-    }
+	@Override
+	protected String getRelationship() {
+		return "cousin";
+	}
+
+	@Override
+	protected String getContactAddressString() {
+		return "Cange";
+	}
+
+	@Override
+	protected String getPlaceOfBirthString() {
+		return "Cange";
+	}
+
+	@Override
+	protected Integer getMaritalStatus() {
+		return 2;
+	}
+
+	@Override
+	protected Integer getReligion() { return 2; }
+
+	@Override
+	protected String getOccupation() {
+		return "Mechanic";
+	}
 
     @Override
     protected By getSuccessElement() {

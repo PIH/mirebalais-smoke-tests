@@ -16,56 +16,12 @@ public class PatientRegistrationMirebalaisFlowTest extends PatientRegistrationHa
         super.editExistingPatient();
     }
 
-    @Override
-    protected String getMothersFirstName() {
-        return "Jane";
-    }
-
-    @Override
-    protected String getPlaceOfBirthString() {
-        return "Cange";
-    }
-
-    @Override
-    protected Integer getMaritalStatus() {
-        return 2;
-    }
 
     @Override
     protected Integer getPrintIdCardOption() { return 1; }
 
     @Override
     protected Integer getInsuranceName() {
-        return 2;
-    }
-
-    @Override
-    protected String getOccupation() {
-        return "Mechanic";
-    }
-
-    @Override
-    protected String getContact() {
-        return "George";
-    }
-
-    @Override
-    protected String getRelationship() {
-        return "cousin";
-    }
-
-    @Override
-    protected String getContactPhoneNumber() {
-        return "8742332323";
-    }
-
-    @Override
-    protected String getContactAddressString() {
-        return "Cange";
-    }
-
-    @Override
-    protected Integer getReligion() {
         return 2;
     }
 
