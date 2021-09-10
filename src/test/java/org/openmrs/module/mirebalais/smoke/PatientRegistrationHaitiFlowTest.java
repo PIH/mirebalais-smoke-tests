@@ -75,7 +75,22 @@ public class PatientRegistrationHaitiFlowTest extends PatientRegistrationFlowTes
 		return "Mechanic";
 	}
 
-    @Override
+	@Override
+	protected Integer getInsuranceName() {
+		return 2;
+	}
+
+	@Override
+	protected String getInsuranceNumberString() {
+		return "076-098765";
+	}
+
+	@Override
+	protected String getOtherInsuranceNameString() {
+		return "non-coded insurance";
+	}
+
+	@Override
     protected By getSuccessElement() {
         return By.id("register-patient-button");    // Haiti redirects to Register Patient search page
     }

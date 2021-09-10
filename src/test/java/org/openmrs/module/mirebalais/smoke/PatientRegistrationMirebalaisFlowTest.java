@@ -21,21 +21,6 @@ public class PatientRegistrationMirebalaisFlowTest extends PatientRegistrationHa
     protected Integer getPrintIdCardOption() { return 1; }
 
     @Override
-    protected Integer getInsuranceName() {
-        return 2;
-    }
-
-    @Override
-    protected String getInsuranceNumberString() {
-        return "076-098765";
-    }
-
-    @Override
-    protected String getOtherInsuranceNameString() {
-        return "non-coded insurance";
-    }
-
-    @Override
     protected Boolean getBiometricsEnabled() { return true; }
 
 }

@@ -18,7 +18,23 @@ public class PatientRegistrationMentalHealthFlowTest extends PatientRegistration
         super.editExistingPatient();
     }
 
-    @Override
+	@Override
+	protected Integer getInsuranceName() {
+		return null;
+	}
+
+	@Override
+	protected String getInsuranceNumberString() {
+		return null;
+	}
+
+	@Override
+	protected String getOtherInsuranceNameString() {
+		return null;
+	}
+
+
+	@Override
     protected LoginPage getLoginPage() {
         return new MentalHealthLoginPage(driver);
     }
