@@ -72,7 +72,7 @@ public class PatientRegistrationHaitiFlowTest extends PatientRegistrationFlowTes
 
 	@Override
 	protected String getOccupation() {
-		return "Mechanic";
+		return "Farmer";
 	}
 
     @Override

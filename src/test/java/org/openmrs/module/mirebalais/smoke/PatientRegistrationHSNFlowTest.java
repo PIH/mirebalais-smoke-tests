@@ -18,6 +18,11 @@ public class PatientRegistrationHSNFlowTest extends PatientRegistrationHaitiFlow
         super.editExistingPatient();
     }
 
+	@Override
+	protected String getOccupation() {
+		return "Archiviste";
+	}
+
     @Override
     protected LoginPage getLoginPage() {
         return new HSNLoginPage(driver);
