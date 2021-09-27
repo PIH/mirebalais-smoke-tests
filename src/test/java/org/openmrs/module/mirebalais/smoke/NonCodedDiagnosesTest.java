@@ -13,7 +13,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfEl
 
 public class NonCodedDiagnosesTest extends DbTest {
 
-    private static final String NON_CODED_DIAGNOSIS = "noncodeddiagnoses";
+    private static final String NON_CODED_DIAGNOSIS = "nonCodedDiagnosis";
     private static final String CODED_DIAGNOSIS = "IGU";
     private static final String CODE_DIAGNOSIS_DIALOG = "code-diagnosis-dialog";
 
