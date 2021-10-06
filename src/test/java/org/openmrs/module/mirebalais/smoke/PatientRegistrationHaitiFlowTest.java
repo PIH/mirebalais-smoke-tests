@@ -57,6 +57,10 @@ public class PatientRegistrationHaitiFlowTest extends PatientRegistrationFlowTes
 		return "Cange";
 	}
 
+	protected String getContactPhoneNumber() {
+		return "2702 1151";
+	}
+
 	@Override
 	protected String getPlaceOfBirthString() {
 		return "Cange";
