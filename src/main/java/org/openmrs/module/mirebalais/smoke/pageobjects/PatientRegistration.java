@@ -379,7 +379,7 @@ public class PatientRegistration extends AbstractPageObject {
     public void editExistingPatient(Patient patient, String givenName, String familyName,
                                     String nickname, Gender gender, Integer birthDay, Integer birthMonth,
                                     Integer birthYear, String mothersFirstName, String addressSearchValue,
-                                    String contact, String relationship,
+                                    String contact, String relationship, String contactPhoneNumber,
                                     Boolean placeOfBirthAndContactAddressUseHierarchy,
                                     List<Map.Entry<String, String>> contactInfo) throws Exception {
 
@@ -391,7 +391,7 @@ public class PatientRegistration extends AbstractPageObject {
         //editSocial(addressSearchValue, religion, placeOfBirthAndContactAddressUseHierarchy);
 
         if (StringUtils.isNotEmpty(contact)) {
-            editContactPerson(contact, relationship, addressSearchValue, placeOfBirthAndContactAddressUseHierarchy);
+            editContactPerson(contact, relationship, addressSearchValue, contactPhoneNumber, placeOfBirthAndContactAddressUseHierarchy);
         }
     }
 
@@ -464,7 +464,7 @@ public class PatientRegistration extends AbstractPageObject {
         confirm(By.id("demographics-edit-link")); // edit-link is success element to confirm back on edit page
     }
 
-    public void editContactPerson(String contact, String relationship, String addressSearchValue, Boolean userHierarchyForContactPersonAddress) {
+    public void editContactPerson(String contact, String relationship, String addressSearchValue, String contactPhoneNumber, Boolean userHierarchyForContactPersonAddress) {
         clickOn(By.cssSelector("#coreapps-mostRecentRegistrationContact .edit-action"));
 
         setTextToField(By.cssSelector("#contactName input"), contact);
@@ -477,7 +477,7 @@ public class PatientRegistration extends AbstractPageObject {
             setTextToField(By.cssSelector("#contactAddress textarea"), addressSearchValue);
         }
 
-        setTextToField(By.cssSelector("#contactPhoneNumber input"), "555-1212");
+        setTextToField(By.cssSelector("#contactPhoneNumber input"), contactPhoneNumber);
 
         confirm(By.id("demographics-edit-link")); // edit-link is success element to confirm back on edit page
     }
