@@ -9,7 +9,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
  * A minimalistic test for Patient Registration. This simply navigates to the registration page
  * and asserts that the page loaded correctly.
  */
-public class PatientRegistrationTest extends DbTest {
+public class PatientRegistrationTest extends BasicSmokeTest {
 
     public void goToRegistration() throws Exception {
         login();
