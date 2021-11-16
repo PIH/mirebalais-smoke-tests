@@ -23,6 +23,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
+// This is obviously only usable by Haiti/Mirebalais
 public class UserAdmin extends AbstractPageObject {
 	
 	private static final String PHYSICIAN_ROLE = "physician";
