@@ -8,7 +8,16 @@ public class PeruFormsTest extends SimpleFormTest {
 
     @Test
     public void testForms() throws Exception {
-        testSectionedFormLoads(PeruLoginPage.MAIN_LOCATION, "Historia Clínica (paciente nuevo)");
+        logInAsPhysicianUser(PeruLoginPage.MAIN_LOCATION);
+        appDashboard.goToClinicianFacingDashboard(adultTestPatient.getId());
+        clinicianDashboard.startVisit();
+        testSectionedFormLoads("Historia Clínica (paciente nuevo)");
+        testSimpleFormLoads("Triaje");
+        testSimpleFormLoads("Consulta Ambulatoria");
+        testSimpleFormLoads("Nota de Enfermeria");
+        testSimpleFormLoads("Admisión COVID-19");
+        testSimpleFormLoads("Ficha de VIH");
+        testSimpleFormLoads("Ficha de tuberculosis");
     }
 
     @Override
