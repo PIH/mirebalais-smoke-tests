@@ -15,7 +15,6 @@ public class PeruFormsTest extends SimpleFormTest {
         testSimpleFormLoads("Triaje");
         testSimpleFormLoads("Consulta Ambulatoria");
         testSimpleFormLoads("Nota de Enfermeria");
-        testSimpleFormLoads("Admisión COVID-19");
         testSimpleFormLoads("Ficha de VIH");
         testSimpleFormLoads("Ficha de tuberculosis");
     }
