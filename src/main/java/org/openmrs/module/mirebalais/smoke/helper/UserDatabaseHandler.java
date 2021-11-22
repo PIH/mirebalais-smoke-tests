@@ -30,20 +30,20 @@ public class UserDatabaseHandler extends BaseDatabaseHandler {
 
     protected static List<String> usernamesToDelete = new ArrayList<String>();
 	
-	public static User insertNewPhysicianUser() throws Exception {
+	public static User insertNewPhysicianUser(String locale) throws Exception {
 
-		return createUserWithApplicationAndProviderRole("physician", "Physician");
+		return createUserWithApplicationAndProviderRole("physician", "Physician", locale);
 	}
 	
-	public static User insertNewPharmacyManagerUser() throws Exception {
-		return createUserWithApplicationAndProviderRole("pharmacyManager", "Pharmacist");
+	public static User insertNewPharmacyManagerUser(String locale) throws Exception {
+		return createUserWithApplicationAndProviderRole("pharmacyManager", "Pharmacist", locale);
 	}
 
-    public static User insertNewArchivistUser() throws Exception {
-        return createUserWithApplicationAndProviderRole("archivistClerk", "Archivist/Clerk");
+    public static User insertNewArchivistUser(String locale) throws Exception {
+        return createUserWithApplicationAndProviderRole("archivistClerk", "Archivist/Clerk", locale);
     }
 	
-	private static User createUserWithApplicationAndProviderRole(String role, String providerRole) throws Exception {
+	private static User createUserWithApplicationAndProviderRole(String role, String providerRole, String locale) throws Exception {
 		User user;
 		
 		try {
@@ -54,7 +54,7 @@ public class UserDatabaseHandler extends BaseDatabaseHandler {
 			
 			user = new User(getNextAutoIncrementFor("person"), UUID.randomUUID().toString(),
 			        getNextAutoIncrementFor("person_name"), userId, username, role, getNextAutoIncrementFor("provider"),
-			        UUID.randomUUID().toString(), providerRoleId, UUID.randomUUID().toString(), UUID.randomUUID().toString());
+			        UUID.randomUUID().toString(), providerRoleId, UUID.randomUUID().toString(), UUID.randomUUID().toString(), locale);
 			
 			IDataSet dataset = createDataset(user);
 			datasets.put(user, dataset);

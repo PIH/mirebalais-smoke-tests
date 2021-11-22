@@ -10,6 +10,11 @@ public class MexicoLoginPage extends LoginPage {
     }
 
     @Override
+    public String getLocale() {
+        return "es";
+    }
+
+    @Override
     public void logIn(String user, String password, String location) {
         driver.findElement(By.id("username")).sendKeys(user);
         driver.findElement(By.id("password")).sendKeys(password);

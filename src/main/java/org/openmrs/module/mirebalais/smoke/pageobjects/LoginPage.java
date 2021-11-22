@@ -11,6 +11,8 @@ public abstract class LoginPage {
 
 	public abstract void logIn(String user, String password, String location);
 
+	public abstract String getLocale();
+
 	public void logIn(String user, String password) {
 		logIn(user, password, null);
 	}
@@ -24,22 +26,22 @@ public abstract class LoginPage {
     }
 
 	public void logInAsPhysicianUser() throws Exception {
-		User clinical = UserDatabaseHandler.insertNewPhysicianUser();
+		User clinical = UserDatabaseHandler.insertNewPhysicianUser(getLocale());
 		this.logIn(clinical.getUsername(), "Admin123");
 	}
 
     public void logInAsPhysicianUser(String location) throws Exception {
-        User clinical = UserDatabaseHandler.insertNewPhysicianUser();
+        User clinical = UserDatabaseHandler.insertNewPhysicianUser(getLocale());
         this.logIn(clinical.getUsername(), "Admin123", location);
     }
 
 	public void logInAsPharmacyManagerUser() throws Exception {
-		User pharmacist = UserDatabaseHandler.insertNewPharmacyManagerUser();
+		User pharmacist = UserDatabaseHandler.insertNewPharmacyManagerUser(getLocale());
 		this.logIn(pharmacist.getUsername(), "Admin123", "Klinik Ekstèn Famasi");
 	}
 
     public void logInAsArchivistUser() throws Exception{
-        User archivist = UserDatabaseHandler.insertNewArchivistUser();
+        User archivist = UserDatabaseHandler.insertNewArchivistUser(getLocale());
         this.logIn(archivist.getUsername(), "Admin123");
     }
 
