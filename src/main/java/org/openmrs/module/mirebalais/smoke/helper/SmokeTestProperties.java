@@ -45,8 +45,7 @@ public class SmokeTestProperties {
 
     public String getChromeDriverExecutable() {
         // if none specified, defaults to logic in SmokeTestDriver, see SmokeTestDriver:37
-		// currently set to 81 to match the version of Chrome installed on Bamboo
-        return envOrDefault("CHROME_DRIVER_EXECUTABLE", "chromedriver/linux/chromedriver_81");
+        return envOrDefault("CHROME_DRIVER_EXECUTABLE", "");
     }
 
     public String getAdminUserPassword() {
