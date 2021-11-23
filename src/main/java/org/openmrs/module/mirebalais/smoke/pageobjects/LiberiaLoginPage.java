@@ -11,6 +11,11 @@ public class LiberiaLoginPage extends LoginPage {
     }
 
     @Override
+    public String getLocale() {
+        return "en";
+    }
+
+    @Override
     public void logIn(String user, String password, String location) {
         driver.findElement(By.id("username")).sendKeys(user);
         driver.findElement(By.id("password")).sendKeys(password);

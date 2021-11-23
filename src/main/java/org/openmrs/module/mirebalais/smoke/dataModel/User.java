@@ -26,8 +26,11 @@ public class User {
 
     private String userUuid;
 
+    private String defaultLocale;
+
     public User(BigInteger personId, String uuid, BigInteger personNameId, BigInteger userId, String username, String role,
-                BigInteger providerId, String providerUuid, Integer providerRoleId, String personNameUuid, String userUuid) {
+                BigInteger providerId, String providerUuid, Integer providerRoleId, String personNameUuid, String userUuid,
+                String defaultLocale) {
         this.personId = personId;
         this.uuid = uuid;
         this.personNameId = personNameId;
@@ -39,6 +42,7 @@ public class User {
         this.providerRoleId = providerRoleId;
         this.personNameUuid = personNameUuid;
         this.userUuid = userUuid;
+        this.defaultLocale = defaultLocale;
     }
 
     public String getRole() {
@@ -92,6 +96,8 @@ public class User {
     public String getUser_uuid() {
         return userUuid;
     }
+
+    public String getDefaultLocale() { return defaultLocale; }
 
     @Override
     public String toString() {

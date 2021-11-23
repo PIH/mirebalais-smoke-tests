@@ -15,6 +15,11 @@ public class PeruLoginPage extends LoginPage {
     }
 
     @Override
+    public String getLocale() {
+        return "es_PE";
+    }
+
+    @Override
     public void logInAsAdmin() {
         this.logIn("admin", properties.getAdminUserPassword(), MAIN_LOCATION);
     }
