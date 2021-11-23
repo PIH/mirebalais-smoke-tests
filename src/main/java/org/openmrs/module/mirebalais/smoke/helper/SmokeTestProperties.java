@@ -12,20 +12,20 @@ public class SmokeTestProperties {
 
     public String getWebAppUrl() {
         if (webAppUrl == null) {
-            webAppUrl = envOrDefault("WEBAPP_URL", "http://localhost:7080/openmrs");
+            webAppUrl = envOrDefault("WEBAPP_URL", "http://localhost:8080/openmrs");
         }
 
         return webAppUrl;
     }
 
     public String getDatabaseUrl() {
-        return envOrDefault("DATABASE_URL", "jdbc:mysql://localhost:3308/hum");
+        return envOrDefault("DATABASE_URL", "jdbc:mysql://localhost:3306/openmrs");
 
     }
 
     public String getDatabaseUsername() {
         if (databaseUsername == null) {
-            databaseUsername = envOrDefault("DATABASE_USERNAME", "root");
+            databaseUsername = envOrDefault("DATABASE_USERNAME", "openmrs");
         }
 
         return databaseUsername;
@@ -33,7 +33,7 @@ public class SmokeTestProperties {
 
     public String getDatabasePassword() {
         if (databasePassword == null) {
-            databasePassword = envOrDefault("DATABASE_PASSWORD", "Admin123");
+            databasePassword = envOrDefault("DATABASE_PASSWORD", "openmrs");
         }
 
         return databasePassword;
