@@ -84,9 +84,9 @@ public class VisitNoteTest extends DbTest {
 
         // diagnosis section
         visitNote.editSection("pihcore-diagnosis");
-        visitNote.fillOutDiagnosisForm("IGU");
+        visitNote.fillOutDiagnosisForm("Douleur");
         visitNote.expandSection("pihcore-diagnosis");
-//        assertTrue(visitNote.containsText("Douleur"));
+        assertTrue(visitNote.containsText("Douleur"));
 
         // plan section
         visitNote.editSection("pihcore-plan");
@@ -144,9 +144,9 @@ public class VisitNoteTest extends DbTest {
 
         // diagnosis section
         visitNote.editSection("pihcore-diagnosis");
-        visitNote.fillOutDiagnosisForm("IGU");
+        visitNote.fillOutDiagnosisForm("Douleur");
         visitNote.expandSection("pihcore-diagnosis");
-     //   assertTrue(visitNote.containsText("Douleur"));
+        assertTrue(visitNote.containsText("Douleur"));
 
         // plan section
         visitNote.editSection("pihcore-plan");
@@ -227,9 +227,9 @@ public class VisitNoteTest extends DbTest {
 
         // diagnosis section
         visitNote.editSection("pihcore-diagnosis");
-        visitNote.fillOutDiagnosisForm("IGU");
+        visitNote.fillOutDiagnosisForm("Douleur");
         visitNote.expandSection("pihcore-diagnosis");
-  //      assertTrue(visitNote.containsText("Douleur"));
+        assertTrue(visitNote.containsText("Douleur"));
 
         // plan section
         visitNote.editSection("pihcore-plan");
@@ -304,9 +304,9 @@ public class VisitNoteTest extends DbTest {
 
         // diagnosis section
         visitNote.editSection("pihcore-diagnosis");
-        visitNote.fillOutDiagnosisForm("IGU");
+        visitNote.fillOutDiagnosisForm("Douleur");
         visitNote.expandSection("pihcore-diagnosis");
- //       assertTrue(visitNote.containsText("Douleur"));
+        assertTrue(visitNote.containsText("Douleur"));
 
         // plan section
         visitNote.editSection("pihcore-plan");
