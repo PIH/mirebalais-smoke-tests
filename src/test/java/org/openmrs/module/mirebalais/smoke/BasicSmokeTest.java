@@ -18,6 +18,7 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.ClinicianDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.MirebalaisLoginPage;
+import org.openmrs.module.mirebalais.smoke.pageobjects.TermsAndConditionsPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -31,6 +32,8 @@ import java.util.concurrent.TimeUnit;
 public abstract class BasicSmokeTest {
 
 	protected static LoginPage loginPage;
+
+    protected static TermsAndConditionsPage termsAndConditionsPage;
 
 	protected static HeaderPage header;
 
@@ -78,6 +81,7 @@ public abstract class BasicSmokeTest {
         header = new HeaderPage(driver);
         adminPage = new AdminPage(driver);
         loginPage = getLoginPage();
+        termsAndConditionsPage = new TermsAndConditionsPage(driver);
         visitNote = new VisitNote(driver);
         appDashboard = new AppDashboard(driver);
         clinicianDashboard = new ClinicianDashboard(driver);
@@ -124,36 +128,43 @@ public abstract class BasicSmokeTest {
 
 	protected static void logInAsPhysicianUser() throws Exception {
 		loginPage.logInAsPhysicianUser();
+        termsAndConditionsPage.acceptTermsIfPresent();
 		header.home();
 	}
 
     protected static void logInAsPhysicianUser(String location) throws Exception {
         loginPage.logInAsPhysicianUser(location);
+        termsAndConditionsPage.acceptTermsIfPresent();
         header.home();
     }
 
 	protected static void logInAsPharmacyManagerUser() throws Exception {
         loginPage.logInAsPharmacyManagerUser();
+        termsAndConditionsPage.acceptTermsIfPresent();
         header.home();
 	}
 
     protected static void logInAsArchivist() throws Exception{
         loginPage.logInAsArchivistUser();
+        termsAndConditionsPage.acceptTermsIfPresent();
         header.home();
     }
 
     protected static void logInAsAdmin() throws Exception {
         loginPage.logInAsAdmin();
+        termsAndConditionsPage.acceptTermsIfPresent();
         header.home();
     }
 
     protected static void logInAsAdmin(String location) throws Exception {
         loginPage.logInAsAdmin(location);
+        termsAndConditionsPage.acceptTermsIfPresent();
         header.home();
     }
 
     protected void login() throws Exception{
         loginPage.logInAsAdmin();
+        termsAndConditionsPage.acceptTermsIfPresent();
         header.home();
     }
 
