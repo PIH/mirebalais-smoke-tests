@@ -14,6 +14,7 @@ import org.openmrs.module.mirebalais.smoke.dataModel.User;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigInteger;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -96,6 +97,14 @@ public class UserDatabaseHandler extends BaseDatabaseHandler {
 		userDataToDelete.addTable("name_phonetics",
 		    "select * from name_phonetics where person_name_id in (select person_name_id from person_name where person_id = "
 		            + personId + ")");
+
+		resetColumnThatMatchesUserId("person", "creator", userId);
+		resetColumnThatMatchesUserId("person", "changed_by", userId);
+		resetColumnThatMatchesUserId("patient", "creator" ,userId);
+		resetColumnThatMatchesUserId("patient", "changed_by" ,userId);
+		resetColumnThatMatchesUserId("users", "creator" ,userId);
+		resetColumnThatMatchesUserId("users", "changed_by" ,userId);
+
         userDataToDelete.addTable("idgen_log_entry","select * from idgen_log_entry where generated_by = " + userId );
 		userDataToDelete.addTable("users", "select * from users where user_id = " + userId);
 		userDataToDelete.addTable("user_role", "select * from user_role where user_id = " + userId);
@@ -116,4 +125,15 @@ public class UserDatabaseHandler extends BaseDatabaseHandler {
                 "select * from providermanagement_provider_role where name = '" + providerRoleName + "'");
         return  (Integer) providerRole.getValue(0, "provider_role_id");
     }
+
+	private static void resetColumnThatMatchesUserId(String tableName, String columnName, Integer userId) {
+		String updateStmt = "update " + tableName + " set " + columnName + " = 1 where " + columnName + " = ?";
+		try (PreparedStatement statement = connection.getConnection().prepareStatement(updateStmt)) {
+			statement.setInt(1, userId);
+			statement.executeUpdate();
+		}
+		catch (Exception e) {
+			throw new RuntimeException("Error updating " + tableName + "." + columnName + " to userId: " + userId, e);
+		}
+	}
 }
