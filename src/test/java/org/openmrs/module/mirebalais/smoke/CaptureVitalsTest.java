@@ -1,7 +1,7 @@
 package org.openmrs.module.mirebalais.smoke;
 
 import org.junit.Test;
-import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
+import org.openmrs.module.pihcore.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.CheckInFormPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote;
