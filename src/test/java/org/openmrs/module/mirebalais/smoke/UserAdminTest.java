@@ -3,7 +3,7 @@ package org.openmrs.module.mirebalais.smoke;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.openmrs.module.mirebalais.apploader.CustomAppLoaderConstants;
+import org.openmrs.module.pihcore.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.mirebalais.smoke.helper.NameGenerator;
 import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.MyAccountApp;

@@ -92,3 +92,40 @@ table above. It should also be possible to run the tests by navigating to them i
 the "Run" buttons in the left margin.
 
 The tests must be configured to use a server that is compatible with the suite being run.
+
+# Using Docker
+
+The most reliable way to execute the smoke tests is by using Docker.  There is a Dockerfile bundled in this repository
+which configures an Ubuntu image with the latest version of Chrome and a matching Chrome Driver, Maven and Java, and 
+the tests within of this codebase.
+
+A new image for this is published to Dockerhub on every commit at partnersinhealth/pihemr-smoke-tests
+
+Some notes about using this image:
+
+* You need to increase the shared memory in Docker due to some of the page sizes loaded by Chrome:  ```--shm-size=256m```
+* You should set all of the necessary environment variables either when running using ```--env VAR=VALUE``` or you can use an env file
+* You can run the smoke test command directly or you can run bash and then execute the maven command manually
+* If you are connecting to a local DB outside of Docker on your own host, you will need to set host networking:  ``` --net=host```
+* You can speed up subsequent executions by mounting a volume at /root/.m2 to cache maven artifacts between runs
+
+As an example, I am able to successfully build a new Docker imageand then run smoke tests in this 
+against a local Liberia environment, which is running on my machine via the SDK and using a database named "liberia" in another 
+MySQL Docker container exposed on port 3308:
+
+```docker build --rm -t smoketests .```
+
+```
+docker run \
+    -v /tmp/m2:/root/.m2 \
+    --shm-size=256m \
+    --env WEBAPP_URL=http://localhost:8080/openmrs \
+    --env DATABASE_URL=jdbc:mysql://localhost:3308/liberia \
+    --env DATABASE_USERNAME=root \
+    --env DATABASE_PASSWORD=root \
+    --net=host \
+    -it \
+    smoketests \
+    mvn clean verify -U -Pliberia
+```
+

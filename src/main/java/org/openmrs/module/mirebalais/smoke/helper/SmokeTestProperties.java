@@ -10,6 +10,8 @@ public class SmokeTestProperties {
 
     private String databasePassword = null;
 
+    private String headless = null;
+
     public String getWebAppUrl() {
         if (webAppUrl == null) {
             webAppUrl = envOrDefault("WEBAPP_URL", "http://localhost:8080/openmrs");
@@ -54,6 +56,11 @@ public class SmokeTestProperties {
 
     public String getDatabaseDriverClass() {
         return "com.mysql.jdbc.Driver";
+    }
+
+    public boolean getHeadless() {
+        String headless = envOrDefault("HEADLESS", "true");
+        return Boolean.parseBoolean(headless);
     }
 
     private String envOrDefault(String environmentVariable, String defaultValue) {
