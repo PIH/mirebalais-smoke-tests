@@ -67,6 +67,9 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         appDashboard.findPatientByGivenAndFamilyName(givenName, familyName);
         assertTrue(new ClinicianDashboard(driver).isOpenForPatient(givenName, familyName));
 
+        // Hack to wait 5 seconds to ensure javascript loads on the page prior to attempting to logout, to avoid the "user has already logged out" popup
+        Thread.sleep(5000);
+
         populateTestPatientForTearDown();
         logout();
         log("editExistingPatient complete");
