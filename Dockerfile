@@ -5,7 +5,7 @@ MAINTAINER Michael Seaton <mseaton@pih.org>
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update
-RUN apt-get install -y unzip wget openjdk-11-jdk maven
+RUN apt-get install -y unzip software-properties-common curl wget xvfb openjdk-11-jdk maven
 
 RUN wget -O /tmp/chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 RUN apt-get install -y /tmp/chrome.deb
