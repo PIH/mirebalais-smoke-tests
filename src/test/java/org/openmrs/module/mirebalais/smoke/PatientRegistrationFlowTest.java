@@ -19,7 +19,7 @@ import static org.junit.Assert.assertTrue;
 public abstract class PatientRegistrationFlowTest extends DbTest {
 
     public void registerNewPatient() throws Exception {
-
+        log("registerNewPatient start");
         PatientRegistration registration = new PatientRegistration(driver);
 
         String givenName = "Tom " + new Random().nextInt(1000);  // append a random number so patient name is (more or less) unique
@@ -40,12 +40,16 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         appDashboard.findPatientByGivenAndFamilyName(givenName, familyName);
         assertTrue(new ClinicianDashboard(driver).isOpenForPatient(givenName, familyName));
 
+        // Hack to wait 5 seconds to ensure javascript loads on the page prior to attempting to logout, to avoid the "user has already logged out" popup
+        Thread.sleep(5000);
+
         populateTestPatientForTearDown();
         logout();
+        log("registerNewPatient complete");
     }
 
     public void editExistingPatient() throws Exception {
-
+        log("editExistingPatient start");
         PatientRegistration registration = new PatientRegistration(driver);
 
         String givenName = "Billy " + new Random().nextInt(1000);  // append a random number so patient name is (more or less) unique
@@ -65,6 +69,7 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
 
         populateTestPatientForTearDown();
         logout();
+        log("editExistingPatient complete");
     }
 
     protected String getMothersFirstName() { return "Mary"; }

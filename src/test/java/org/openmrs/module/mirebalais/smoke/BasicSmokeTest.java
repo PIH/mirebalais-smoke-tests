@@ -27,6 +27,7 @@ import org.openqa.selenium.WebDriver;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public abstract class BasicSmokeTest {
@@ -68,6 +69,7 @@ public abstract class BasicSmokeTest {
         // when running as a suite, MirebalaisSmokeTestSuite should inject the driver into the context
         // if not running as a suite, we create our own driver (and flag createdOwnDriver as true so that we know we need to do teardown)
         if (driver == null) {
+            System.out.println("Initializing new Chrome Driver");
             driver = new SmokeTestDriver().getDriver();
             createdOwnDriver = true;
         }
@@ -78,6 +80,7 @@ public abstract class BasicSmokeTest {
 
 	@Before
     public void initPageObjects() {
+        log("Initializing page objects");
         header = new HeaderPage(driver);
         adminPage = new AdminPage(driver);
         loginPage = getLoginPage();
@@ -92,12 +95,13 @@ public abstract class BasicSmokeTest {
 
     @After
     public void teardown() throws Exception {
+        log("Logging out");
         logout();
     }
 
     @AfterClass
     public static void after() throws Exception {
-
+        System.out.println("Deleting test users and logging out if necessary");
         try {
             UserDatabaseHandler.deleteAllTestUsers();
         }
@@ -122,6 +126,7 @@ public abstract class BasicSmokeTest {
         }
 
         if (createdOwnDriver) {
+            System.out.println("Quitting Created Chrome Driver");
             driver.quit();
         }
     }
@@ -162,7 +167,7 @@ public abstract class BasicSmokeTest {
         header.home();
     }
 
-    protected void login() throws Exception{
+    protected void login() throws Exception {
         loginPage.logInAsAdmin();
         termsAndConditionsPage.acceptTermsIfPresent();
         header.home();
@@ -190,5 +195,9 @@ public abstract class BasicSmokeTest {
 
     public static void setHeader(HeaderPage header) {
         BasicSmokeTest.header = header;
+    }
+
+    public void log(String message) {
+        System.out.println(new Date() + " - " + getClass().getSimpleName() + ": " + message);
     }
 }

@@ -9,8 +9,6 @@ import org.openmrs.module.mirebalais.smoke.helper.UserDatabaseHandler;
 import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
 import org.openqa.selenium.TimeoutException;
 
-import java.util.Date;
-
 public abstract class DbTest extends BasicSmokeTest {
 
     Patient adultTestPatient;
@@ -21,7 +19,7 @@ public abstract class DbTest extends BasicSmokeTest {
 
     @Before
     public void setupTestData() throws Exception {
-        System.out.println(new Date() + " - " + getClass() + " execution starting");
+        log("Setting up test data");
         adultTestPatient = PatientDatabaseHandler.insertAdultTestPatient();
         anotherAdultTestPatient = PatientDatabaseHandler.insertAdultTestPatient();
         newbornTestPatient = PatientDatabaseHandler.insertNewbornTestPatient();
@@ -34,7 +32,7 @@ public abstract class DbTest extends BasicSmokeTest {
 
     @After
 	public void deleteTestData() throws Exception {
-        System.out.println(new Date() + " - " + getClass() + " execution completed");
+        log("Deleting test data");
 		try {
 			PatientDatabaseHandler.deleteAllTestPatients();
 		}
@@ -46,8 +44,8 @@ public abstract class DbTest extends BasicSmokeTest {
 
 	// overrides "afterclass" defined in BaseSmokeTest
     @AfterClass
-    public static void after() throws Exception{
-
+    public static void after() throws Exception {
+        System.out.println("Deleting test users and updating lucene index");
         try {
             UserDatabaseHandler.deleteAllTestUsers();
         }
