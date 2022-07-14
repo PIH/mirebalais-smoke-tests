@@ -58,11 +58,6 @@ public class SmokeTestProperties {
         return "com.mysql.jdbc.Driver";
     }
 
-    public boolean getHeadless() {
-        String headless = envOrDefault("HEADLESS", "true");
-        return Boolean.parseBoolean(headless);
-    }
-
     private String envOrDefault(String environmentVariable, String defaultValue) {
         String envVar = System.getenv(environmentVariable);
         return envVar != null ? envVar : defaultValue;
