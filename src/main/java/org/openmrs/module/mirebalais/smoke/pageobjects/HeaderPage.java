@@ -38,6 +38,7 @@ public class HeaderPage extends AbstractPageObject {
 	}
 
 	public String changeLocationTo(int listElement) throws Exception {
+        Thread.sleep(2000);
 		clickOnLocationMenu();
         WebElement location = driver.findElements(By.cssSelector("ul.select li")).get(listElement - 1);
         String locationName = location.getAttribute("textContent");
