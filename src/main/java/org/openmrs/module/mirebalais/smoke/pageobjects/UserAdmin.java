@@ -101,13 +101,6 @@ public class UserAdmin extends AbstractPageObject {
 		driver.findElement(By.name("username")).sendKeys(username);
 		driver.findElement(By.name("password")).sendKeys(password);
 		driver.findElement(By.name("confirmPassword")).sendKeys(password);
-		
-		WebElement select = driver.findElement(By.name("privilegeLevel"));
-		List<WebElement> options = select.findElements(By.tagName("option"));
-		for (WebElement option : options) {
-			if ("Konplè".equals(option.getText()))
-				option.click();
-		}
 	}
 	
 	private void clickOnSave() {
