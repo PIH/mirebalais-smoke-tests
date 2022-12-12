@@ -63,7 +63,7 @@ public class AdmissionDischargeTransferTest extends DbTest {
         appDashboard.goToClinicianFacingDashboard(adultTestPatient.getId());
         clinicianDashboard.startVisit();
 
-        visitNote.addConsultNoteWithAdmissionToLocation(malaria, "Sal Gason");  // location 8 = Sal Gason, where this user logs in
+        visitNote.addConsultNoteWithAdmissionToLocation(malaria, "Sal Gason");
         assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(1));
 
         header.home();
@@ -86,7 +86,7 @@ public class AdmissionDischargeTransferTest extends DbTest {
         appDashboard.goToClinicianFacingDashboard(adultTestPatient.getId());
         clinicianDashboard.startVisit();
 
-        visitNote.addConsultNoteWithAdmissionToLocation(malaria, "Sal Gason");  // location 8 = Sal Gason, where this user logs in
+        visitNote.addConsultNoteWithAdmissionToLocation(malaria, "Sal Gason");
         assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(1));
 
         header.home();
