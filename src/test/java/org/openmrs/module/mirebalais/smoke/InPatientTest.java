@@ -23,32 +23,32 @@ public class InPatientTest extends DbTest {
 		appDashboard.goToClinicianFacingDashboard(adultTestPatient.getId());
 		clinicianDashboard.startVisit();
 
-		String admissionPlace = visitNote.addConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS, 3);
+		visitNote.addConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS, "Sal Gason");
 		assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(1));
 
         visitNote.addAdmissionNoteWithDefaultLocation(PRIMARY_DIAGNOSIS);
         assertThat(visitNote.countEncountersOfType(VisitNote.ADMISSION_CREOLE_NAME), is(1));
 
         visitNote.gotoAppDashboard();
-		assertFirstAdmittedAndCurrentWardAre(adultTestPatient.getIdentifier(), admissionPlace, admissionPlace);
+		assertFirstAdmittedAndCurrentWardAre(adultTestPatient.getIdentifier(), "Sal Gason", "Sal Gason");
 
 		appDashboard.goToVisitNoteVisitListAndSelectFirstVisit(adultTestPatient.getId());
 
-		String transferPlace = visitNote.addConsultNoteWithTransferToLocation(PRIMARY_DIAGNOSIS, 4);
+		visitNote.addConsultNoteWithTransferToLocation(PRIMARY_DIAGNOSIS, "Ijans");
 
 		assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(2));
 		assertThat(visitNote.countEncountersOfType(VisitNote.TRANSFER_CREOLE_NAME), is(1));
         visitNote.gotoAppDashboard();
-		assertFirstAdmittedAndCurrentWardAre(adultTestPatient.getIdentifier(), admissionPlace, transferPlace);
+		assertFirstAdmittedAndCurrentWardAre(adultTestPatient.getIdentifier(), "Sal Gason", "Ijans");
 
 		appDashboard.goToClinicianFacingDashboard(anotherAdultTestPatient.getId());
 		clinicianDashboard.startVisit();
-		visitNote.addConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS, 3);
+		visitNote.addConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS, "Sal Gason");
 		visitNote.waitUntilVisitNoteOpen();
 
 		appDashboard.openInPatientApp();
-		inPatientList.filterBy(transferPlace);
-		inPatientList.waitUntilInpatientListIsFilteredBy(transferPlace);
+		inPatientList.filterBy("Ijans");
+		inPatientList.waitUntilInpatientListIsFilteredBy("Ijans");
 	}
 
 	private void assertFirstAdmittedAndCurrentWardAre(String identifier, String firstAdmitted, String currentWard)

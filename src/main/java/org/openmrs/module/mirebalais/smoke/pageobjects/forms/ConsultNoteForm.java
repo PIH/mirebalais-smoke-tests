@@ -23,6 +23,9 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
 public class ConsultNoteForm extends BaseHtmlForm {
 
     private By locationsForTransferWithinHospital = By.cssSelector("#transferInternalLocation option");
@@ -46,12 +49,12 @@ public class ConsultNoteForm extends BaseHtmlForm {
         confirmData();
 	}
 	
-	public String fillFormWithAdmissionAndReturnLocation(String primaryDiagnosis, int locationNumbered) throws Exception {
-        return fillFormAndReturnPlace(primaryDiagnosis, ADMISSION, locationsForAdmission, locationNumbered);
+	public void fillFormWithAdmission(String primaryDiagnosis, String locationName) throws Exception {
+        fillFormAndReturnPlace(primaryDiagnosis, ADMISSION, locationsForAdmission, locationName);
 	}
 
-	public String fillFormWithTransferAndReturnLocation(String primaryDiagnosis, int locationNumbered) throws Exception {
-        return fillFormAndReturnPlace(primaryDiagnosis, TRANSFER, locationsForTransferWithinHospital, locationNumbered);
+	public void fillFormWithTransfer(String primaryDiagnosis, String locationName) throws Exception {
+        fillFormAndReturnPlace(primaryDiagnosis, TRANSFER, locationsForTransferWithinHospital, locationName);
 	}
 
     protected void fillFormWithBasicInfo(String primaryDiagnosis, String disposition) throws Exception {
@@ -68,16 +71,19 @@ public class ConsultNoteForm extends BaseHtmlForm {
         confirmData();
     }
 
-    protected String fillFormAndReturnPlace(String primaryDiagnosis, String disposition, By dropdownOptionsLocator, int locationNumber) throws Exception  {
-		choosePrimaryDiagnosis(primaryDiagnosis);
-		chooseDisposition(disposition);
+    protected void fillFormAndReturnPlace(String primaryDiagnosis, String disposition, By dropdownOptionsLocator, String locationText) throws Exception  {
+        choosePrimaryDiagnosis(primaryDiagnosis);
+        chooseDisposition(disposition);
         wait5seconds.until(visibilityOfElementLocated(dropdownOptionsLocator));
-        WebElement location = driver.findElements(dropdownOptionsLocator).get(locationNumber);
-        String locationText = location.getText();
+        WebElement location = driver.findElements(dropdownOptionsLocator).stream().filter(new Predicate<WebElement>() {
+            @Override
+            public boolean test(WebElement webElement) {
+                return webElement.getText().equalsIgnoreCase(locationText);
+            }
+        }).collect(Collectors.toList()).get(0);
         location.click();
         confirmData();
-        return locationText;
-	}
+    }
 	
 	protected String chooseOption(By placeCombo, WebElement location) {
         wait5seconds.until(visibilityOfElementLocated(placeCombo));

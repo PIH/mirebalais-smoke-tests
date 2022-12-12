@@ -24,7 +24,7 @@ public class NonCodedDiagnosesTest extends DbTest {
     ReportsHomePage reportsHomePage;
 
     private void createConsultNote() throws Exception {
-        visitNote.addConsultNoteWithAdmissionToLocation(NON_CODED_DIAGNOSIS,2);
+        visitNote.addConsultNoteWithAdmissionToLocation(NON_CODED_DIAGNOSIS,"Sal Gason");
     }
 
     private void createEDNote() throws Exception {

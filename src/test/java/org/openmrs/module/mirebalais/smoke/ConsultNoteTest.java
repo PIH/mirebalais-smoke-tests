@@ -21,7 +21,7 @@ public class ConsultNoteTest extends DbTest {
         appDashboard.goToClinicianFacingDashboard(adultTestPatient.getId());
         clinicianDashboard.startVisit();
 
-		visitNote.addConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS, 2);
+		visitNote.addConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS, "Sal Gason");
 		assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(1));
 	}
 
@@ -46,7 +46,7 @@ public class ConsultNoteTest extends DbTest {
         appDashboard.goToClinicianFacingDashboard(adultTestPatient.getId());
         clinicianDashboard.startVisit();
 
-        visitNote.addConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS, 2);
+        visitNote.addConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS, "Sal Gason");
         visitNote.editExistingConsultNote(EDITED_PRIMARY_DIAGNOSIS);
 
         assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(1));

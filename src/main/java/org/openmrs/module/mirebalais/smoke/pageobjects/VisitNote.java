@@ -192,14 +192,14 @@ public class VisitNote extends AbstractPageObject {
 		consultNoteForm.fillFormWithDischarge(primaryDiagnosis);
 	}
 
-	public String addConsultNoteWithAdmissionToLocation(String primaryDiagnosis, int numbered) throws Exception {
-		openForm(formList.get("Consult Note"));
-		return consultNoteForm.fillFormWithAdmissionAndReturnLocation(primaryDiagnosis, numbered);
-	}
+    public void addConsultNoteWithAdmissionToLocation(String primaryDiagnosis, String locationName) throws Exception {
+        openForm(formList.get("Consult Note"));
+        consultNoteForm.fillFormWithAdmission(primaryDiagnosis, locationName);
+    }
 
-	public String addConsultNoteWithTransferToLocation(String primaryDiagnosis, int numbered) throws Exception {
+	public void addConsultNoteWithTransferToLocation(String primaryDiagnosis, String locationName) throws Exception {
 		openForm(formList.get("Consult Note"));
-		return consultNoteForm.fillFormWithTransferAndReturnLocation(primaryDiagnosis, numbered);
+		consultNoteForm.fillFormWithTransfer(primaryDiagnosis, locationName);
 	}
 
 	public void addConsultNoteWithDeath(String primaryDiagnosis) throws Exception {
@@ -218,14 +218,14 @@ public class VisitNote extends AbstractPageObject {
 		retroConsultNoteForm.fillFormWithDischarge(primaryDiagnosis);
 	}
 
-	public String addRetroConsultNoteWithAdmissionToLocation(String primaryDiagnosis, int numbered) throws Exception {
+	public void addRetroConsultNoteWithAdmissionToLocation(String primaryDiagnosis, String locationName) throws Exception {
 		openForm(formList.get("Consult Note"));
-		return retroConsultNoteForm.fillFormWithAdmissionAndReturnLocation(primaryDiagnosis, numbered);
+		retroConsultNoteForm.fillFormWithAdmission(primaryDiagnosis, locationName);
 	}
 
-	public String addRetroConsultNoteWithTransferToLocation(String primaryDiagnosis, int numbered) throws Exception {
+	public void addRetroConsultNoteWithTransferToLocation(String primaryDiagnosis, String locationName) throws Exception {
 		openForm(formList.get("Consult Note"));
-		return retroConsultNoteForm.fillFormWithTransferAndReturnLocation(primaryDiagnosis, numbered);
+		retroConsultNoteForm.fillFormWithTransfer(primaryDiagnosis, locationName);
 	}
 
 	public void addEDNote(String primaryDiagnosis) throws Exception {
