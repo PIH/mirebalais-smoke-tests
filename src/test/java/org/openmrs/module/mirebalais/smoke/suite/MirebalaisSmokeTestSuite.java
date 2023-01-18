@@ -4,7 +4,35 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import org.openmrs.module.mirebalais.smoke.*;
+import org.openmrs.module.mirebalais.smoke.ActiveVisitsTest;
+import org.openmrs.module.mirebalais.smoke.AdmissionDischargeTransferRetroTest;
+import org.openmrs.module.mirebalais.smoke.AdmissionDischargeTransferTest;
+import org.openmrs.module.mirebalais.smoke.ArchivesRoomFlowTest;
+import org.openmrs.module.mirebalais.smoke.BasicSmokeTest;
+import org.openmrs.module.mirebalais.smoke.CaptureVitalsMirebalaisTest;
+import org.openmrs.module.mirebalais.smoke.CheckInMirebalaisTest;
+import org.openmrs.module.mirebalais.smoke.ConsultNoteTest;
+import org.openmrs.module.mirebalais.smoke.DailyAppointmentsTest;
+import org.openmrs.module.mirebalais.smoke.DeathCertificateTest;
+import org.openmrs.module.mirebalais.smoke.DispensingTest;
+import org.openmrs.module.mirebalais.smoke.EDNoteTest;
+import org.openmrs.module.mirebalais.smoke.EDTriageTest;
+import org.openmrs.module.mirebalais.smoke.GenerateDossierAtCheckinTest;
+import org.openmrs.module.mirebalais.smoke.HeaderTest;
+import org.openmrs.module.mirebalais.smoke.InPatientTest;
+import org.openmrs.module.mirebalais.smoke.ManageAppointmentsTest;
+import org.openmrs.module.mirebalais.smoke.ManageServiceTypesTest;
+import org.openmrs.module.mirebalais.smoke.MergePatientTest;
+import org.openmrs.module.mirebalais.smoke.MultipleSubmitTest;
+import org.openmrs.module.mirebalais.smoke.NonCodedDiagnosesTest;
+import org.openmrs.module.mirebalais.smoke.PatientRegistrationMirebalaisFlowTest;
+import org.openmrs.module.mirebalais.smoke.PatientSearchTest;
+import org.openmrs.module.mirebalais.smoke.RadiologyOrdersTest;
+import org.openmrs.module.mirebalais.smoke.RequestAppointmentsTest;
+import org.openmrs.module.mirebalais.smoke.RetroConsultNoteTest;
+import org.openmrs.module.mirebalais.smoke.RetroVisitTest;
+import org.openmrs.module.mirebalais.smoke.UserAdminTest;
+import org.openmrs.module.mirebalais.smoke.VisitNoteMirebalaisTest;
 import org.openmrs.module.mirebalais.smoke.helper.SmokeTestDriver;
 import org.openqa.selenium.WebDriver;
 
@@ -26,7 +54,6 @@ import org.openqa.selenium.WebDriver;
                         InPatientTest.class,
                         ManageAppointmentsTest.class,
                         ManageServiceTypesTest.class,
-                        MasterPatientIndexTest.class,
                         MergePatientTest.class,
                         MultipleSubmitTest.class,
                         NonCodedDiagnosesTest.class,
