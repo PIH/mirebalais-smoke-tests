@@ -14,14 +14,14 @@
 
 package org.openmrs.module.mirebalais.smoke.pageobjects;
 
-import org.openmrs.module.pihcore.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.mirebalais.smoke.dataModel.Patient;
+import org.openmrs.module.pihcore.apploader.CustomAppLoaderConstants;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.NoSuchElementException;
 
 import java.math.BigInteger;
 
@@ -82,10 +82,6 @@ public class AppDashboard extends AbstractPageObject {
 
     public void startClinicVisit() {
 		openApp(replaceChars(CustomAppLoaderConstants.Apps.CHECK_IN, ".", "-") + APP_LINK_SUFFIX);
-	}
-
-    public void openMasterPatientIndexApp() {
-    	openApp(replaceChars(CustomAppLoaderConstants.Apps.LEGACY_MPI, ".", "-") + APP_LINK_SUFFIX);
 	}
 
     public void openCheckinApp() {
