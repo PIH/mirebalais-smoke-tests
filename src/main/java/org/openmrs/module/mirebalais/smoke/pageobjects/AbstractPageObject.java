@@ -40,6 +40,8 @@ public abstract class AbstractPageObject {
     protected WebDriver driver;
     public WebDriverWait wait5seconds;
     public WebDriverWait wait15seconds;
+
+    public WebDriverWait wait30seconds;
     public WebDriverWait wait2minutes;
     public WebDriverWait wait5minutes;
     private String baseServerUrl;
@@ -48,6 +50,7 @@ public abstract class AbstractPageObject {
         this.driver = driver;
         this.wait5seconds = new WebDriverWait(driver, 5);
         this.wait15seconds = new WebDriverWait(driver,15);
+        this.wait30seconds = new WebDriverWait(driver,30);
         this.wait2minutes = new WebDriverWait(driver, 120);
         this.wait5minutes = new WebDriverWait(driver, 600);
 
