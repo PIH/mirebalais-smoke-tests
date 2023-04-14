@@ -191,10 +191,12 @@ public class PatientRegistration extends AbstractPageObject {
         wait5seconds.until(visibilityOfElementLocated(By.partialLinkText(searchValue)));
         searchBox.sendKeys(Keys.ENTER);
 
-        // Some forms have additional address fields that need to be tabbed out
+        // Some forms have additional address fields that need to be filled out or skipped
         driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         if (driver.findElements(By.name("address1")).size() > 0 && driver.findElement(By.name("address1")).isDisplayed()) {
-            hitTabKey(By.name("address1"));
+            WebElement address1 = (driver.findElement(By.name("address1")));
+            address1.sendKeys( "123 Main St");
+            address1.sendKeys(Keys.ENTER);
         }
         if (driver.findElements(By.name("cityVillage")).size() > 0 && driver.findElement(By.name("cityVillage")).isDisplayed()) {
             hitTabKey(By.name("cityVillage"));
