@@ -37,6 +37,7 @@ public class PatientRegistration extends AbstractPageObject {
                                 Boolean additionalIdentifiersEnabled,
                                 List<String> idUuids,
                                 Boolean socioInfoEnabled,
+                                Boolean patientSupportEnabled,
                                 By successElement) throws Exception{
 
         wait15seconds.until(visibilityOfElementLocated(By.id("checkbox-enable-registration-date")));
@@ -70,6 +71,8 @@ public class PatientRegistration extends AbstractPageObject {
         if (relationshipsEnabled) {
             skipRelationshipSection();
         }
+
+        enterPatientSupportInfo(patientSupportEnabled);
 
         if (StringUtils.isNotBlank(contact)) {
             enterContactPerson(contact);
@@ -158,6 +161,16 @@ public class PatientRegistration extends AbstractPageObject {
             selectElementFromList("obs.CIEL:159400", 1);
             //casefinding
             selectElementFromList("obs.PIH:Found through active casefinding", 1);
+        }
+    }
+
+    public void enterPatientSupportInfo(Boolean patientSupportEnabled) {
+        if (patientSupportEnabled) {
+            selectElementFromList("obsgroup.PIH:14493.obs.PIH:14494", 2);
+            setTextToField(By.name("obsgroup.PIH:14493.obs.PIH:6402"), "The health center"); // Location
+            setTextToField(By.name("obsgroup.PIH:14493.obs.PIH:13173"), "ABC123"); // ID Number
+            setTextToField(By.name("obsgroup.PIH:14493.obs.CIEL:164141"), "Supporter Name"); // Name
+            setTextToField(By.name("obsgroup.PIH:14493.obs.PIH:2614"), "1111-222"); // Phone
         }
     }
 

@@ -29,14 +29,14 @@ public class ActiveVisitsTest extends DbTest {
 		login();
 
 		appDashboard.openActiveVisitsApp();
-		assertFalse(driver.findElement(By.id("activeVisitsGrid")).getText().contains(adultTestPatient.getIdentifier()));
+		assertFalse(driver.findElement(By.id("activeVisitsTable")).getText().contains(adultTestPatient.getIdentifier()));
 
 		appDashboard.goToClinicianFacingDashboard(adultTestPatient.getId());
 		clinicianDashboard.startVisit();
 
 		appDashboard.openActiveVisitsApp();
 		Thread.sleep(2000); // hack delay
-		String contentText = driver.findElement(By.id("activeVisitsGrid")).getText();
+		String contentText = driver.findElement(By.id("activeVisitsTable")).getText();
 		assertThat(contentText, containsString(adultTestPatient.getNameLastNameFirst()));
 		assertThat(contentText, containsString(adultTestPatient.getIdentifier()));
 	}
