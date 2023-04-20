@@ -165,6 +165,7 @@ public class PatientRegistration extends AbstractPageObject {
     }
 
     public void enterPatientSupportInfo(Boolean patientSupportEnabled) {
+        // TODO: I believe this is no longer used anywhere?
         if (patientSupportEnabled) {
             selectElementFromList("obsgroup.PIH:14493.obs.PIH:14494", 2);
             setTextToField(By.name("obsgroup.PIH:14493.obs.PIH:6402"), "The health center"); // Location
