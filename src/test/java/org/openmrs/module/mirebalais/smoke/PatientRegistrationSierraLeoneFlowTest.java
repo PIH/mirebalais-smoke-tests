@@ -32,7 +32,7 @@ public class PatientRegistrationSierraLeoneFlowTest extends PatientRegistrationF
     }
 
     @Override
-    protected String getPlaceOfBirthString() { return null; }
+    protected String getPlaceOfBirthString() { return "Neverland"; }
 
     @Override
     protected String getContact() {
@@ -67,7 +67,7 @@ public class PatientRegistrationSierraLeoneFlowTest extends PatientRegistrationF
 
     @Override
     protected Integer getMaritalStatus() {
-        return null;
+        return 1;
     }
 
     @Override
