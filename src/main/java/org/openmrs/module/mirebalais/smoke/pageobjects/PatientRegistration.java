@@ -38,6 +38,7 @@ public class PatientRegistration extends AbstractPageObject {
                                 List<String> idUuids,
                                 Boolean socioInfoEnabled,
                                 Boolean patientSupportEnabled,
+                                String localContact, String localContactAddress, String localContactPhoneNumber,
                                 By successElement) throws Exception{
 
         wait15seconds.until(visibilityOfElementLocated(By.id("checkbox-enable-registration-date")));
@@ -86,6 +87,12 @@ public class PatientRegistration extends AbstractPageObject {
             }
 
             enterContactPhoneNumber(contactPhoneNumber);
+        }
+
+        if (StringUtils.isNotBlank(localContact)) {
+            enterLocalContactPerson(localContact);
+            enterLocalContactAddressViaShortcut(localContactAddress);
+            enterLocalContactPhoneNumber(localContactPhoneNumber);
         }
         automaticallyEnterIdentifier(automaticallyEnterIdentifier);
 
@@ -224,6 +231,15 @@ public class PatientRegistration extends AbstractPageObject {
         if (driver.findElements(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:Address2")).size() > 0 && driver.findElement(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:Address2")).isDisplayed()) {
             hitTabKey(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:Address2"));
         }
+        if (driver.findElements(By.name("obsgroup.PIH:14704.obs.PIH:Address1")).size() > 0 && driver.findElement(By.name("obsgroup.PIH:14704.obs.PIH:Address1")).isDisplayed()) {
+            hitTabKey(By.name("obsgroup.PIH:14704.obs.PIH:Address1"));
+        }
+        if (driver.findElements(By.name("obsgroup.PIH:14704.obs.PIH:City Village")).size() > 0 && driver.findElement(By.name("obsgroup.PIH:14704.obs.PIH:City Village")).isDisplayed()) {
+            hitTabKey(By.name("obsgroup.PIH:14704.obs.PIH:City Village"));
+        }
+        if (driver.findElements(By.name("obsgroup.PIH:14704.obs.PIH:Address2")).size() > 0 && driver.findElement(By.name("obsgroup.PIH:14704.obs.PIH:Address2")).isDisplayed()) {
+            hitTabKey(By.name("obsgroup.PIH:14704.obs.PIH:Address2"));
+        }
         driver.manage().timeouts().implicitlyWait(SmokeTestProperties.IMPLICIT_WAIT_TIME, SECONDS);
     }
 
@@ -291,6 +307,12 @@ public class PatientRegistration extends AbstractPageObject {
         }
     }
 
+    public void enterLocalContactPerson(String localContact) {
+        if (StringUtils.isNotEmpty(localContact)) {
+            setTextToField(By.name("obsgroup.PIH:14704.obs.PIH:NAMES AND FIRSTNAMES OF CONTACT"), localContact);
+        }
+    }
+
     public void enterContactRelationship(String relationship) {
         if (StringUtils.isNotEmpty(relationship)) {
             setTextToField(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:RELATIONSHIPS OF CONTACT"), relationship);
@@ -300,6 +322,12 @@ public class PatientRegistration extends AbstractPageObject {
     public void enterContactAddressViaShortcut(String searchValue) {
         if (StringUtils.isNotEmpty(searchValue)) {
             enterAddressViaShortcut(searchValue, 2);  // index=2 because contact is the third address in the registration form
+        }
+    }
+
+    public void enterLocalContactAddressViaShortcut(String searchValue) {
+        if (StringUtils.isNotEmpty(searchValue)) {
+            enterAddressViaShortcut(searchValue, 1);
         }
     }
 
@@ -313,6 +341,12 @@ public class PatientRegistration extends AbstractPageObject {
     public void enterContactPhoneNumber(String phoneNumber) {
         if (StringUtils.isNotEmpty(phoneNumber)) {
             setTextToField(By.name("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:TELEPHONE NUMBER OF CONTACT"), phoneNumber);
+        }
+    }
+
+    public void enterLocalContactPhoneNumber(String phoneNumber) {
+        if (StringUtils.isNotEmpty(phoneNumber)) {
+            setTextToField(By.name("obsgroup.PIH:14704.obs.PIH:TELEPHONE NUMBER OF CONTACT"), phoneNumber);
         }
     }
 

@@ -93,4 +93,19 @@ public class PatientRegistrationSierraLeoneFlowTest extends PatientRegistrationF
     protected Boolean getAdditionalIdentifiersEnabled() {
         return true;
     }
+
+    @Override
+    protected String getLocalContact() {
+        return "John Smith";
+    }
+
+    @Override
+    protected String getLocalContactAddressString() {
+        return "Kongbora";
+    }
+
+    @Override
+    protected String getLocalContactPhoneNumber() {
+        return "+231881112235";
+    }
 }

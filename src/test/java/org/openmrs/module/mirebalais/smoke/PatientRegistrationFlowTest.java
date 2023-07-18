@@ -34,7 +34,7 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         registration.registerPatient(givenName, familyName, nickname, PatientRegistration.Gender.MALE, 22, 4, 1975, getMothersFirstName(), getPlaceOfBirthString(),
                 getPersonAddressString(), getContactInfo(), getInsuranceName(), getInsuranceNumberString(), getOtherInsuranceNameString(), getMaritalStatus(), getEducation(), getOccupation(), getReligion(),
                 getContact(), getRelationship(), getContactAddressString(), placeOfBirthAndContactAddressUseHierarchy(), getContactPhoneNumber(), automaticallyEnterIdentifier(), getRelationshipsEnabled(), getBiometricsEnabled(), getPrintIdCardOption(),
-                getAdditionalIdentifiersEnabled(), getIdUuids(), getSocioInfoEnabled(), getPatientSupportEnabled(), getSuccessElement());
+                getAdditionalIdentifiersEnabled(), getIdUuids(), getSocioInfoEnabled(), getPatientSupportEnabled(), getLocalContact(), getLocalContactAddressString(), getLocalContactPhoneNumber(), getSuccessElement());
 
         appDashboard.goToAppDashboard();
         appDashboard.findPatientByGivenAndFamilyName(givenName, familyName);
@@ -98,6 +98,9 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
     protected String getContact() {
         return "dan";
     }
+    protected String getLocalContact() {
+        return null;
+    }
 
     protected String getRelationship() {
         return "cousin";
@@ -107,8 +110,16 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         return "";
     }
 
+    protected String getLocalContactAddressString() {
+        return "";
+    }
+
     protected String getContactPhoneNumber() {
         return "4312533";
+    }
+
+    protected String getLocalContactPhoneNumber() {
+        return null;
     }
 
     protected Boolean placeOfBirthAndContactAddressUseHierarchy() { return true; }
