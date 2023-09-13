@@ -34,7 +34,7 @@ public class MedicationDispensingTest extends DbTest {
         assertThat(dispensingApp.isFilterByLocationInputPresent(), is(true));
         dispensingApp.clickOnFilterByLocationInput();
 
-        dispensingApp.isSearchByPatientIDOrNameInputPresent();
+        assertThat(dispensingApp.isSearchByPatientIDOrNameInputPresent(), is(true));
         dispensingApp.clickOnSearchByPatientIdOrNameInput();
 
         assertThat(dispensingApp.isCreatedColumnHeaderPresent(), is(true));

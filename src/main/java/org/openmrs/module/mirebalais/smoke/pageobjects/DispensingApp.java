@@ -52,7 +52,7 @@ public class DispensingApp extends AbstractPageObject {
 
     public boolean isPatientNameColumnHeaderPresent() {
         wait5seconds.until(presenceOfElementLocated(patientNameColumnHeader));
-        return driver.findElement(patientNameColumnHeader) != null
+        return driver.findElement(patientNameColumnHeader) != null;
     }
 
     public boolean isPrescriberColumnHeaderPresent() {
