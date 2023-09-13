@@ -12,7 +12,9 @@ import static org.openmrs.module.mirebalais.smoke.pageobjects.selects.DrugFreque
 import static org.openmrs.module.mirebalais.smoke.pageobjects.selects.DurationUnit.DAYS;
 import static org.openmrs.module.mirebalais.smoke.pageobjects.selects.TypeOfPrescrition.DISCHARGE;
 
-
+/**
+ * This tests the old Dispensing Form, see Medication Dispensing to test the new Dispensing ESM
+ */
 public class DispensingTest extends DbTest {
 
 	private String paracetamol = "Paracetamol, 500mg tablet";
