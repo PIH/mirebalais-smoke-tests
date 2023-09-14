@@ -13,9 +13,11 @@ RUN apt-get install -y /tmp/chrome.deb
 ADD . /smoketests
 
 RUN rm -fR /smoketests/src/test/resources/chromedriver/linux/*
-RUN wget -O /tmp/chromedriver.zip https://chromedriver.storage.googleapis.com/$(wget -qO- https://chromedriver.storage.googleapis.com/LATEST_RELEASE)/chromedriver_linux64.zip
-RUN unzip /tmp/chromedriver.zip -d /smoketests/src/test/resources/chromedriver/linux/
+RUN wget -O /tmp/chromedriver.zip https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/$(wget -qO- https://googlechromelabs.github.io/chrome-for-testing/LATEST_RELEASE_STABLE)/linux64/chromedriver-linux64.zip
+RUN unzip -j /tmp/chromedriver.zip 'chromedriver-linux64/chromedriver' -d /smoketests/src/test/resources/chromedriver/linux
 
 WORKDIR /smoketests
 
 CMD /bin/bash
+
+
