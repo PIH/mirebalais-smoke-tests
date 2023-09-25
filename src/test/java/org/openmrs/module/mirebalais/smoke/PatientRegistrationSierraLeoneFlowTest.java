@@ -108,4 +108,7 @@ public class PatientRegistrationSierraLeoneFlowTest extends PatientRegistrationF
     protected String getLocalContactPhoneNumber() {
         return "+231881112235";
     }
+
+    @Override
+    protected Boolean getRelationshipsEnabled() { return true; }
 }
