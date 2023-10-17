@@ -22,7 +22,7 @@ public class MedicationDispensingTest extends DbTest {
         AppDashboard appDashboard = new AppDashboard(driver);
         DispensingApp dispensingApp = new DispensingApp(driver);
 
-        logInAsAdmin("Wellbody Clinic");
+        logInAsAdmin();
         appDashboard.openMedicationDispensingApp();
 
         // just test that the expected elements are visible and clickable
