@@ -110,5 +110,5 @@ public class PatientRegistrationSierraLeoneFlowTest extends PatientRegistrationF
     }
 
     @Override
-    protected Boolean getRelationshipsEnabled() { return false; }
+    protected Boolean getRelationshipsEnabled() { return true; }
 }

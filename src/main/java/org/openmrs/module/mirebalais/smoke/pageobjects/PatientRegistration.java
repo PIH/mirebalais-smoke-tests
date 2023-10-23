@@ -296,8 +296,23 @@ public class PatientRegistration extends AbstractPageObject {
 
     public void skipRelationshipSection() {
         // TODO might want to implement this, but would depend on having another patient being set up
-        hitTabKey(By.name("relationship_type"));
-        hitTabKey(By.name("relationship_type"));
+        if (driver.findElements(By.name("relationship_type")).size() > 0 && driver.findElement(By.name("relationship_type")).isDisplayed()) {
+            hitTabKey(By.name("relationship_type"));
+            hitTabKey(By.name("relationship_type"));
+        }
+        if (driver.findElements(By.className("searchablePerson")).size() > 0 && driver.findElement(By.className("searchablePerson")).isDisplayed()) {
+            //for SL there are two searchable person name input boxes displayed and each one requires two tabs
+
+            List<WebElement> elements = driver.findElements(By.className("searchablePerson"));
+            for (WebElement element : elements) {
+                if(element.isEnabled() && element.isDisplayed()) {
+                    element.sendKeys(Keys.TAB);
+                    element.sendKeys(Keys.TAB);
+                    driver.manage().timeouts().implicitlyWait(SmokeTestProperties.IMPLICIT_WAIT_TIME, SECONDS);
+                }
+            }
+        }
+
 
     }
 
