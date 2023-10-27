@@ -308,6 +308,7 @@ public class PatientRegistration extends AbstractPageObject {
                 if(element.isEnabled() && element.isDisplayed()) {
                     element.sendKeys(Keys.TAB);
                     element.sendKeys(Keys.TAB);
+                    element.sendKeys(Keys.TAB);
                     driver.manage().timeouts().implicitlyWait(SmokeTestProperties.IMPLICIT_WAIT_TIME, SECONDS);
                 }
             }
