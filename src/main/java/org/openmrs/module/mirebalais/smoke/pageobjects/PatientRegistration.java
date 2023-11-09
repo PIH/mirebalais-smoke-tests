@@ -242,7 +242,6 @@ public class PatientRegistration extends AbstractPageObject {
     }
 
     public void enterAddressField(By elementId, String text) {
-        driver.findElement(elementId).sendKeys(Keys.TAB);
         WebElement field = (driver.findElement(elementId));
         if (StringUtils.isNotBlank(text)) {
             field.sendKeys(text);
