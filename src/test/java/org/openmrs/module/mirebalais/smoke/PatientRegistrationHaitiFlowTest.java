@@ -2,7 +2,6 @@ package org.openmrs.module.mirebalais.smoke;
 
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.loginpages.LoginPage;
-import org.openmrs.module.mirebalais.smoke.pageobjects.loginpages.ThomondeLoginPage;
 import org.openqa.selenium.By;
 
 public class PatientRegistrationHaitiFlowTest extends PatientRegistrationFlowTest {
@@ -102,6 +101,6 @@ public class PatientRegistrationHaitiFlowTest extends PatientRegistrationFlowTes
 
     @Override
     protected LoginPage getLoginPage() {
-        return new ThomondeLoginPage(driver);
+        return new GeneralLoginPage(driver);
     }
 }
