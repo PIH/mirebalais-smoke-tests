@@ -1,8 +1,8 @@
 package org.openmrs.module.mirebalais.smoke;
 
 import org.junit.Test;
-import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
-import org.openmrs.module.mirebalais.smoke.pageobjects.PeruLoginPage;
+import org.openmrs.module.mirebalais.smoke.pageobjects.loginpages.LoginPage;
+import org.openmrs.module.mirebalais.smoke.pageobjects.loginpages.PeruLoginPage;
 
 public class PeruFormsTest extends SimpleFormTest {
 

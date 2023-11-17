@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.openmrs.module.pihcore.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.CheckInFormPage;
-import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
+import org.openmrs.module.mirebalais.smoke.pageobjects.loginpages.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote;
 import org.openmrs.module.mirebalais.smoke.pageobjects.VitalsApp;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.BaseHtmlForm;

@@ -1,6 +1,7 @@
-package org.openmrs.module.mirebalais.smoke.pageobjects;
+package org.openmrs.module.mirebalais.smoke.pageobjects.loginpages;
 
 import org.openmrs.module.mirebalais.smoke.helper.SmokeTestProperties;
+import org.openmrs.module.mirebalais.smoke.pageobjects.loginpages.LoginPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 

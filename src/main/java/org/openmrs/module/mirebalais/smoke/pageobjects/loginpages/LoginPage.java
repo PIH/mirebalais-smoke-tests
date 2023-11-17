@@ -1,4 +1,4 @@
-package org.openmrs.module.mirebalais.smoke.pageobjects;
+package org.openmrs.module.mirebalais.smoke.pageobjects.loginpages;
 
 import org.openmrs.module.mirebalais.smoke.dataModel.User;
 import org.openmrs.module.mirebalais.smoke.helper.SmokeTestProperties;

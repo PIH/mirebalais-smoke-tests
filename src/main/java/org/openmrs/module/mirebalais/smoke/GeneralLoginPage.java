@@ -1,6 +1,6 @@
 package org.openmrs.module.mirebalais.smoke;
 
-import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
+import org.openmrs.module.mirebalais.smoke.pageobjects.loginpages.LoginPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 

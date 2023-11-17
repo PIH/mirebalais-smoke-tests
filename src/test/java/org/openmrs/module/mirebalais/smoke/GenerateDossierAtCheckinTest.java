@@ -7,7 +7,7 @@ import org.openmrs.module.mirebalais.smoke.helper.SmokeTestProperties;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.ArchivesRoomApp;
 import org.openmrs.module.mirebalais.smoke.pageobjects.ClinicianDashboard;
-import org.openmrs.module.mirebalais.smoke.pageobjects.MirebalaisLoginPage;
+import org.openmrs.module.mirebalais.smoke.pageobjects.loginpages.MirebalaisLoginPage;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;

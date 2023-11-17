@@ -1,8 +1,8 @@
 package org.openmrs.module.mirebalais.smoke;
 
 import org.junit.Test;
-import org.openmrs.module.mirebalais.smoke.pageobjects.LoginPage;
-import org.openmrs.module.mirebalais.smoke.pageobjects.SierraLeoneLoginPage;
+import org.openmrs.module.mirebalais.smoke.pageobjects.loginpages.LoginPage;
+import org.openmrs.module.mirebalais.smoke.pageobjects.loginpages.SierraLeoneLoginPage;
 
 import java.util.AbstractMap;
 import java.util.Arrays;
