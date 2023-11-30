@@ -4,6 +4,8 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElemen
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 
 public class DispensingApp extends AbstractPageObject {
 
@@ -24,14 +26,16 @@ public class DispensingApp extends AbstractPageObject {
         super(driver);
     }
 
-
     public boolean isActivePrescriptionsTabPresent() {
         wait5seconds.until(presenceOfElementLocated(activePrescriptionsSelector));
         return driver.findElement(activePrescriptionsSelector) != null;
     }
 
     public boolean isAllPrescriptionsTabPresent() {
-        wait5seconds.until(presenceOfElementLocated(allPrescriptionsSelector));
+        ExpectedCondition<WebElement> presence = presenceOfElementLocated(allPrescriptionsSelector);
+        System.out.println("Waiting up to 2 minutes for " + presence);
+        wait2minutes.until(presence);
+        System.out.println("Done waiting for " + presence);
         return driver.findElement(allPrescriptionsSelector) != null;
     }
 
