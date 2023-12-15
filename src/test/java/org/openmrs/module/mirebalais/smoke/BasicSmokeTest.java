@@ -174,7 +174,7 @@ public abstract class BasicSmokeTest {
     }
 
     protected void home() {
-	    new HeaderPage(driver).home();
+	    header.home();
     }
 
 	protected void logout() {

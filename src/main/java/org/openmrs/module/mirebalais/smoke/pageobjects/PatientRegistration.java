@@ -424,6 +424,7 @@ public class PatientRegistration extends AbstractPageObject {
         WebElement kghIdentifier = driver.findElement(By.name("patientIdentifierc09a1d24-7162-11eb-8aa6-0242ac110002"));
         if (kghIdentifier != null ) {
             kghIdentifier.sendKeys(Keys.TAB);
+            hitTabKey(); // National ID
         } else {
             // TODO: actually test adding the identifiers instead of just skipping
             hitTabKey();

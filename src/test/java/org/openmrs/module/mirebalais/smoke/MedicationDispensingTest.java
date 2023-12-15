@@ -12,11 +12,12 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.loginpages.SierraLeoneLog
 /**
  * Smoke tests for the Dispensing ESM
  */
-public class MedicationDispensingTest extends DbTest {
+public class MedicationDispensingTest extends BasicSmokeTest {
 
     // note: targeted for testing on Gladi, using Sierra Leone login page
     @Override
     protected LoginPage getLoginPage() { return new SierraLeoneLoginPage(driver); }
+
     @Test
     public void shouldLaunchDispensingApp() throws Exception {
         AppDashboard appDashboard = new AppDashboard(driver);
