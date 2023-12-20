@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.openqa.selenium.support.ui.ExpectedConditions.or;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class PatientRegistration extends AbstractPageObject {
@@ -34,7 +35,7 @@ public class PatientRegistration extends AbstractPageObject {
                                 Integer martialStatus, Integer education, String occupation, Integer religion, String contact, String relationship, String contactAddress,
                                 Boolean addressUsesHierarchy, String contactPhoneNumber,
                                 Boolean automaticallyEnterIdentifier, Boolean relationshipsEnabled, Boolean biometricsEnabled, Integer printIdCard,
-                                Boolean additionalIdentifiersEnabled,
+                                Integer additionalIdentifiersCount,
                                 List<String> idUuids,
                                 Boolean socioInfoEnabled,
                                 Boolean patientSupportEnabled,
@@ -96,8 +97,8 @@ public class PatientRegistration extends AbstractPageObject {
         }
         automaticallyEnterIdentifier(automaticallyEnterIdentifier);
 
-        if (additionalIdentifiersEnabled) {
-            enterAdditionalIdentifiers();
+        if (additionalIdentifiersCount != null) {
+            enterAdditionalIdentifiers(additionalIdentifiersCount);
         }
 
         printIdCard(printIdCard);
@@ -420,17 +421,11 @@ public class PatientRegistration extends AbstractPageObject {
         }
     }
 
-    public void enterAdditionalIdentifiers() {
-        WebElement kghIdentifier = driver.findElement(By.name("patientIdentifierc09a1d24-7162-11eb-8aa6-0242ac110002"));
-        if (kghIdentifier != null ) {
-            kghIdentifier.sendKeys(Keys.TAB);
-            hitTabKey(); // National ID
-        } else {
+    public void enterAdditionalIdentifiers(int count) {
+        while (count > 0) {
             // TODO: actually test adding the identifiers instead of just skipping
             hitTabKey();
-            hitTabKey();
-            hitTabKey();
-            hitTabKey();
+            count--;
         }
     }
 

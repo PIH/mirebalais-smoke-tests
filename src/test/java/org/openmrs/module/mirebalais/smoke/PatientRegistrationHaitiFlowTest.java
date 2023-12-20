@@ -35,7 +35,7 @@ public class PatientRegistrationHaitiFlowTest extends PatientRegistrationFlowTes
     }
 
     @Override
-    protected Boolean getAdditionalIdentifiersEnabled() { return false; }
+    protected Integer getAdditionalIdentifiersCount() { return 4; }
 
 	@Override
 	protected String getMothersFirstName() {

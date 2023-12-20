@@ -90,8 +90,8 @@ public class PatientRegistrationSierraLeoneFlowTest extends PatientRegistrationF
     }
 
     @Override
-    protected Boolean getAdditionalIdentifiersEnabled() {
-        return true;
+    protected Integer getAdditionalIdentifiersCount() {
+        return 2;
     }
 
     @Override

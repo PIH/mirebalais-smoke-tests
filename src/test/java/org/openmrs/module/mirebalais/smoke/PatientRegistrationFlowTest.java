@@ -34,7 +34,7 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         registration.registerPatient(givenName, familyName, nickname, PatientRegistration.Gender.MALE, 22, 4, 1975, getMothersFirstName(), getPlaceOfBirthString(),
                 getPersonAddressString(), getContactInfo(), getInsuranceName(), getInsuranceNumberString(), getOtherInsuranceNameString(), getMaritalStatus(), getEducation(), getOccupation(), getReligion(),
                 getContact(), getRelationship(), getContactAddressString(), placeOfBirthAndContactAddressUseHierarchy(), getContactPhoneNumber(), automaticallyEnterIdentifier(), getRelationshipsEnabled(), getBiometricsEnabled(), getPrintIdCardOption(),
-                getAdditionalIdentifiersEnabled(), getIdUuids(), getSocioInfoEnabled(), getPatientSupportEnabled(), getLocalContact(), getLocalContactAddressString(), getLocalContactPhoneNumber(), getSuccessElement());
+                getAdditionalIdentifiersCount(), getIdUuids(), getSocioInfoEnabled(), getPatientSupportEnabled(), getLocalContact(), getLocalContactAddressString(), getLocalContactPhoneNumber(), getSuccessElement());
 
         appDashboard.goToAppDashboard();
         appDashboard.findPatientByGivenAndFamilyName(givenName, familyName);
@@ -148,7 +148,7 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
 
     protected Boolean getBiometricsEnabled() { return false; }
 
-    protected Boolean getAdditionalIdentifiersEnabled() { return false; }
+    protected Integer getAdditionalIdentifiersCount() { return null; }
 
     protected Boolean getSocioInfoEnabled() { return false; }
 
