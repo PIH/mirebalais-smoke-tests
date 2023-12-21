@@ -12,8 +12,8 @@ import org.openqa.selenium.WebDriver;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    PatientRegistrationSierraLeoneFlowTest.class//,
- //   MedicationDispensingTest.class
+    PatientRegistrationSierraLeoneFlowTest.class,
+        MedicationDispensingTest.class
 })
 public class SierraLeoneSmokeTestSuite {
 
