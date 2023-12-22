@@ -32,10 +32,7 @@ public class DispensingApp extends AbstractPageObject {
     }
 
     public boolean isAllPrescriptionsTabPresent() {
-        ExpectedCondition<WebElement> presence = presenceOfElementLocated(allPrescriptionsSelector);
-        System.out.println("Waiting up to 2 minutes for " + presence);
-        wait2minutes.until(presence);
-        System.out.println("Done waiting for " + presence);
+        wait5seconds.until(presenceOfElementLocated(allPrescriptionsSelector));
         return driver.findElement(allPrescriptionsSelector) != null;
     }
 
