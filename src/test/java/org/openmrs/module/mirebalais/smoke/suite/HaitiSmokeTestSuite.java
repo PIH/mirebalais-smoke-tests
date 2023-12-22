@@ -15,13 +15,13 @@ import org.openqa.selenium.WebDriver;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
         CaptureVitalsTest.class,
-        PatientRegistrationHaitiFlowTest.class,
+        PatientRegistrationHaitiFlowTest.class//,
         // this has been disable since we don't currently have them turned on on HSN
       //  CaptureVitalsHSNTest.class,
        // CheckInHSNTest.class,
        // PatientRegistrationHSNFlowTest.class,
         // this has been disabled since the Thomonde Visit Note vitals flow is slightly different from the Mirebalais one
-        VisitNoteTest.class
+       // VisitNoteTest.class
                     })
 public class HaitiSmokeTestSuite {
 
