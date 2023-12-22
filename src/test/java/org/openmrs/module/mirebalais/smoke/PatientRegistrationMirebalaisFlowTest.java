@@ -1,6 +1,8 @@
 package org.openmrs.module.mirebalais.smoke;
 
 import org.junit.Test;
+import org.openmrs.module.mirebalais.smoke.pageobjects.loginpages.LoginPage;
+import org.openmrs.module.mirebalais.smoke.pageobjects.loginpages.MirebalaisLoginPage;
 
 public class PatientRegistrationMirebalaisFlowTest extends PatientRegistrationHaitiFlowTest {
 
@@ -22,5 +24,10 @@ public class PatientRegistrationMirebalaisFlowTest extends PatientRegistrationHa
 
     @Override
     protected Boolean getBiometricsEnabled() { return true; }
+
+    @Override
+    protected LoginPage getLoginPage() {
+        return new MirebalaisLoginPage(driver);
+    }
 
 }
