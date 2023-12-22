@@ -28,7 +28,7 @@ public class MedicationDispensingTest extends BasicSmokeTest {
 
         // just test that the expected elements are visible and clickable
 /*
-disabling for now, as there seems to be some alery blocking this tab?
+disabling for now, as this assertion appears to be problematic for some reason
         assertThat(dispensingApp.isAllPrescriptionsTabPresent(), is(true));
         dispensingApp.clickAllPrescriptionsTab();
         assertThat(dispensingApp.isActivePrescriptionsTabPresent(), is(true));
