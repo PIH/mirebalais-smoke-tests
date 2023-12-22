@@ -2,6 +2,7 @@ package org.openmrs.module.mirebalais.smoke;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.openmrs.module.mirebalais.smoke.pageobjects.loginpages.HaitiMultiLocationLoginPage;
 import org.openmrs.module.pihcore.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.CheckInFormPage;
@@ -316,7 +317,7 @@ public class VisitNoteTest extends DbTest {
 
     }
 
-    protected LoginPage getLoginPage() { return new GeneralLoginPage(driver); }
+    protected LoginPage getLoginPage() { return new HaitiMultiLocationLoginPage(driver); }
 
     protected String getVitalsAppIdentifier() {
         return replaceChars(CustomAppLoaderConstants.Apps.VITALS, ".", "-") + AppDashboard.APP_LINK_SUFFIX;

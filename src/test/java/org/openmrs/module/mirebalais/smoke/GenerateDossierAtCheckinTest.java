@@ -7,7 +7,7 @@ import org.openmrs.module.mirebalais.smoke.helper.SmokeTestProperties;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.ArchivesRoomApp;
 import org.openmrs.module.mirebalais.smoke.pageobjects.ClinicianDashboard;
-import org.openmrs.module.mirebalais.smoke.pageobjects.loginpages.MirebalaisLoginPage;
+import org.openmrs.module.mirebalais.smoke.pageobjects.loginpages.HaitiMultiLocationLoginPage;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -19,7 +19,7 @@ public class GenerateDossierAtCheckinTest extends DbTest {
 	@Test
 	public void shouldCreateDossierLocallyAtCheckinWhenDossierIsMissing() throws Exception {
 
-		new MirebalaisLoginPage(driver).logIn("admin", new SmokeTestProperties().getAdminUserPassword(), "Chimyoterapi");
+		new HaitiMultiLocationLoginPage(driver).logIn("admin", new SmokeTestProperties().getAdminUserPassword(), "Chimyoterapi");
 
 		AppDashboard dashboard = new AppDashboard(driver);
 		dashboard.openCheckinApp();

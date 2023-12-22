@@ -19,7 +19,7 @@ import org.openqa.selenium.WebDriver;
       //  CaptureVitalsHSNTest.class,
        // CheckInHSNTest.class,
        // PatientRegistrationHSNFlowTest.class,
-        VisitNoteTest.class  // this has been disable since we don't currently have them turned on on HSN
+        VisitNoteTest.class
                     })
 public class HaitiSmokeTestSuite {
 

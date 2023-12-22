@@ -1,13 +1,12 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects.loginpages;
 
 import org.apache.commons.lang3.StringUtils;
-import org.openmrs.module.mirebalais.smoke.pageobjects.loginpages.LoginPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class MirebalaisLoginPage extends LoginPage {
+public class HaitiMultiLocationLoginPage extends LoginPage {
 
-    public MirebalaisLoginPage(WebDriver driver) {
+    public HaitiMultiLocationLoginPage(WebDriver driver) {
         this.driver = driver;
     }
 
