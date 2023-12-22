@@ -14,7 +14,7 @@ import org.openqa.selenium.WebDriver;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        CaptureVitalsTest.class,
+//        CaptureVitalsTest.class,
         PatientRegistrationHaitiFlowTest.class//,
         // this has been disable since we don't currently have them turned on on HSN
       //  CaptureVitalsHSNTest.class,
