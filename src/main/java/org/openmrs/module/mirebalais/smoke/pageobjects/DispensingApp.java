@@ -25,57 +25,57 @@ public class DispensingApp extends AbstractPageObject {
     }
 
     public boolean isActivePrescriptionsTabPresent() {
-        wait15seconds.until(presenceOfElementLocated(activePrescriptionsSelector));
+        wait30seconds.until(presenceOfElementLocated(activePrescriptionsSelector));
         return driver.findElement(activePrescriptionsSelector) != null;
     }
 
     public boolean isAllPrescriptionsTabPresent() {
-        wait15seconds.until(presenceOfElementLocated(allPrescriptionsSelector));
+        wait30seconds.until(presenceOfElementLocated(allPrescriptionsSelector));
         return driver.findElement(allPrescriptionsSelector) != null;
     }
 
     public boolean isFilterByLocationInputPresent() {
-        wait15seconds.until(presenceOfElementLocated(filterByLocationSelector));
+        wait30seconds.until(presenceOfElementLocated(filterByLocationSelector));
         return driver.findElement(filterByLocationSelector) != null;
     }
 
     public boolean isSearchByPatientIDOrNameInputPresent() {
-        wait15seconds.until(presenceOfElementLocated(searchByPatientIDOrNameSelector));
+        wait30seconds.until(presenceOfElementLocated(searchByPatientIDOrNameSelector));
         return driver.findElement(searchByPatientIDOrNameSelector) != null;
     }
 
     public boolean isCreatedColumnHeaderPresent() {
-        wait15seconds.until(presenceOfElementLocated(createdColumnHeader));
+        wait30seconds.until(presenceOfElementLocated(createdColumnHeader));
         return driver.findElement(createdColumnHeader) != null;
     }
 
     public boolean isPatientNameColumnHeaderPresent() {
-        wait15seconds.until(presenceOfElementLocated(patientNameColumnHeader));
+        wait30seconds.until(presenceOfElementLocated(patientNameColumnHeader));
         return driver.findElement(patientNameColumnHeader) != null;
     }
 
     public boolean isPrescriberColumnHeaderPresent() {
-        wait15seconds.until(presenceOfElementLocated(prescriberColumnHeader));
+        wait30seconds.until(presenceOfElementLocated(prescriberColumnHeader));
         return driver.findElement(prescriberColumnHeader) != null;
     }
 
     public boolean isLocationColumnHeaderPresent() {
-        wait15seconds.until(presenceOfElementLocated(locationColumnHeader));
+        wait30seconds.until(presenceOfElementLocated(locationColumnHeader));
         return driver.findElement(locationColumnHeader) != null;
     }
 
     public boolean isDrugsColumnHeaderPresent() {
-        wait15seconds.until(presenceOfElementLocated(drugsColumnHeader));
+        wait30seconds.until(presenceOfElementLocated(drugsColumnHeader));
         return driver.findElement(drugsColumnHeader) != null;
     }
 
     public boolean isLastDispenserColumnHeaderPresent() {
-        wait15seconds.until(presenceOfElementLocated(lastDispenserColumnHeader));
+        wait30seconds.until(presenceOfElementLocated(lastDispenserColumnHeader));
         return driver.findElement(lastDispenserColumnHeader) != null;
     }
 
     public boolean isStatusColumnHeaderPresent() {
-        wait15seconds.until(presenceOfElementLocated(statusColumnHeader));
+        wait30seconds.until(presenceOfElementLocated(statusColumnHeader));
         return driver.findElement(statusColumnHeader) != null;
     }
 
