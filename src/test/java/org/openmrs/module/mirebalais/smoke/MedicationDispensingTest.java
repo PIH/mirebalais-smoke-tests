@@ -28,15 +28,15 @@ public class MedicationDispensingTest extends BasicSmokeTest {
 
         // NOTE: disabling clickable tests for now as they seem problematic... is there some error element on the page?
         // just test that the expected elements are visible and clickable
-    //    assertThat(dispensingApp.isAllPrescriptionsTabPresent(), is(true));
+        assertThat(dispensingApp.isAllPrescriptionsTabPresent(), is(true));
         //dispensingApp.clickAllPrescriptionsTab();
-    //    assertThat(dispensingApp.isActivePrescriptionsTabPresent(), is(true));
+        assertThat(dispensingApp.isActivePrescriptionsTabPresent(), is(true));
         //dispensingApp.clickActivePrescriptionsTab();
 
-      //  assertThat(dispensingApp.isFilterByLocationInputPresent(), is(true));
+         assertThat(dispensingApp.isFilterByLocationInputPresent(), is(true));
         //dispensingApp.clickOnFilterByLocationInput();
 
-       // assertThat(dispensingApp.isSearchByPatientIDOrNameInputPresent(), is(true));
+        assertThat(dispensingApp.isSearchByPatientIDOrNameInputPresent(), is(true));
         //dispensingApp.clickOnSearchByPatientIdOrNameInput();
 
         assertThat(dispensingApp.isCreatedColumnHeaderPresent(), is(true));
