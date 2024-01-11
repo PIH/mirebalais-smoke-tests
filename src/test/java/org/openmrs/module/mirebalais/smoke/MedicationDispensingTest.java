@@ -32,10 +32,8 @@ public class MedicationDispensingTest extends BasicSmokeTest {
         //dispensingApp.clickAllPrescriptionsTab();
         assertThat(dispensingApp.isActivePrescriptionsTabPresent(), is(true));
         //dispensingApp.clickActivePrescriptionsTab();
-
          assertThat(dispensingApp.isFilterByLocationInputPresent(), is(true));
         //dispensingApp.clickOnFilterByLocationInput();
-
         assertThat(dispensingApp.isSearchByPatientIDOrNameInputPresent(), is(true));
         //dispensingApp.clickOnSearchByPatientIdOrNameInput();
 
