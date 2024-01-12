@@ -26,6 +26,9 @@ public class PatientRegistrationMirebalaisFlowTest extends PatientRegistrationHa
     protected Boolean getBiometricsEnabled() { return true; }
 
     @Override
+    protected Integer getAdditionalIdentifiersCount() { return 0; }
+
+    @Override
     protected LoginPage getLoginPage() {
         return new HaitiMultiLocationLoginPage(driver);
     }
