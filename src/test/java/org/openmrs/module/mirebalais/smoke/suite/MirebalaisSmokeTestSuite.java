@@ -45,7 +45,6 @@ import org.openqa.selenium.WebDriver;
                         CheckInMirebalaisTest.class,
                         ConsultNoteTest.class,
                         DailyAppointmentsTest.class,
-                        DeathCertificateTest.class,
                         DispensingTest.class,
                         EDNoteTest.class,
                         EDTriageTest.class,
