@@ -33,10 +33,9 @@ public class ConsultNoteTest extends DbTest {
         clinicianDashboard.startVisit();
 
 	    visitNote.addConsultNoteWithDeath(PRIMARY_DIAGNOSIS);
-        new DeathCertificateFormPage(driver).waitToLoad();
 
-        //assertThat(clinicianDashboard.isDead(), is(true));
-		//assertThat(clinicianDashboard.hasActiveVisit(), is(false));
+        assertThat(clinicianDashboard.isDead(), is(true));
+		assertThat(clinicianDashboard.hasActiveVisit(), is(false));
 	}
 
     @Test
