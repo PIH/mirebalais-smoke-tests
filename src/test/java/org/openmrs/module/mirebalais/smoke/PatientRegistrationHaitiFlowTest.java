@@ -102,6 +102,6 @@ public class PatientRegistrationHaitiFlowTest extends PatientRegistrationFlowTes
 
     @Override
     protected LoginPage getLoginPage() {
-        return new GeneralLoginPage(driver);
+        return new HaitiMultiLocationLoginPage(driver);
     }
 }
