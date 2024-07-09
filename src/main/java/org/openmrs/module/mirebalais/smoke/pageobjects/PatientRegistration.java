@@ -197,11 +197,11 @@ public class PatientRegistration extends AbstractPageObject {
         }
     }
 
-    public void enterPersonAddressViaShortcut(String searchValue) {
+    public void enterPersonAddressViaShortcut(String searchValue) throws Exception{
         enterAddressViaShortcut(searchValue,0);  // index=0 because person address is first address in the registration form
     }
 
-    public void enterAddressViaShortcut(String searchValue, int index) {
+    public void enterAddressViaShortcut(String searchValue, int index)  throws Exception {
 
         // hack to hopefully add a delay when opening in edit mode
         if (index == 0) {
@@ -215,6 +215,7 @@ public class PatientRegistration extends AbstractPageObject {
 
         // Some forms have additional address fields that need to be filled out or skipped
         driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+        Thread.sleep(2000); // hack delay to allow address fields time to get disabled
         if (driver.findElements(By.name("address1")).size() > 0 && driver.findElement(By.name("address1")).isEnabled() && driver.findElement(By.name("address1")).isDisplayed()) {
             enterAddressField(By.name("address1"), "123 Main St");
         }
@@ -258,7 +259,7 @@ public class PatientRegistration extends AbstractPageObject {
         }
     }
 
-    public void enterBirthplaceViaShortcut(String searchValue) {
+    public void enterBirthplaceViaShortcut(String searchValue) throws Exception {
         if (StringUtils.isNotBlank(searchValue)) {
             enterAddressViaShortcut(searchValue, 1);  // index=1 because place of birth is the second address in the registration form
         }
@@ -344,13 +345,13 @@ public class PatientRegistration extends AbstractPageObject {
         }
     }
 
-    public void enterContactAddressViaShortcut(String searchValue) {
+    public void enterContactAddressViaShortcut(String searchValue) throws Exception {
         if (StringUtils.isNotEmpty(searchValue)) {
             enterAddressViaShortcut(searchValue, 2);  // index=2 because contact is the third address in the registration form
         }
     }
 
-    public void enterLocalContactAddressViaShortcut(String searchValue) {
+    public void enterLocalContactAddressViaShortcut(String searchValue) throws Exception{
         if (StringUtils.isNotEmpty(searchValue)) {
             enterAddressViaShortcut(searchValue, 1);
         }
@@ -499,7 +500,7 @@ public class PatientRegistration extends AbstractPageObject {
         confirm(By.id("demographics-edit-link")); // edit-link is success element to confirm back on edit page
     }
 
-    public void editContactInfo(String searchValue, List<Map.Entry<String, String>> contactInfo) {
+    public void editContactInfo(String searchValue, List<Map.Entry<String, String>> contactInfo) throws Exception{
         clickOn(By.id("contactInfo-edit-link"));
         enterPersonAddressViaShortcut(searchValue);
         enterContactInfo(contactInfo);
@@ -514,7 +515,7 @@ public class PatientRegistration extends AbstractPageObject {
         confirm(By.id("demographics-edit-link")); // edit-link is success element to confirm back on edit page
     }
 
-    public void editSocial(String addressSearchValue, Integer religion, Boolean useHierarchyForPlaceOfBirth) {
+    public void editSocial(String addressSearchValue, Integer religion, Boolean useHierarchyForPlaceOfBirth) throws Exception {
         clickOn(By.cssSelector("#coreapps-mostRecentRegistrationSocial .edit-action"));
 
         if (useHierarchyForPlaceOfBirth) {
@@ -534,7 +535,7 @@ public class PatientRegistration extends AbstractPageObject {
         confirm(By.id("demographics-edit-link")); // edit-link is success element to confirm back on edit page
     }
 
-    public void editContactPerson(String contact, String relationship, String addressSearchValue, String contactPhoneNumber, Boolean userHierarchyForContactPersonAddress) {
+    public void editContactPerson(String contact, String relationship, String addressSearchValue, String contactPhoneNumber, Boolean userHierarchyForContactPersonAddress) throws Exception{
         clickOn(By.cssSelector("#coreapps-mostRecentRegistrationContact .edit-action"));
 
         setTextToField(By.cssSelector("#contactName input"), contact);
