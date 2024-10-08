@@ -61,14 +61,13 @@ public class VisitNote extends AbstractPageObject {
 
 	public static final String ACTIVE_VISIT_CREOLE_MESSAGE = "aktif";
 
-    // TODO change all these if Creole translations come through
-    public static final String ADULT_INITIAL_OUTPATIENT_CREOLE_NAME = "Consultation externe initiale adulte";
+    public static final String ADULT_INITIAL_OUTPATIENT_CREOLE_NAME = "Externe Initiale Adulte";
 
-    public static final String ADULT_FOLLOWUP_OUTPATIENT_CREOLE_NAME = "Consultation externe de suivi adulte";
+    public static final String ADULT_FOLLOWUP_OUTPATIENT_CREOLE_NAME = "Externe de Suivi Adulte";
 
-    public static final String PEDS_INITIAL_OUTPATIENT_CREOLE_NAME = "Consultation externe initiale pédiatrique";
+    public static final String PEDS_INITIAL_OUTPATIENT_CREOLE_NAME = "Externe Initiale Pédiatrique";
 
-    public static final String PEDS_FOLLOWUP_OUTPATIENT_CREOLE_NAME = "Consultation externe de suivi pédiatrique";
+    public static final String PEDS_FOLLOWUP_OUTPATIENT_CREOLE_NAME = "Externe de Suivi Pédiatrique";
 
     private static final By home = By.className("logo");
 
