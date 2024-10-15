@@ -20,7 +20,7 @@ public class RetroConsultNoteTest extends DbTest {
         appDashboard.goToClinicianFacingDashboard(adultTestPatient.getId());
 
         clinicianDashboard.startVisit();
-        visitNote.addRetroConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS,"Sal Gason");
+        visitNote.addRetroConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS, null,"Sal Gason");
         assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(1));
     }
 

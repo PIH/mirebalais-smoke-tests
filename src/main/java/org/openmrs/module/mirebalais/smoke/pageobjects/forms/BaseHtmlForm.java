@@ -1,5 +1,6 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects.forms;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openmrs.module.mirebalais.smoke.pageobjects.AbstractPageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -39,6 +40,13 @@ public abstract class BaseHtmlForm extends AbstractPageObject {
     public void editPrimaryDiagnosis(String primaryDiagnosis) throws Exception {
         removePrimaryDiagnosis();
         choosePrimaryDiagnosis(primaryDiagnosis);
+    }
+
+    public void chooseNonCodedDiagnosis(String nonCodedDiagnosis) {
+        if (StringUtils.isNotBlank(nonCodedDiagnosis)) {
+            clickOn(By.cssSelector("#non-coded-diagnosis-toggle > input"));
+            setTextToField(By.cssSelector("#non-coded-diagnosis > textarea"), nonCodedDiagnosis);
+        }
     }
 
     public void confirmData() {

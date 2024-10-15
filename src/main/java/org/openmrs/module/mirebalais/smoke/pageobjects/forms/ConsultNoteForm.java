@@ -49,12 +49,12 @@ public class ConsultNoteForm extends BaseHtmlForm {
         confirmData();
 	}
 	
-	public void fillFormWithAdmission(String primaryDiagnosis, String locationName) throws Exception {
-        fillFormAndReturnPlace(primaryDiagnosis, ADMISSION, locationsForAdmission, locationName);
+	public void fillFormWithAdmission(String primaryDiagnosis, String nonCodedDiagnosis, String locationName) throws Exception {
+        fillFormAndReturnPlace(primaryDiagnosis, nonCodedDiagnosis, ADMISSION, locationsForAdmission, locationName);
 	}
 
-	public void fillFormWithTransfer(String primaryDiagnosis, String locationName) throws Exception {
-        fillFormAndReturnPlace(primaryDiagnosis, TRANSFER, locationsForTransferWithinHospital, locationName);
+	public void fillFormWithTransfer(String primaryDiagnosis, String nonCodedDiagnosis, String locationName) throws Exception {
+        fillFormAndReturnPlace(primaryDiagnosis, nonCodedDiagnosis, TRANSFER, locationsForTransferWithinHospital, locationName);
 	}
 
     protected void fillFormWithBasicInfo(String primaryDiagnosis, String disposition) throws Exception {
@@ -71,8 +71,9 @@ public class ConsultNoteForm extends BaseHtmlForm {
         confirmData();
     }
 
-    protected void fillFormAndReturnPlace(String primaryDiagnosis, String disposition, By dropdownOptionsLocator, String locationText) throws Exception  {
+    protected void fillFormAndReturnPlace(String primaryDiagnosis, String nonCodedDiagnosis, String disposition, By dropdownOptionsLocator, String locationText) throws Exception  {
         choosePrimaryDiagnosis(primaryDiagnosis);
+        chooseNonCodedDiagnosis(nonCodedDiagnosis);
         chooseDisposition(disposition);
         wait5seconds.until(visibilityOfElementLocated(dropdownOptionsLocator));
         WebElement location = driver.findElements(dropdownOptionsLocator).stream().filter(new Predicate<WebElement>() {

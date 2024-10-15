@@ -23,7 +23,7 @@ public class InPatientTest extends DbTest {
 		appDashboard.goToClinicianFacingDashboard(adultTestPatient.getId());
 		clinicianDashboard.startVisit();
 
-		visitNote.addConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS, "Sal Gason");
+		visitNote.addConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS, null, "Sal Gason");
 		assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(1));
 
         visitNote.addAdmissionNoteWithDefaultLocation(PRIMARY_DIAGNOSIS);
@@ -34,7 +34,7 @@ public class InPatientTest extends DbTest {
 
 		appDashboard.goToVisitNoteVisitListAndSelectFirstVisit(adultTestPatient.getId());
 
-		visitNote.addConsultNoteWithTransferToLocation(PRIMARY_DIAGNOSIS, "Ijans");
+		visitNote.addConsultNoteWithTransferToLocation(PRIMARY_DIAGNOSIS, null, "Ijans");
 
 		assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(2));
 		assertThat(visitNote.countEncountersOfType(VisitNote.TRANSFER_CREOLE_NAME), is(1));
@@ -43,7 +43,7 @@ public class InPatientTest extends DbTest {
 
 		appDashboard.goToClinicianFacingDashboard(anotherAdultTestPatient.getId());
 		clinicianDashboard.startVisit();
-		visitNote.addConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS, "Sal Gason");
+		visitNote.addConsultNoteWithAdmissionToLocation(PRIMARY_DIAGNOSIS, null,"Sal Gason");
 		visitNote.waitUntilVisitNoteOpen();
 
 		appDashboard.openInPatientApp();
