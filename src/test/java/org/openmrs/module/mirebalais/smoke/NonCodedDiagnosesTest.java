@@ -48,8 +48,7 @@ public class NonCodedDiagnosesTest extends DbTest {
         NonCodedDiagnosesList nonCodedDiagnosesList = new NonCodedDiagnosesList(driver);
         List<String> nonCodedDiagnoses = nonCodedDiagnosesList.getNonCodedDiagnoses();
 
-        // TODO: enable this when we get this functionality working again
-       // Assert.assertTrue(nonCodedDiagnoses.contains(NON_CODED_DIAGNOSIS));
+       Assert.assertTrue(nonCodedDiagnoses.contains(NON_CODED_DIAGNOSIS));
     }
 
     // TODO add something here to change location to ED, since we can't enter a ED note anywhere but the ED
@@ -71,8 +70,7 @@ public class NonCodedDiagnosesTest extends DbTest {
         NonCodedDiagnosesList nonCodedDiagnosesList = new NonCodedDiagnosesList(driver);
         List<String> nonCodedDiagnoses = nonCodedDiagnosesList.getNonCodedDiagnoses();
 
-        // TODO: enable this when we get this functionality working again
-       // Assert.assertTrue(nonCodedDiagnoses.contains(NON_CODED_DIAGNOSIS));
+        Assert.assertTrue(nonCodedDiagnoses.contains(NON_CODED_DIAGNOSIS));
     }
 
     @Test
