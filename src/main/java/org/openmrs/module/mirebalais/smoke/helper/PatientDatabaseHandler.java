@@ -114,46 +114,41 @@ public class PatientDatabaseHandler extends BaseDatabaseHandler {
 	}
 	
 	private static void initializePatientTablesToDelete() {
-		Map<String, String> firstToDelete = new LinkedHashMap<String, String>();
-		firstToDelete
-		        .put(
-		            "obs",
-		            "select * from obs where encounter_id in (select encounter_id from encounter where patient_id = %d) and obs_group_id is not null");
-		firstToDelete.put("person_merge_log", "select * from person_merge_log where winner_person_id = %d");
-        firstToDelete.put("paperrecord_paper_record_request",
-                "select * from paperrecord_paper_record_request where paper_record in (select record_id from paperrecord_paper_record where patient_identifier in (select patient_identifier_id from patient_identifier where patient_id = %d))");
-        firstToDelete.put("appointmentscheduling_appointment_request",
-                "select * from appointmentscheduling_appointment_request where patient_id= %d");
-        firstToDelete
-                .put("name_phonetics",
-                        "select * from name_phonetics where person_name_id in (select person_name_id from person_name where person_id = %d)");
-        firstToDelete.put("encounter_diagnosis", "select * from encounter_diagnosis where patient_id = %d");
-        patientTablesToDelete.add(firstToDelete);
-		
-		Map<String, String> secondToDelete = new LinkedHashMap<String, String>();
-		secondToDelete.put("person_merge_log", "select * from person_merge_log where loser_person_id = %d");
-		secondToDelete.put("person_attribute", "select * from person_attribute where person_id = %d");
-		secondToDelete.put("patient_identifier", "select * from patient_identifier where patient_id = %d");
-		    secondToDelete.put("paperrecord_paper_record",
-                "select * from paperrecord_paper_record where patient_identifier in (select patient_identifier_id from patient_identifier where patient_id = %d)");
-        secondToDelete.put("visit", "select * from visit where patient_id = %d");
-        secondToDelete.put("visit", "select * from visit where patient_id = %d");
-		secondToDelete.put("encounter", "select * from encounter where patient_id = %d");
-		secondToDelete.put("orders", "select * from orders where patient_id = %d");
-		secondToDelete.put("allergy", "select * from allergy where patient_id = %d");
-		secondToDelete.put("test_order",
-		    "select * from test_order where order_id in (select order_id from orders where patient_id = %d)");
-		secondToDelete.put("emr_radiology_order",
-		    "select * from emr_radiology_order where order_id in (select order_id from orders where patient_id = %d)");
-		secondToDelete.put("obs",
-		    "select * from obs where encounter_id in (select encounter_id from encounter where patient_id = %d)");
-		secondToDelete
-		        .put("encounter_provider",
-		            "select * from encounter_provider where encounter_id in (select encounter_id from encounter where patient_id = %d)");
-        secondToDelete.put("person_name", "select * from person_name where person_id = %d");
-        secondToDelete.put("person_address", "select * from person_address where person_id = %d");
-        secondToDelete.put("patient_identifier", "select * from patient_identifier where patient_id = %d");
-		patientTablesToDelete.add(secondToDelete);
+		{
+			Map<String, String> m = new LinkedHashMap<String, String>();
+			m.put("obs_reference_range", "select * from obs_reference_range where obs_id in (select obs_id from obs where person_id = %d)");
+			patientTablesToDelete.add(m);
+		}
+		{
+			Map<String, String> m = new LinkedHashMap<String, String>();
+			m.put("obs","select * from obs where encounter_id in (select encounter_id from encounter where patient_id = %d) and obs_group_id is not null");
+			m.put("person_merge_log", "select * from person_merge_log where winner_person_id = %d");
+			m.put("paperrecord_paper_record_request","select * from paperrecord_paper_record_request where paper_record in (select record_id from paperrecord_paper_record where patient_identifier in (select patient_identifier_id from patient_identifier where patient_id = %d))");
+			m.put("appointmentscheduling_appointment_request","select * from appointmentscheduling_appointment_request where patient_id= %d");
+			m.put("name_phonetics", "select * from name_phonetics where person_name_id in (select person_name_id from person_name where person_id = %d)");
+			m.put("encounter_diagnosis", "select * from encounter_diagnosis where patient_id = %d");
+			patientTablesToDelete.add(m);
+		}
+		{
+			Map<String, String> m = new LinkedHashMap<String, String>();
+			m.put("person_merge_log", "select * from person_merge_log where loser_person_id = %d");
+			m.put("person_attribute", "select * from person_attribute where person_id = %d");
+			m.put("patient_identifier", "select * from patient_identifier where patient_id = %d");
+			m.put("paperrecord_paper_record", "select * from paperrecord_paper_record where patient_identifier in (select patient_identifier_id from patient_identifier where patient_id = %d)");
+			m.put("visit", "select * from visit where patient_id = %d");
+			m.put("visit", "select * from visit where patient_id = %d");
+			m.put("encounter", "select * from encounter where patient_id = %d");
+			m.put("orders", "select * from orders where patient_id = %d");
+			m.put("allergy", "select * from allergy where patient_id = %d");
+			m.put("test_order", "select * from test_order where order_id in (select order_id from orders where patient_id = %d)");
+			m.put("emr_radiology_order", "select * from emr_radiology_order where order_id in (select order_id from orders where patient_id = %d)");
+			m.put("obs", "select * from obs where encounter_id in (select encounter_id from encounter where patient_id = %d)");
+			m.put("encounter_provider", "select * from encounter_provider where encounter_id in (select encounter_id from encounter where patient_id = %d)");
+			m.put("person_name", "select * from person_name where person_id = %d");
+			m.put("person_address", "select * from person_address where person_id = %d");
+			m.put("patient_identifier", "select * from patient_identifier where patient_id = %d");
+			patientTablesToDelete.add(m);
+		}
 	}
 	
 	private static IDataSet createDataset(Patient patient) throws IOException, DataSetException {
