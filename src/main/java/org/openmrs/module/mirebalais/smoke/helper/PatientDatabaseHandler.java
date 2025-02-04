@@ -4,6 +4,7 @@ import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.QueryDataSet;
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
@@ -31,18 +32,9 @@ import static org.dbunit.operation.DatabaseOperation.INSERT;
 
 public class PatientDatabaseHandler extends BaseDatabaseHandler {
 
-    protected static Map<Patient, IDataSet> datasets = new HashMap<Patient, IDataSet>();
+    protected static Map<Patient, IDataSet> datasets = new HashMap<>();
 
-	private static List<Map<String, String>> patientTablesToDelete = new LinkedList<Map<String, String>>();
-
-    static {
-        try {
-            initializePatientTablesToDelete();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+	private static List<Map<String, String>> patientTablesToDelete = null;
 
 	public static void addTestPatientForDelete(BigInteger patientId) throws IOException, DataSetException, SQLException {
 		Patient patient = new Patient("123", null, null, patientId, -1, new BigInteger("-1"), new BigInteger("-1"),
@@ -99,7 +91,7 @@ public class PatientDatabaseHandler extends BaseDatabaseHandler {
 	}
 	
 	private static void deleteTestPatient(Patient patient) throws Exception {
-		for (Map<String, String> tables : patientTablesToDelete) {
+		for (Map<String, String> tables : getPatientTablesToDelete(connection)) {
 			QueryDataSet createdData = new QueryDataSet(connection);
 			for (String table : tables.keySet()) {
 				createdData.addTable(table, String.format(tables.get(table), patient.getId()));
@@ -113,42 +105,48 @@ public class PatientDatabaseHandler extends BaseDatabaseHandler {
 		//unlockPatientIdentifier(patient.getIdentifier());
 	}
 	
-	private static void initializePatientTablesToDelete() {
-		{
-			Map<String, String> m = new LinkedHashMap<String, String>();
-			m.put("obs_reference_range", "select * from obs_reference_range where obs_id in (select obs_id from obs where person_id = %d)");
-			patientTablesToDelete.add(m);
+	private synchronized static List<Map<String, String>> getPatientTablesToDelete(DatabaseConnection connection) throws Exception {
+		if (patientTablesToDelete == null) {
+			patientTablesToDelete = new LinkedList<>();
+
+			// obs_reference_range is added in OpenMRS 2.7.0
+			if (hasTable("obs_reference_range")) {
+				Map<String, String> m = new LinkedHashMap<>();
+				m.put("obs_reference_range", "select * from obs_reference_range where obs_id in (select obs_id from obs where person_id = %d)");
+				patientTablesToDelete.add(m);
+			}
+			{
+				Map<String, String> m = new LinkedHashMap<>();
+				m.put("obs", "select * from obs where encounter_id in (select encounter_id from encounter where patient_id = %d) and obs_group_id is not null");
+				m.put("person_merge_log", "select * from person_merge_log where winner_person_id = %d");
+				m.put("paperrecord_paper_record_request", "select * from paperrecord_paper_record_request where paper_record in (select record_id from paperrecord_paper_record where patient_identifier in (select patient_identifier_id from patient_identifier where patient_id = %d))");
+				m.put("appointmentscheduling_appointment_request", "select * from appointmentscheduling_appointment_request where patient_id= %d");
+				m.put("name_phonetics", "select * from name_phonetics where person_name_id in (select person_name_id from person_name where person_id = %d)");
+				m.put("encounter_diagnosis", "select * from encounter_diagnosis where patient_id = %d");
+				patientTablesToDelete.add(m);
+			}
+			{
+				Map<String, String> m = new LinkedHashMap<>();
+				m.put("person_merge_log", "select * from person_merge_log where loser_person_id = %d");
+				m.put("person_attribute", "select * from person_attribute where person_id = %d");
+				m.put("patient_identifier", "select * from patient_identifier where patient_id = %d");
+				m.put("paperrecord_paper_record", "select * from paperrecord_paper_record where patient_identifier in (select patient_identifier_id from patient_identifier where patient_id = %d)");
+				m.put("visit", "select * from visit where patient_id = %d");
+				m.put("visit", "select * from visit where patient_id = %d");
+				m.put("encounter", "select * from encounter where patient_id = %d");
+				m.put("orders", "select * from orders where patient_id = %d");
+				m.put("allergy", "select * from allergy where patient_id = %d");
+				m.put("test_order", "select * from test_order where order_id in (select order_id from orders where patient_id = %d)");
+				m.put("emr_radiology_order", "select * from emr_radiology_order where order_id in (select order_id from orders where patient_id = %d)");
+				m.put("obs", "select * from obs where encounter_id in (select encounter_id from encounter where patient_id = %d)");
+				m.put("encounter_provider", "select * from encounter_provider where encounter_id in (select encounter_id from encounter where patient_id = %d)");
+				m.put("person_name", "select * from person_name where person_id = %d");
+				m.put("person_address", "select * from person_address where person_id = %d");
+				m.put("patient_identifier", "select * from patient_identifier where patient_id = %d");
+				patientTablesToDelete.add(m);
+			}
 		}
-		{
-			Map<String, String> m = new LinkedHashMap<String, String>();
-			m.put("obs","select * from obs where encounter_id in (select encounter_id from encounter where patient_id = %d) and obs_group_id is not null");
-			m.put("person_merge_log", "select * from person_merge_log where winner_person_id = %d");
-			m.put("paperrecord_paper_record_request","select * from paperrecord_paper_record_request where paper_record in (select record_id from paperrecord_paper_record where patient_identifier in (select patient_identifier_id from patient_identifier where patient_id = %d))");
-			m.put("appointmentscheduling_appointment_request","select * from appointmentscheduling_appointment_request where patient_id= %d");
-			m.put("name_phonetics", "select * from name_phonetics where person_name_id in (select person_name_id from person_name where person_id = %d)");
-			m.put("encounter_diagnosis", "select * from encounter_diagnosis where patient_id = %d");
-			patientTablesToDelete.add(m);
-		}
-		{
-			Map<String, String> m = new LinkedHashMap<String, String>();
-			m.put("person_merge_log", "select * from person_merge_log where loser_person_id = %d");
-			m.put("person_attribute", "select * from person_attribute where person_id = %d");
-			m.put("patient_identifier", "select * from patient_identifier where patient_id = %d");
-			m.put("paperrecord_paper_record", "select * from paperrecord_paper_record where patient_identifier in (select patient_identifier_id from patient_identifier where patient_id = %d)");
-			m.put("visit", "select * from visit where patient_id = %d");
-			m.put("visit", "select * from visit where patient_id = %d");
-			m.put("encounter", "select * from encounter where patient_id = %d");
-			m.put("orders", "select * from orders where patient_id = %d");
-			m.put("allergy", "select * from allergy where patient_id = %d");
-			m.put("test_order", "select * from test_order where order_id in (select order_id from orders where patient_id = %d)");
-			m.put("emr_radiology_order", "select * from emr_radiology_order where order_id in (select order_id from orders where patient_id = %d)");
-			m.put("obs", "select * from obs where encounter_id in (select encounter_id from encounter where patient_id = %d)");
-			m.put("encounter_provider", "select * from encounter_provider where encounter_id in (select encounter_id from encounter where patient_id = %d)");
-			m.put("person_name", "select * from person_name where person_id = %d");
-			m.put("person_address", "select * from person_address where person_id = %d");
-			m.put("patient_identifier", "select * from patient_identifier where patient_id = %d");
-			patientTablesToDelete.add(m);
-		}
+		return patientTablesToDelete;
 	}
 	
 	private static IDataSet createDataset(Patient patient) throws IOException, DataSetException {
