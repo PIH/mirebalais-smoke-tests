@@ -77,7 +77,7 @@ public class PatientRegistrationSierraLeoneFlowTest extends PatientRegistrationF
     protected Integer getReligion() { return null; }
 
     @Override
-    protected Boolean automaticallyEnterIdentifier() { return false; }
+    protected Boolean automaticallyEnterIdentifier() { return true; }
 
     @Override
     protected List<Map.Entry<String, String>> getContactInfo() {
