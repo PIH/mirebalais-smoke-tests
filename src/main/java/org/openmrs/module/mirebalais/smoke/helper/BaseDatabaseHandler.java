@@ -41,5 +41,11 @@ public class BaseDatabaseHandler {
         return (BigInteger) autoIncrement.getValue(0, "Auto_increment");
     }
 
+    protected static boolean hasTable(String tableName) throws Exception {
+        String q = "select count(*) as num from information_schema.tables where table_schema = DATABASE() AND table_name = '" + tableName + "'";
+        ITable queryTable = connection.createQueryTable(tableName, q);
+        BigInteger count = (BigInteger) queryTable.getValue(0, "num");
+        return count != null && count.intValue() > 0;
+    }
 
 }
