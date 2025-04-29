@@ -8,9 +8,9 @@ import static org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote.RADIOLOG
 
 public class RadiologyOrdersTest extends DbTest {
 
-	private static final String STUDY_1 = "Hanche - Gauche, 2 vues (Radiographie)";
+	private static final String STUDY_1 = "Bassin et hanche gauche (Radiographie)";
 
-	private static final String STUDY_2 = "Humérus - Gauche, 2 vues (Radiographie)";
+	private static final String STUDY_2 = "Humérus - Gauche (Radiographie)";
 
     @Test
 	public void orderSingleXRay() throws Exception {
