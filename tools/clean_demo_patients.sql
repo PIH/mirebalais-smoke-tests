@@ -1,8 +1,11 @@
 create temporary table patients_to_delete select person_id from person_name where (family_name='Jones' and given_name like 'Tom%') or (family_name='Dummy' and given_name like 'Crash%');
 create temporary table obs_members_to_delete select obs_id from obs where obs_group_id in (select obs_id from obs where person_id in (select person_id from patients_to_delete));
+delete from obs_reference_range where obs_id in (select obs_id from obs_members_to_delete);
 delete from obs where obs_id in (select obs_id from obs_members_to_delete);
 create temporary table obs_previous_to_delete select obs_id from obs where previous_version in (select obs_id from obs where person_id in (select person_id from patients_to_delete));
+delete from obs_reference_range where obs_id in (select obs_id from obs_previous_to_delete);
 delete from obs where obs_id in (select obs_id from obs_previous_to_delete);
+delete from obs_reference_range where obs_id in (select obs_id from obs where person_id in (select person_id from patients_to_delete));
 delete from obs where person_id in (select person_id from patients_to_delete);
 delete from encounter_provider where encounter_id in (select encounter_id from encounter where patient_id in (select person_id from patients_to_delete));
 delete from encounter where patient_id in (select person_id from patients_to_delete);
