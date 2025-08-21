@@ -34,7 +34,7 @@ public class CheckInFormPage extends AbstractPageObject {
 
     public void enterInfo(Boolean paperRecordEnabled) {
         selectThirdOptionFor("typeOfVisit");
-        selectSecondOptionFor("paymentAmount");
+        findInputInsideSpan("paymentAmount").sendKeys("100" + Keys.RETURN);
         findInputInsideSpan("receiptNumber").sendKeys("receipt #" + Keys.RETURN);
         selectNotToPrintWristbandIfQuestionPresent();
         clickConfirm();
@@ -46,7 +46,7 @@ public class CheckInFormPage extends AbstractPageObject {
 
     public void enterInfoWithMultipleEnterKeystrokesOnSubmit()  {
         selectThirdOptionFor("typeOfVisit");
-        selectSecondOptionFor("paymentAmount");
+        findInputInsideSpan("paymentAmount").sendKeys("100" + Keys.RETURN);
         findInputInsideSpan("receiptNumber").sendKeys("receipt #" + Keys.RETURN);
         selectNotToPrintWristbandIfQuestionPresent();
 
@@ -59,12 +59,12 @@ public class CheckInFormPage extends AbstractPageObject {
 
 	public void enterInfoFillingTheFormTwice(Boolean paperRecordEnabled) throws Exception {
         selectThirdOptionFor("typeOfVisit");
-        selectSecondOptionFor("paymentAmount");
+        findInputInsideSpan("paymentAmount").sendKeys("100" + Keys.RETURN);
         findInputInsideSpan("receiptNumber").sendKeys("receipt #" + Keys.RETURN);
         selectNotToPrintWristbandIfQuestionPresent();
         clickOnNoButton();
         selectSecondOptionFor("typeOfVisit");
-        selectSecondOptionFor("paymentAmount");
+        findInputInsideSpan("paymentAmount").sendKeys("100" + Keys.RETURN);
         findInputInsideSpan("receiptNumber").sendKeys("receipt #" + Keys.RETURN);
         selectNotToPrintWristbandIfQuestionPresent();
 		clickConfirm();

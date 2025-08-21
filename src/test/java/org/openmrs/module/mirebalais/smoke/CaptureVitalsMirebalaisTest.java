@@ -34,6 +34,7 @@ public class CaptureVitalsMirebalaisTest extends CaptureVitalsTest {
 	}
 
 	@Override
-	protected Boolean getPaperRecordEnabled() { return true; }
-
+	protected Boolean getPaperRecordEnabled() {
+		return true;
+	}
 }
