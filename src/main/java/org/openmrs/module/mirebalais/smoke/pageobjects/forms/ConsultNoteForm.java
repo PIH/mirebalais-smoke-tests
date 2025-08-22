@@ -41,6 +41,7 @@ public class ConsultNoteForm extends BaseHtmlForm {
 
     public void fillFormWithDeath(String primaryDiagnosis) throws Exception {
         choosePrimaryDiagnosis(primaryDiagnosis);
+        Thread.sleep(5000); // give the dx widget time to be hidden, for some reason there seems to be an error at times,  where the widget blocks entering the date of death
         chooseDisposition(DEATH);
         WebElement dateField = driver.findElement(By.cssSelector("#dateOfDeath input[type=text]"));
         dateField.sendKeys("20 Jun 2014");
