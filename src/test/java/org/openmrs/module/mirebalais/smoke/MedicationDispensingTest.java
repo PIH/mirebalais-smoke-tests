@@ -25,6 +25,7 @@ public class MedicationDispensingTest extends BasicSmokeTest {
 
         logInAsAdmin();
         appDashboard.openMedicationDispensingApp();
+        dispensingApp.clickActivePrescriptionsTab();
 
         // NOTE: disabling clickable tests for now as they seem problematic... is there some error element on the page?
         // just test that the expected elements are visible and clickable
