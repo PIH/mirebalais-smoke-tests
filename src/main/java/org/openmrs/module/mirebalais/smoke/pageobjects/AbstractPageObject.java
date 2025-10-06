@@ -174,7 +174,7 @@ public abstract class AbstractPageObject {
     public void clickOn(By byClause) {
         // see https://stackoverflow.com/questions/31725033/selenium-click-not-always-working/31725102#31725102
         // Trick #1
-        WebElement element = wait15seconds.until(ExpectedConditions.elementToBeClickable(byClause));
+        WebElement element = wait30seconds.until(ExpectedConditions.elementToBeClickable(byClause));
         clickOn(element);
 	}
 
