@@ -19,8 +19,8 @@ public class HaitiMultiLocationLoginPage extends LoginPage {
     public void logIn(String user, String password, String location) {
         driver.findElement(By.id("username")).sendKeys(user);
         driver.findElement(By.id("password")).sendKeys(password);
-        driver.findElement(By.xpath("//*[contains(text(), '" + (StringUtils.isBlank(location) ? "Klinik Ekstèn Jeneral" : location) + "')]")).click();
         driver.findElement(By.id("login-button")).click();
+        driver.findElement(By.xpath("//*[contains(text(), '" + (StringUtils.isBlank(location) ? "Klinik Ekstèn Jeneral" : location) + "')]")).click();
     }
 }
 

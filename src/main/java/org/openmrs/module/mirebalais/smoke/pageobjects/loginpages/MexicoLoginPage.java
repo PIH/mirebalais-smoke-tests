@@ -19,7 +19,7 @@ public class MexicoLoginPage extends LoginPage {
     public void logIn(String user, String password, String location) {
         driver.findElement(By.id("username")).sendKeys(user);
         driver.findElement(By.id("password")).sendKeys(password);
-        driver.findElement(By.xpath("//*[@id='sessionLocation']/li[2]")).click();
         driver.findElement(By.id("login-button")).click();
+        driver.findElement(By.xpath("//*[@id='visit-location-select']/li[2]")).click();
     }
 }
