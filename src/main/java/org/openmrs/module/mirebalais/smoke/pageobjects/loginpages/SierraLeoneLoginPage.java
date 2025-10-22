@@ -1,6 +1,6 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects.loginpages;
 
-import org.openmrs.module.mirebalais.smoke.pageobjects.loginpages.LoginPage;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -20,6 +20,6 @@ public class SierraLeoneLoginPage extends LoginPage {
         driver.findElement(By.id("username")).sendKeys(user);
         driver.findElement(By.id("password")).sendKeys(password);
         driver.findElement(By.id("login-button")).click();
-        driver.findElement(By.xpath("//*[@id='visit-location-select']/li[14]")).click();  // 14th element in list, should be "Triage | KGH"
+        driver.findElement(By.xpath("//*[contains(text(), '" + (StringUtils.isBlank(location) ? "Triage | KGH" : location) + "')]")).click();
     }
 }
