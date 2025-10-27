@@ -15,8 +15,7 @@ public class HeaderTest extends BasicSmokeTest {
 	public void shouldChangeLocation() throws Exception {
 		login();
 		HeaderPage headerPage = new HeaderPage(driver);
-		WebElement header = driver.findElement(headerPage.location());
-        String locationName = headerPage.changeLocationTo(4);
-		wait15Seconds.until(textToBePresentInElement(header, locationName));
+        String locationName = headerPage.changeLocationTo(5);
+		wait15Seconds.until(textToBePresentInElement(driver.findElement(headerPage.locationNameSelector()), locationName));
 	}
 }
