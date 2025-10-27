@@ -33,10 +33,6 @@ public class HeaderPage extends AbstractPageObject {
         driver.get(properties.getWebAppUrl() + "/index.htm");
     }
 
-	public By location() {
-		return By.cssSelector("li.change-location span");
-	}
-
 	public String changeLocationTo(int listElement) throws Exception {
         Thread.sleep(2000);
 		clickOnLocationMenu();
@@ -54,4 +50,7 @@ public class HeaderPage extends AbstractPageObject {
 		driver.findElement(By.className("icon-map-marker")).click();
 	}
 
+    public By locationNameSelector() {
+        return By.cssSelector(".navbar-nav .nav-item:nth-of-type(2) span");
+    }
 }
