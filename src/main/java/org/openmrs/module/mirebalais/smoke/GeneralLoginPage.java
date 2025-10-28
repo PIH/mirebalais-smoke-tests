@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 public class GeneralLoginPage extends LoginPage {
 
     public GeneralLoginPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     @Override
@@ -20,5 +20,6 @@ public class GeneralLoginPage extends LoginPage {
         driver.findElement(By.id("username")).sendKeys(user);
         driver.findElement(By.id("password")).sendKeys(password);
         driver.findElement(By.id("login-button")).click();
+        termsAndConditionsPage.acceptTermsIfPresent();
     }
 }

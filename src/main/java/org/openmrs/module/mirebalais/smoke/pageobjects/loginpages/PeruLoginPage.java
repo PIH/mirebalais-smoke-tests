@@ -12,7 +12,7 @@ public class PeruLoginPage extends LoginPage {
     private SmokeTestProperties properties = new SmokeTestProperties();
 
     public PeruLoginPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     @Override
@@ -30,6 +30,7 @@ public class PeruLoginPage extends LoginPage {
         driver.findElement(By.id("username")).sendKeys(user);
         driver.findElement(By.id("password")).sendKeys(password);
         driver.findElement(By.id("login-button")).click();
+        termsAndConditionsPage.acceptTermsIfPresent();
         driver.findElement(By.xpath("//*[text()='" + location + "']")).click();
     }
 }

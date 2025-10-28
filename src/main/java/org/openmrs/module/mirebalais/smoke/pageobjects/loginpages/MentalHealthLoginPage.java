@@ -8,7 +8,7 @@ import org.openqa.selenium.WebDriver;
 public class MentalHealthLoginPage extends LoginPage {
 
     public MentalHealthLoginPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     @Override
@@ -21,6 +21,7 @@ public class MentalHealthLoginPage extends LoginPage {
         driver.findElement(By.id("username")).sendKeys(user);
         driver.findElement(By.id("password")).sendKeys(password);
         driver.findElement(By.id("login-button")).click();
+        termsAndConditionsPage.acceptTermsIfPresent();
         driver.findElement(By.xpath("//*[contains(text(), '" + (StringUtils.isBlank(location) ? "Cerca" : location) + "')]")).click();
     }
 

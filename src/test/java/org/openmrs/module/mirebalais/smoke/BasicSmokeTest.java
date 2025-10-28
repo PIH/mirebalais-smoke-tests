@@ -34,8 +34,6 @@ public abstract class BasicSmokeTest {
 
 	protected static LoginPage loginPage;
 
-    protected static TermsAndConditionsPage termsAndConditionsPage;
-
 	protected static HeaderPage header;
 
 	protected static AdminPage adminPage;
@@ -84,7 +82,6 @@ public abstract class BasicSmokeTest {
         header = new HeaderPage(driver);
         adminPage = new AdminPage(driver);
         loginPage = getLoginPage();
-        termsAndConditionsPage = new TermsAndConditionsPage(driver);
         visitNote = new VisitNote(driver);
         appDashboard = new AppDashboard(driver);
         clinicianDashboard = new ClinicianDashboard(driver);
@@ -133,43 +130,36 @@ public abstract class BasicSmokeTest {
 
 	protected static void logInAsPhysicianUser() throws Exception {
 		loginPage.logInAsPhysicianUser();
-        termsAndConditionsPage.acceptTermsIfPresent();
 		header.home();
 	}
 
     protected static void logInAsPhysicianUser(String location) throws Exception {
         loginPage.logInAsPhysicianUser(location);
-        termsAndConditionsPage.acceptTermsIfPresent();
         header.home();
     }
 
 	protected static void logInAsPharmacyManagerUser() throws Exception {
         loginPage.logInAsPharmacyManagerUser();
-        termsAndConditionsPage.acceptTermsIfPresent();
         header.home();
 	}
 
     protected static void logInAsArchivist() throws Exception{
         loginPage.logInAsArchivistUser();
-        termsAndConditionsPage.acceptTermsIfPresent();
         header.home();
     }
 
     protected static void logInAsAdmin() throws Exception {
         loginPage.logInAsAdmin();
-        termsAndConditionsPage.acceptTermsIfPresent();
         header.home();
     }
 
     protected static void logInAsAdmin(String location) throws Exception {
         loginPage.logInAsAdmin(location);
-        termsAndConditionsPage.acceptTermsIfPresent();
         header.home();
     }
 
     protected void login() throws Exception {
         loginPage.logInAsAdmin();
-        termsAndConditionsPage.acceptTermsIfPresent();
         header.home();
     }
 
