@@ -5,7 +5,9 @@ import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.openmrs.module.mirebalais.smoke.BasicSmokeTest;
+import org.openmrs.module.mirebalais.smoke.CaptureVitalsHSNTest;
 import org.openmrs.module.mirebalais.smoke.CaptureVitalsTest;
+import org.openmrs.module.mirebalais.smoke.CheckInHSNTest;
 import org.openmrs.module.mirebalais.smoke.PatientRegistrationHSNFlowTest;
 import org.openmrs.module.mirebalais.smoke.PatientRegistrationHaitiFlowTest;
 import org.openmrs.module.mirebalais.smoke.VisitNoteTest;
@@ -14,14 +16,10 @@ import org.openqa.selenium.WebDriver;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-//        CaptureVitalsTest.class,
-        PatientRegistrationHaitiFlowTest.class//,
-        // this has been disable since we don't currently have them turned on on HSN
-      //  CaptureVitalsHSNTest.class,
-       // CheckInHSNTest.class,
-       // PatientRegistrationHSNFlowTest.class,
-        // this has been disabled since the Thomonde Visit Note vitals flow is slightly different from the Mirebalais one
-       // VisitNoteTest.class
+        PatientRegistrationHSNFlowTest.class,
+        CaptureVitalsHSNTest.class,
+        CheckInHSNTest.class,
+
                     })
 public class HaitiSmokeTestSuite {
 
