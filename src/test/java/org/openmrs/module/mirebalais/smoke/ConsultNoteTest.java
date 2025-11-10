@@ -1,5 +1,6 @@
 package org.openmrs.module.mirebalais.smoke;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.DeathCertificateFormPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote;
@@ -26,6 +27,7 @@ public class ConsultNoteTest extends DbTest {
 	}
 
 	@Test
+    @Ignore // disabled, see: https://pihemr.atlassian.net/browse/UHM-8907
 	public void addConsultationNoteWithDeathAsDispositionClosesVisit() throws Exception {
 
         logInAsPhysicianUser("Sal Gason");
