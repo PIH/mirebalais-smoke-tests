@@ -34,7 +34,7 @@ public class AppDashboard extends AbstractPageObject {
     public static final By SEARCH_RESULTS_TABLE = By.id("patient-search-results-table");
 
     public static final String LEGACY = "legacy-admin-app";
-    public static final String APP_LINK_SUFFIX = "-appLink-app";
+    public static final String APP_LINK_SUFFIX = "-appLink-extension";
 
     public AppDashboard(WebDriver driver) {
         super(driver);
@@ -42,6 +42,15 @@ public class AppDashboard extends AbstractPageObject {
 
     public void goToAppDashboard() {
         driver.findElement(By.className("logo")).click();
+        cancelTwoFactorPopupIfPresent();
+    }
+
+    public void cancelTwoFactorPopupIfPresent() {
+        try {
+            driver.findElement(By.id("two-factor-popup-cancel-button")).click();
+        }
+        catch (Exception e) {
+        }
     }
 
     public void openActiveVisitsApp() {
@@ -218,6 +227,7 @@ public class AppDashboard extends AbstractPageObject {
 
     public void openApp(String appIdentifier) {
         new HeaderPage(driver).home();
+        cancelTwoFactorPopupIfPresent();
         clickOn(By.id(appIdentifier));
     }
 
