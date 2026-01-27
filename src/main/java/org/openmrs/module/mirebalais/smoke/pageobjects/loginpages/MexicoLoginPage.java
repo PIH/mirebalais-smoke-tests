@@ -22,5 +22,6 @@ public class MexicoLoginPage extends LoginPage {
         driver.findElement(By.id("login-button")).click();
         termsAndConditionsPage.acceptTermsIfPresent();
         driver.findElement(By.xpath("//*[contains(text(), '" + (StringUtils.isBlank(location) ? "CES Oficina" : location) + "')]")).click();
+        appDashboard.cancelTwoFactorPopupIfPresent();
     }
 }

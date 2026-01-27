@@ -22,6 +22,7 @@ public class HSNLoginPage  extends LoginPage {
         driver.findElement(By.id("login-button")).click();
         termsAndConditionsPage.acceptTermsIfPresent();
         driver.findElement(By.xpath("//*[contains(text(), '" + (StringUtils.isBlank(location) ? "Klinik MNT" : location) + "')]")).click();
+        appDashboard.cancelTwoFactorPopupIfPresent();
     }
 }
 

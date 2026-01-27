@@ -22,6 +22,7 @@ public class HaitiMultiLocationLoginPage extends LoginPage {
         driver.findElement(By.id("login-button")).click();
         termsAndConditionsPage.acceptTermsIfPresent();
         driver.findElement(By.xpath("//*[contains(text(), '" + (StringUtils.isBlank(location) ? "Klinik Ekstèn Jeneral" : location) + "')]")).click();
+        appDashboard.cancelTwoFactorPopupIfPresent();
     }
 }
 

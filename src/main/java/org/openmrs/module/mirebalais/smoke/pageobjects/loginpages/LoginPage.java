@@ -3,6 +3,7 @@ package org.openmrs.module.mirebalais.smoke.pageobjects.loginpages;
 import org.openmrs.module.mirebalais.smoke.dataModel.User;
 import org.openmrs.module.mirebalais.smoke.helper.SmokeTestProperties;
 import org.openmrs.module.mirebalais.smoke.helper.UserDatabaseHandler;
+import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.TermsAndConditionsPage;
 import org.openqa.selenium.WebDriver;
 
@@ -11,10 +12,12 @@ public abstract class LoginPage {
 	protected WebDriver driver;
 
 	protected static TermsAndConditionsPage termsAndConditionsPage;
+	protected static AppDashboard appDashboard;
 
 	public LoginPage(WebDriver driver) {
 		this.driver = driver;
 		termsAndConditionsPage = new TermsAndConditionsPage(driver);
+		appDashboard = new AppDashboard(driver);
 	}
 
 	public abstract void logIn(String user, String password, String location);

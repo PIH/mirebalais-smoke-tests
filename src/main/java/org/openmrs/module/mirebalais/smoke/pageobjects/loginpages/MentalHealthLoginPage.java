@@ -23,6 +23,7 @@ public class MentalHealthLoginPage extends LoginPage {
         driver.findElement(By.id("login-button")).click();
         termsAndConditionsPage.acceptTermsIfPresent();
         driver.findElement(By.xpath("//*[contains(text(), '" + (StringUtils.isBlank(location) ? "Cerca" : location) + "')]")).click();
+        appDashboard.cancelTwoFactorPopupIfPresent();
     }
 
 }

@@ -32,5 +32,6 @@ public class PeruLoginPage extends LoginPage {
         driver.findElement(By.id("login-button")).click();
         termsAndConditionsPage.acceptTermsIfPresent();
         driver.findElement(By.xpath("//*[text()='" + location + "']")).click();
+        appDashboard.cancelTwoFactorPopupIfPresent();
     }
 }
