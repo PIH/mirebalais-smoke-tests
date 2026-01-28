@@ -182,7 +182,6 @@ public class UserAdminTest extends BasicSmokeTest {
 		Thread.sleep(5000);
         header.logOut();
 		loginPage.logIn(username, password);
-		appDashboard.cancelTwoFactorPopupIfPresent();
 	}
 
 }

@@ -161,7 +161,6 @@ public abstract class BasicSmokeTest {
     protected void login() throws Exception {
         loginPage.logInAsAdmin();
         header.home();
-        appDashboard.cancelTwoFactorPopupIfPresent();
     }
 
     protected void home() {
