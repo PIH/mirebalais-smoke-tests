@@ -121,8 +121,8 @@ public class UserDatabaseHandler extends BaseDatabaseHandler {
 	}
 
     private static Integer getProviderRoleId(String providerRoleName) throws SQLException, DataSetException {
-        ITable providerRole = connection.createQueryTable("providermanagement_provider_role",
-                "select * from providermanagement_provider_role where name = '" + providerRoleName + "'");
+        ITable providerRole = connection.createQueryTable("provider_role",
+                "select * from provider_role where name = '" + providerRoleName + "'");
         return  (Integer) providerRole.getValue(0, "provider_role_id");
     }
 

@@ -34,7 +34,7 @@ public class AppDashboard extends AbstractPageObject {
     public static final By SEARCH_RESULTS_TABLE = By.id("patient-search-results-table");
 
     public static final String LEGACY = "legacy-admin-app";
-    public static final String APP_LINK_SUFFIX = "-appLink-extension";
+    public static final String APP_LINK_SUFFIX = "-appLink-app";
 
     public AppDashboard(WebDriver driver) {
         super(driver);
