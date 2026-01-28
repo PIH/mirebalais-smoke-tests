@@ -42,15 +42,6 @@ public class AppDashboard extends AbstractPageObject {
 
     public void goToAppDashboard() {
         driver.findElement(By.className("logo")).click();
-        cancelTwoFactorPopupIfPresent();
-    }
-
-    public void cancelTwoFactorPopupIfPresent() {
-        try {
-            driver.findElement(By.id("two-factor-popup-cancel-button")).click();
-        }
-        catch (Exception e) {
-        }
     }
 
     public void openActiveVisitsApp() {
@@ -227,7 +218,6 @@ public class AppDashboard extends AbstractPageObject {
 
     public void openApp(String appIdentifier) {
         new HeaderPage(driver).home();
-        cancelTwoFactorPopupIfPresent();
         clickOn(By.id(appIdentifier));
     }
 

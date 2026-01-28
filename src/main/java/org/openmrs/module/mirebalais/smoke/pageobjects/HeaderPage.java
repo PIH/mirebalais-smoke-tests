@@ -29,8 +29,8 @@ public class HeaderPage extends AbstractPageObject {
     }
 
     public void home() {
-        AppDashboard appDashboard = new AppDashboard(driver);
-        appDashboard.goToAppDashboard();
+        // hack, just go to the logout url since the we are having trouble with the toast message overlapping the home button
+        driver.get(properties.getWebAppUrl() + "/index.htm");
     }
 
 	public String changeLocationTo(int listElement) throws Exception {

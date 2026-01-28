@@ -1,28 +1,39 @@
 package org.openmrs.module.mirebalais.smoke.pageobjects.loginpages;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openmrs.module.mirebalais.smoke.dataModel.User;
 import org.openmrs.module.mirebalais.smoke.helper.SmokeTestProperties;
 import org.openmrs.module.mirebalais.smoke.helper.UserDatabaseHandler;
-import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.TermsAndConditionsPage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public abstract class LoginPage {
 
 	protected WebDriver driver;
 
+	protected static SecretQuestionLoginPage secretQuestionLoginPage;
 	protected static TermsAndConditionsPage termsAndConditionsPage;
-	protected static AppDashboard appDashboard;
 
 	public LoginPage(WebDriver driver) {
 		this.driver = driver;
 		termsAndConditionsPage = new TermsAndConditionsPage(driver);
-		appDashboard = new AppDashboard(driver);
+		secretQuestionLoginPage = new SecretQuestionLoginPage(driver);
 	}
 
-	public abstract void logIn(String user, String password, String location);
+	public void logIn(String user, String password, String location) {
+		driver.findElement(By.id("username")).sendKeys(user);
+		driver.findElement(By.id("password")).sendKeys(password);
+		driver.findElement(By.id("login-button")).click();
+		secretQuestionLoginPage.enterSecretQuestion(password);
+		termsAndConditionsPage.acceptTermsIfPresent();
+		location = (StringUtils.isBlank(location) ? getDefaultLocationName() : location);
+		driver.findElement(By.xpath("//*[contains(text(), '" + location + "')]")).click();
+	}
 
 	public abstract String getLocale();
+
+	public abstract String getDefaultLocationName();
 
 	public void logIn(String user, String password) {
 		logIn(user, password, null);

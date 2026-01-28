@@ -8,7 +8,7 @@ public class PeruFormsTest extends SimpleFormTest {
 
     @Test
     public void testForms() throws Exception {
-        logInAsPhysicianUser(PeruLoginPage.MAIN_LOCATION);
+        logInAsPhysicianUser();
         appDashboard.goToClinicianFacingDashboard(adultTestPatient.getId());
         clinicianDashboard.startVisit();
         testSectionedFormLoads("Historia Clínica (paciente nuevo)");

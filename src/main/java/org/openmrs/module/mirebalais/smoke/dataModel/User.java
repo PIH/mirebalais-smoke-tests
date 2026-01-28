@@ -1,5 +1,7 @@
 package org.openmrs.module.mirebalais.smoke.dataModel;
 
+import org.openmrs.module.mirebalais.smoke.helper.Security;
+
 import java.math.BigInteger;
 
 public class User {
@@ -98,6 +100,43 @@ public class User {
     }
 
     public String getDefaultLocale() { return defaultLocale; }
+
+    public String getHashedPassword() {
+        return Security.encodeString(getPassword() + getSalt());
+    }
+
+    public String getSalt() {
+        return "be96aa653dc0b06fe18eb4cfc6b8c8878cac9973521b24bb95ff93e0945151897e39af881f7ba58317ba14c74d843ab166738756f56b4edf39977dc89798f379";
+    }
+
+    public String getSecretQuestion() {
+        return "Re-enter password";
+    }
+
+    public String getHashedSecretAnswer() {
+        return Security.encodeString(getPassword().toLowerCase() + getSalt());
+    }
+
+    /**
+     * Convenience method to convert a byte array to a string
+     *
+     * @param block Byte array to convert to HexString
+     * @return Hexadecimal string encoding the byte array
+     */
+    private static String hexString(byte[] block) {
+        StringBuilder buf = new StringBuilder();
+        char[] hexChars = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+        int high;
+        int low;
+        for (byte aBlock : block) {
+            high = ((aBlock & 0xf0) >> 4);
+            low = (aBlock & 0x0f);
+            buf.append(hexChars[high]);
+            buf.append(hexChars[low]);
+        }
+
+        return buf.toString();
+    }
 
     @Override
     public String toString() {
