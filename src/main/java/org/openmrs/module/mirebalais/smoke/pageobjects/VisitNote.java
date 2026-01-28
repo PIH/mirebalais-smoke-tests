@@ -87,6 +87,8 @@ public class VisitNote extends AbstractPageObject {
 
     private static final By firstEncounterContractDetails = By.className("contract-encounter");
 
+    private HeaderPage headerPage;
+
     private ConsultNoteForm consultNoteForm;
 
 	private EmergencyDepartmentNoteForm eDNoteForm;
@@ -120,6 +122,7 @@ public class VisitNote extends AbstractPageObject {
 
 	public VisitNote(WebDriver driver) {
 		super(driver);
+        headerPage = new HeaderPage(driver);
 		consultNoteForm = new ConsultNoteForm(driver);
         chiefComplaintForm = new ChiefComplaintForm(driver);
 		eDNoteForm = new EmergencyDepartmentNoteForm(driver);
@@ -407,7 +410,7 @@ public class VisitNote extends AbstractPageObject {
     }
 
     public void gotoAppDashboard() {
-        driver.findElement(home).click();
+        headerPage.home();
     }
 
 	private void createFormsMap() {
