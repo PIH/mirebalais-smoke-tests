@@ -22,7 +22,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 // This is obviously only usable by Haiti/Mirebalais
 public class UserAdmin extends AbstractPageObject {
