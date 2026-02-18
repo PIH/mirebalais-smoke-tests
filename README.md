@@ -69,6 +69,8 @@ Where the database name, `<server_name>`, is the SDK server name.
   "Create a provider...". Then check every role box (try using Tab
   and Spacebar).
 
+* The "admin" user must have MFA setup using secret question, with their password as the secret answer.
+
 ### For Haiti
 
 * The locale must be "ht"/"Kreyol", at least for the "admin" user.

@@ -68,6 +68,28 @@ public class UserAdmin extends AbstractPageObject {
 		chooseLanguage(language);
 		clickOnSave();
         UserDatabaseHandler.addUserForDelete(username);
+		openAccount(username);
+		setupTwoFactorAuthenticationWithSecretQuestion(password);
+	}
+
+	public void openAccount(String username) {
+		driver.findElement(By.name("nameOrIdentifier")).sendKeys(username);
+		driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
+		driver.findElement(By.linkText(username)).click();
+	}
+
+	public void setupTwoFactorAuthenticationWithSecretQuestion(String password) throws Exception {
+		driver.findElement(By.cssSelector(".action-section li:nth-of-type(4) a")).click();
+		driver.findElement(By.id("option-secret")).click();
+		driver.findElement(By.id("next-button")).click();
+		driver.findElement(By.id("question")).sendKeys("Re-enter password");
+		driver.findElement(By.id("answer")).sendKeys(password);
+		driver.findElement(By.id("confirmAnswer")).sendKeys(password);
+		try {
+			driver.findElement(By.name("password")).sendKeys(password);
+		}
+		catch (Exception ignore) {}
+		driver.findElement(By.id("save-button")).click();
 	}
 	
 	private void chooseProviderType() {
@@ -101,6 +123,7 @@ public class UserAdmin extends AbstractPageObject {
 		driver.findElement(By.name("username")).sendKeys(username);
 		driver.findElement(By.name("password")).sendKeys(password);
 		driver.findElement(By.name("confirmPassword")).sendKeys(password);
+		driver.findElement(By.name("passwordChangeRequired")).click();
 	}
 	
 	private void clickOnSave() {
