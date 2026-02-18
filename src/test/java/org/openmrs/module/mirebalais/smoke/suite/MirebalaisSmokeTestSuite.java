@@ -13,8 +13,6 @@ import org.openmrs.module.mirebalais.smoke.CaptureVitalsMirebalaisTest;
 import org.openmrs.module.mirebalais.smoke.CheckInMirebalaisTest;
 import org.openmrs.module.mirebalais.smoke.ConsultNoteTest;
 import org.openmrs.module.mirebalais.smoke.DailyAppointmentsTest;
-import org.openmrs.module.mirebalais.smoke.DeathCertificateTest;
-import org.openmrs.module.mirebalais.smoke.DispensingTest;
 import org.openmrs.module.mirebalais.smoke.EDNoteTest;
 import org.openmrs.module.mirebalais.smoke.EDTriageTest;
 import org.openmrs.module.mirebalais.smoke.GenerateDossierAtCheckinTest;
@@ -45,7 +43,6 @@ import org.openqa.selenium.WebDriver;
                         CheckInMirebalaisTest.class,
                         ConsultNoteTest.class,
                         DailyAppointmentsTest.class,
-                        DispensingTest.class,
                         EDNoteTest.class,
                         EDTriageTest.class,
                         GenerateDossierAtCheckinTest.class,

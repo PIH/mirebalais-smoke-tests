@@ -19,7 +19,6 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.forms.AdmissionNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.ChiefComplaintForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.ConsultNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.DiagnosisForm;
-import org.openmrs.module.mirebalais.smoke.pageobjects.forms.DispenseMedicationForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.EmergencyDepartmentNoteForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.ExamForm;
 import org.openmrs.module.mirebalais.smoke.pageobjects.forms.FeedingForm;
@@ -437,12 +436,6 @@ public class VisitNote extends AbstractPageObject {
 
     public AdmissionNoteForm getAdmissionNoteForm() {
         return admissionNoteForm;
-    }
-
-    // TODO move all this dispensing stuff somewhere else?
-    public DispenseMedicationForm goToDispenseMedicationForm() {
-        openForm(By.id(CustomAppLoaderConstants.Extensions.DISPENSE_MEDICATION_VISIT_ACTION));
-        return new DispenseMedicationForm(driver);
     }
 
     public MedicationDispensed firstMedication() {
