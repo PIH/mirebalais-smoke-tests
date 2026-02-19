@@ -33,6 +33,9 @@ public class CheckInFormPage extends AbstractPageObject {
     }
 
     public void enterInfo(Boolean paperRecordEnabled) {
+        // TODO: potential fix below when we switch to the new type of visit selector in Mirebalais
+        //clickOn(By.cssSelector(".section-container > :last-child"));
+        //hitEnterKey();
         selectThirdOptionFor("typeOfVisit");
         findInputInsideSpan("paymentAmount").sendKeys("100" + Keys.RETURN);
         findInputInsideSpan("receiptNumber").sendKeys("receipt #" + Keys.RETURN);
