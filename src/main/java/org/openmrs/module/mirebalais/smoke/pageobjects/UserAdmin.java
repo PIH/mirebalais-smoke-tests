@@ -72,9 +72,9 @@ public class UserAdmin extends AbstractPageObject {
 		setupTwoFactorAuthenticationWithSecretQuestion(password);
 	}
 
-	public void openAccount(String username) {
-		driver.findElement(By.name("nameOrIdentifier")).sendKeys(username);
-		driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
+	public void openAccount(String username) throws InterruptedException{
+		driver.findElement(By.id("search-filter")).sendKeys(username);
+        hitEnterKey();
 		driver.findElement(By.linkText(username)).click();
 	}
 
