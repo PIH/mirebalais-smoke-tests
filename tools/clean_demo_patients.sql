@@ -8,6 +8,9 @@ delete from obs where obs_id in (select obs_id from obs_previous_to_delete);
 delete from obs_reference_range where obs_id in (select obs_id from obs where person_id in (select person_id from patients_to_delete));
 delete from obs where person_id in (select person_id from patients_to_delete);
 delete from encounter_provider where encounter_id in (select encounter_id from encounter where patient_id in (select person_id from patients_to_delete));
+-- this should handle one level of previous versions
+delete from conditions where patient_id in (select person_id from patients_to_delete) and previous_version is not null;
+delete from conditions where patient_id in (select person_id from patients_to_delete);
 delete from encounter where patient_id in (select person_id from patients_to_delete);
 delete from visit where patient_id in (select person_id from patients_to_delete);
 delete from orders where patient_id in (select person_id from patients_to_delete);
@@ -16,8 +19,11 @@ delete from patient_state where patient_program_id in (select patient_program_id
 delete from patient_program where patient_id in (select person_id from patients_to_delete);
 delete from patient_identifier where patient_id in (select person_id from patients_to_delete);
 delete from patient where patient_id in (select person_id from patients_to_delete);
+delete from relationship where person_a in (select person_id from patients_to_delete);
+delete from relationship where person_b in (select person_id from patients_to_delete);
 delete from person_address where person_id in (select person_id from patients_to_delete);
 delete from name_phonetics where person_name_id in (select person_name_id from person_name where person_id in (select person_id from patients_to_delete));
 delete from person_name where person_id in (select person_id from patients_to_delete);
 delete from person_attribute where person_id in (select person_id from patients_to_delete);
+delete from person_merge_log where loser_person_id in (select person_id from patients_to_delete);
 delete from person where person_id in (select person_id from patients_to_delete);
