@@ -80,8 +80,7 @@ public class UserAdmin extends AbstractPageObject {
 
 	public void setupTwoFactorAuthenticationWithSecretQuestion(String password) throws Exception {
 		driver.findElement(By.cssSelector(".action-section li:nth-of-type(4) a")).click();
-		driver.findElement(By.id("option-secret")).click();
-		driver.findElement(By.id("next-button")).click();
+		driver.findElement(By.id("secret-option")).click();
 		driver.findElement(By.id("question")).sendKeys("Re-enter password");
 		driver.findElement(By.id("answer")).sendKeys(password);
 		driver.findElement(By.id("confirmAnswer")).sendKeys(password);
