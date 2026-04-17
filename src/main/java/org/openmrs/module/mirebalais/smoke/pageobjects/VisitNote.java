@@ -288,7 +288,7 @@ public class VisitNote extends AbstractPageObject {
     }
 
 	public void openForm(By formIdentification) {
-        wait5seconds.until(visibilityOfElementLocated(By.id("visit-actions-button")));
+        wait15seconds.until(visibilityOfElementLocated(By.id("visit-actions-button")));
         clickOn(By.id("visit-actions-button"));
 		clickOn(formIdentification);
 	}
