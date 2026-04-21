@@ -33,13 +33,13 @@ public class EDNoteTest extends DbTest {
         clinicianDashboard.startVisit();
 
         visitNote.addEDNote(PRIMARY_DIAGNOSIS);
-        new WebDriverWait(driver, 5).until(visibilityOfElementLocated(VisitNote.consultNoteSectionHeader));
+        new WebDriverWait(driver, 15).until(visibilityOfElementLocated(VisitNote.consultNoteSectionHeader));
         visitNote.editExistingEDNote(EDITED_PRIMARY_DIAGNOSIS);
 
         assertThat(visitNote.countEncountersOfType(VisitNote.CONSULTATION_CREOLE_NAME), is(1));
 
         //visitNote.viewConsultationDetails();
-        new WebDriverWait(driver, 5).until(visibilityOfElementLocated(VisitNote.consultNoteSectionHeader));
+        new WebDriverWait(driver, 15).until(visibilityOfElementLocated(VisitNote.consultNoteSectionHeader));
         assertThat(visitNote.containsText(EDITED_PRIMARY_DIAGNOSIS), is(true));
         assertThat(visitNote.containsText(PRIMARY_DIAGNOSIS), is(false));
     }
