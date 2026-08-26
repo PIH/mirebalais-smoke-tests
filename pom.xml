@@ -22,9 +22,9 @@
     </organization>
 
     <scm>
-        <connection>scm:git:git@github.com:PIH/mirebalais-smoke-tests.git</connection>
-        <developerConnection>scm:git:git@github.com:PIH/mirebalais-smoke-tests.git</developerConnection>
-        <url>scm:git:git@github.com:PIH/mirebalais-smoke-tests.git</url>
+        <connection>scm:git:git@github.com:PIH/pihemr-smoke-tests.git</connection>
+        <developerConnection>scm:git:git@github.com:PIH/pihemr-smoke-tests.git</developerConnection>
+        <url>scm:git:git@github.com:PIH/pihemr-smoke-tests.git</url>
     </scm>
 
     <properties>

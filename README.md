@@ -43,7 +43,7 @@ The following environment variables configure connections to the server and data
 * WEBAPP_NAME (default `openmrs`)
 
 These variables are parsed by
-[SmokeTestProperties.java](https://github.com/PIH/mirebalais-smoke-tests/blob/master/src/main/java/org/openmrs/module/pihemr/smoke/helper/SmokeTestProperties.java),
+[SmokeTestProperties.java](https://github.com/PIH/pihemr-smoke-tests/blob/master/src/main/java/org/openmrs/module/pihemr/smoke/helper/SmokeTestProperties.java),
 which also provides their defaults. It may sometimes be more convenient to just change these default values locally
 in lieu of setting the environment variables.
 
