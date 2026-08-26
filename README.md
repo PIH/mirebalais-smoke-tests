@@ -14,8 +14,6 @@ particular configuration repo and PIH Config.
 | [haiti](https://bamboo.pih-emr.org/browse/MIREBALAIS-STC)         | [zl](https://github.com/PIH/openmrs-config-zl)                 | haiti,haiti-thomonde,haiti-thomonde-ci      |
 | [liberia](https://bamboo.pih-emr.org/browse/MIREBALAIS-STP)       | [pihliberia](https://github.com/PIH/openmrs-config-pihliberia) | liberia,liberia-harper,liberia-harper-kouka |
 | [sierraleone](https://bamboo.pih-emr.org/browse/MIREBALAIS-STP)   | [pihsl](https://github.com/PIH/openmrs-config-pihsl)           | sierraLeone,sierraLeone-wellbody,sierraLeone-wellbody-gladi |
-| [peru](https://bamboo.pih-emr.org/browse/MIREBALAIS-STMH)         | [ses](https://github.com/PIH/openmrs-config-ses)               | peru                                        |
-| [mentalHealth](https://bamboo.pih-emr.org/browse/MIREBALAIS-STMH) | [zl](https://github.com/PIH/openmrs-config-zl)                 | haiti-mentalhealth                          |
 | [mexico](https://bamboo.pih-emr.org/browse/MIREBALAIS-STM)        | [ces](https://github.com/PIH/openmrs-config-ces)               | *not written yet*                           |
 
 # Setup
@@ -45,7 +43,7 @@ The following environment variables configure connections to the server and data
 * WEBAPP_NAME (default `openmrs`)
 
 These variables are parsed by
-[SmokeTestProperties.java](https://github.com/PIH/mirebalais-smoke-tests/blob/master/src/main/java/org/openmrs/module/mirebalais/smoke/helper/SmokeTestProperties.java),
+[SmokeTestProperties.java](https://github.com/PIH/mirebalais-smoke-tests/blob/master/src/main/java/org/openmrs/module/pihemr/smoke/helper/SmokeTestProperties.java),
 which also provides their defaults. It may sometimes be more convenient to just change these default values locally
 in lieu of setting the environment variables.
 

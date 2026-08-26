@@ -1,0 +1,43 @@
+package org.openmrs.module.pihemr.smoke;
+
+import org.junit.After;
+import org.junit.Test;
+import org.openmrs.module.pihemr.smoke.helper.AppointmentTypeDatabaseHandler;
+import org.openmrs.module.pihemr.smoke.helper.NameGenerator;
+import org.openmrs.module.pihemr.smoke.pageobjects.AppDashboard;
+import org.openmrs.module.pihemr.smoke.pageobjects.AppointmentSchedulingApp;
+import org.openmrs.module.pihemr.smoke.pageobjects.ServiceTypeApp;
+
+import static junit.framework.Assert.assertEquals;
+
+public class ManageServiceTypesTest extends BasicSmokeTest {
+
+    @Test
+    public void systemAdminCanAddServiceType() throws Exception {
+        AppDashboard appDashboard = new AppDashboard(driver);
+        AppointmentSchedulingApp appointmentSchedulingApp = new AppointmentSchedulingApp(driver);
+        ServiceTypeApp serviceTypeApp = new ServiceTypeApp(driver);
+
+        logInAsAdmin();
+
+        appDashboard.openAppointmentSchedulingApp();
+        appointmentSchedulingApp.openManageAppointmentTypesApp();
+        int expectedAmountOfServiceTypes = serviceTypeApp.getTotalAmountOfServiceTypes() + 1;
+
+        serviceTypeApp.openNewServiceType();
+        serviceTypeApp.createServiceType(NameGenerator.getServiceTypeName(), "20", "Description");
+
+        assertEquals(expectedAmountOfServiceTypes, serviceTypeApp.getTotalAmountOfServiceTypes());
+    }
+
+    @After
+    public void deleteAppointmentTypeTestData() throws Exception {
+        try {
+            AppointmentTypeDatabaseHandler.deleteAppointmentTypes();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("tear down failed", e);
+        }
+    }
+}
