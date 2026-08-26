@@ -37,7 +37,7 @@ public class VisitNoteTest extends DbTest {
 
         appDashboard.startClinicVisit();
         newCheckIn.findPatientAndClickOnCheckIn(adultTestPatient.getIdentifier());
-        newCheckIn.enterInfo(getPaperRecordEnabled());
+        newCheckIn.enterInfo();
 
         header.home();
         appDashboard.openApp(getVitalsAppIdentifier());
@@ -103,7 +103,7 @@ public class VisitNoteTest extends DbTest {
 
         appDashboard.startClinicVisit();
         newCheckIn.findPatientAndClickOnCheckIn(adultTestPatient.getIdentifier());
-        newCheckIn.enterInfo(getPaperRecordEnabled());
+        newCheckIn.enterInfo();
 
         header.home();
         appDashboard.openApp(getVitalsAppIdentifier());
@@ -164,7 +164,7 @@ public class VisitNoteTest extends DbTest {
 
         appDashboard.startClinicVisit();
         newCheckIn.findPatientAndClickOnCheckIn(newbornTestPatient.getIdentifier());
-        newCheckIn.enterInfo(getPaperRecordEnabled());
+        newCheckIn.enterInfo();
 
         header.home();
         appDashboard.openApp(getVitalsAppIdentifier());
@@ -247,7 +247,7 @@ public class VisitNoteTest extends DbTest {
 
         appDashboard.startClinicVisit();
         newCheckIn.findPatientAndClickOnCheckIn(newbornTestPatient.getIdentifier());
-        newCheckIn.enterInfo(getPaperRecordEnabled());
+        newCheckIn.enterInfo();
 
         header.home();
         appDashboard.openApp(getVitalsAppIdentifier());
@@ -327,5 +327,4 @@ public class VisitNoteTest extends DbTest {
         driver.findElement(By.partialLinkText(identifier)).click();
     }
 
-    protected Boolean getPaperRecordEnabled() { return false; }
 }

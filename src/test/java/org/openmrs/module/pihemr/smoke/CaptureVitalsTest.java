@@ -28,7 +28,7 @@ public class CaptureVitalsTest extends DbTest {
 
         appDashboard.startClinicVisit();
         newCheckIn.findPatientAndClickOnCheckIn(adultTestPatient.getIdentifier());
-        newCheckIn.enterInfo(getPaperRecordEnabled());
+        newCheckIn.enterInfo();
 
         header.home();
         Thread.sleep(3000);  // hack, sleep 3 second, sometimes if the page is opened to quickly user is not in queue yet
@@ -59,8 +59,6 @@ public class CaptureVitalsTest extends DbTest {
             return false;
         }
     }
-
-    protected Boolean getPaperRecordEnabled() { return false; }
 
 }
 

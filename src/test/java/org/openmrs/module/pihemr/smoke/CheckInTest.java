@@ -36,7 +36,7 @@ public class CheckInTest extends DbTest {
         appDashboard.startClinicVisit();
 
         newCheckIn.findPatientAndClickOnCheckIn(adultTestPatient.getIdentifier());
-        newCheckIn.enterInfoFillingTheFormTwice(getPaperRecordEnabled());
+        newCheckIn.enterInfoFillingTheFormTwice();
 
 		assertThat(newCheckIn.isPatientSearchDisplayed(), is(true));
 
@@ -51,5 +51,4 @@ public class CheckInTest extends DbTest {
 		assertTrue(visitNote.hasActiveVisit());
 	}
 
-    protected Boolean getPaperRecordEnabled() { return false; }
 }

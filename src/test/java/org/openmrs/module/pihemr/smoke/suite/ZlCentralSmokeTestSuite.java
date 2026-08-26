@@ -7,15 +7,13 @@ import org.junit.runners.Suite;
 import org.openmrs.module.pihemr.smoke.ActiveVisitsTest;
 import org.openmrs.module.pihemr.smoke.AdmissionDischargeTransferRetroTest;
 import org.openmrs.module.pihemr.smoke.AdmissionDischargeTransferTest;
-import org.openmrs.module.pihemr.smoke.ArchivesRoomFlowTest;
 import org.openmrs.module.pihemr.smoke.BasicSmokeTest;
 import org.openmrs.module.pihemr.smoke.CaptureVitalsZlCentralTest;
-import org.openmrs.module.pihemr.smoke.CheckInZlCentralTest;
+import org.openmrs.module.pihemr.smoke.CheckInTest;
 import org.openmrs.module.pihemr.smoke.ConsultNoteTest;
 import org.openmrs.module.pihemr.smoke.DailyAppointmentsTest;
 import org.openmrs.module.pihemr.smoke.EDNoteTest;
 import org.openmrs.module.pihemr.smoke.EDTriageTest;
-import org.openmrs.module.pihemr.smoke.GenerateDossierAtCheckinTest;
 import org.openmrs.module.pihemr.smoke.HeaderTest;
 import org.openmrs.module.pihemr.smoke.InPatientTest;
 import org.openmrs.module.pihemr.smoke.ManageAppointmentsTest;
@@ -38,14 +36,12 @@ import org.openqa.selenium.WebDriver;
 @Suite.SuiteClasses( {  ActiveVisitsTest.class,
                         AdmissionDischargeTransferRetroTest.class,
                         AdmissionDischargeTransferTest.class,
-                        ArchivesRoomFlowTest.class,
                         CaptureVitalsZlCentralTest.class,
-                        CheckInZlCentralTest.class,
+                        CheckInTest.class,
                         ConsultNoteTest.class,
                         DailyAppointmentsTest.class,
                         EDNoteTest.class,
                         EDTriageTest.class,
-                        GenerateDossierAtCheckinTest.class,
                         HeaderTest.class,
                         InPatientTest.class,
                         ManageAppointmentsTest.class,

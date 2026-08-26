@@ -8,7 +8,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -32,7 +31,7 @@ public class CheckInFormPage extends AbstractPageObject {
         clickOnCheckIn();
     }
 
-    public void enterInfo(Boolean paperRecordEnabled) {
+    public void enterInfo() {
         // TODO: potential fix below when we switch to the new type of visit selector in Mirebalais
         //clickOn(By.cssSelector(".section-container > :last-child"));
         //hitEnterKey();
@@ -41,9 +40,6 @@ public class CheckInFormPage extends AbstractPageObject {
         findInputInsideSpan("receiptNumber").sendKeys("receipt #" + Keys.RETURN);
         selectNotToPrintWristbandIfQuestionPresent();
         clickConfirm();
-        if (paperRecordEnabled) {
-            confirmPaperRecordPopup();
-        }
         wait2minutes.until(invisibilityOfElementLocated(By.className("submitButton")));  // make sure the submit is complete
     }
 
@@ -58,9 +54,10 @@ public class CheckInFormPage extends AbstractPageObject {
                 RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,
                 RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN);
 
+        wait2minutes.until(invisibilityOfElementLocated(By.className("submitButton")));  // make sure the submit is complete
     }
 
-	public void enterInfoFillingTheFormTwice(Boolean paperRecordEnabled) throws Exception {
+	public void enterInfoFillingTheFormTwice() throws Exception {
         selectThirdOptionFor("typeOfVisit");
         findInputInsideSpan("paymentAmount").sendKeys("100" + Keys.RETURN);
         findInputInsideSpan("receiptNumber").sendKeys("receipt #" + Keys.RETURN);
@@ -71,9 +68,6 @@ public class CheckInFormPage extends AbstractPageObject {
         findInputInsideSpan("receiptNumber").sendKeys("receipt #" + Keys.RETURN);
         selectNotToPrintWristbandIfQuestionPresent();
 		clickConfirm();
-        if (paperRecordEnabled) {
-            confirmPaperRecordPopup();
-        }
         wait15seconds.until(invisibilityOfElementLocated(By.className("submitButton")));  // make sure the submit is complete
 	}
 
@@ -107,11 +101,6 @@ public class CheckInFormPage extends AbstractPageObject {
 	        	element.click();
 	        }
 	    }
-	}
-
-	private void confirmPaperRecordPopup() {
-        new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(By.id("create-paper-record-dialog")));
-        clickOn(By.cssSelector("#create-paper-record-dialog button"));
 	}
 
     // TODO: revert https://github.com/PIH/mirebalais-smoke-tests/commit/e9ab41b02f4c263362b3627cd9e9b3cde951bd4f

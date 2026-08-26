@@ -60,10 +60,6 @@ public class AppDashboard extends AbstractPageObject {
         openApp(replaceChars(CustomAppLoaderConstants.Apps.INPATIENTS, ".", "-") + APP_LINK_SUFFIX);
 	}
 
-	public void openArchivesRoomApp() {
-        openApp(replaceChars(CustomAppLoaderConstants.Apps.ARCHIVES_ROOM, ".", "-") + APP_LINK_SUFFIX);
-	}
-
     public void openPatientRegistrationApp() {
         openApp(replaceChars(CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION, ".", "-") + APP_LINK_SUFFIX);
     }
@@ -107,10 +103,6 @@ public class AppDashboard extends AbstractPageObject {
     public boolean isPatientRegistrationAppPresented() {
 		return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION, ".", "-") + APP_LINK_SUFFIX);
 	}
-
-    public boolean isArchivesRoomAppPresented() {
-        return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.Apps.ARCHIVES_ROOM, ".", "-") + APP_LINK_SUFFIX);
-    }
 
 	public boolean isSystemAdministrationAppPresented() {
         return isAppButtonPresent(replaceChars(CustomAppLoaderConstants.Apps.SYSTEM_ADMINISTRATION, ".", "-") + APP_LINK_SUFFIX);

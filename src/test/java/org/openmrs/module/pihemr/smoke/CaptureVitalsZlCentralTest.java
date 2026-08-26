@@ -33,8 +33,4 @@ public class CaptureVitalsZlCentralTest extends CaptureVitalsTest {
 		}
 	}
 
-	@Override
-	protected Boolean getPaperRecordEnabled() {
-		return true;
-	}
 }

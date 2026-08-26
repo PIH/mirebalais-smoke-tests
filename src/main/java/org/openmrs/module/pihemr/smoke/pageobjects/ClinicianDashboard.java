@@ -111,15 +111,6 @@ public class ClinicianDashboard extends AbstractPageObject {
         clickOn(requestAppointment);
     }
 
-    public void requestRecord() {
-        clickOn(By.id(CustomAppLoaderConstants.Extensions.REQUEST_PAPER_RECORD_OVERALL_ACTION));
-        clickOn(By.cssSelector("#request-paper-record-dialog .confirm"));
-    }
-
-    public boolean canRequestRecord() {
-        return driver.findElement((By.id(CustomAppLoaderConstants.Extensions.REQUEST_PAPER_RECORD_OVERALL_ACTION))).isDisplayed();
-    }
-
     public DeathCertificateFormPage goToEnterDeathCertificateForm() {
         clickOn(deathCertificate);
         return new DeathCertificateFormPage(driver);
