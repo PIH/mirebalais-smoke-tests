@@ -11,6 +11,7 @@ public class ExamForm extends BaseHtmlForm {
     }
 
     public void fillFormWithBasicInfo(String comments) {
+        clickOn(driver.findElement(By.id("general")));  // expand the collapsed "General Exam" section
         WebElement history = driver.findElement(By.cssSelector("#general-exam-comments textarea"));
         history.sendKeys(comments);
 

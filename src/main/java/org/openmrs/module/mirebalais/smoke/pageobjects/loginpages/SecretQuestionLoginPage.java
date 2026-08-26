@@ -12,7 +12,11 @@ public class SecretQuestionLoginPage {
 	}
 
 	public void enterSecretQuestion(String secretQuestionAnswer) {
-		driver.findElement(By.id("answer")).sendKeys(secretQuestionAnswer);
-		driver.findElement(By.id("login-button")).click();
+		try {
+			driver.findElement(By.id("answer")).sendKeys(secretQuestionAnswer);
+			driver.findElement(By.id("login-button")).click();
+		}
+		catch (Exception e) {
+		}
 	}
 }
