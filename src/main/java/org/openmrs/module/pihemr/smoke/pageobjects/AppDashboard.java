@@ -48,10 +48,6 @@ public class AppDashboard extends AbstractPageObject {
         openApp(replaceChars(CustomAppLoaderConstants.Apps.ACTIVE_VISITS_LIST, ".", "-") + APP_LINK_SUFFIX);
 	}
 
-    public void openAppointmentSchedulingApp() {
-        openApp(replaceChars(CustomAppLoaderConstants.Apps.APPOINTMENT_SCHEDULING_HOME, ".", "-") + APP_LINK_SUFFIX);
-    }
-
     public void openMyAccountApp() {
         openApp(replaceChars(CustomAppLoaderConstants.Apps.MY_ACCOUNT, ".", "-") + APP_LINK_SUFFIX);
 	}

@@ -27,8 +27,6 @@ public class ClinicianDashboard extends AbstractPageObject {
 
     private static final By confirmRetroVisit = By.cssSelector("#retrospective-visit-creation-dialog .confirm");
 
-    private static final By requestAppointment = By.id("appointmentschedulingui.requestAppointment");
-
     private static final By deathCertificate = By.id(CustomAppLoaderConstants.Extensions.DEATH_CERTIFICATE_OVERALL_ACTION);
 
     private static final By visitDetails = By.id("visit-details");
@@ -105,10 +103,6 @@ public class ClinicianDashboard extends AbstractPageObject {
         hitTabKey(retroStartDate);
         hitTabKey(retroStopDate);
         clickOn(confirmRetroVisit);
-    }
-
-    public void openRequestAppointmentForm() {
-        clickOn(requestAppointment);
     }
 
     public DeathCertificateFormPage goToEnterDeathCertificateForm() {
