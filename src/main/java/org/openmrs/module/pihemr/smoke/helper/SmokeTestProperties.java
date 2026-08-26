@@ -1,4 +1,4 @@
-package org.openmrs.module.mirebalais.smoke.helper;
+package org.openmrs.module.pihemr.smoke.helper;
 
 public class SmokeTestProperties {
 
