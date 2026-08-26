@@ -64,7 +64,7 @@ public abstract class BasicSmokeTest {
 	@BeforeClass
 	public static void getWebDriver() {
 
-        // when running as a suite, MirebalaisSmokeTestSuite should inject the driver into the context
+        // when running as a suite, ZlCentralSmokeTestSuite should inject the driver into the context
         // if not running as a suite, we create our own driver (and flag createdOwnDriver as true so that we know we need to do teardown)
         if (driver == null) {
             System.out.println("Initializing new Chrome Driver");

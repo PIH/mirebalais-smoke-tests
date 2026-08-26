@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.loginpages.LoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.loginpages.HaitiMultiLocationLoginPage;
 
-public class PatientRegistrationMirebalaisFlowTest extends PatientRegistrationHaitiFlowTest {
+public class PatientRegistrationZlCentralFlowTest extends PatientRegistrationHaitiFlowTest {
 
     @Test
     @Override

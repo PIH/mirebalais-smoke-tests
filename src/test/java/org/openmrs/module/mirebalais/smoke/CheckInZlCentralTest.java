@@ -1,6 +1,6 @@
 package org.openmrs.module.mirebalais.smoke;
 
-public class CheckInMirebalaisTest extends CheckInTest {
+public class CheckInZlCentralTest extends CheckInTest {
 
     @Override
     protected Boolean getPaperRecordEnabled() { return true; }

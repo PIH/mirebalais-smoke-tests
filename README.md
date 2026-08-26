@@ -10,7 +10,7 @@ particular configuration repo and PIH Config.
 
 | Suite                                                             | Config Repo                                                    | PIH Config                                  |
 |-------------------------------------------------------------------|----------------------------------------------------------------|---------------------------------------------|
-| [mirebalais](https://bamboo.pih-emr.org/browse/MIREBALAIS-STHC)   | [zl](https://github.com/PIH/openmrs-config-zl)                 | mirebalais,mirebalais-humci                 |
+| [zlCentral](https://bamboo.pih-emr.org/browse/MIREBALAIS-STHC)    | [zl](https://github.com/PIH/openmrs-config-zl)                 | mirebalais,mirebalais-humci                 |
 | [haiti](https://bamboo.pih-emr.org/browse/MIREBALAIS-STC)         | [zl](https://github.com/PIH/openmrs-config-zl)                 | haiti,haiti-thomonde,haiti-thomonde-ci      |
 | [liberia](https://bamboo.pih-emr.org/browse/MIREBALAIS-STP)       | [pihliberia](https://github.com/PIH/openmrs-config-pihliberia) | liberia,liberia-harper,liberia-harper-kouka |
 | [sierraleone](https://bamboo.pih-emr.org/browse/MIREBALAIS-STP)   | [pihsl](https://github.com/PIH/openmrs-config-pihsl)           | sierraLeone,sierraLeone-wellbody,sierraLeone-wellbody-gladi |
@@ -77,7 +77,7 @@ Where the database name, `<server_name>`, is the SDK server name.
 * Patient Identifier Sources for ZL EMR ID must be configured as described in
     the [Mirebalais README](https://github.com/PIH/openmrs-module-mirebalais#step-7-create-a-local-identifier-source).
 
-### For Mirebalais
+### For ZlCentral
 
 * The locale must be "ht"/"Kreyol", at least for the "admin" user.
 * Patient Identifier Sources for ZL EMR ID must be configured as described in

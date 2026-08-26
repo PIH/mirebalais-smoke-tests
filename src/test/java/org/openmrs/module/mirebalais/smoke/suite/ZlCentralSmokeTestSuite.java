@@ -9,8 +9,8 @@ import org.openmrs.module.mirebalais.smoke.AdmissionDischargeTransferRetroTest;
 import org.openmrs.module.mirebalais.smoke.AdmissionDischargeTransferTest;
 import org.openmrs.module.mirebalais.smoke.ArchivesRoomFlowTest;
 import org.openmrs.module.mirebalais.smoke.BasicSmokeTest;
-import org.openmrs.module.mirebalais.smoke.CaptureVitalsMirebalaisTest;
-import org.openmrs.module.mirebalais.smoke.CheckInMirebalaisTest;
+import org.openmrs.module.mirebalais.smoke.CaptureVitalsZlCentralTest;
+import org.openmrs.module.mirebalais.smoke.CheckInZlCentralTest;
 import org.openmrs.module.mirebalais.smoke.ConsultNoteTest;
 import org.openmrs.module.mirebalais.smoke.DailyAppointmentsTest;
 import org.openmrs.module.mirebalais.smoke.EDNoteTest;
@@ -23,14 +23,14 @@ import org.openmrs.module.mirebalais.smoke.ManageServiceTypesTest;
 import org.openmrs.module.mirebalais.smoke.MergePatientTest;
 import org.openmrs.module.mirebalais.smoke.MultipleSubmitTest;
 import org.openmrs.module.mirebalais.smoke.NonCodedDiagnosesTest;
-import org.openmrs.module.mirebalais.smoke.PatientRegistrationMirebalaisFlowTest;
+import org.openmrs.module.mirebalais.smoke.PatientRegistrationZlCentralFlowTest;
 import org.openmrs.module.mirebalais.smoke.PatientSearchTest;
 import org.openmrs.module.mirebalais.smoke.RadiologyOrdersTest;
 import org.openmrs.module.mirebalais.smoke.RequestAppointmentsTest;
 import org.openmrs.module.mirebalais.smoke.RetroConsultNoteTest;
 import org.openmrs.module.mirebalais.smoke.RetroVisitTest;
 import org.openmrs.module.mirebalais.smoke.UserAdminTest;
-import org.openmrs.module.mirebalais.smoke.VisitNoteMirebalaisTest;
+import org.openmrs.module.mirebalais.smoke.VisitNoteZlCentralTest;
 import org.openmrs.module.mirebalais.smoke.helper.SmokeTestDriver;
 import org.openqa.selenium.WebDriver;
 
@@ -39,8 +39,8 @@ import org.openqa.selenium.WebDriver;
                         AdmissionDischargeTransferRetroTest.class,
                         AdmissionDischargeTransferTest.class,
                         ArchivesRoomFlowTest.class,
-                        CaptureVitalsMirebalaisTest.class,
-                        CheckInMirebalaisTest.class,
+                        CaptureVitalsZlCentralTest.class,
+                        CheckInZlCentralTest.class,
                         ConsultNoteTest.class,
                         DailyAppointmentsTest.class,
                         EDNoteTest.class,
@@ -54,15 +54,15 @@ import org.openqa.selenium.WebDriver;
                         MultipleSubmitTest.class,
                         NonCodedDiagnosesTest.class,
                         RadiologyOrdersTest.class,
-                        PatientRegistrationMirebalaisFlowTest.class,
+                        PatientRegistrationZlCentralFlowTest.class,
                         PatientSearchTest.class,
                         RequestAppointmentsTest.class,
                         RetroConsultNoteTest.class,
                         RetroVisitTest.class,
                         UserAdminTest.class,
-                        VisitNoteMirebalaisTest.class
+                        VisitNoteZlCentralTest.class
                     } )
-public class MirebalaisSmokeTestSuite {
+public class ZlCentralSmokeTestSuite {
 
     private static WebDriver driver;
 

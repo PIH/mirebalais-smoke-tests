@@ -35,9 +35,9 @@
 
     <profiles>
         <profile>
-            <id>mirebalais</id>
+            <id>zlCentral</id>
             <properties>
-                <suite>Mirebalais</suite>
+                <suite>ZlCentral</suite>
             </properties>
         </profile>
         <profile>

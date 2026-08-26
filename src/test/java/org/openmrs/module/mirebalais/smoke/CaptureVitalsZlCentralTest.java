@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.apache.commons.lang.StringUtils.replaceChars;
 
-public class CaptureVitalsMirebalaisTest extends CaptureVitalsTest {
+public class CaptureVitalsZlCentralTest extends CaptureVitalsTest {
 
 	@Override
 	protected String getVitalsAppIdentifier() {

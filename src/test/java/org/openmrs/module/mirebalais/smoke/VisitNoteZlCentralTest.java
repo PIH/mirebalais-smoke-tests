@@ -7,7 +7,7 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.loginpages.HaitiMultiLoca
 
 import static org.apache.commons.lang.StringUtils.replaceChars;
 
-public class VisitNoteMirebalaisTest extends VisitNoteTest {
+public class VisitNoteZlCentralTest extends VisitNoteTest {
 
     // TODO this will need to be tweaked further before it works--the Mirebalais app currently doesn't have waiting for consult, etc...
 
