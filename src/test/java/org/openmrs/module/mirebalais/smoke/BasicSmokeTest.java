@@ -17,7 +17,7 @@ import org.openmrs.module.mirebalais.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.ClinicianDashboard;
 import org.openmrs.module.mirebalais.smoke.pageobjects.HeaderPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.loginpages.LoginPage;
-import org.openmrs.module.mirebalais.smoke.pageobjects.loginpages.HaitiMultiLocationLoginPage;
+import org.openmrs.module.mirebalais.smoke.pageobjects.loginpages.ZlCentralLoginPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.TermsAndConditionsPage;
 import org.openmrs.module.mirebalais.smoke.pageobjects.VisitNote;
 import org.openqa.selenium.OutputType;
@@ -88,7 +88,7 @@ public abstract class BasicSmokeTest {
     }
 
     // defaults to Haiti Multi Location Login (ie Mirebalais, Thomonde), must be specifically overridden by other tests
-    protected LoginPage getLoginPage() { return new HaitiMultiLocationLoginPage(driver); }
+    protected LoginPage getLoginPage() { return new ZlCentralLoginPage(driver); }
 
     @After
     public void teardown() throws Exception {

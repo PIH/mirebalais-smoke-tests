@@ -2,7 +2,7 @@ package org.openmrs.module.mirebalais.smoke;
 
 import org.junit.Test;
 import org.openmrs.module.mirebalais.smoke.pageobjects.loginpages.LoginPage;
-import org.openmrs.module.mirebalais.smoke.pageobjects.loginpages.HaitiMultiLocationLoginPage;
+import org.openmrs.module.mirebalais.smoke.pageobjects.loginpages.ZlCentralLoginPage;
 
 public class PatientRegistrationZlCentralFlowTest extends PatientRegistrationHaitiFlowTest {
 
@@ -30,7 +30,7 @@ public class PatientRegistrationZlCentralFlowTest extends PatientRegistrationHai
 
     @Override
     protected LoginPage getLoginPage() {
-        return new HaitiMultiLocationLoginPage(driver);
+        return new ZlCentralLoginPage(driver);
     }
 
 }

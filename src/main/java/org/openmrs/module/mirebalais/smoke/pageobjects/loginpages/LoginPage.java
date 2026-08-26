@@ -27,8 +27,14 @@ public abstract class LoginPage {
 		driver.findElement(By.id("login-button")).click();
 		secretQuestionLoginPage.enterSecretQuestion(password);
 		termsAndConditionsPage.acceptTermsIfPresent();
+		selectFacilityIfNeeded();
 		location = (StringUtils.isBlank(location) ? getDefaultLocationName() : location);
 		driver.findElement(By.xpath("//*[contains(text(), '" + location + "')]")).click();
+	}
+
+	// some servers show a facility-selection step (a "visit-location-select" list) that must be
+	// clicked before the location-selection section becomes visible; no-op unless overridden
+	protected void selectFacilityIfNeeded() {
 	}
 
 	public abstract String getLocale();
