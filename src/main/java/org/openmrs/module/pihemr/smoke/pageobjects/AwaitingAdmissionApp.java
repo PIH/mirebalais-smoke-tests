@@ -31,6 +31,7 @@ public class AwaitingAdmissionApp extends AbstractPageObject {
     }
 
     private boolean patientInAwaitingAdmissionTable(Patient testPatient) {
+        wait30seconds.until(ExpectedConditions.presenceOfElementLocated(awaitingAdmissionTable));
         return driver.findElement(awaitingAdmissionTable).getText().contains(testPatient.getIdentifier());
     }
 

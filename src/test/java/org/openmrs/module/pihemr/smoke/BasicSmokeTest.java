@@ -94,6 +94,7 @@ public abstract class BasicSmokeTest {
 
     @After
     public void teardown() throws Exception {
+        turnOnImplicitWait();
         log("Logging out");
         logout();
     }

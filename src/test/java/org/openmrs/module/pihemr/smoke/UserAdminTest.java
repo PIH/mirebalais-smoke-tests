@@ -59,17 +59,20 @@ public class UserAdminTest extends BasicSmokeTest {
 		assertThat(appDashboard.isActiveVisitsAppPresented(), is(true));
 
         turnOffImplicitWaits(); // once we've found one element, assume that all are present
-		assertThat(appDashboard.isUhmCaptureVitalsAppPresented(), is(true));
-        assertThat(appDashboard.isAwaitingAdmissionAppPresented(), is(true));
-        assertThat(appDashboard.isInpatientsAppPresented(), is(true));
+        try {
+            assertThat(appDashboard.isUhmCaptureVitalsAppPresented(), is(true));
+            assertThat(appDashboard.isAwaitingAdmissionAppPresented(), is(true));
+            assertThat(appDashboard.isInpatientsAppPresented(), is(true));
 
-        assertThat(appDashboard.isSchedulingAppPresented(), is(false));
-		assertThat(appDashboard.isSystemAdministrationAppPresented(), is(false));
-		assertThat(appDashboard.isPatientRegistrationAppPresented(), is(false));
-		assertThat(appDashboard.isReportsAppPresented(), is(false));
-		assertThat(appDashboard.isStartClinicVisitAppPresented(), is(false));
-		assertThat(appDashboard.isLegacyAppPresented(), is(false));
-        turnOnImplicitWait();
+            assertThat(appDashboard.isSchedulingAppPresented(), is(false));
+            assertThat(appDashboard.isSystemAdministrationAppPresented(), is(false));
+            assertThat(appDashboard.isPatientRegistrationAppPresented(), is(false));
+            assertThat(appDashboard.isReportsAppPresented(), is(false));
+            assertThat(appDashboard.isStartClinicVisitAppPresented(), is(false));
+            assertThat(appDashboard.isLegacyAppPresented(), is(false));
+        } finally {
+            turnOnImplicitWait();
+        }
 
         logout();
 	}
@@ -88,17 +91,20 @@ public class UserAdminTest extends BasicSmokeTest {
         assertThat(appDashboard.isActiveVisitsAppPresented(), is(true));
 
         turnOffImplicitWaits(); // once we've found one element, assume that all are present
-        assertThat(appDashboard.isAwaitingAdmissionAppPresented(), is(true));
-        assertThat(appDashboard.isInpatientsAppPresented(), is(true));
-        assertThat(appDashboard.isPatientRegistrationAppPresented(), is(true));
-        assertThat(appDashboard.isReportsAppPresented(), is(true));
-        assertThat(appDashboard.isSchedulingAppPresented(), is(true));
+        try {
+            assertThat(appDashboard.isAwaitingAdmissionAppPresented(), is(true));
+            assertThat(appDashboard.isInpatientsAppPresented(), is(true));
+            assertThat(appDashboard.isPatientRegistrationAppPresented(), is(true));
+            assertThat(appDashboard.isReportsAppPresented(), is(true));
+            assertThat(appDashboard.isSchedulingAppPresented(), is(false)); // appointment scheduling functionality was removed (a02ba0b)
 
-        assertThat(appDashboard.isStartClinicVisitAppPresented(), is(false));
-        assertThat(appDashboard.isUhmCaptureVitalsAppPresented(), is(false));
-        assertThat(appDashboard.isSystemAdministrationAppPresented(), is(false));
-        assertThat(appDashboard.isLegacyAppPresented(), is(false));
-        turnOnImplicitWait();
+            assertThat(appDashboard.isStartClinicVisitAppPresented(), is(false));
+            assertThat(appDashboard.isUhmCaptureVitalsAppPresented(), is(false));
+            assertThat(appDashboard.isSystemAdministrationAppPresented(), is(false));
+            assertThat(appDashboard.isLegacyAppPresented(), is(false));
+        } finally {
+            turnOnImplicitWait();
+        }
 
         logout();
 	}
@@ -116,17 +122,20 @@ public class UserAdminTest extends BasicSmokeTest {
 
         assertThat(appDashboard.isPatientRegistrationAppPresented(), is(true));
         turnOffImplicitWaits(); // once we've found one element, assume that all are present
-        assertThat(appDashboard.isStartClinicVisitAppPresented(), is(true));
-		assertThat(appDashboard.isReportsAppPresented(), is(true));
+        try {
+            assertThat(appDashboard.isStartClinicVisitAppPresented(), is(true));
+            assertThat(appDashboard.isReportsAppPresented(), is(true));
 
-        assertThat(appDashboard.isSchedulingAppPresented(), is(false));
-		assertThat(appDashboard.isUhmCaptureVitalsAppPresented(), is(false));
-        assertThat(appDashboard.isActiveVisitsAppPresented(), is(false));
-		assertThat(appDashboard.isSystemAdministrationAppPresented(), is(false));
-		assertThat(appDashboard.isLegacyAppPresented(), is(false));
-        assertThat(appDashboard.isAwaitingAdmissionAppPresented(), is(false));
-        assertThat(appDashboard.isInpatientsAppPresented(), is(false));
-        turnOnImplicitWait();
+            assertThat(appDashboard.isSchedulingAppPresented(), is(false));
+            assertThat(appDashboard.isUhmCaptureVitalsAppPresented(), is(false));
+            assertThat(appDashboard.isActiveVisitsAppPresented(), is(false));
+            assertThat(appDashboard.isSystemAdministrationAppPresented(), is(false));
+            assertThat(appDashboard.isLegacyAppPresented(), is(false));
+            assertThat(appDashboard.isAwaitingAdmissionAppPresented(), is(false));
+            assertThat(appDashboard.isInpatientsAppPresented(), is(false));
+        } finally {
+            turnOnImplicitWait();
+        }
 
         logout();
 
@@ -143,18 +152,21 @@ public class UserAdminTest extends BasicSmokeTest {
 
 		logOutAndLogInWithNewUser(username);
 
-        assertThat(appDashboard.isSchedulingAppPresented(), is(true));
+        assertThat(appDashboard.isSchedulingAppPresented(), is(false)); // appointment scheduling functionality was removed (a02ba0b)
         turnOffImplicitWaits(); // once we've found one element, assume that all are present
-        assertThat(appDashboard.isActiveVisitsAppPresented(), is(true));
-        assertThat(appDashboard.isSystemAdministrationAppPresented(), is(true));
-        assertThat(appDashboard.isReportsAppPresented(), is(true));
-        assertThat(appDashboard.isInpatientsAppPresented(), is(true));
-        assertThat(appDashboard.isPatientRegistrationAppPresented(), is(true));
-        assertThat(appDashboard.isStartClinicVisitAppPresented(), is(true));
-        assertThat(appDashboard.isUhmCaptureVitalsAppPresented(), is(true));
+        try {
+            assertThat(appDashboard.isActiveVisitsAppPresented(), is(true));
+            assertThat(appDashboard.isSystemAdministrationAppPresented(), is(true));
+            assertThat(appDashboard.isReportsAppPresented(), is(true));
+            assertThat(appDashboard.isInpatientsAppPresented(), is(true));
+            assertThat(appDashboard.isPatientRegistrationAppPresented(), is(true));
+            assertThat(appDashboard.isStartClinicVisitAppPresented(), is(true));
+            assertThat(appDashboard.isUhmCaptureVitalsAppPresented(), is(true));
 
-        assertThat(appDashboard.isLegacyAppPresented(), is(false));
-        turnOnImplicitWait();
+            assertThat(appDashboard.isLegacyAppPresented(), is(false));
+        } finally {
+            turnOnImplicitWait();
+        }
 
 		appDashboard.openSysAdminApp();
         // confirm localized in English

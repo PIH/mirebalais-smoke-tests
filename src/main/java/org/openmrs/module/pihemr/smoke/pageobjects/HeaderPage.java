@@ -13,9 +13,11 @@
  */
 package org.openmrs.module.pihemr.smoke.pageobjects;
 
+import org.openmrs.module.pihemr.smoke.helper.Toast;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class HeaderPage extends AbstractPageObject {
 
@@ -34,8 +36,10 @@ public class HeaderPage extends AbstractPageObject {
     }
 
 	public String changeLocationTo(int listElement) throws Exception {
-        Thread.sleep(2000);
+        Toast.closeToast(driver);
 		clickOnLocationMenu();
+        wait30seconds.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("ul.select li")));
+        Toast.closeToast(driver);
         WebElement location = driver.findElements(By.cssSelector("ul.select li")).get(listElement - 1);
         String locationName = location.getAttribute("textContent");
         select(location);
@@ -43,11 +47,11 @@ public class HeaderPage extends AbstractPageObject {
     }
 
     private void select(WebElement location) {
-        location.click();
+        clickOn(location);
     }
 
     private void clickOnLocationMenu() {
-		driver.findElement(By.className("icon-map-marker")).click();
+		clickOn(By.className("icon-map-marker"));
 	}
 
     public By locationNameSelector() {

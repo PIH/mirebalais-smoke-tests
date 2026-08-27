@@ -19,6 +19,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
@@ -75,7 +76,9 @@ public class UserAdmin extends AbstractPageObject {
 	public void openAccount(String username) throws InterruptedException{
 		driver.findElement(By.id("search-filter")).sendKeys(username);
         hitEnterKey();
-		driver.findElement(By.linkText(username)).click();
+        By userLink = By.linkText(username);
+        wait30seconds.until(ExpectedConditions.presenceOfElementLocated(userLink));
+		driver.findElement(userLink).click();
 	}
 
 	public void setupTwoFactorAuthenticationWithSecretQuestion(String password) throws Exception {
