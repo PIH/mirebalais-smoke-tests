@@ -12,7 +12,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
 public class PatientRegistrationTest extends BasicSmokeTest {
 
     public void goToRegistration() throws Exception {
-        login();
+        logInAsArchivist();
         appDashboard.openPatientRegistrationApp();
         driver.findElement(By.id("register-patient-button")).click();
         new WebDriverWait(driver, 15).until(visibilityOfElementLocated(By.id("checkbox-enable-registration-date")));
