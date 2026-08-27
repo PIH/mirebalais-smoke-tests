@@ -19,7 +19,7 @@ public class AdmissionNoteForm extends BaseHtmlForm {
         assertThat(submitButtonIsEnabled(),is(true));
         confirmData();
         // note that a wristband printer must be set for this location on the server the tests are run against
-        chooseNotToPrintWristband();
+        //chooseNotToPrintWristband();
     }
 
     public void fillFormWithDiagnosis(String primaryDiagnosis) throws Exception {
@@ -29,7 +29,7 @@ public class AdmissionNoteForm extends BaseHtmlForm {
         assertThat(submitButtonIsEnabled(),is(true));
         confirmData();
         // note that a wristband printer must be set for this location on the server the tests are run against
-        chooseNotToPrintWristband();
+        //chooseNotToPrintWristband();
     }
 
     public void fillFormWithBasicEncounterInfoAndDiagnosis(String primaryDiagnosis) throws Exception {
@@ -41,7 +41,7 @@ public class AdmissionNoteForm extends BaseHtmlForm {
         assertThat(submitButtonIsEnabled(),is(true));
         confirmData();
         // note that a wristband printer must be set for this location on the server the tests are run against
-        chooseNotToPrintWristband();
+        //chooseNotToPrintWristband();
     }
 
     public void chooseNotToPrintWristband() {

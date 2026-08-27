@@ -17,20 +17,36 @@ public class BaseDatabaseHandler {
     protected static DatabaseConnection connection;
 
     static {
-        try {
-            SmokeTestProperties properties = new SmokeTestProperties();
+        SmokeTestProperties properties = new SmokeTestProperties();
+        Exception lastException = null;
 
-            Class.forName(properties.getDatabaseDriverClass());
-            connection = new DatabaseConnection(getConnection(properties.getDatabaseUrl(), properties.getDatabaseUsername(),
-                    properties.getDatabasePassword()));
+        // retry a few times: a transient connection blip here permanently breaks every DB-dependent
+        // test for the rest of the run, since this only runs once per JVM
+        int maxAttempts = 8;
+        for (int attempt = 1; attempt <= maxAttempts && connection == null; attempt++) {
+            try {
+                Class.forName(properties.getDatabaseDriverClass());
+                connection = new DatabaseConnection(getConnection(properties.getDatabaseUrl(), properties.getDatabaseUsername(),
+                        properties.getDatabasePassword()));
 
-            DatabaseConfig config = connection.getConfig();
-            config.setProperty(PROPERTY_DATATYPE_FACTORY, new MySqlDataTypeFactory());
-            config.setProperty(PROPERTY_METADATA_HANDLER, new MySqlMetadataHandler());
-
+                DatabaseConfig config = connection.getConfig();
+                config.setProperty(PROPERTY_DATATYPE_FACTORY, new MySqlDataTypeFactory());
+                config.setProperty(PROPERTY_METADATA_HANDLER, new MySqlMetadataHandler());
+            }
+            catch (Exception e) {
+                connection = null;
+                lastException = e;
+                if (attempt < maxAttempts) {
+                    try {
+                        Thread.sleep(3000);
+                    }
+                    catch (InterruptedException ignored) {}
+                }
+            }
         }
-        catch (Exception e) {
-            e.printStackTrace();
+
+        if (connection == null && lastException != null) {
+            lastException.printStackTrace();
         }
     }
 

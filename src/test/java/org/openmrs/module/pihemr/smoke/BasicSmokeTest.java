@@ -26,7 +26,6 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -53,11 +52,14 @@ public abstract class BasicSmokeTest {
 
 		@Override
 		public void failed(Throwable t, Description test) {
-			File tempFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+			// best-effort screenshot only -- must never mask the real failure (t) with a screenshot-capture problem
 			try {
+				File tempFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 				FileUtils.copyFile(tempFile, new File("screenshots/" + test.getDisplayName() + ".png"));
 			}
-			catch (IOException e) {}
+			catch (Exception e) {
+				System.out.println("Failed to capture screenshot for " + test.getDisplayName() + ": " + e);
+			}
 		}
 	};
 
