@@ -105,8 +105,11 @@ public class UserDatabaseHandler extends BaseDatabaseHandler {
 		resetColumnThatMatchesUserId("users", "creator" ,userId);
 		resetColumnThatMatchesUserId("users", "changed_by" ,userId);
 
-        userDataToDelete.addTable("idgen_log_entry","select * from idgen_log_entry where generated_by = " + userId );
 		userDataToDelete.addTable("users", "select * from users where user_id = " + userId);
+        // added after "users" -- DatabaseOperation.DELETE processes tables in reverse of
+        // insertion order, so this must come after "users" here to be deleted before it,
+        // respecting idgen_log_entry.generated_by's FK reference to users.user_id
+        userDataToDelete.addTable("idgen_log_entry","select * from idgen_log_entry where generated_by = " + userId );
 		userDataToDelete.addTable("user_role", "select * from user_role where user_id = " + userId);
 		userDataToDelete.addTable("user_property", "select * from user_property where user_id = " + userId);
 
