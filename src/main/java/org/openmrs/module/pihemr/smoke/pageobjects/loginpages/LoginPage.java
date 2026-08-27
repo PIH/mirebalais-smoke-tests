@@ -7,16 +7,20 @@ import org.openmrs.module.pihemr.smoke.helper.UserDatabaseHandler;
 import org.openmrs.module.pihemr.smoke.pageobjects.TermsAndConditionsPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class LoginPage {
 
 	protected WebDriver driver;
+	protected WebDriverWait wait30seconds;
 
 	protected static SecretQuestionLoginPage secretQuestionLoginPage;
 	protected static TermsAndConditionsPage termsAndConditionsPage;
 
 	public LoginPage(WebDriver driver) {
 		this.driver = driver;
+		this.wait30seconds = new WebDriverWait(driver, 30);
 		termsAndConditionsPage = new TermsAndConditionsPage(driver);
 		secretQuestionLoginPage = new SecretQuestionLoginPage(driver);
 	}
@@ -29,7 +33,9 @@ public abstract class LoginPage {
 		termsAndConditionsPage.acceptTermsIfPresent();
 		selectFacilityIfNeeded();
 		location = (StringUtils.isBlank(location) ? getDefaultLocationName() : location);
-		driver.findElement(By.xpath("//*[contains(text(), '" + location + "')]")).click();
+		By locationOption = By.xpath("//*[contains(text(), '" + location + "')]");
+		wait30seconds.until(ExpectedConditions.elementToBeClickable(locationOption));
+		driver.findElement(locationOption).click();
 	}
 
 	// some servers show a facility-selection step (a "visit-location-select" list) that must be
