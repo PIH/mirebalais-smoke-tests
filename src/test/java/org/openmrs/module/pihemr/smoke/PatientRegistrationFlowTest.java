@@ -26,7 +26,7 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         String familyName = "Jones";
         String nickname = "Tommy";
 
-        login();
+        logInAsArchivist();
         appDashboard.openPatientRegistrationApp();
         //click on the Register Patient button
         driver.findElement(By.id("register-patient-button")).click();
@@ -56,8 +56,7 @@ public abstract class PatientRegistrationFlowTest extends DbTest {
         String familyName = "Thorton";
         String nickname = "Bob";
 
-        login();
-        header.home();
+        logInAsArchivist();
         appDashboard.openPatientRegistrationApp();
 
         registration.editExistingPatient(adultTestPatient, givenName, familyName, nickname, PatientRegistration.Gender.FEMALE, 10, 10, 1950, getMothersFirstNameForEdit(),
