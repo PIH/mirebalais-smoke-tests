@@ -19,7 +19,6 @@ public abstract class DbTest extends BasicSmokeTest {
 
     @Before
     public void setupTestData() throws Exception {
-        log("Setting up test data");
         adultTestPatient = PatientDatabaseHandler.insertAdultTestPatient();
         anotherAdultTestPatient = PatientDatabaseHandler.insertAdultTestPatient();
         newbornTestPatient = PatientDatabaseHandler.insertNewbornTestPatient();
@@ -28,7 +27,6 @@ public abstract class DbTest extends BasicSmokeTest {
 
     @After
 	public void deleteTestData() throws Exception {
-        log("Deleting test data");
 		try {
 			PatientDatabaseHandler.deleteAllTestPatients();
 		}
@@ -41,7 +39,6 @@ public abstract class DbTest extends BasicSmokeTest {
 	// overrides "afterclass" defined in BaseSmokeTest
     @AfterClass
     public static void after() throws Exception {
-        System.out.println("Deleting test users");
         try {
             UserDatabaseHandler.deleteAllTestUsers();
         }

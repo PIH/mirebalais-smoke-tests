@@ -46,8 +46,27 @@ public abstract class BasicSmokeTest {
 	@Rule
 	public TestRule testWatcher = new TestWatcher() {
 
+		private long startTime;
+
+		private String testName(Description test) {
+			return test.getTestClass().getSimpleName() + "." + test.getMethodName();
+		}
+
+		@Override
+		protected void starting(Description test) {
+			startTime = System.currentTimeMillis();
+			System.out.println("===== " + new Date() + " STARTING " + testName(test) + " =====");
+		}
+
+		@Override
+		protected void succeeded(Description test) {
+			System.out.println("===== " + new Date() + " PASSED " + testName(test) + " (" + (System.currentTimeMillis() - startTime) + "ms) =====");
+		}
+
 		@Override
 		public void failed(Throwable t, Description test) {
+			System.out.println("===== " + new Date() + " FAILED " + testName(test) + " (" + (System.currentTimeMillis() - startTime) + "ms): " + t + " =====");
+
 			// best-effort screenshot only -- must never mask the real failure (t) with a screenshot-capture problem
 			try {
 				File tempFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
@@ -76,7 +95,6 @@ public abstract class BasicSmokeTest {
 
 	@Before
     public void initPageObjects() {
-        log("Initializing page objects");
         header = new HeaderPage(driver);
         loginPage = getLoginPage();
         visitNote = new VisitNote(driver);
@@ -90,13 +108,11 @@ public abstract class BasicSmokeTest {
     @After
     public void teardown() throws Exception {
         turnOnImplicitWait();
-        log("Logging out");
         logout();
     }
 
     @AfterClass
     public static void after() throws Exception {
-        System.out.println("Deleting test users and logging out if necessary");
         try {
             UserDatabaseHandler.deleteAllTestUsers();
         }
