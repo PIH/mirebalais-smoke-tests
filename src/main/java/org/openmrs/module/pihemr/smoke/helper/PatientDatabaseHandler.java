@@ -3,32 +3,37 @@ package org.openmrs.module.pihemr.smoke.helper;
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.QueryDataSet;
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
-import org.dbunit.dataset.RowOutOfBoundsException;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.openmrs.module.pihemr.smoke.dataModel.Patient;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.math.BigInteger;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.dbunit.operation.DatabaseOperation.DELETE;
-import static org.dbunit.operation.DatabaseOperation.INSERT;
 
 public class PatientDatabaseHandler extends BaseDatabaseHandler {
 
@@ -53,23 +58,145 @@ public class PatientDatabaseHandler extends BaseDatabaseHandler {
 
 	private static Patient insertTestPatient(String birthdate) throws Exception {
 		try {
-			Patient patient = new Patient(getNextValidPatientIdentifier(), "Crash Test", "Dummy",
-			        getNextAutoIncrementFor("person"), getPatientIdentifierTypeId(),
-			        getNextAutoIncrementFor("person_name"), getNextAutoIncrementFor("person_address"),
-			        getNextAutoIncrementFor("patient_identifier"), getNextAutoIncrementFor("encounter"),
-			        getEncounterTypeId(), UUID.randomUUID().toString(), UUID.randomUUID().toString(), UUID.randomUUID().toString(),
+			String identifierTypeUuid = getPatientIdentifierTypeUuid();
+			String identifier = getNextValidPatientIdentifier(identifierTypeUuid);
+			String personUuid = createPatientViaApi(identifier, identifierTypeUuid, birthdate);
+			BigInteger personId = getPersonIdForUuid(personUuid);
+			insertRegistrationEncounter(personId);
+
+			Patient patient = new Patient(identifier, "Crash Test", "Dummy", personId, -1,
+			        new BigInteger("-1"), new BigInteger("-1"), new BigInteger("-1"), new BigInteger("-1"), -1,
+			        personUuid, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
 					UUID.randomUUID().toString(), UUID.randomUUID().toString(), birthdate);
-			
-			IDataSet dataset = createDataset(patient);
-			datasets.put(patient, dataset);
-			
-			INSERT.execute(connection, dataset);
+
+			datasets.put(patient, createDataset(patient));
 			return patient;
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("unable to create patient in database", e);
+			throw new Exception("unable to create patient via API", e);
 		}
+	}
+
+	private static String getPatientIdentifierTypeUuid() throws Exception {
+		try (PreparedStatement statement = connection.getConnection().prepareStatement(
+		        "select metadata_uuid from metadatamapping_metadata_term_mapping where code = 'emr.primaryIdentifierType'")) {
+			try (java.sql.ResultSet resultSet = statement.executeQuery()) {
+				if (!resultSet.next()) {
+					throw new Exception("No metadata term mapping found for code 'emr.primaryIdentifierType'");
+				}
+				return resultSet.getString("metadata_uuid");
+			}
+		}
+	}
+
+	private static String getNextValidPatientIdentifier(String identifierTypeUuid) throws Exception {
+		String sourceUuid;
+		String sourceQuery = "select s.uuid as source_uuid from idgen_auto_generation_option a "
+		        + "join idgen_identifier_source s on a.source = s.id "
+		        + "where a.identifier_type = (select patient_identifier_type_id from patient_identifier_type where uuid = ?) "
+		        + "and a.automatic_generation_enabled = 1";
+		try (PreparedStatement statement = connection.getConnection().prepareStatement(sourceQuery)) {
+			statement.setString(1, identifierTypeUuid);
+			try (java.sql.ResultSet resultSet = statement.executeQuery()) {
+				if (!resultSet.next()) {
+					throw new Exception(
+					        "No identifier source with auto-generation enabled found for identifier type " + identifierTypeUuid);
+				}
+				sourceUuid = resultSet.getString("source_uuid");
+			}
+		}
+
+		String response = postJson("/ws/rest/v1/idgen/identifiersource/" + sourceUuid + "/identifier", "{}");
+		return extractJsonStringField(response, "identifier");
+	}
+
+	private static String createPatientViaApi(String identifier, String identifierTypeUuid, String birthdate) throws Exception {
+		String body = "{"
+		        + "\"person\": {"
+		        + "  \"names\": [{\"givenName\": \"Crash Test\", \"familyName\": \"Dummy\"}],"
+		        + "  \"gender\": \"M\","
+		        + "  \"birthdate\": \"" + birthdate + "\","
+		        + "  \"addresses\": [{\"address1\": \"Cange\", \"address2\": \"cange\", "
+		        + "    \"cityVillage\": \"Boucan Carr\\u00e9\", \"stateProvince\": \"Centre\", \"country\": \"Haiti\"}]"
+		        + "},"
+		        + "\"identifiers\": [{\"identifier\": \"" + identifier + "\", \"identifierType\": \"" + identifierTypeUuid
+		        + "\", \"preferred\": true}]"
+		        + "}";
+		String response = postJson("/ws/rest/v1/patient", body);
+		return extractJsonStringField(response, "uuid");
+	}
+
+	private static BigInteger getPersonIdForUuid(String uuid) throws Exception {
+		try (PreparedStatement statement = connection.getConnection()
+		        .prepareStatement("select person_id from person where uuid = ?")) {
+			statement.setString(1, uuid);
+			try (java.sql.ResultSet resultSet = statement.executeQuery()) {
+				resultSet.next();
+				return BigInteger.valueOf(resultSet.getLong("person_id"));
+			}
+		}
+	}
+
+	// kept as a plain SQL insert rather than a REST call to the encounter resource -- creating this
+	// encounter via REST triggers an unrelated visit-auto-assignment bug in this OpenMRS version,
+	// and unlike the patient itself, this encounter is never searched for, so there's no indexing
+	// concern in leaving it as SQL
+	private static void insertRegistrationEncounter(BigInteger personId) throws Exception {
+		String insertStmt = "insert into encounter (encounter_id, patient_id, encounter_type, location_id, creator, "
+		        + "date_created, encounter_datetime, uuid, voided) values (?, ?, ?, 1, 1, '2013-06-04 17:00:47.0', "
+		        + "'2013-06-04 17:00:47.0', ?, false)";
+		try (PreparedStatement statement = connection.getConnection().prepareStatement(insertStmt)) {
+			statement.setLong(1, getNextAutoIncrementFor("encounter").longValue());
+			statement.setLong(2, personId.longValue());
+			statement.setInt(3, getEncounterTypeId());
+			statement.setString(4, UUID.randomUUID().toString());
+			statement.executeUpdate();
+		}
+	}
+
+	private static String postJson(String path, String jsonBody) throws Exception {
+		SmokeTestProperties properties = new SmokeTestProperties();
+		URL url = new URL(properties.getWebAppUrl() + path);
+		HttpURLConnection httpConnection = (HttpURLConnection) url.openConnection();
+		try {
+			String credentials = Base64.getEncoder()
+			        .encodeToString(("admin:" + properties.getAdminUserPassword()).getBytes(StandardCharsets.UTF_8));
+			httpConnection.setRequestMethod("POST");
+			httpConnection.setRequestProperty("Authorization", "Basic " + credentials);
+			httpConnection.setRequestProperty("Content-Type", "application/json");
+			httpConnection.setDoOutput(true);
+			try (OutputStream out = httpConnection.getOutputStream()) {
+				out.write(jsonBody.getBytes(StandardCharsets.UTF_8));
+			}
+
+			int status = httpConnection.getResponseCode();
+			InputStreamReader streamReader = new InputStreamReader(
+			    status < 300 ? httpConnection.getInputStream() : httpConnection.getErrorStream(), StandardCharsets.UTF_8);
+			StringBuilder responseBody = new StringBuilder();
+			try (BufferedReader reader = new BufferedReader(streamReader)) {
+				String line;
+				while ((line = reader.readLine()) != null) {
+					responseBody.append(line);
+				}
+			}
+
+			if (status >= 300) {
+				throw new Exception("POST " + path + " failed with status " + status + ": " + responseBody);
+			}
+			return responseBody.toString();
+		}
+		finally {
+			httpConnection.disconnect();
+		}
+	}
+
+	private static String extractJsonStringField(String json, String fieldName) throws Exception {
+		Matcher matcher = Pattern.compile("\"" + fieldName + "\"\\s*:\\s*\"([^\"]*)\"").matcher(json);
+		if (matcher.find()) {
+			return matcher.group(1);
+		}
+		throw new Exception("Field \"" + fieldName + "\" not found in response: " + json);
 	}
 
 	public static void deleteAllTestPatients() throws Exception {
@@ -100,9 +227,6 @@ public class PatientDatabaseHandler extends BaseDatabaseHandler {
 		}
 		
 		DELETE.execute(connection, datasets.get(patient));
-
-        // we stopped unlocking here because I don't think this was playing nicely with hibernate and we were getting duplicates
-		//unlockPatientIdentifier(patient.getIdentifier());
 	}
 	
 	private synchronized static List<Map<String, String>> getPatientTablesToDelete(DatabaseConnection connection) throws Exception {
@@ -156,85 +280,4 @@ public class PatientDatabaseHandler extends BaseDatabaseHandler {
 		return new FlatXmlDataSetBuilder().build(new InputStreamReader(IOUtils.toInputStream(template.apply(patient))));
 	}
 	
-	private static String getNextValidPatientIdentifier() throws Exception {
-
-        String identifier;
-
-        // handles Haiti address generation form
-		ITable patientIdentifier = connection.createQueryTable("idgen_pooled_identifier",
-		    "select * from idgen_pooled_identifier where date_used is null limit 1");
-
-        try {
-            identifier = (String) patientIdentifier.getValue(0, "identifier");
-            lockPatientIdentifier(identifier);
-        }
-        catch(RowOutOfBoundsException e) {
-            // TODO improve this
-            // hack to generate a random pseudo (won't be sequential) Pleebo identifier if Haiti generator fails
-            identifier = "PL9" + StringUtils.leftPad(new Integer(new Random().nextInt(999999)).toString(), 6, '0');
-        }
-
-		return identifier;
-	}
-	
-	private static void lockPatientIdentifier(String identifier) throws Exception {
-		setDateUsedOfPatientIdentifierTo(identifier, "sysdate()");
-	}
-	
-	private static void unlockPatientIdentifier(String identifier) throws Exception {
-		setDateUsedOfPatientIdentifierTo(identifier, "null");
-	}
-	
-	private static Integer getPatientIdentifierTypeId() throws Exception {
-
-        // bit of a hack--search for ZL EMR ID type first, if this fails, go for Pleebo EMR ID, then Mexico
-        ITable patientIdentifierType = connection.createQueryTable("identifier_source",
-		    "select * from patient_identifier_type where uuid = 'a541af1e-105c-40bf-b345-ba1fd6a59b85'"); // ZL EMR ID
-
-        try {
-            return (Integer) patientIdentifierType.getValue(0, "patient_identifier_type_id");
-        }
-        catch (RowOutOfBoundsException e) {
-        }
-
-        patientIdentifierType = connection.createQueryTable("identifier_source",
-                    "select * from patient_identifier_type where uuid = '0bc545e0-f401-11e4-b939-0800200c9a66'"); // Pleebo EMR ID
-
-		try {
-			return (Integer) patientIdentifierType.getValue(0, "patient_identifier_type_id");
-		}
-		catch (RowOutOfBoundsException e) {
-		}
-
-		patientIdentifierType = connection.createQueryTable("identifier_source",
-				"select * from patient_identifier_type where uuid = '506add39-794f-11e8-9bcd-74e5f916c5ec'"); // Mexico EMR ID
-
-		try {
-			return (Integer) patientIdentifierType.getValue(0, "patient_identifier_type_id");
-		}
-		catch (RowOutOfBoundsException e) {
-		}
-
-		patientIdentifierType = connection.createQueryTable("identifier_source",
-				"select * from patient_identifier_type where uuid = '1a2acce0-7426-11e5-a837-0800200c9a66'"); // Wellbody EMR ID
-		try {
-			return (Integer) patientIdentifierType.getValue(0, "patient_identifier_type_id");
-
-		}
-		catch (RowOutOfBoundsException e) {
-		}
-
-		patientIdentifierType = connection.createQueryTable("identifier_source",
-				"select * from patient_identifier_type where uuid = '2ffecc10-d65e-410a-9519-aa438f0b54f6'"); // Peru EMR ID
-
-		return (Integer) patientIdentifierType.getValue(0, "patient_identifier_type_id");
-	}
-
-	private static void setDateUsedOfPatientIdentifierTo(String identifier, String date) throws Exception {
-		connection
-		        .getConnection()
-		        .createStatement()
-		        .executeUpdate(
-		            "update idgen_pooled_identifier set date_used = " + date + " where identifier = '" + identifier + "'");
-	}
 }

@@ -23,10 +23,6 @@ public abstract class DbTest extends BasicSmokeTest {
         adultTestPatient = PatientDatabaseHandler.insertAdultTestPatient();
         anotherAdultTestPatient = PatientDatabaseHandler.insertAdultTestPatient();
         newbornTestPatient = PatientDatabaseHandler.insertNewbornTestPatient();
-        home();
-        logInAsAdmin();
-        adminPage.updateLuceneIndex();
-        logout();
     }
 
 
@@ -45,7 +41,7 @@ public abstract class DbTest extends BasicSmokeTest {
 	// overrides "afterclass" defined in BaseSmokeTest
     @AfterClass
     public static void after() throws Exception {
-        System.out.println("Deleting test users and updating lucene index");
+        System.out.println("Deleting test users");
         try {
             UserDatabaseHandler.deleteAllTestUsers();
         }
@@ -60,16 +56,6 @@ public abstract class DbTest extends BasicSmokeTest {
 
         // back to home page
         header.home();
-
-        // hack to reset the lucene index at the end of tests... fail quietly
-        try {
-            header.logOut();
-            logInAsAdmin();
-            adminPage.updateLuceneIndex();
-        }
-        catch (Exception e) {
-
-        }
 
         // log out if necessary
         try {

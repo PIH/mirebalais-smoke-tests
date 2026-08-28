@@ -12,7 +12,6 @@ import org.junit.runner.Description;
 import org.openmrs.module.pihemr.smoke.helper.SmokeTestDriver;
 import org.openmrs.module.pihemr.smoke.helper.SmokeTestProperties;
 import org.openmrs.module.pihemr.smoke.helper.UserDatabaseHandler;
-import org.openmrs.module.pihemr.smoke.pageobjects.AdminPage;
 import org.openmrs.module.pihemr.smoke.pageobjects.AppDashboard;
 import org.openmrs.module.pihemr.smoke.pageobjects.ClinicianDashboard;
 import org.openmrs.module.pihemr.smoke.pageobjects.HeaderPage;
@@ -33,8 +32,6 @@ public abstract class BasicSmokeTest {
 	protected static LoginPage loginPage;
 
 	protected static HeaderPage header;
-
-	protected static AdminPage adminPage;
 
 	protected static WebDriver driver;
 
@@ -81,7 +78,6 @@ public abstract class BasicSmokeTest {
     public void initPageObjects() {
         log("Initializing page objects");
         header = new HeaderPage(driver);
-        adminPage = new AdminPage(driver);
         loginPage = getLoginPage();
         visitNote = new VisitNote(driver);
         appDashboard = new AppDashboard(driver);
