@@ -49,10 +49,21 @@ public class CheckInFormPage extends AbstractPageObject {
         findInputInsideSpan("receiptNumber").sendKeys("receipt #" + Keys.RETURN);
         selectNotToPrintWristbandIfQuestionPresent();
 
+        // repeatedly activate the submit button to verify rapid, repeated submission attempts
+        // don't create duplicate encounters; sending synthetic RETURN keystrokes to the button
+        // is not reliably picked up as an activation by current Chrome/ChromeDriver, so click it
+        // instead (as elsewhere in this codebase, native clicks aren't always registered either,
+        // hence the JS-executed click in clickOn()). Once the submission goes through, the page
+        // navigates away and further clicks on the now-stale button element throw.
         WebElement confirmButton = driver.findElement(By.id("confirmationQuestion")).findElement(By.className("confirm"));
-        confirmButton.sendKeys(RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,
-                RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,
-                RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN,RETURN);
+        try {
+            for (int i = 0; i < 48; i++) {
+                clickOn(confirmButton);
+            }
+        }
+        catch (org.openqa.selenium.StaleElementReferenceException e) {
+            // expected once the submission succeeds and the page navigates away
+        }
 
         wait2minutes.until(invisibilityOfElementLocated(By.className("submitButton")));  // make sure the submit is complete
     }

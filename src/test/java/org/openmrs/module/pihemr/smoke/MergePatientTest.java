@@ -14,7 +14,7 @@ public class MergePatientTest extends DbTest {
 		SysAdminPage sysAdminPage = new SysAdminPage(driver);
 		MergeFlow mergeFlow = new MergeFlow(driver);
 
-		login();
+		logInAsSysAdmin();
 
 		appDashboard.openSysAdminApp();
 		sysAdminPage.openMergePatients();

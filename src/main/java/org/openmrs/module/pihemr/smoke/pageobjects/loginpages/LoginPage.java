@@ -79,4 +79,9 @@ public abstract class LoginPage {
         this.logIn(archivist.getUsername(), "Admin123");
     }
 
+    public void logInAsSysAdminUser() throws Exception {
+        User sysAdmin = UserDatabaseHandler.insertNewSysAdminUser(getLocale());
+        this.logIn(sysAdmin.getUsername(), "Admin123");
+    }
+
 }

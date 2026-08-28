@@ -150,6 +150,11 @@ public abstract class BasicSmokeTest {
         header.home();
     }
 
+    protected static void logInAsSysAdmin() throws Exception{
+        loginPage.logInAsSysAdminUser();
+        header.home();
+    }
+
     protected static void logInAsAdmin() throws Exception {
         loginPage.logInAsAdmin();
         header.home();

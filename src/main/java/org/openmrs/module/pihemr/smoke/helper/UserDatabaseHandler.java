@@ -43,6 +43,10 @@ public class UserDatabaseHandler extends BaseDatabaseHandler {
     public static User insertNewArchivistUser(String locale) throws Exception {
         return createUserWithApplicationAndProviderRole("archivistClerk", "Archivist/Clerk", locale);
     }
+
+    public static User insertNewSysAdminUser(String locale) throws Exception {
+        return createUserWithApplicationAndProviderRole("sysAdmin", "Administrator", locale);
+    }
 	
 	private static User createUserWithApplicationAndProviderRole(String role, String providerRole, String locale) throws Exception {
 		User user;
