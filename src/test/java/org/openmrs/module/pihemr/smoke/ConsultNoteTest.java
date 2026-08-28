@@ -2,7 +2,6 @@ package org.openmrs.module.pihemr.smoke;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import org.openmrs.module.pihemr.smoke.pageobjects.DeathCertificateFormPage;
 import org.openmrs.module.pihemr.smoke.pageobjects.VisitNote;
 import org.openqa.selenium.support.ui.WebDriverWait;
 

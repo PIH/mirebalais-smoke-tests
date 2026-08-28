@@ -1,6 +1,5 @@
 package org.openmrs.module.pihemr.smoke.pageobjects;
 
-import com.google.common.base.Predicate;
 import org.openmrs.module.pihemr.smoke.dataModel.Visit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -8,7 +7,6 @@ import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 
 public class InPatientList extends AbstractPageObject {
 	

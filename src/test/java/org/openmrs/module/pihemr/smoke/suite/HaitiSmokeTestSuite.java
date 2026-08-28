@@ -6,12 +6,10 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.openmrs.module.pihemr.smoke.BasicSmokeTest;
 import org.openmrs.module.pihemr.smoke.CaptureVitalsHSNTest;
-import org.openmrs.module.pihemr.smoke.CaptureVitalsTest;
 import org.openmrs.module.pihemr.smoke.CheckInHSNTest;
 import org.openmrs.module.pihemr.smoke.PatientRegistrationHSNFlowTest;
-import org.openmrs.module.pihemr.smoke.PatientRegistrationHaitiFlowTest;
-import org.openmrs.module.pihemr.smoke.VisitNoteTest;
 import org.openmrs.module.pihemr.smoke.helper.SmokeTestDriver;
+import org.openmrs.module.pihemr.smoke.helper.UserDatabaseHandler;
 import org.openqa.selenium.WebDriver;
 
 @RunWith(Suite.class)
@@ -26,9 +24,10 @@ public class HaitiSmokeTestSuite {
     private static WebDriver driver;
 
     @BeforeClass
-    public static void startWebDriver() {
+    public static void startWebDriver() throws Exception {
         driver = new SmokeTestDriver().getDriver();
         BasicSmokeTest.setDriver(driver);
+        UserDatabaseHandler.setAdminDefaultLocale("ht");
     }
 
     @AfterClass

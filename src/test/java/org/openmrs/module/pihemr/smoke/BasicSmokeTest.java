@@ -18,7 +18,6 @@ import org.openmrs.module.pihemr.smoke.pageobjects.ClinicianDashboard;
 import org.openmrs.module.pihemr.smoke.pageobjects.HeaderPage;
 import org.openmrs.module.pihemr.smoke.pageobjects.loginpages.LoginPage;
 import org.openmrs.module.pihemr.smoke.pageobjects.loginpages.ZlCentralLoginPage;
-import org.openmrs.module.pihemr.smoke.pageobjects.TermsAndConditionsPage;
 import org.openmrs.module.pihemr.smoke.pageobjects.VisitNote;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;

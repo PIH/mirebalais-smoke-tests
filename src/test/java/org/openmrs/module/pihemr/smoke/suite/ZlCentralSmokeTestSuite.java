@@ -26,6 +26,7 @@ import org.openmrs.module.pihemr.smoke.RetroVisitTest;
 import org.openmrs.module.pihemr.smoke.UserAdminTest;
 import org.openmrs.module.pihemr.smoke.VisitNoteZlCentralTest;
 import org.openmrs.module.pihemr.smoke.helper.SmokeTestDriver;
+import org.openmrs.module.pihemr.smoke.helper.UserDatabaseHandler;
 import org.openqa.selenium.WebDriver;
 
 @RunWith(Suite.class)
@@ -55,9 +56,10 @@ public class ZlCentralSmokeTestSuite {
     private static WebDriver driver;
 
     @BeforeClass
-    public static void startWebDriver() {
+    public static void startWebDriver() throws Exception {
         driver = new SmokeTestDriver().getDriver();
         BasicSmokeTest.setDriver(driver);
+        UserDatabaseHandler.setAdminDefaultLocale("ht");
     }
 
     @AfterClass

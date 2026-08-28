@@ -130,6 +130,16 @@ public class UserDatabaseHandler extends BaseDatabaseHandler {
         return  (Integer) providerRole.getValue(0, "provider_role_id");
     }
 
+	public static void setAdminDefaultLocale(String locale) throws SQLException {
+		String upsertStmt = "insert into user_property (user_id, property, property_value) values (1, 'defaultLocale', ?) "
+				+ "on duplicate key update property_value = ?";
+		try (PreparedStatement statement = connection.getConnection().prepareStatement(upsertStmt)) {
+			statement.setString(1, locale);
+			statement.setString(2, locale);
+			statement.executeUpdate();
+		}
+	}
+
 	private static void resetColumnThatMatchesUserId(String tableName, String columnName, Integer userId) {
 		String updateStmt = "update " + tableName + " set " + columnName + " = 1 where " + columnName + " = ?";
 		try (PreparedStatement statement = connection.getConnection().prepareStatement(updateStmt)) {
