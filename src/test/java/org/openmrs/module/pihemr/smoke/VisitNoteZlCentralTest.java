@@ -20,4 +20,23 @@ public class VisitNoteZlCentralTest extends VisitNoteTest {
     @Override
     protected LoginPage getLoginPage() { return new ZlCentralLoginPage(driver); }
 
+    // check-in is done by an archivist/clerk, vitals capture and note authoring by a physician,
+    // matching who is actually authorized to perform each action (admin isn't set up as a
+    // Provider here, and physicians aren't given access to the check-in app)
+    @Override
+    protected void checkInLogin() throws Exception {
+        logInAsArchivist();
+    }
+
+    @Override
+    protected void login() throws Exception {
+        logInAsPhysicianUser();
+    }
+
+    @Override
+    protected void prepareForVitals() throws Exception {
+        logout();
+        login();
+    }
+
 }

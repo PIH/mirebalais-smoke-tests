@@ -24,11 +24,13 @@ public class CaptureVitalsTest extends DbTest {
         vitals = new VitalsApp(driver);
         CheckInFormPage newCheckIn = new CheckInFormPage(driver);
 
-        login();
+        checkInLogin();
 
         appDashboard.startClinicVisit();
         newCheckIn.findPatientAndClickOnCheckIn(adultTestPatient.getIdentifier());
         newCheckIn.enterInfo();
+
+        prepareForVitals();
 
         header.home();
         Thread.sleep(3000);  // hack, sleep 3 second, sometimes if the page is opened to quickly user is not in queue yet
@@ -40,6 +42,16 @@ public class CaptureVitalsTest extends DbTest {
 
         appDashboard.goToVisitNoteVisitListAndSelectFirstVisit(adultTestPatient.getId());
         assertThat(visitNote.countEncountersOfType(VisitNote.VITALS_CREOLE_NAME), is(1));
+    }
+
+    // who checks the patient in; defaults to the same login used for the rest of the flow
+    protected void checkInLogin() throws Exception {
+        login();
+    }
+
+    // hook for switching users between check-in and vitals capture; no-op by default since the
+    // same login normally continues for the whole flow
+    protected void prepareForVitals() throws Exception {
     }
 
     protected String getVitalsAppIdentifier() {

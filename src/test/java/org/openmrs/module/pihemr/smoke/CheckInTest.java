@@ -30,7 +30,7 @@ public class CheckInTest extends DbTest {
 	@Test
 	public void createCheckInAndRemoveIt() throws Exception {
 
-        logInAsAdmin();
+        logInAsArchivist();
 
         newCheckIn = new CheckInFormPage(driver);
         appDashboard.startClinicVisit();

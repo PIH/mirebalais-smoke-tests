@@ -34,7 +34,7 @@ public class NonCodedDiagnosesTest extends DbTest {
     @Test
     public void shouldShowNonCodedDiagnosesPageUsingConsultNote() throws Exception {
 
-        logInAsAdmin("Sal Gason");
+        logInAsPhysicianUser("Sal Gason");
 
         appDashboard.goToClinicianFacingDashboard(adultTestPatient.getId());
         clinicianDashboard.startVisit();
@@ -43,6 +43,8 @@ public class NonCodedDiagnosesTest extends DbTest {
         createConsultNote();
         visitNote.waitUntilVisitNoteOpen();
         header.home();
+        logout();
+        logInAsAdmin();
         appDashboard.openReportApp();
         reportsHomePage.openNonCodedDiagnosesReport(NON_CODED_DIAGNOSIS);
         NonCodedDiagnosesList nonCodedDiagnosesList = new NonCodedDiagnosesList(driver);
@@ -56,7 +58,7 @@ public class NonCodedDiagnosesTest extends DbTest {
     @Test
     public void shouldShowNonCodedDiagnosesPageUsingEdNote() throws Exception {
 
-        logInAsAdmin("Sal Gason");
+        logInAsPhysicianUser("Sal Gason");
 
         appDashboard.goToClinicianFacingDashboard(adultTestPatient.getId());
         clinicianDashboard.startVisit();
@@ -65,6 +67,8 @@ public class NonCodedDiagnosesTest extends DbTest {
         createEDNote();
         visitNote.waitUntilVisitNoteOpen();
         header.home();
+        logout();
+        logInAsAdmin();
         appDashboard.openReportApp();
         reportsHomePage.openNonCodedDiagnosesReport(NON_CODED_DIAGNOSIS);
         NonCodedDiagnosesList nonCodedDiagnosesList = new NonCodedDiagnosesList(driver);
@@ -77,7 +81,7 @@ public class NonCodedDiagnosesTest extends DbTest {
     @Ignore // TODO unignore this once we get this functionality working again
     public void shouldNotShowNonCodedDiagnosisAfterReplaceforExistingCodesForConsultNote() throws Exception {
 
-        logInAsAdmin("Sal Gason");
+        logInAsPhysicianUser("Sal Gason");
 
         appDashboard.goToClinicianFacingDashboard(adultTestPatient.getId());
         clinicianDashboard.startVisit();
@@ -86,6 +90,8 @@ public class NonCodedDiagnosesTest extends DbTest {
         createConsultNote();
         visitNote.waitUntilVisitNoteOpen();
         header.home();
+        logout();
+        logInAsAdmin();
         appDashboard.openReportApp();
         reportsHomePage.openNonCodedDiagnosesReport(NON_CODED_DIAGNOSIS);
         NonCodedDiagnosesList nonCodedDiagnosesList = new NonCodedDiagnosesList(driver);
@@ -104,7 +110,7 @@ public class NonCodedDiagnosesTest extends DbTest {
     @Test
     public void shouldNotShowNonCodedDiagnosisAfterReplaceforExistingCodesforEDNote() throws Exception {
 
-        logInAsAdmin("Sal Gason");
+        logInAsPhysicianUser("Sal Gason");
 
         appDashboard.goToClinicianFacingDashboard(adultTestPatient.getId());
         clinicianDashboard.startVisit();

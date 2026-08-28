@@ -33,11 +33,13 @@ public class VisitNoteTest extends DbTest {
     @Test
     public void testCreateAdultInitialOutpatientEncounter() throws Exception{
 
-        login();
+        checkInLogin();
 
         appDashboard.startClinicVisit();
         newCheckIn.findPatientAndClickOnCheckIn(adultTestPatient.getIdentifier());
         newCheckIn.enterInfo();
+
+        prepareForVitals();
 
         header.home();
         appDashboard.openApp(getVitalsAppIdentifier());
@@ -99,11 +101,13 @@ public class VisitNoteTest extends DbTest {
     @Test
     public void testCreateAdultFollowupOutpatientEncounter() throws Exception{
 
-        login();
+        checkInLogin();
 
         appDashboard.startClinicVisit();
         newCheckIn.findPatientAndClickOnCheckIn(adultTestPatient.getIdentifier());
         newCheckIn.enterInfo();
+
+        prepareForVitals();
 
         header.home();
         appDashboard.openApp(getVitalsAppIdentifier());
@@ -160,11 +164,13 @@ public class VisitNoteTest extends DbTest {
     @Test
     public void testCreatePedsInitialOutpatientEncounter() throws Exception{
 
-        login();
+        checkInLogin();
 
         appDashboard.startClinicVisit();
         newCheckIn.findPatientAndClickOnCheckIn(newbornTestPatient.getIdentifier());
         newCheckIn.enterInfo();
+
+        prepareForVitals();
 
         header.home();
         appDashboard.openApp(getVitalsAppIdentifier());
@@ -243,11 +249,13 @@ public class VisitNoteTest extends DbTest {
     @Test
     public void testCreatePedsFollowupOutpatientEncounter() throws Exception{
 
-        login();
+        checkInLogin();
 
         appDashboard.startClinicVisit();
         newCheckIn.findPatientAndClickOnCheckIn(newbornTestPatient.getIdentifier());
         newCheckIn.enterInfo();
+
+        prepareForVitals();
 
         header.home();
         appDashboard.openApp(getVitalsAppIdentifier());
@@ -318,6 +326,16 @@ public class VisitNoteTest extends DbTest {
     }
 
     protected LoginPage getLoginPage() { return new ZlCentralLoginPage(driver); }
+
+    // who checks the patient in; defaults to the same login used for the rest of the flow
+    protected void checkInLogin() throws Exception {
+        login();
+    }
+
+    // hook for switching users between check-in and vitals/note authoring; no-op by default
+    // since the same login normally continues for the whole flow
+    protected void prepareForVitals() throws Exception {
+    }
 
     protected String getVitalsAppIdentifier() {
         return replaceChars(CustomAppLoaderConstants.Apps.VITALS, ".", "-") + AppDashboard.APP_LINK_SUFFIX;

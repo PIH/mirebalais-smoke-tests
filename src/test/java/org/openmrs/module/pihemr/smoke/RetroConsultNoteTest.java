@@ -16,7 +16,7 @@ public class RetroConsultNoteTest extends DbTest {
     @Test
     public void addConsultationToAnActiveVisit() throws Exception {
 
-        logInAsAdmin("Sal Gason");
+        logInAsPhysicianUser("Sal Gason");
         appDashboard.goToClinicianFacingDashboard(adultTestPatient.getId());
 
         clinicianDashboard.startVisit();
@@ -27,7 +27,7 @@ public class RetroConsultNoteTest extends DbTest {
     @Test
     public void addConsultationToARetroVisit() throws Exception {
 
-        logInAsAdmin("Sal Gason");
+        logInAsPhysicianUser("Sal Gason");
         appDashboard.goToClinicianFacingDashboard(adultTestPatient.getId());
 
         clinicianDashboard.addRetroVisit();
@@ -38,7 +38,7 @@ public class RetroConsultNoteTest extends DbTest {
     @Test
     public void editRetroConsultationNote() throws Exception {
 
-        logInAsAdmin("Sal Gason");
+        logInAsPhysicianUser("Sal Gason");
         appDashboard.goToClinicianFacingDashboard(adultTestPatient.getId());
 
         clinicianDashboard.addRetroVisit();

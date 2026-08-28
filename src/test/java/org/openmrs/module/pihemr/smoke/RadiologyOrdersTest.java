@@ -15,7 +15,7 @@ public class RadiologyOrdersTest extends DbTest {
     @Test
 	public void orderSingleXRay() throws Exception {
 
-        login();
+        logInAsPhysicianUser();
         appDashboard.goToClinicianFacingDashboard(adultTestPatient.getId());
 
 		clinicianDashboard.startVisit();
@@ -27,7 +27,7 @@ public class RadiologyOrdersTest extends DbTest {
     @Test
     public void orderRetroSingleXRay() throws Exception {
 
-        login();
+        logInAsPhysicianUser();
         appDashboard.goToClinicianFacingDashboard(adultTestPatient.getId());
 
         clinicianDashboard.addRetroVisit();

@@ -17,7 +17,6 @@ package org.openmrs.module.pihemr.smoke.pageobjects.forms;
 import org.openmrs.module.pihemr.smoke.pageobjects.AbstractPageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.Select;
 
 public class XRayForm extends AbstractPageObject {
 
@@ -27,28 +26,17 @@ public class XRayForm extends AbstractPageObject {
 
 	public void fillForm(String study1, String study2) throws Exception {
 
-        chooseProvider("User, Super");
-        chooseLocation("Ijans");
+        // the "who/where/when" section defaults to the logged-in provider and their current
+        // location, which is what we want here, so there's no need to open its edit mode
 
         driver.findElement(By.name("clinicalHistory")).sendKeys("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eu neque ut mi auctor pulvinar. Mauris in orci non sem consequat posuere.");
 		setTextToField("study-search", study1);
 		clickOn(By.linkText(study1));
-		
+
 		setTextToField("study-search", study2);
 		clickOn(By.linkText(study2));
 
 		clickOn(By.id("next"));
 	}
-
-    protected void chooseProvider(String providerName) throws Exception {
-        Select providers = new Select(driver.findElement(By.id("requestedBy-field")));
-        providers.selectByVisibleText(providerName);
-    }
-
-    protected void chooseLocation(String locationName) throws Exception {
-        Select locations = new Select(driver.findElement(By.id("requestedFrom-field")));
-        locations.selectByVisibleText(locationName);
-    }
-
 
 }

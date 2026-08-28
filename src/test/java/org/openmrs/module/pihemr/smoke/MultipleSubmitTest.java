@@ -14,7 +14,7 @@ public class MultipleSubmitTest extends DbTest {
     @Test
     public void testMultipleEnterClicksOnCheckInForm() throws Exception {
 
-        logInAsAdmin();
+        logInAsArchivist();
         appDashboard = new AppDashboard(driver);
         appDashboard.openCheckinApp();
 
