@@ -15,8 +15,8 @@ with the PIH Config below and runs the suite against it.
 |---------------|------------------------------------------------------------------------------------------------------|----------------------------------------------------|
 | `zlCentral`   | [zl-emr](https://github.com/PIH/zl-emr/blob/master/.github/workflows/smoke-tests.yml)                 | `haiti,haiti-central,haiti-local-idgen`            |
 | `haiti`       | not run by any workflow                                                                              |                                                    |
-| `liberia`     | [pihliberia-emr](https://github.com/PIH/pihliberia-emr/blob/master/.github/workflows/smoke-tests.yml) | `liberia,liberia-harper,liberia-harper-kouka`      |
-| `sierraleone` | [pihsl-emr](https://github.com/PIH/pihsl-emr/blob/master/.github/workflows/smoke-tests.yml)           | `sierraLeone,sierraLeone-kgh,sierraLeone-kgh-test` |
+| `liberia`     | [pihliberia-emr](https://github.com/PIH/pihliberia-emr/blob/master/.github/workflows/smoke-tests.yml) | `liberia,liberia-harper,liberia-harper-jjd-ci`     |
+| `sierraleone` | [pihsl-emr](https://github.com/PIH/pihsl-emr/blob/master/.github/workflows/smoke-tests.yml)           | `sierraLeone,sierraLeone-kgh,sierraLeone-kgh-ci`   |
 | `mexico`      | [ces-emr](https://github.com/PIH/ces-emr/blob/master/.github/workflows/smoke-tests.yml)               | `mexico,mexico-ces-ci`                             |
 
 # Setup
