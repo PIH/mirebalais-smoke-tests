@@ -85,7 +85,7 @@ Where the database name, `<server_name>`, is the SDK server name.
     the [Mirebalais README](https://github.com/PIH/openmrs-module-mirebalais#step-7-create-a-local-identifier-source).
 * Printers must be configured for all locations.
     This can be configured from the Home Page > System Administration > Printer Administration.
-    See the configuration on [humci](https://humci.pih-emr.org/mirebalais/printer/printerAdministration.page)
+    See the configuration on [zl-ci](https://zl-ci.pih-emr.org/openmrs/printer/printerAdministration.page)
     for reference. You can use tab and the down arrow to quickly set printers for all the locations.
 
 # Running Tests
